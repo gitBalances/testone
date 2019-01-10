@@ -1,0 +1,61 @@
+package com.tansuo365.test1.service.impl;
+
+import java.util.List;
+
+import com.tansuo365.test1.bean.User;
+import com.tansuo365.test1.bean.UserRole;
+import com.tansuo365.test1.bean.UserRoleExample;
+import com.tansuo365.test1.mapper.UserRoleMapper;
+import com.tansuo365.test1.service.UserRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/*用户角色服务实现层*/
+@Service
+public class UserRoleServiceImpl implements UserRoleService {
+
+	@Resource
+	private UserRoleMapper userRoleMapper;
+
+	@Override
+	public void setRoles(User user, long[] roleIds) {
+		// 删除当前用户所有的角色
+		UserRoleExample example = new UserRoleExample();
+		example.createCriteria().andUidEqualTo(user.getId());
+		List<UserRole> urs = userRoleMapper.selectByExample(example);
+		for (UserRole userRole : urs)
+			userRoleMapper.deleteByPrimaryKey(userRole.getId());
+
+		// 设置新的角色关系
+		if (null != roleIds)
+			for (long rid : roleIds) {
+				UserRole userRole = new UserRole();
+				userRole.setRid(rid);
+				userRole.setUid(user.getId());
+				userRoleMapper.insert(userRole);
+			}
+	}
+
+	@Override
+	public void deleteByUser(long userId) {
+		UserRoleExample example = new UserRoleExample();
+		example.createCriteria().andUidEqualTo(userId);
+		List<UserRole> urs = userRoleMapper.selectByExample(example);
+		for (UserRole userRole : urs) {
+			userRoleMapper.deleteByPrimaryKey(userRole.getId());
+		}
+	}
+
+	@Override
+	public void deleteByRole(long roleId) {
+		UserRoleExample example = new UserRoleExample();
+		example.createCriteria().andRidEqualTo(roleId);
+		List<UserRole> urs = userRoleMapper.selectByExample(example);
+		for (UserRole userRole : urs) {
+			userRoleMapper.deleteByPrimaryKey(userRole.getId());
+		}
+	}
+
+}

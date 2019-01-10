@@ -4,7 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//TODO 将title改为后台页面设定
+/*前端页面展示*/
+//TODO 将title改为后台页面设定 (高扩展)
 @Controller
 public class ShowPageController {
 
