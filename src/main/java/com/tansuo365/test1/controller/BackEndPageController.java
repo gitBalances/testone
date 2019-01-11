@@ -21,17 +21,17 @@ public class BackEndPageController {
         return "/admin/index"; //52行跳转过来
     }
 
-    @RequestMapping("deleteOrder")
+    @RequestMapping("/deleteOrder")
     public String deleteOrder(){
         return "/admin/deleteOrder";
     }
 
-    @RequestMapping("deleteProduct")
+    @RequestMapping("/deleteProduct")
     public String deleteProduct(){
         return "/admin/deleteProduct";
     }
 
-    @RequestMapping("listProduct")
+    @RequestMapping("/listProduct")
     public String listProduct(){
         return "/admin/listProduct";
     }
@@ -52,7 +52,7 @@ public class BackEndPageController {
         return "redirect:/admin/index";//该路径应该为后台的首页页面,为login之后的redirect路径
     }
 
-    @RequestMapping("unauthorized")
+    @RequestMapping("/unauthorized")
     public String noPerms(){
         return "/admin/unauthorized";
     }
