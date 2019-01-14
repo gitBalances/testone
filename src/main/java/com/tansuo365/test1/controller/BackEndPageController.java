@@ -11,34 +11,72 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 后端页面控制层 (需权限判定)
+ * 1-12 加入easyui页面
  */
 @Controller
 @RequestMapping("/admin")
 public class BackEndPageController {
 
+    /*==============用户管理=============*/
+
+    //货主管理
+    @RequestMapping("/person/shipper")
+    public String shipper(){
+        return "/admin/person/shipper";
+    }
+
+    //车主管理
+    @RequestMapping("/person/carowner")
+    public String carowner(){
+        return "/admin/person/carowner";
+    }
+
+    /*==============货品价格管理=============*/
+
+    //石油焦
+    @RequestMapping("/goods/coke")
+    public String coke(){
+        return "/admin/goods/coke";
+    }
+
+    /*===============员工管理===============*/
+
+    //人员管理
+    @RequestMapping("/employees/employees")
+    public String employees(){
+        return "/admin/employees/employees";
+    }
+
+    @RequestMapping("")
+    public String main(){
+        return "/admin/index";
+    }
+
+
+
     @RequestMapping("/index")
     public String index(){
-        return "/admin/index"; //52行跳转过来
+        return "/shiro_admin/index"; //52行跳转过来
     }
 
     @RequestMapping("/deleteOrder")
     public String deleteOrder(){
-        return "/admin/deleteOrder";
+        return "/shiro_admin/deleteOrder";
     }
 
     @RequestMapping("/deleteProduct")
     public String deleteProduct(){
-        return "/admin/deleteProduct";
+        return "/shiro_admin/deleteProduct";
     }
 
     @RequestMapping("/listProduct")
     public String listProduct(){
-        return "/admin/listProduct";
+        return "/shiro_admin/listProduct";
     }
 
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public String login(){
-        return "/admin/login"; //对应用户登录展示
+        return "/shiro_admin/login"; //对应用户登录展示
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -54,6 +92,6 @@ public class BackEndPageController {
 
     @RequestMapping("/unauthorized")
     public String noPerms(){
-        return "/admin/unauthorized";
+        return "/shiro_admin/unauthorized";
     }
 }

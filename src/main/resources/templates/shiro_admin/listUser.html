@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>listUser</title>
+</head>
+<body>
+
+<table>
+   <!-- <tr>
+        <td>id</td>
+        <td>用户名称</td>
+        <td>用户密码</td>
+        <td>加密盐</td>
+        <td>角色</td>
+        <td>编辑</td>
+        <td>删除</td>
+    </tr>-->
+    <!--/*@thymesVar id="us" type="com.tansuo365.test1.bean.User"*/-->
+    <tr th:each="u:${us}">
+        <td th:text="${u.id}"></td>
+        <td th:text="${u.name}"></td>
+        <td th:text="${fn.substring(u.password,0,5)}..."></td>
+        <td th:text="${fn.substring(u.salt,0,5)}..."></td>
+        <td th:each="r:${user_roles[u]}">
+            ${r.name}
+        </td>
+        <td th:text="<a href='/admin/editUser?id='${u.id}>编辑</a>"></td>
+        <td th:text="<a href='/admin/deleteUser?id='${u.id}>删除</a>"></td>
+    </tr>
+</table>
+
+
+<div class="" >
+    <form action="addUser" method="post">
+        用户名: <input type="text" name="name"> <br>
+        密码: <input type="password" name="password"> <br><br>
+        <input type="submit" value="增加">
+    </form>
+</div>
+
+</body>
+</html>

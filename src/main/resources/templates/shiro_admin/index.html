@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--加入了shiro对thymeleaf的支持-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>后端首页</title>
+</head>
+<body>
+
+<div th:include="/include/menu/menu :: common" />
+
+<!--获取用户信息,及退出按钮-->
+<shiro:user>
+    欢迎<shiro:principal/>登录,<a href="/admin/doLogout">退出</a>
+</shiro:user>
+
+<!--游客访问,显示登录选项-->
+<shiro:guest>
+<a href="/admin/login">登录</a>
+</shiro:guest>
+
+
+<a href="/admin/listProduct">查看产品</a><span class="">(要有查看产品权限, zhang3有，li4 有)</span><br>
+<a href="/admin/deleteProduct">删除产品</a><span  class="">(要有删除产品权限, zhang3有，li4 有)</span><br>
+<a href="/admin/deleteOrder">删除订单</a><span class="">(要有删除订单权限, zhang3有，li4没有)</span><br>
+
+
+
+</body>
+
+
+</html>

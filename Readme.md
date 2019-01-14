@@ -11,4 +11,8 @@
 - 3.需要加入excel表的导入导出.
 - 4.加入新的依赖mybatis-generator,mybatis-spring.
 - 5.更改了后台路径为/admin/**之类.
+- 6.将thymeleaf取消,需将buycard中的css等加入到static.
 
+##### todo list:
+- 1. 将数据转换为图表展示.
+- 2. shiro整合.
