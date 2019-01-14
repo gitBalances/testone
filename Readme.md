@@ -14,5 +14,15 @@
 - 6.将thymeleaf取消,需将buycard中的css等加入到static.
 
 ##### todo list:
-- 1. 将数据转换为图表展示.
+- 1. 将数据转换为图表展示.(初步完成)
 - 2. shiro整合.
+
+##### 2019-1-15 do & todo list
+- 1. 加入了高并发下的redis(PetroleumCokeController)
+- 2. config,RedisService
+- 3. 加强图表展示
+- 4. 石油焦文档学习
+- 5. shiro加入(权限/单点登录)
+- 6. 网站布局,面向用户,盈利模式,为用户带来价值 商业模型建立.
+
+
