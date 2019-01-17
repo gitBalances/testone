@@ -4,12 +4,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>索罗门后台管理系统</title>
-    <link href="admin_css/index.css" rel="stylesheet" />
-    <link href="admin_css/themes/default/easyui.css" rel="stylesheet" />
-    <link href="admin_css/themes/icon.css" rel="stylesheet" />
-    <link href="admin_css/demo.css" rel="stylesheet" />
-    <script src="admin_script/jquery.min.js"></script>
-    <script src="admin_script/jquery.easyui.min.js"></script>
+    <link th:href="@{/admin_css/index.css}" rel="stylesheet" />
+    <link th:href="@{/admin_css/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/admin_css/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/admin_css/demo.css}" rel="stylesheet" />
+    <script th:src="@{/admin_script/jquery.min.js}"></script>
+    <script th:src="@{/admin_script/jquery.easyui.min.js}"></script>
 
     <!--echarts-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
@@ -49,14 +49,16 @@
         <!-- 头部 -->
         <div data-options="region:'north',border:false" style="overflow:hidden; height:70px;background:#338FCC;padding:10px;padding-left:30px;padding-top:15px">
             <div style="float:left; height:70px;">
-                <img src="img/logo.png" height="60" width="60" style="margin-top:-10px;" />
+                <img th:src="@{/img/logo.png}" height="60" width="60" style="margin-top:-10px;" />
             </div>
             <div style="color:#fff  ;font-size:3em; float:left;margin-left:30px;">
-                索罗门后台管理系统 - 测试版 0.1.001 version
+                索罗门后台管理系统 - 测试版 0.1.002 version
             </div>
             <div style="float:right;height:70px; margin-right:50px;">
-                <span>您好，admin！</span>
-                <span><a href="Javascript:void(0)">注销</a></span>
+                <!--获取用户信息,及退出按钮-->
+                <shiro:user>
+                    欢迎您,<shiro:principal/>,<a href="/admin/doLogout">退出</a>
+                </shiro:user>
             </div>
         </div>
         <!-- 左侧 菜单栏 -->

@@ -4,12 +4,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tansuo365.test1.bean.PetroleumCoke;
 import com.tansuo365.test1.mapper.PetroleumCokeMapper;
+import com.tansuo365.test1.service.PetroleumCokeService;
 import com.tansuo365.test1.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -23,6 +28,8 @@ public class PetroleumCokeController {
 
     @Resource
     private PetroleumCokeMapper petroleumCokeMapper;
+    @Autowired
+    private PetroleumCokeService petroleumCokeService;
     @Autowired
     private RedisService redisService;
     @Autowired
@@ -40,8 +47,31 @@ public class PetroleumCokeController {
     }
 
     /*动态插入数据*/
+    //插入数据时根据sulfur字段判定品级并更新品级字段grade
     @RequestMapping("insertSelective")
     public Integer insertSelective(PetroleumCoke petroleumCoke) {
+        Float sulfur = petroleumCoke.getSulfur();
+//        Long id = petroleumCoke.getId();
+
+        if(!(sulfur > 0.5)){
+            //1号
+            petroleumCoke.setGrade((short) 1);
+        }else if(!(sulfur > 1.0)){
+            //2A
+            petroleumCoke.setGrade((short) 2);
+        }else if(!(sulfur > 1.5)){
+            //2B
+            petroleumCoke.setGrade((short) 3);
+        }else if(!(sulfur > 2.0)){
+            //3A
+            petroleumCoke.setGrade((short) 4);
+        }else if(!(sulfur > 3.0)){
+            //3B
+            petroleumCoke.setGrade((short) 5);
+        }else{
+            //3B
+            petroleumCoke.setGrade((short) 5);
+        }
         return petroleumCokeMapper.insertSelective(petroleumCoke);
     }
 
@@ -57,35 +87,52 @@ public class PetroleumCokeController {
         return petroleumCokeMapper.deleteByPrimaryKey(id);
     }
 
+    /*批量删除*/
+    @RequestMapping("deleteBatchByPKs")
+    public Integer delete(@RequestParam(value = "ids[]") Long[] ids){
+        System.err.println(ids[0]);
+        return petroleumCokeService.deleteBatchByPKs(ids);
+    }
 
-    //查询所有石油焦,加入缓存机制
+    /*选取所有石油焦信息*/
+    @Cacheable(value = "petroleumCokes")
     @RequestMapping("selectAll")
     public List selectAllPetroleumCoke(){
-//        List<PetroleumCoke> petroleumCokes = petroleumCokeMapper.selectAllPetroleumCoke();
-//        map.put("petroleumCokes",petroleumCokes);
-//        return map;
-
-        //字符串的序列化器 redis
-        RedisSerializer redisSerializer = new StringRedisSerializer();
-        redisTemplate.setKeySerializer(redisSerializer);
-        List petroleumCokes = redisService.lGet("petroleumCokes", 0, -1);
-        System.out.println("查询缓存数据为"+petroleumCokes);
-        if (0 == petroleumCokes.size()) {
-            synchronized(this){
-                System.out.println("进入第一个if");
-                petroleumCokes = redisService.lGet("petroleumCokes", 0, -1);
-                if(0 == petroleumCokes.size()){
-                    System.out.println("第二个if显示了,表示缓存没有查到petroleumCokes.");
-                    //缓存为空,查询数据库
-                    petroleumCokes = petroleumCokeMapper.selectAllPetroleumCoke();
-                    //把数据库查询出来的数据放入redis
-                    redisService.lSet("petroleumCokes",petroleumCokes);
-                }
-            }
-
-        }
+        System.err.println("进入selectAll,表示要走数据库了~");
+        List<PetroleumCoke> petroleumCokes = petroleumCokeMapper.selectAllPetroleumCoke();
         return petroleumCokes;
-
     }
+    //查询所有石油焦,加入缓存机制
+//    @RequestMapping("selectAll")
+//    public List selectAllPetroleumCoke(){
+////        List<PetroleumCoke> petroleumCokes = petroleumCokeMapper.selectAllPetroleumCoke();
+////        map.put("petroleumCokes",petroleumCokes);
+////        return map;
+//
+//        //字符串的序列化器 redis
+//        RedisSerializer redisSerializer = new StringRedisSerializer();
+//        redisTemplate.setKeySerializer(redisSerializer);
+//        List petroleumCokes = redisService.lGet("petroleumCokes", 0, -1);
+//        System.out.println("查询缓存数据为"+petroleumCokes);
+//        if (0 == petroleumCokes.size()) {
+//            synchronized(this){
+//                System.out.println("进入第一个if");
+//                petroleumCokes = redisService.lGet("petroleumCokes", 0, -1);
+//                if(0 == petroleumCokes.size()){
+//                    System.out.println("第二个if显示了,表示缓存没有查到petroleumCokes.");
+//                    //缓存为空,查询数据库
+//                    petroleumCokes = petroleumCokeMapper.selectAllPetroleumCoke();
+//                    //把数据库查询出来的数据放入redis
+//                    redisService.lSet("petroleumCokes",petroleumCokes);
+//                }
+//            }
+//
+//        }
+//        return petroleumCokes;
+//
+//    }
+
+
+
 
 }

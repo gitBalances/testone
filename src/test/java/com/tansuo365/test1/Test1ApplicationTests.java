@@ -1,6 +1,5 @@
 package com.tansuo365.test1;
 
-import com.tansuo365.test1.bean.PetroleumCoke;
 import com.tansuo365.test1.mapper.PetroleumCokeMapper;
 import com.tansuo365.test1.service.RedisService;
 import org.junit.Test;

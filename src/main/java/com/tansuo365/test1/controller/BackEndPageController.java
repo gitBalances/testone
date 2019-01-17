@@ -1,9 +1,13 @@
 package com.tansuo365.test1.controller;
 
+import com.tansuo365.test1.bean.User;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,45 +57,53 @@ public class BackEndPageController {
     }
 
 
+    /*===============页面管理===============*/
 
     @RequestMapping("/index")
     public String index(){
-        return "/shiro_admin/index"; //52行跳转过来
+        return "/admin/index"; //52行跳转过来
     }
 
     @RequestMapping("/deleteOrder")
     public String deleteOrder(){
-        return "/shiro_admin/deleteOrder";
+        return "/admin/deleteOrder";
     }
 
     @RequestMapping("/deleteProduct")
     public String deleteProduct(){
-        return "/shiro_admin/deleteProduct";
+        return "/admin/deleteProduct";
     }
 
     @RequestMapping("/listProduct")
     public String listProduct(){
-        return "/shiro_admin/listProduct";
+        return "/admin/listProduct";
     }
 
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public String login(){
-        return "/shiro_admin/login"; //对应用户登录展示
+        return "/admin/login"; //对应用户登录展示
     }
 
+//    @CachePut(value = "subject") 即保证方法被调用,又加入缓存
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(Model model, String name, String password){
+    public String login(Model model, User user,boolean rememberMe) throws AuthenticationException{
+        System.err.println(rememberMe);
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getName(),user.getPassword(), rememberMe);
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(name,password);
 
-        subject.login(token);
+        try {
+            subject.login(token);
+        } catch (AuthenticationException e) {
+//            e.printStackTrace();
+            System.err.println("login异常");
+        }
         Session session = subject.getSession();
         session.setAttribute("subject",subject);
-        return "redirect:/admin/index";//该路径应该为后台的首页页面,为login之后的redirect路径
+        return "redirect:/admin/";//该路径应该为后台的首页页面,为login之后的redirect路径
     }
 
     @RequestMapping("/unauthorized")
     public String noPerms(){
-        return "/shiro_admin/unauthorized";
+        return "/admin/unauthorized";
     }
 }
