@@ -8,12 +8,17 @@
     <link href="/css/xwb_list.css" rel="stylesheet"/>
     <link href="/css/themes/color.css" rel="stylesheet"/>
     <link href="/css/wm.css" rel="stylesheet"/>
-    <script src="/script/jquery.min.js"></script>
+    <!--<script src="/script/jquery.min.js"></script>-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="/script/jquery.easyui.min.js"></script>
     <script src="/script/easyui-lang-zh_CN.js"></script>
     <script src="/js/FileSaver.min.js"></script>
     <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/jquery.serializejson.js"></script>
     <!--<script src="/js/xlsx.core.min.js"></script>-->
+
+    <script src="/js/jquery.ocupload-1.1.2.js"></script>
 
 
 </head>
@@ -80,11 +85,11 @@
                 <td>
                     <select class="easyui-combobox" name="grade" panelHeight="auto"/>
                     <option value=""></option>
-                    <option value="1">1号</option>
-                    <option value="2">2A</option>
-                    <option value="3">2B</option>
-                    <option value="4">3A</option>
-                    <option value="5">3B</option>
+                    <option value="1号">1号</option>
+                    <option value="2A">2A</option>
+                    <option value="2B">2B</option>
+                    <option value="3A">3A</option>
+                    <option value="3B">3B</option>
                     </select>
                 </td>
             </tr>
@@ -103,16 +108,230 @@
                 <a href="javascript:window.location.reload()" class="easyui-linkbutton c1" style="width:70px">重置</a>
                 </td>
 
-                <input id="import_excel" type="file" class="easyui-linkbutton c1"
-                   style="width:70px" value="导入excel" onchange="importExcel(this)"/>
+                <!--<input id="import_excel" type="file" class="easyui-linkbutton c1"-->
+                <!--style="width:70px" value="导入excel" onchange="importExcel(this)"/>-->
                 <a href="javascript:void(0)" id="export_excel" class="easyui-linkbutton c1"
-                   style="width:70px">导出选中数据</a>
+                   style="width:70px">导出数据</a>
+
+                <!--<a href="javascript:void(0)" id="import_excel1" class="easyui-linkbutton c1" onclick="showUpload()"-->
+                <!--style="width:70px">导入数据</a>-->
+
+                <a id="uploadExcel" class="easyui-linkbutton c1" onclick="uploadidalogonline()">导入数据</a>
+
+
+                <div id="uploadonlineinfo" class="easyui-window" style="width:380px;padding:10px 40px" closed="true">
+
+                    <form id="fam" method="post" enctype="multipart/form-data">
+
+                        <!--<input class="easyui-filebox" id="onlinefilename" name="onlinefilename" data-options="prompt:'文件上传'"-->
+                        <!--style="width:100%" />-->
+                        <input type="file"
+                               id="uploadfile" name="uploadfile" style="width:100%"/>
+                    </form>
+
+                    <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">
+                        <button id="uploadBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
+                                style="width:80px">上传
+                        </button>
+                    </div>
+                </div>
+
+
+                <script type="text/javascript" th:inline="none">
+
+                    //调用OCUpload插件的方法
+                    //为导入按钮，添加一键上传效果
+                    $("#upload").upload({
+                        action: '/excel/importExcel',
+                        name: 'xls',
+                        onSelect: function (self, element) {
+                            //选中文件后，关闭自动提交
+                            this.autoSubmit = false;
+                            //判定文件格式以.xls .xlsx结尾
+                            var filename = this.filename();
+                            var regex = /^.*\.(xls|xlsx)$/;
+                            if (regex.test(filename)) {
+                                //满足
+                                this.submit();
+                            } else {
+                                $.messager.alert("警告", "只能上传.xls .xlsx结尾的文件", "warning");
+                            }
+                        },
+                        onComplete: function (response) {
+                            alert("文件上传成功！");
+                        }
+                    });
+
+
+                    $("#uploadBtn").click(uploadonline);
+
+                    function uploadidalogonline() {
+                        $('#uploadonlineinfo').window('open').dialog('setTitle', '文件上传');
+                    }
+
+                    function uploadonline() {
+                        // alert("upload");
+                        //
+                        // var importExcelUrl = '/excel/importExcel';
+                        // $.ajaxFileUpload({
+                        //     url:importExcelUrl, //用于文件上传的服务器端请求地址
+                        //     secureuri: false, //是否需要安全协议，一般设置为false
+                        //     fileElementId: 'onlinefilename', //文件上传域的ID
+                        //     dataType: 'json', //返回值类型 一般设置为json
+                        //     success: function (data, status)  //服务器成功响应处理函数
+                        //     {
+                        //         // var data=eval("("+data+")")
+                        //         // if (typeof (data.error) != 'undefined') {
+                        //         //     if (data.error != '') {
+                        //         //         alert(data.error);
+                        //         //     } else {
+                        //         //         alert(data.msg);
+                        //         //         $("#img1").attr("src", data.imgurl);
+                        //         //     }
+                        //         // }
+                        //         alert(data);
+                        //     },
+                        //     error: function (data, status, e)//服务器响应失败处理函数
+                        //     {
+                        //         alert(e);
+                        //     }
+                        //
+                        // });
+                        // return false;
+
+
+                        //
+                        // var add = '/excel/importExcel';
+                        var uploadFile = $("#uploadfile")[0].files[0];
+                        console.log(uploadFile);
+                        var formData = new FormData();
+                        formData.append("uploadFile", uploadFile);
+                        console.log(formData);
+                        // console.log(uploadFile);
+                        // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
+                        $.ajax({
+                            url: '/excel/importExcel',
+                            type: 'POST',
+                            data: formData,
+                            async: false,
+                            cache: false,
+                            contentType: false, //不设置内容类型
+                            processData: false, //不处理数据
+                            success: function (data) {
+                                alert(data);
+                            }
+                        })
+                        // }
+
+                        // $('#fam').form('submit', {
+                        //     url: add,
+                        //     onSubmit: function () {
+                        //
+                        //     },
+                        //     success: function (result) {
+                        //         var result = eval('(' + result + ')');
+                        //
+                        //         if (result.success) {
+                        //             $('#uploadonlineinfo').window('close');
+                        //             $('#dg2').datagrid('reload');
+                        //             $.messager.show({
+                        //                 title: 'Success',
+                        //                 msg: '上传成功'
+                        //             });
+                        //         } else {
+                        //             $.messager.show({
+                        //                 title: 'Error',
+                        //                 msg: '文件不能为空，请重新选择文件！'
+                        //             });
+                        //         }
+                        //     }
+                        // });
+                    }
+                </script>
+
+
+                <script>
+                    function showUpload() {
+                        $("#importExcel").dialog('open');
+                    }
+                </script>
+
+                <!-- 配置导入框 -->
+                <!--<div id="importExcel" class="easyui-dialog" title="导入excel文件" closed="true"-->
+                <!--style="width: 400px; height: 200px;" data-options="modal:true">-->
+                <!--<form id="uploadExcel" method="post" enctype="multipart/form-data">-->
+                <!--选择文件：　<input id="excel" name="excel" class="easyui-filebox" style="width:200px"-->
+                <!--data-options="prompt:'请选择文件...'">-->
+                <!--</form>-->
+                <!--<div style="text-align: center; padding: 5px 0;">-->
+                <!--<a id="booten" href="javascript:void(0)" class="easyui-linkbutton"-->
+                <!--onclick="uploadExcel()" style="width: 80px">导入</a>-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+                <script th:inline="none">
+
+                    function uploadExcel() {
+
+
+
+
+
+
+                        // alert("uploadExcel");
+                        // alert("$('#excel').val()" + $('#excel').val());
+                        // alert("$('#excel').serializeJSON()" + $('#excel').serializeJSON());
+                        // alert("$('#uploadExcel').form():"+$("#uploadExcel").form());
+                        // alert("$('#uploadExcel').serializeJSON():"+$('#uploadExcel').serializeJSON());
+                        // var fileName = $('#excel').filebox('getValue');
+                        // alert("fileName:"+fileName);
+                        //对文件格式进行校验
+                        // var d1 = /\.[^\.]+$/.exec(fileName);
+                        // alert("d1:" + d1);
+                        // if (fileName == "") {
+                        //     $.messager.alert('Excel批量用户导入', '请选择将要上传的文件!');
+                        //     return false;
+                        // } else if (!(d1 == ".xls" || d1 == ".xlsx")) {
+                        //     $.messager.alert('提示', '请选择xls或xlsx格式文件！', 'info');
+                        //     return false;
+                        // }
+                        // $("#booten").linkbutton('disable');
+                        // return true;
+
+
+                        // var uploadFile = $("#excel")[0].files[0];
+
+                        var uploadFile = $("#uploadExcel")[0].input;
+                        console.log(uploadFile);
+                        var formData = new FormData($("#uploadExcel")[0]);
+                        console.log(formData);
+                        formData.append("uploadFile", uploadFile);
+                        // console.log(uploadFile);
+                        // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
+                        $.ajax({
+                            url: '/excel/importExcel',
+                            type: 'POST',
+                            data: formData,
+                            async: false,
+                            cache: false,
+                            contentType: false, //不设置内容类型
+                            processData: false, //不处理数据
+                            success: function (data) {
+                                alert(data);
+                            }
+                        })
+                        // }
+                    }
+                </script>
 
 
             </tr>
         </table>
     </form>
 </div>
+
+
 <table id="dg" title="石油焦展示">
 
 </table>
@@ -238,23 +457,7 @@
 
             {field: 'id', align: 'center', title: '数据序列号', hidden: true},
             {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
-            {
-                field: 'grade', title: '品级', width: 30, formatter: function (value, row, index) {
-                    if (value == 1) {
-                        return '1号';
-                    } else if (value == 2) {
-                        return '2A';
-                    } else if (value == 3) {
-                        return '2B';
-                    } else if (value == 4) {
-                        return '3A';
-                    } else if (value == 5) {
-                        return '3B';
-                    } else {
-                        return ''
-                    }
-                }
-            },
+            {field: 'grade', title: '品级', width: 30},
             {field: 'province', title: '省份', width: 50},
             {field: 'company', title: '企业名', width: 100},
             {field: 's_company', title: '简称', width: 50},
@@ -387,40 +590,42 @@
     // 导入excel按钮
     $("#import_excel").change(importExcel(this));
 
-    function importExcel(exlObj){
+    function importExcel(exlObj) {
         var wb;
         var rABS = false;
-        if(!exlObj.files){
+        if (!exlObj.files) {
             return;
         }
         var f = exlObj.files[0];
         var reader = new FileReader();
-        reader.onload=function(e){
+        reader.onload = function (e) {
             var data = e.target.result;
-            if(rABS){
-                wb=XLSX.read(btoa(fixdata(data)),{
-                    type:'base64'
+            if (rABS) {
+                wb = XLSX.read(btoa(fixdata(data)), {
+                    type: 'base64'
                 });
-            }else{
-                wb=XLSX.read(data,{
-                    type:'binary'
+            } else {
+                wb = XLSX.read(data, {
+                    type: 'binary'
                 });
             }
             console.log(JSON.stringify(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])));
         }
     }
+
     /*文件流转BinaryString*/
-    function fixdata(data){
-        var o = "",l=0,w=10240;
-        for(;l<data.byteLength/w;++l){
-            o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
+    function fixdata(data) {
+        var o = "", l = 0, w = 10240;
+        for (; l < data.byteLength / w; ++l) {
+            o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
         }
-        o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w)));
+        o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
         return o;
     }
 
     // 导出excel按钮
     $("#export_excel").click(exportExcel);
+
 
     // 导出excel
     function exportExcel() {
@@ -436,10 +641,11 @@
         }
     }
 
-    function downloadExl(data,type){
+    function downloadExl(data, type) {
         var keys = Object.keys(data[0]);
         var firstRow = {};
-        keys.forEach(function (item){
+        keys.forEach(function (item) {
+            console.log("item:" + item);
             firstRow[item] = item;
         });
         data.unshift(firstRow);
@@ -447,90 +653,102 @@
         var content = {};
 
         //把json格式的数据转换为excel的行列形式
-        var sheetsData = data.map(function (item,rowIndex){
-            return keys.map(function(key,columnIndex){
-                return Object.assign({},{
+        var sheetsData = data.map(function (item, rowIndex) {
+            return keys.map(function (key, columnIndex) {
+                return Object.assign({}, {
                     value: item[key],
-                    position: (columnIndex > 25 ? getCharCol(columnIndex) : String.fromCharCode(65+columnIndex))+(rowIndex+1),
+                    position: (columnIndex > 25 ? getCharCol(columnIndex) : String.fromCharCode(65 + columnIndex)) + (rowIndex + 1),
                 });
             });
-        }).reduce(function(prev,next){
+        }).reduce(function (prev, next) {
             return prev.concat(next);
         });
 
-        sheetsData.forEach(function(item,index){
-            content[item.position] = {v:item.value};
-            if(item.value=='id'){
-                content[item.position] = {v:'序列号'};
-            }else if(item.value=='province'){
-                content[item.position] = {v:'省份'};
-            }else if(item.value=='company'){
-                content[item.position] = {v:'企业'};
-            }else if(item.value=='s_company'){
-                content[item.position] = {v:'简称'};
-            }else if(item.value=='sulfur'){
-                content[item.position] = {v:'硫含量%'};
-            }else if(item.value=='ash'){
-                content[item.position] = {v:'灰分%'};
-            }else if(item.value=='volatile_matter'){
-                content[item.position] = {v:'挥发分%'};
-            }else if(item.value=='wdr'){
-                content[item.position] = {v:'扣水率%'};
-            }else if(item.value=='vanadium'){
-                content[item.position] = {v:'钒含量ppm'};
-            }else if(item.value=='density'){
-                content[item.position] = {v:'真密度g/cm³'};
-            }else if(item.value=='coke_content'){
-                content[item.position] = {v:'粉焦量'};
-            }else if(item.value=='coke_type'){
-                content[item.position] = {v:'类型'};
-            }else if(item.value=='today_price'){
-                content[item.position] = {v:'今日报价(元)'};
-            }else if(item.value=='remarks'){
-                content[item.position] = {v:'备注'};
-            }else if(item.value=='create_time'){
-                content[item.position] = {v:'创建时间'};
-            }else if(item.value=='update_time'){
-                content[item.position] = {v:'更新时间'};
-            }
+        sheetsData.forEach(function (item, index) {
+            content[item.position] = {v: item.value};
+            // if (item.value == 'id') {
+            //     content[item.position] = {v: '序列号'};
+            // } else if (item.value == 'grade') {
+            //     content[item.position] = {v: '品级'};
+            // } else if (item.value == 'province') {
+            //     content[item.position] = {v: '省份'};
+            // } else if (item.value == 'company') {
+            //     content[item.position] = {v: '企业'};
+            // } else if (item.value == 's_company') {
+            //     content[item.position] = {v: '简称'};
+            // } else if (item.value == 'sulfur') {
+            //     content[item.position] = {v: '硫含量%'};
+            // } else if (item.value == 'ash') {
+            //     content[item.position] = {v: '灰分%'};
+            // } else if (item.value == 'volatile_matter') {
+            //     content[item.position] = {v: '挥发分%'};
+            // } else if (item.value == 'wdr') {
+            //     content[item.position] = {v: '扣水率%'};
+            // } else if (item.value == 'vanadium') {
+            //     content[item.position] = {v: '钒含量ppm'};
+            // } else if (item.value == 'density') {
+            //     content[item.position] = {v: '真密度g/cm³'};
+            // } else if (item.value == 'coke_content') {
+            //     content[item.position] = {v: '粉焦量'};
+            // } else if (item.value == 'coke_type') {
+            //     content[item.position] = {v: '类型'};
+            // } else if (item.value == 'today_price') {
+            //     content[item.position] = {v: '今日报价(元)'};
+            // } else if (item.value == 'remarks') {
+            //     content[item.position] = {v: '备注'};
+            // } else if (item.value == 'create_time') {
+            //     content[item.position] = {v: '创建时间'};
+            // } else if (item.value == 'update_time') {
+            //     content[item.position] = {v: '更新时间'};
+            // }
         });
 
         //设置区域,比如表格从A1到D10,SheetNames:标题
         var coordinate = Object.keys(content);
         var workBook = {
             SheetNames: ["1"],
-            Sheets:{
-                "1": Object.assign({},content,{"!ref":coordinate[0]+":"+coordinate[coordinate.length-1]}),
+            Sheets: {
+                "1": Object.assign({}, content, {"!ref": coordinate[0] + ":" + coordinate[coordinate.length - 1]}),
             }
         };
+
+
         //这里的数据是用来定义导出的格式类型
-        var excelData = XLSX.write(workBook,{bookType:"xlsx",bookSST:false,type:"binary"});
-        var blob = new Blob([string2ArrayBuffer(excelData)],{type:""});
-        saveAs(blob,"hello.xlsx"); //文件名
+        var excelData = XLSX.write(workBook, {bookType: "xlsx", bookSST: false, type: "binary"});
+        var blob = new Blob([string2ArrayBuffer(excelData)], {type: ""});
+
+        // filename = "石油焦";
+        $.messager.prompt("输入框", "请输入保存文件名.", function (filename) {
+            if (filename) {
+                var nowTime = new Date().toLocaleDateString();
+                saveAs(blob, filename + nowTime + ".xlsx"); //文件名
+            }
+        });
+
     }
 
     //字符串转字符流
-    function string2ArrayBuffer(s){
+    function string2ArrayBuffer(s) {
         var buf = new ArrayBuffer(s.length);
         var view = new Uint8Array(buf);
-        for(var i=0;i!=s.length;++i){
-            view[i]=s.charCodeAt(i) & 0xFF;
+        for (var i = 0; i != s.length; ++i) {
+            view[i] = s.charCodeAt(i) & 0xFF;
         }
         return buf;
     }
+
     //将指定的自然数转换为26进制表示. 映射关系: [0-25] -> [A-Z]
-    function getCharCol(n){
+    function getCharCol(n) {
         var temCol = "",
             s = "",
             m = 0;
-        while(n > 0){
-            m=n%26+1;
-            s=String.fromCharCode(m+64)+s;
-            n=(n-m)/26;
+        while (n > 0) {
+            m = n % 26 + 1;
+            s = String.fromCharCode(m + 64) + s;
+            n = (n - m) / 26;
         }
         return s;
     }
-
 
 
 </script>

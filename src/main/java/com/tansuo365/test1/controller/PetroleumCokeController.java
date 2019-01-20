@@ -6,6 +6,7 @@ import com.tansuo365.test1.bean.PetroleumCoke;
 import com.tansuo365.test1.mapper.PetroleumCokeMapper;
 import com.tansuo365.test1.service.PetroleumCokeService;
 import com.tansuo365.test1.service.RedisService;
+import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.cache.annotation.Cacheable;
@@ -50,28 +51,7 @@ public class PetroleumCokeController {
     //插入数据时根据sulfur字段判定品级并更新品级字段grade
     @RequestMapping("insertSelective")
     public Integer insertSelective(PetroleumCoke petroleumCoke) {
-        Float sulfur = petroleumCoke.getSulfur();
-//        Long id = petroleumCoke.getId();
-
-        if(!(sulfur > 0.5)){
-            //1号
-            petroleumCoke.setGrade((short) 1);
-        }else if(!(sulfur > 1.0)){
-            //2A
-            petroleumCoke.setGrade((short) 2);
-        }else if(!(sulfur > 1.5)){
-            //2B
-            petroleumCoke.setGrade((short) 3);
-        }else if(!(sulfur > 2.0)){
-            //3A
-            petroleumCoke.setGrade((short) 4);
-        }else if(!(sulfur > 3.0)){
-            //3B
-            petroleumCoke.setGrade((short) 5);
-        }else{
-            //3B
-            petroleumCoke.setGrade((short) 5);
-        }
+        petroleumCoke = PetroleumCokeGradeUtil.setGradeBySulfur(petroleumCoke);
         return petroleumCokeMapper.insertSelective(petroleumCoke);
     }
 

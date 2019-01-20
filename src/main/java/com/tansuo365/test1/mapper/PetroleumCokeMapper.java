@@ -16,10 +16,16 @@ public interface PetroleumCokeMapper {
     //删除
     int deleteByPrimaryKey(Long id);
 
+    //批量删除
+    int deleteBatchByPKArr(Long[] ids);
+
     int insert(PetroleumCoke record);
 
     //动态插入
     int insertSelective(PetroleumCoke petroleumCoke);
+
+    //批量动态插入
+    int insertBatchSelective(List<PetroleumCoke> list);
 
     List<PetroleumCoke> selectByExample(PetroleumCokeExample example);
 

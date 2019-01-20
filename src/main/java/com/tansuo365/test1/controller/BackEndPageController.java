@@ -40,7 +40,7 @@ public class BackEndPageController {
     //石油焦
     @RequestMapping("/goods/coke")
     public String coke(){
-        return "/admin/goods/coke";
+        return "admin/goods/coke";
     }
 
     /*===============员工管理===============*/

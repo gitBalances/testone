@@ -16,6 +16,7 @@ public class ShowPageController {
         return "index";
     }
 
+
     /*about介绍页面*/
     @RequestMapping("/about")
     public String about(Model model){
