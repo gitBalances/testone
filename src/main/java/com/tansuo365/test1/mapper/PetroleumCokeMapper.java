@@ -25,7 +25,7 @@ public interface PetroleumCokeMapper {
     int insertSelective(PetroleumCoke petroleumCoke);
 
     //批量动态插入
-    int insertBatchSelective(List<PetroleumCoke> list);
+    int insertBatch(List<PetroleumCoke> list);
 
     List<PetroleumCoke> selectByExample(PetroleumCokeExample example);
 

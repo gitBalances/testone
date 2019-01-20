@@ -1,6 +1,5 @@
 package com.tansuo365.test1.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tansuo365.test1.bean.PetroleumCoke;
 import com.tansuo365.test1.excel.ExcelLogs;
 import com.tansuo365.test1.excel.ExcelUtil;
@@ -27,7 +26,6 @@ public class ExcelController {
     @RequestMapping("/importExcel")
     public Integer importExcel(@RequestParam(value = "uploadFile") MultipartFile uploadFile,
                 Model model){
-        JSONObject jsonObject = new JSONObject();
         InputStream in = null;
         System.err.println("in Excel Controller importExcel method;");
         System.out.println("excel:"+uploadFile);
@@ -45,13 +43,8 @@ public class ExcelController {
         }
         ExcelLogs log = new ExcelLogs();
         Collection<PetroleumCoke> petroleumCokes = ExcelUtil.importExcel(PetroleumCoke.class, in, "yyyy-MM-dd HH:mm:ss", log, 0);
-        System.out.println("petroleumCokes.toString()>>"+petroleumCokes.toString());
         List list = (List) petroleumCokes;
-        for (Object p : list){
-            System.err.println(p);
-        }
-//        System.out.println("list.get(0)>>"+list.get(0));
-//        System.out.println("list.get(1)>>"+list.get(1));
+
         Integer message = petroleumCokeService.insertBatchList(list);
 
         return message;

@@ -17,8 +17,6 @@ public class PetroleumCokeService {
     @Resource
     private PetroleumCokeMapper petroleumCokeMapper;
 
-    //待加入事务
-
     /**
      * 批量删除
      * @param ids id数组
@@ -41,12 +39,7 @@ public class PetroleumCokeService {
         for(int i=0;i<list.size();i++){
             newList.add(PetroleumCokeGradeUtil.setGradeBySulfur(list.get(i)));
         }
-//        for(PetroleumCoke p: list){
-//            PetroleumCoke petroleumCoke = PetroleumCokeGradeUtil.setGradeBySulfur(p);
-//            list.add(petroleumCoke);
-//        }
-
-        int insertState = petroleumCokeMapper.insertBatchSelective(newList);
+        int insertState = petroleumCokeMapper.insertBatch(newList);
         return insertState;
     }
 

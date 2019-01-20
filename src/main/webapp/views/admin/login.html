@@ -60,12 +60,16 @@
                                 </label>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <input type="submit" id="loginBtn" class="btn btn-lg btn-success btn-block"
-                                    th:text="#{login.btn}">Login
+                            <input type="submit" id="loginBtn" class="btn btn-lg btn-success btn-block" th:value="#{login.btn}"
+                                    >
                             </input>
                         </fieldset>
                     </form>
                 </div>
+
+                <a th:href="@{/admin/login(l='zh_CN')}" class="btn btn-sm">中文</a>
+                <a th:href="@{/admin/login(l='en_US')}" class="btn btn-sm">English</a>
+
             </div>
         </div>
     </div>
@@ -84,36 +88,6 @@
 <!-- Custom Theme JavaScript -->
 <script src="/dist/js/sb-admin-2.js"></script>
 
-<script src="/js/jquery.serializejson.js"></script>
-
 </body>
-
-
-<!--script-->
-<!--<script>-->
-    <!--$("#loginBtn").click(login);-->
-
-
-    <!--function login() {-->
-        <!--// console.log($("#loginForm").serializeJSON()); //TODO 测试数据 del-->
-        <!--var formData = $("#loginForm").serializeJSON();-->
-        <!--// console.log(formData.UserName);-->
-        <!--$.ajax({-->
-            <!--url: "/admin/login",-->
-            <!--data: {'name': formData.UserName, 'password': formData.PassWord},-->
-            <!--dataType: 'json',-->
-            <!--type: 'POST',-->
-            <!--success: function (data) {-->
-                <!--alert(data);-->
-                <!--if (data === 1) {-->
-                    <!--window.href.location = "/admin/index";-->
-                <!--} else if (data === 0) {-->
-
-                <!--}-->
-            <!--}-->
-        <!--});-->
-    <!--}-->
-
-<!--</script>-->
 
 </html>

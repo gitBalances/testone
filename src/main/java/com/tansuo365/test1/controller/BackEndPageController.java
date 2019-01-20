@@ -106,4 +106,9 @@ public class BackEndPageController {
     public String noPerms(){
         return "/admin/unauthorized";
     }
+
+    @RequestMapping("/file")
+    public String file(){
+        return "/admin/file";
+    }
 }

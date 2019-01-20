@@ -74,8 +74,8 @@ public class PetroleumCokeController {
         return petroleumCokeService.deleteBatchByPKs(ids);
     }
 
+//    @Cacheable(value = "petroleumCokes") 不能加入缓存
     /*选取所有石油焦信息*/
-    @Cacheable(value = "petroleumCokes")
     @RequestMapping("selectAll")
     public List selectAllPetroleumCoke(){
         System.err.println("进入selectAll,表示要走数据库了~");
