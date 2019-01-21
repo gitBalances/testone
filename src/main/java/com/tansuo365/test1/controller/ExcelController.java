@@ -42,7 +42,7 @@ public class ExcelController {
             model.addAttribute("m",message);
         }
         ExcelLogs log = new ExcelLogs();
-        Collection<PetroleumCoke> petroleumCokes = ExcelUtil.importExcel(PetroleumCoke.class, in, "yyyy-MM-dd HH:mm:ss", log, 0);
+        Collection<PetroleumCoke> petroleumCokes = ExcelUtil.importExcel(PetroleumCoke.class, in, "yyyy/MM/dd HH:mm:ss", log, 0);
         List list = (List) petroleumCokes;
 
         Integer message = petroleumCokeService.insertBatchList(list);

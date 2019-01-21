@@ -21,7 +21,15 @@
 
     <script src="/js/jquery.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
+    <!--<script src="/js/jquery-3.1.0.min.js"></script>-->
+
+    <!--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
+    <!--<script src="/js/echarts_4.1.0.rc2_echarts.min.js"></script>-->
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
+
+    <!--<script src="monitor.js"></script>-->
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>-->
 
 
 </head>
@@ -111,7 +119,7 @@
 
     <!--content-->
     <div id="container" style="height: 700px"></div>
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="none">
         var dom = document.getElementById("container");
         var myChart = echarts.init(dom);
         var app = {};
@@ -150,7 +158,10 @@
                     name:'邮件营销',
                     type:'line',
                     stack: '总量',
+                    smooth: true, //硬线转丝滑线 (smooth)
+                    // symbol: 'roundRect', //鼠标放置上去后的显示状态(圆点⚪,方块 ■)
                     data:[120, 132, 101, 134, 90, 230, 210]
+
                 },
                 {
                     name:'联盟广告',
@@ -200,7 +211,275 @@
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<div id="layer04_right_chart" class="chart"></div>
+<style>
+    .chart{width:700px;height:600px;}
+</style>
+
+<!--test-->
+<div id="graduateyear" class="chart"></div>
 
 </body>
+
+
+
+<!--test echarts by jq22 demo-->
+<script th:inline="none">
+
+
+    renderLayer04Right();
+
+    function renderLayer04Right(){
+        var myChart = echarts.init(document.getElementById("layer04_right_chart"));
+        myChart.setOption({
+                title: {
+                    text: 'test echart demo'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    top:20,
+                    right:5,
+                    textStyle:{
+                        color:'black'
+                    },
+                    orient:'vertical',
+                    data:[
+                        {name:'网络',icon:'circle'},
+                        {name:'内存',icon:'circle'},
+                        {name:'CPU',icon:'circle'}
+                    ]
+                },
+                grid: {
+                    left: '3%',
+                    right: '16%',
+                    bottom: '3%',
+                    top:'13%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: true,
+                    axisTick:{show:true},
+                    axisLabel:{
+                        textStyle:{
+                            color:"black", //刻度颜色
+                            fontSize:8  //刻度大小
+                        }
+                    },
+                    axisLine:{
+                        show:true,
+                        lineStyle:{
+                            color: '#0B3148',
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    splitLine:{ //x网状坐标轴线
+                        show:true
+                    },
+                    data: get10MinutesScale()
+                },
+                yAxis: {
+                    type: 'value',
+                    axisTick:{show:true},
+                    axisLabel:{
+                        textStyle:{
+                            color:"black", //刻度颜色
+                            fontSize:8  //刻度大小
+                        }
+                    },
+                    axisLine:{
+                        show:true,
+                        lineStyle:{
+                            color: '#0B3148',
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    splitLine:{ //y网状坐标轴线
+                        show:true
+                    }
+                },
+                series: [
+                    {
+                        name:'网络',
+                        type:'line',
+                        itemStyle : {
+                            normal : {
+                                color:'#F3891B'
+                            },
+                            lineStyle:{
+                                normal:{
+                                    color:'#F3891B',
+                                    opacity:1
+                                }
+                            }
+                        },
+                        data:[120, 132, 101, 134, 90, 230, 210]
+                    },
+                    {
+                        name:'内存',
+                        type:'line',
+                        itemStyle : {
+                            normal : {
+                                color:'#006AD4'
+                            },
+                            lineStyle:{
+                                normal:{
+                                    color:'#F3891B',
+                                    opacity:1
+                                }
+                            }
+                        },
+                        data:[220, 182, 191, 234, 290, 330, 310]
+                    },
+                    {
+                        name:'CPU',
+                        type:'line',
+                        itemStyle : {
+                            normal : {
+                                color:'#009895'
+                            },
+                            lineStyle:{
+                                normal:{
+                                    color:'#009895',
+                                    opacity:1
+                                }
+                            }
+                        },
+                        data:[150, 232, 201, 154, 190, 330, 410]
+                    }
+                ]
+            }
+        );
+    }
+
+
+
+    function get10MinutesScale()
+    {
+        var currDate = new Date();
+        var odd = currDate.getMinutes()%10;
+        var returnArr = new Array();
+        currDate.setMinutes(currDate.getMinutes()-odd);
+        for(var i = 0; i <7; i++){
+            returnArr.push(currDate.getHours()+":"+(currDate.getMinutes()<10?("0"+currDate.getMinutes()):currDate.getMinutes()));
+            currDate.setMinutes(currDate.getMinutes()-10);
+        }
+        return returnArr;
+    }
+
+
+
+
+
+    var graduateyear = echarts.init(document.getElementById('graduateyear'));
+    option = {
+        title: {
+            text: "",
+            x: 'center',
+            y: 'top',
+            textStyle: {
+                color: '#fff',
+                fontSize: 13
+            }
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '8%',
+            bottom: '5%',
+            top: "13%",
+            containLabel: true
+        },
+        color: ["#72b332", '#35a9e0'],
+        legend: {
+            data: ['test1', 'test2'],
+            show: true,
+            right: '15%',
+            y: "0",
+            textStyle: {
+                color: "#999",
+                fontSize: '13'
+            },
+        },
+        toolbox: {
+            show: false,
+            feature: {
+                mark: {
+                    show: true
+                },
+                dataView: {
+                    show: true,
+                    readOnly: false
+                },
+                magicType: {
+                    show: true,
+                    type: ['line', 'bar', 'stack', 'tiled']
+                },
+                restore: {
+                    show: true
+                },
+                saveAsImage: {
+                    show: true
+                }
+            }
+        },
+        calculable: true,
+        xAxis: [{
+            type: 'category',
+            boundaryGap: false,
+            data: ['2022年', '2023年', '2024年', '2025年', '2026年', '2027年', '2028年'],
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: '#2d3b53'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: "#fff"
+                },
+                alignWithLabel: true,
+                interval: 0,
+                rotate: '15'
+            }
+        }],
+        yAxis: [{
+            type: 'value',
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: '#2d3b53'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: "#999"
+                }
+            },
+        }],
+        series: [{
+            name: 'test1',
+            type: 'line',
+            smooth: true,
+            symbol: 'roundRect',
+            data: [1168, 1189, 1290, 1100, 1345, 1956, 1045]
+        },
+            {
+                name: 'test2',
+                type: 'line',
+                smooth: true,
+                symbol: 'roundRect',
+                data: [1534, 1290, 1311, 1745, 1045, 1200, 3673]
+            }]
+    };
+    graduateyear.setOption(option);
+
+</script>
 
 </html>
