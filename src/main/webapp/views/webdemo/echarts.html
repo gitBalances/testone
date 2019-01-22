@@ -25,6 +25,8 @@
     <!--<script scr="/js/echarts.min.js"></script>-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
+
+    <!--<script src="/js/getParam.js"></script>-->
 </head>
 
 <body>
@@ -116,6 +118,7 @@
     <!--test echarts 2019-1-14-->
     <script type="text/javascript" th:inline="none">
 
+
         /*获取json数据中的某一个字段*/
         function getParamValues(name, json) {
             var ret = [];
@@ -125,6 +128,47 @@
                 ret.push(json[i][name]);
             }
             return ret;
+        }
+
+        /*数组去重*/
+        Array.prototype.delDuplicate = function () {
+            var arr = new Array();
+            for (var i = 0; i < this.length; i++) {
+                if (arr.indexOf(this[i]) == -1) {
+                    arr.push(this[i]);
+                }
+            }
+            console.log(JSON.stringify(arr));
+            return arr;
+        }
+
+        //获取以公司为key的todayprice数组
+        function getJsonResult(name, json, key, values) {
+            var DataStr = '';
+            var ret = [];
+            var len = Object.keys(json).length;
+
+            for (var j = 0; j < values.length; j++) {
+                for (var i = 0; i < len; i++) {
+                    if (json[i][key] == values[j]) {
+                        // console.log("values[i]:" + values[i]);
+                        // console.log("json[i][name]:" + json[i][name]);
+                        ret.push(json[i][name]);
+
+                    }
+                }
+
+                if (j != values.length - 1) {
+                    DataStr += ("'" + values[j] + "':[" + ret + "],");
+                    ret = [];
+                } else {
+                    DataStr += ("'" + values[j] + "':[" + ret + "]");
+                    ret = [];
+                }
+                // console.log('values[i] + ":" + ret+",":' + values[i] + ":[" + ret + "],");
+            }
+            // var newJson = onDataStr.substring(onDataStr.length, onDataStr.length);
+            return DataStr;
         }
 
         /*获取json数组长度*/
@@ -139,9 +183,9 @@
         var dom = document.getElementById("container1");
         var myChart = echarts.init(dom);
         var app = {};
-        var option = null;
-        var petroleumCokesJson = null;
+        // var option = null;
         var today_price = null;
+        var companys = null;
         //TODO 测试echart数据
         $.ajax({
             url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
@@ -150,9 +194,8 @@
                 // alert(JSON.stringify(data.petroleumCokes)); OK
                 // petroleumCokesJson = JSON.stringify(data); OK
                 //石油焦json数据
-                petroleumCokesJson = data; //OK
-
-                today_price = getParamValues("today_price", petroleumCokesJson); //OK
+                companys = getParamValues("company",data).delDuplicate();
+                today_price = getParamValues("today_price", data); //OK
                 console.log(today_price); //OK
                 // alert(today_price); //OK
                 option = {
@@ -170,9 +213,9 @@
 
                     }]
                 };
-                if (option && typeof option === "object") {
-                    myChart.setOption(option, true);
-                }
+                // if (option && typeof option === "object") {
+                //     myChart.setOption(option, true);
+                // }
             }
         });
     </script>

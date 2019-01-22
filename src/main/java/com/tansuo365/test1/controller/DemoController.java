@@ -29,6 +29,11 @@ public class DemoController {
     public String echarts2(){
         return "/webdemo/echarts2";
     }
+    //echarts样式3
+    @RequestMapping("/echarts3")
+    public String echarts3(){
+        return "/webdemo/echarts3";
+    }
 
 
 }

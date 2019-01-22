@@ -25,6 +25,8 @@
     <!--<script scr="/js/echarts.min.js"></script>-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
+
+    <script src="/js/customed.js"></script>
 </head>
 
 <body>
@@ -113,56 +115,6 @@
     <!--content-->
 
     <div id="container1" style="height: 700px"></div>
-
-    <script>
-        var dom = document.getElementById("container1");
-        var myChart = echarts.init(dom);
-        myChart.showLoading();
-        // 显示标题，图例和空的坐标轴 (空架子)
-        myChart.setOption({
-            legend: {},
-            tooltip: {},
-            dataset: {
-                source: {
-
-                    'company': [],
-                    'price': [],
-                    'date':[]
-
-                }
-
-
-            },
-            xAxis: [
-                {type: 'category', gridIndex: 0},
-                {type: 'category', gridIndex: 1}
-            ],
-            yAxis: [
-                {gridIndex: 0},
-                {gridIndex: 1}
-            ],
-            grid: [
-                {bottom: '55%'},
-                {top: '55%'}
-            ],
-            series: [
-                // These series are in the first grid.
-
-                // {type: 'bar', seriesLayoutBy: 'row'},
-                // {type: 'bar', seriesLayoutBy: 'row'},
-                // {type: 'bar', seriesLayoutBy: 'row'},
-                // // These series are in the second grid.
-                // {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},
-                // {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},
-                // {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},
-                // {type: 'bar', xAxisIndex: 1, yAxisIndex: 1}
-            ]
-            // encode: {x: 'todayPrice', y: 'todayPrice'}
-
-        });
-    </script>
-
-
     <!--test echarts 2019-1-14-->
     <script type="text/javascript" th:inline="none">
 
@@ -177,87 +129,154 @@
             return ret;
         }
 
+        /*数组去重*/
+        Array.prototype.delDuplicate = function () {
+            var arr = new Array();
+            for (var i = 0; i < this.length; i++) {
+                if (arr.indexOf(this[i]) == -1) {
+                    arr.push(this[i]);
+                }
+            }
+            console.log(JSON.stringify(arr));
+            return arr;
+        }
 
-        var app = {};
-        var option = null;
-        // var petroleumCokesJson = null;
+        //获取以公司为key的todayprice数组
+        function getJsonResult(name, json, key, values) {
+            var DataStr = '';
+            var ret = [];
+            var len = Object.keys(json).length;
+
+            for (var j = 0; j < values.length; j++) {
+                for (var i = 0; i < len; i++) {
+                    if (json[i][key] == values[j]) {
+                        // console.log("values[i]:" + values[i]);
+                        // console.log("json[i][name]:" + json[i][name]);
+                        ret.push(json[i][name]);
+
+                    }
+                }
+
+                if (j != values.length - 1) {
+                    DataStr += ("'" + values[j] + "':[" + ret + "],");
+                    ret = [];
+                } else {
+                    DataStr += ("'" + values[j] + "':[" + ret + "]");
+                    ret = [];
+                }
+                // console.log('values[i] + ":" + ret+",":' + values[i] + ":[" + ret + "],");
+            }
+            // var newJson = onDataStr.substring(onDataStr.length, onDataStr.length);
+            return DataStr;
+        }
+
+        /*获取json数组长度*/
+        // function getJsonLength(jsonData) {
+        //     var length;
+        //     for(var ever in jsonData) {
+        //         length++;
+        //     }
+        //     return length;
+        // }
+        //
+
+        var dom = document.getElementById("container1");
+        var myChart = echarts.init(dom,"customed");
+        //loading
+        myChart.showLoading();
+        var today_price = null;
         var companys = null;
-        var today_price = null; //今日价格汇总
-        var create_time = null; //创建时间
+        var newJson = null;
+        var createTimes = null;
         //TODO 测试echart数据
         $.ajax({
             url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
             type: "POST",
             success: function (data) {
                 myChart.hideLoading(); //数据data加载后隐藏loading
-                // alert(JSON.stringify(data.petroleumCokes)); OK
-                // petroleumCokesJson = JSON.stringify(data); OK
-                //石油焦json数据
-                // petroleumCokesJson = data; //OK
-                console.log("JSON.stringify(data):" + JSON.stringify(data));
-
-                companys = getParamValues("company",data);
-                console.log(companys);
 
                 today_price = getParamValues("today_price", data); //OK
                 console.log(today_price); //OK
+                companys = getParamValues("company", data);
+                companys = companys.delDuplicate(); //去重
 
-                // alert(today_price); //OK
-                create_time = getParamValues("create_time", data);
-                console.log(create_time);
+                createTimes = getParamValues("create_time",data).delDuplicate();
+                console.log("createTimes:"+createTimes);
 
+                newJson = getJsonResult("today_price", data, "company", companys.delDuplicate());
+                console.log("newJson:"+newJson);
 
-                // if (option && typeof option === "object") {
                 myChart.setOption({
-                    legend: {
-                        data:companys
-                    },
+
+                    legend: {},
                     tooltip: {},
                     dataset: {
                         dimensions: [
-                            // {name:'company',type:'ordinal'},
-                            'price',
-                            'date'
+                            'createTimes',
+                            'company',
                         ],
+                        // 提供一份数据。
+                        source: {
+                            'createTimes':createTimes,
+                            'company': companys,
 
-                        source:{
-                            'company':companys,
-                            'price':today_price,
-                            'date':create_time
-
+                            // 'Matcha Latte': [43.3, 85.8, 93.7],
+                            // 'Milk Tea': [83.1, 73.4, 55.1],
+                            // 'Cheese Cocoa': [86.4, 65.2, 82.5],
+                            // 'Walnut Brownie': [72.4, 53.9, 39.1]
                         }
                     },
-                    xAxis: [
-                        {type: 'category'},
-                    ],
-                    yAxis: [
-                        {gridIndex: 0},
-                        {gridIndex: 1}
-                    ],
-                    grid: [
-                        {bottom: '55%'},
-                        {top: '55%'}
-                    ],
+                    // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+                    xAxis: {
+                        type: 'category',
+                        data:createTimes,
+                        boundaryGap:false,
+                    },
+                    // 声明一个 Y 轴，数值轴。
+                    yAxis: {type: 'value'},
+                    // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
                     series: [
                         {
-                            type:'line',
+                            type: 'line',
+                            data:[11,112,3123],
                             encode:{
-                                x:['date','company'],
-                                y:'price',
-
+                                itemName:[1]
                             }
+                            // encode: {
+                            //     x: [0],
+                            //     y: [1,'1']
+                            // }
+                        },
+                        {
+                            type:'line',
+                            data:[1231,1112,331],
+                            encode:{
+                                itemName:[0]
+                            }
+                            // encode:{
+                            //     x:[1],
+                            //     y:[2]
+                            // }
+                        },
+                        {
+                            type:'line',
+                            data:[121,1312,3123],
+                            encode:{
+                                itemName:[0,1]
+                            }
+                            // encode:{
+                            //     x:[0],
+                            //     y:[1]
+                            // }
                         }
-                        // These series are in the first grid.
-                        // ,
 
-
-                        // These series are in the second grid.
-                        // {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},
-                        // {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},
-                        // {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},
-                        // {type: 'bar', xAxisIndex: 1, yAxisIndex: 1}
                     ]
+
                 });
+
+
+                // if (option && typeof option === "object") {
+                //     myChart.setOption(option, true);
                 // }
             }
         });
