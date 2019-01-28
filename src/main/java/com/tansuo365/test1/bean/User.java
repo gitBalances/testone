@@ -2,7 +2,7 @@ package com.tansuo365.test1.bean;
 
 import java.io.Serializable;
 
-/*用户*/
+/*管理员*/
 public class User implements Serializable {
 	private Long id;
 

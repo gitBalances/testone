@@ -1,6 +1,6 @@
 package com.tansuo365.test1.bean;
 
-/*用户角色*/
+/*管理员角色*/
 public class UserRole {
 	private Long id;
 

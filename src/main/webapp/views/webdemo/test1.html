@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+根据用户等级展示不同的echarts图表数据:
+游客:展示图表但不展示数值
+已登录未付费:展示图表及数值,但限时限量
+已登录已付费:展示图表及数值,展示按其付费选择的时间和数据
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
     <title>test1</title>
@@ -7,6 +14,18 @@
 <body>
 
 <a href="/demo/testLogin">测试登录</a>
+
+<!--游客性质-->
+<shiro:guest>
+    <a href="login.jsp">Login</a> or <a href="signup.jsp">注册</a>
+</shiro:guest>
+
+
+
+<!--获取用户信息,及退出按钮-->
+<shiro:user>
+    欢迎您,<shiro:principal/>,<a href="/member/doLogout">退出</a>
+</shiro:user>
 
 </body>
 </html>

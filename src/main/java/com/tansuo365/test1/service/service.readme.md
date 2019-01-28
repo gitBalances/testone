@@ -1,0 +1,3 @@
+1.role和mrole;一个是后台user一个是前台用户member会员的角色
+2.memberRole和userRole是等价的
+3.RolePermission与MrolePermission是等价的

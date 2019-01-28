@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/*用户配置Controller*/
+/*后台用户配置Controller,前台用户路径虽然是/user/...但是实际上实体和数据库是member*/
 @Controller
 @RequestMapping("config")
 public class UserController {

@@ -86,7 +86,8 @@ public class BackEndPageController {
 
 //    @CachePut(value = "subject") 即保证方法被调用,又加入缓存
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(Model model, User user,boolean rememberMe) throws AuthenticationException{
+    public String login(Model model, User user,boolean rememberMe,String userAgent) throws AuthenticationException{
+        System.err.println("userAgent:"+userAgent);
         System.err.println(rememberMe);
         UsernamePasswordToken token = new UsernamePasswordToken(user.getName(),user.getPassword(), rememberMe);
         Subject subject = SecurityUtils.getSubject();

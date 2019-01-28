@@ -44,11 +44,12 @@ public class DatabaseRealm extends AuthorizingRealm {
 		return s;
 	}
 
-	String userName = null;
+//	String userName = null;
 
 	/*获取身份验证信息*/
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)  {
+		String userName = null;
 		try {
 			// 获取账号密码
 			userName = token.getPrincipal().toString();

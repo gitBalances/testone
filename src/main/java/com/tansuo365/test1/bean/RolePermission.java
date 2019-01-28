@@ -1,6 +1,6 @@
 package com.tansuo365.test1.bean;
 
-/*角色权限*/
+/*管理员角色权限*/
 public class RolePermission {
 	private Long id;
 
