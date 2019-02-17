@@ -8,6 +8,7 @@ import java.util.Set;
 
 /*角色服务接口*/
 public interface RoleService {
+
 	public Set<String> listRoleNames(String userName);
 
 	public List<Role> listRoles(String userName);
@@ -16,12 +17,18 @@ public interface RoleService {
 
 	public List<Role> list();
 
+	public List<Role> listSelective(Role role);
+
 	public void add(Role role);
 
-	public void delete(Long id);
+	public Integer addSelective(Role role);
+
+	public Integer delete(Long id);
 
 	public Role get(Long id);
 
-	public void update(Role role);
+	public Integer update(Role role);
+
+	public Role getByName(String name);
 
 }

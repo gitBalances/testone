@@ -1,3 +1,4 @@
 1.role和mrole;一个是后台user一个是前台用户member会员的角色
 2.memberRole和userRole是等价的
 3.RolePermission与MrolePermission是等价的
+4.已经取消该项目中对前端member的支持,只作为后端管理存在.

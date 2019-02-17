@@ -8,10 +8,12 @@
     <link href="/css/xwb_list.css" rel="stylesheet"/>
     <link href="/css/themes/color.css" rel="stylesheet"/>
     <link href="/css/wm.css" rel="stylesheet"/>
+    <link href="/css/demoe.css" rel="stylesheet"/>
     <!--<script src="/script/jquery.min.js"></script>-->
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="/script/jquery.easyui.min.js"></script>
+    <!--<script src="/js/jquery17.easyui.min.js"></script>-->
     <script src="/script/easyui-lang-zh_CN.js"></script>
     <script src="/js/FileSaver.min.js"></script>
     <script src="/js/xlsx.full.min.js"></script>
@@ -23,6 +25,7 @@
 
 </head>
 <body>
+
 
 <!-- 条件查询 -->
 <div>
@@ -36,24 +39,22 @@
                 <td><input type="text" name="province" class="easyui-textbox" value=""/></td>
                 <td>公司名称:</td>
                 <td><input type="text" name="company" class="easyui-textbox" value=""/></td>
-                <td>硫含量_%:</td>
-                <td><input type="text" name="sulfur" class="easyui-textbox" value=""/></td>
-                <td>灰分_%:</td>
-                <td><input type="text" name="ash" class="easyui-textbox" value=""/></td>
-                <td>挥发分_%:</td>
-                <td><input type="text" name="volatile_matter" class="easyui-textbox" value=""/></td>
-                <td>扣水率_%:</td>
-                <td><input type="text" name="wdr" class="easyui-textbox" value=""/></td>
+                <!--<td>硫含量_%:</td>-->
+                <!--<td><input type="text" name="sulfur" class="easyui-textbox" value=""/></td>-->
+                <!--<td>灰分_%:</td>-->
+                <!--<td><input type="text" name="ash" class="easyui-textbox" value=""/></td>-->
+                <!--<td>挥发分_%:</td>-->
+                <!--<td><input type="text" name="volatile_matter" class="easyui-textbox" value=""/></td>-->
+                <!--<td>扣水率_%:</td>-->
+                <!--<td><input type="text" name="wdr" class="easyui-textbox" value=""/></td>-->
 
-            </tr>
 
-            <tr>
-                <td>钒含量_ppm:</td>
-                <td><input type="text" name="vanadium" class="easyui-textbox" value=""/></td>
-                <td>真密度_g/cm³:</td>
-                <td><input type="text" name="density" class="easyui-textbox" value=""/></td>
-                <td>粉焦量_%:</td>
-                <td><input type="text" name="coke_content" class="easyui-textbox" value=""/></td>
+                <!--<td>钒含量_ppm:</td>-->
+                <!--<td><input type="text" name="vanadium" class="easyui-textbox" value=""/></td>-->
+                <!--<td>真密度_g/cm³:</td>-->
+                <!--<td><input type="text" name="density" class="easyui-textbox" value=""/></td>-->
+                <!--<td>粉焦量_%:</td>-->
+                <!--<td><input type="text" name="coke_content" class="easyui-textbox" value=""/></td>-->
                 <!-- <td>海绵焦/弹丸焦:</td>
                  <td><input type="text" name="coke_type" class="easyui-textbox" value=""/></td>-->
                 <td>类型:</td>
@@ -74,6 +75,18 @@
                     <option value="弹丸焦">弹丸焦</option>
                     </select>
                 </td>
+
+
+                <td>指标查询:</td>
+                <td>
+                    <a id="quality_index_search" class="easyui-linkbutton c1" onclick="showIndexSearchFrame()">点我</a>
+                    <!--<input type="text" id="quality_index_search" name="quality_index_search" class="easyui-textbox" value=""/>-->
+                </td>
+
+            </tr>
+
+            <tr>
+
                 <td>今日报价:</td>
                 <td><input type="text" name="today_price" class="easyui-textbox" value=""/></td>
                 <td>备注:</td>
@@ -113,7 +126,7 @@
 
                 <a id="uploadExcel" class="easyui-linkbutton c1" onclick="uploadidalogonline()">导入数据</a>
 
-
+                <!--上传excel的弹出窗-->
                 <div id="uploadonlineinfo" class="easyui-window" style="width:380px;padding:10px 40px" closed="true">
 
                     <form id="fam" method="post" enctype="multipart/form-data">
@@ -131,17 +144,213 @@
                     </div>
                 </div>
 
+                <!--指标查询frame窗-->
+                <div id="theIndexSearchFrame" class="easyui-window" style="width:800px;height:550px;padding:10px 40px"
+                     closed="true">
+
+                    <form id="ff" style="margin-bottom:20px">
+                        <div style="margin-bottom:20px" id="sulfurDiv">
+                            硫含量%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                                      id="sulfurCK" name="sulfur" value="" label="硫含量%:">
+                        </div>
+                        <hr>
+                        <div style="margin-bottom:20px" id="ashDiv">
+                            灰分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="ashCK" name="ash" value=""
+                                      label="灰分%:">
+                        </div>
+                        <hr>
+                        <div style="margin-bottom:20px" id="volatile_matterDiv">
+                            挥发分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="volatile_matterCK"
+                                      name="volatile_matter" value="" label="挥发分%:">
+                        </div>
+                        <hr>
+                        <div style="margin-bottom:20px" id="wdrDiv">
+                            扣水率%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="wdrCK" name="wdr" value=""
+                                      label="扣水率%:">
+                        </div>
+                        <hr>
+                        <div style="margin-bottom:20px" id="vanadiumDiv">
+                            钒含量ppm<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="vanadiumCK" name="vanadium" value=""
+                                      label="钒含量ppm:">
+                        </div>
+                        <hr>
+                        <div style="margin-bottom:20px" id="densityDiv">
+                            真密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="densityCK" name="density" value=""
+                                      label="真密度g/cm³:">
+                        </div>
+                        <hr>
+                        <div style="margin-bottom:20px" id="coke_contentDiv">
+                            粉焦量g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="coke_contentCK" name="coke_content"
+                                      value="" label="粉焦量g/cm³:">
+                        </div>
+                        <hr>
+                        <!--<div style="margin-bottom:20px">-->
+                        <!--<input type="checkbox" class="easyui-checkbox" name="coke_content" value="" label="粉焦量g/cm³:">-->
+                        <!--</div>-->
+                    </form>
+
+                    <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">
+                        <button id="allSubmit" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
+                                style="width:80px">确定 <!--确定查询这些指标-->
+                        </button>
+                    </div>
+                </div>
+
 
                 <script type="text/javascript" th:inline="none">
 
 
+                    // $("#quality_index_search").change(showIndexSearchFrame);
 
-                    $("#uploadBtn").click(uploadonline);
+                    /*指标窗口打开操作*/
+                    function showIndexSearchFrame() {
+                        $('#theIndexSearchFrame').window('open').dialog('setTitle', '指标查询');
+                    }
+
+                    // $("#allSubmit").click(testalert);
+
+                    function checkEachBox() {
+                        $("input[type='checkbox']").each(function () {
+                            if ($(this).attr('checked') == true) {
+                                reas += $(this).val();
+                                // testalert();
+                            }
+                        });
+                    }
+
+                    /*向div中input后添加子元素*/
+                    function appendChildAtInput(name){
+                        var childSelectL = document.createElement("select");
+                        childSelectL.id=name+"SelectL";
+                        var opt1 = new Option("＝","＝");
+                        var opt2 = new Option("＜","＜");
+                        var opt3 = new Option("≤","≤");
+                        var opt4 = new Option("＞","＞");
+                        var opt5 = new Option("≥","≥");
+                        childSelectL.options.add(opt1);
+                        childSelectL.options.add(opt2);
+                        childSelectL.options.add(opt3);
+                        childSelectL.options.add(opt4);
+                        childSelectL.options.add(opt5);
+
+                        var childInputL = document.createElement("input");
+                        childInputL.type="text";
+                        childInputL.id=name+"ChildL";
+                        childInputL.required=true;
+
+                        var childSelectR = document.createElement("select");
+                        childSelectR.id=name+"SelectR";
+                        var opt0 = new Option("","");
+                        var opt1 = new Option("＝","＝");
+                        var opt2 = new Option("＜","＜");
+                        var opt3 = new Option("≤","≤");
+                        var opt4 = new Option("＞","＞");
+                        var opt5 = new Option("≥","≥");
+                        childSelectR.options.add(opt0);
+                        childSelectR.options.add(opt1);
+                        childSelectR.options.add(opt2);
+                        childSelectR.options.add(opt3);
+                        childSelectR.options.add(opt4);
+                        childSelectR.options.add(opt5);
+                        //设定了左右两个select,之后需要再设定R的select变更选项时,出现inputR
+
+                        var childInputR = document.createElement("input");
+                        childInputR.type="text";
+                        childInputR.id=name+"ChildR";
+
+                        document.getElementById(name+"Div").appendChild(childSelectL);
+                        document.getElementById(name+"Div").appendChild(childInputL);
+                        document.getElementById(name+"Div").appendChild(childSelectR);
+                        document.getElementById(name+"Div").appendChild(childInputR);
+
+                    }
+
+                    /*将div后的子元素移除*/
+                    function removeChildAtInput(name){
+                        document.getElementById(name+"Div").removeChild(document.getElementById(name+"SelectL"));
+                        document.getElementById(name+"Div").removeChild(document.getElementById(name+"ChildL"));
+                        document.getElementById(name+"Div").removeChild(document.getElementById(name+"SelectR"));
+                        document.getElementById(name+"Div").removeChild(document.getElementById(name+"ChildR"));
+                    }
+
+
+                    //弹出框内的逻辑操作
+                    function checkboxOnClick(checkbox) {
+                        if (checkbox.checked) {
+                            if (checkbox.name == "sulfur") {
+                                appendChildAtInput("sulfur");
+                                // var childInput = document.createElement("input");
+                                // childInput.type="text";
+                                // childInput.id="sulfurChild";
+                                // document.getElementById("sulfurDiv").appendChild(childInput);
+
+                            }
+                            if (checkbox.name == "ash") {
+                                appendChildAtInput("ash");
+                                // var childInput = document.createElement("input");
+                                // childInput.type="text";
+                                // childInput.id="ashChild";
+                                // document.getElementById("ashDiv").appendChild(childInput);
+                            }
+                            if (checkbox.name == "volatile_matter") {
+                                appendChildAtInput("volatile_matter");
+                            }
+                            if (checkbox.name == "wdr") {
+                                appendChildAtInput("wdr");
+                            }
+                            if (checkbox.name == "vanadium") {
+                                appendChildAtInput("vanadium");
+                            }
+                            if (checkbox.name == "density") {
+                                appendChildAtInput("density");
+                            }
+                            if (checkbox.name == "coke_content") {
+                                appendChildAtInput("coke_content");
+                            }
+                        } else {
+                            if (checkbox.name == "sulfur") {
+                                removeChildAtInput("sulfur");
+                            }
+                            if (checkbox.name == "ash") {
+                                removeChildAtInput("ash");
+                            }
+                            if (checkbox.name == "volatile_matter") {
+                                removeChildAtInput("volatile_matter");
+                            }
+                            if (checkbox.name == "wdr") {
+                                removeChildAtInput("wdr");
+                            }
+                            if (checkbox.name == "vanadium") {
+                                removeChildAtInput("vanadium");
+                            }
+                            if (checkbox.name == "density") {
+                                removeChildAtInput("density");
+                            }
+                            if (checkbox.name == "coke_content") {
+                                removeChildAtInput("coke_content");
+                            }
+                        }
+                    }
+
+
+
+
+
+
+                    // function testalert(){
+
+
+                    // }
+
+
+                    /*上传excel的窗口打开操作*/
 
                     function uploadidalogonline() {
                         $('#uploadonlineinfo').window('open').dialog('setTitle', '文件上传');
                     }
 
+                    //上传文件
+                    $("#uploadBtn").click(uploadonline);//方法在下
                     function uploadonline() {
 
                         // var add = '/excel/importExcel';
@@ -161,7 +370,7 @@
                             processData: false, //不处理数据
                             success: function (data) {
                                 // alert(data);
-                                if(data > 0){
+                                if (data > 0) {
                                     $("#booten").linkbutton('enable');
                                     $('#uploadonlineinfo').dialog('close');
                                     $('#dg').datagrid('reload');

@@ -117,4 +117,9 @@
       salt = #{salt,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="getCount" resultType="java.lang.Long">
+    select count(user.id)
+    from user
+  </select>
 </mapper>

@@ -54,7 +54,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from role_permission
     where id = #{id,jdbcType=BIGINT}

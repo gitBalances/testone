@@ -9,16 +9,24 @@ import java.util.List;
 /*角色Mapper层*/
 @Mapper
 public interface RoleMapper {
+
 	int deleteByPrimaryKey(Long id);
 
 	int insert(Role record);
 
-	int insertSelective(Role record);
+	//动态插入role
+	int insertSelective(Role role);
 
 	List<Role> selectByExample(RoleExample example);
 
+	//动态获取Role表数据
+	List<Role> selectRoleSelective(Role role);
+
 	Role selectByPrimaryKey(Long id);
 
+	Role selectByName(String name);
+
+	//动态更新role
 	int updateByPrimaryKeySelective(Role record);
 
 	int updateByPrimaryKey(Role record);

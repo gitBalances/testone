@@ -1,7 +1,7 @@
 package com.tansuo365.test1.filter;
 
+import com.tansuo365.test1.service.EMenuService;
 import com.tansuo365.test1.service.PermissionService;
-import com.tansuo365.test1.util.SpringContextUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
@@ -13,56 +13,57 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.util.Set;
 
-
+/*URL路径匹配过滤器*/
 public class URLPathMatchingFilter extends PathMatchingFilter {
-	@Autowired
-	private PermissionService permissionService;
 
-	@Override
-	protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue)
-			throws Exception {
-		if(null==permissionService)
-			permissionService = SpringContextUtils.getContext().getBean(PermissionService.class);
+    @Autowired
+    private EMenuService eMenuService;
+    @Autowired
+    private PermissionService permissionService;
 
-		String requestURI = getPathWithinApplication(request);
-		System.out.println("requestURI:" + requestURI);
+    @Override
+    protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue)
+            throws Exception {
+        String requestURI = getPathWithinApplication(request);
 
-		Subject subject = SecurityUtils.getSubject();
-		// 如果没有登录，就跳转到登录页面 --
-		if (!subject.isAuthenticated()) {
-			WebUtils.issueRedirect(request, response, "/admin/login");
-			return false;
-		}
+        System.out.println("requestURI:" + requestURI);
 
-		// 看看这个路径权限里有没有维护，如果没有维护，一律放行(也可以改为一律不放行)
-		System.out.println("permissionService:"+permissionService);
-		boolean needInterceptor = permissionService.needInterceptor(requestURI);
-		if (!needInterceptor) {
-			return true;
-		} else {
-			boolean hasPermission = false;
-			String userName = subject.getPrincipal().toString();
-			Set<String> permissionUrls = permissionService.listPermissionURLs(userName);
-			for (String url : permissionUrls) {
-				// 这就表示当前用户有这个权限
-				if (url.equals(requestURI)) {
-					hasPermission = true;
-					break;
-				}
-			}
+        Subject subject = SecurityUtils.getSubject();
+        // 如果没有登录，就跳转到登录页面
+        if (!subject.isAuthenticated()) {
+            WebUtils.issueRedirect(request, response, "/admin/login");
+            return false;
+        }
 
-			if (hasPermission)
-				return true;
-			else {
-				UnauthorizedException ex = new UnauthorizedException("当前用户没有访问路径 " + requestURI + " 的权限");
+        // 看看这个路径权限里有没有维护，如果没有维护，一律放行(也可以改为一律不放行)
+        boolean needInterceptor = permissionService.needInterceptor(requestURI);
+        System.out.println("needInterceptor:" + needInterceptor);
+        if (!needInterceptor) {
+            return true;
+        } else {
+            boolean hasPermission = false;
+            String userName = subject.getPrincipal().toString();
+            Set<String> permissionUrls = permissionService.listPermissionURLs(userName);
+            for (String url : permissionUrls) {
+                // 这就表示当前用户有这个权限
+                if (url.equals(requestURI)) {
+                    hasPermission = true;
+                    break;
+                }
+            }
 
-				subject.getSession().setAttribute("ex", ex);
+            if (hasPermission)
+                return true;
+            else {
+                UnauthorizedException ex = new UnauthorizedException("当前用户没有访问路径 " + requestURI + " 的权限");
 
-				WebUtils.issueRedirect(request, response, "/admin/unauthorized");
-				return false;
-			}
+                subject.getSession().setAttribute("ex", ex);
 
-		}
+                WebUtils.issueRedirect(request, response, "/admin/unauthorized");
+                return false;
+            }
 
-	}
+        }
+
+    }
 }

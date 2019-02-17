@@ -1,7 +1,5 @@
 package com.tansuo365.test1.service.impl;
 
-import java.util.List;
-
 import com.tansuo365.test1.bean.User;
 import com.tansuo365.test1.bean.UserExample;
 import com.tansuo365.test1.mapper.UserMapper;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /*用户服务实现层*/
 @Service
@@ -39,20 +38,28 @@ public class UserServiceImpl implements UserService {
 		return users.get(0);
 	}
 
+	//添加用户
 	@Override
-	public void add(User u) {
-		userMapper.insert(u);
+	public Integer add(User u) {
+		return userMapper.insert(u);
 	}
 
 	@Override
-	public void delete(Long id) {
-		userMapper.deleteByPrimaryKey(id);
-		userRoleService.deleteByUser(id);
+	public Integer delete(Long id) {
+		int deleteUserCode = userMapper.deleteByPrimaryKey(id);
+		int deleteUserRoleCode = userRoleService.deleteByUser(id);
+		/*如果两者为2,则证明都删除正确了,否则不是.*/
+		if(deleteUserCode+deleteUserRoleCode==2){
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 
+	//更新用户
 	@Override
-	public void update(User u) {
-		userMapper.updateByPrimaryKeySelective(u);
+	public Integer update(User u) {
+		return userMapper.updateByPrimaryKeySelective(u);
 	}
 
 	@Override
@@ -65,7 +72,12 @@ public class UserServiceImpl implements UserService {
 		UserExample example = new UserExample();
 		example.setOrderByClause("id desc");
 		return userMapper.selectByExample(example);
-
 	}
+
+	@Override
+	public Long getCount(User user) {
+		return null;
+	}
+
 
 }

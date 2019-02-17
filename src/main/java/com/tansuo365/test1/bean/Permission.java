@@ -1,6 +1,6 @@
 package com.tansuo365.test1.bean;
 
-/*权限*/
+/*权限 使用menu替代 table: e_menu */
 public class Permission {
 	private Long id;
 

@@ -1,16 +1,9 @@
 package com.tansuo365.test1.shiro;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import javax.servlet.Filter;
-
-//import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import com.tansuo365.test1.filter.URLPathMatchingFilter;
-import com.tansuo365.test1.realm.DatabaseRealm;
-import com.tansuo365.test1.realm.MemberDatabaseRealm;
+import com.tansuo365.test1.shiro.filter.MyFormAuthenticationFilter;
+import com.tansuo365.test1.shiro.realm.DatabaseRealm;
+import com.tansuo365.test1.shiro.realm.MyRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -21,15 +14,25 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.tansuo365.test1.filter.URLPathMatchingFilter;
+
+import javax.servlet.Filter;
+//import com.tansuo365.test1.filter.URLPathMatchingFilter;
+
+//import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
 /*权限配置类*/
 @Configuration
 public class ShiroConfiguration {
-    @Autowired
-    private MemberShiroConfiguration memberShiroConfiguration;
+//    @Autowired
+//    private MemberShiroConfiguration memberShiroConfiguration;
 
     //用于thymeleaf模板使用shiro标签
     @Bean
@@ -43,6 +46,7 @@ public class ShiroConfiguration {
     }
 
 
+
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
      * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，因为在
@@ -53,65 +57,138 @@ public class ShiroConfiguration {
      * 2、当设置多个过滤器时，全部验证通过，才视为通过
      * 3、部分过滤器可指定参数，如perms，roles
      */
-    @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-        System.out.println("ShiroConfiguration.shirFilter()");
+    @Bean(name = "shiroFilter")
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+
+        //TODO 2019-1-29 17:40
+        //将设置url的参数改为application.properties中去配置
+        //securityManager改为可选择的进行传入
+        //customisedFilter的hashmap传入的url及URLPath...Filter改为参数可传入
+        //customisedFilter这个HashMap装配了登录及登录后可未授权页面(admin的配置admin的,member的配置member的)
+        //filterChainDefinitionMap
+
+        //1.securityManager中的realm按需配置
+        //2.shiroFilterFactoryBean中的set...Url为按需配置
+        //3.shiroFilterFactoryBean.setFilters(customisedFilter);中的customisedFilter按需配置
+        //**customisedFilter为put了仅仅一个"url",value为URL路径匹配过滤器(按需传入)
+        //4.shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        //**filterChainDefinitionMap为按需配置
+
+
 
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/admin/login"); //原为/login
+        //这里注释掉user/login,并用
+//        shiroFilterFactoryBean.setLoginUrl("/user/login"); //原为/login
+        shiroFilterFactoryBean.setLoginUrl("/admin/login"); //原为/login 会覆盖前面的出错
+
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/admin/"); //原为/index
+//        shiroFilterFactoryBean.setSuccessUrl("/user/index"); //原为/index
         //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/admin/unauthorized"); //原为/unauthorized
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/user/unauthorized"); //原为/unauthorized
         //拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         //自定义拦截器
         Map<String, Filter> customisedFilter = new HashMap<>();
         customisedFilter.put("url", getURLPathMatchingFilter());
-        //配置映射关系 anon表示不需要权限即可访问
-//        filterChainDefinitionMap.put("/login", "anon");
-//        filterChainDefinitionMap.put("/index", "anon");
-//        filterChainDefinitionMap.put("/static/**", "anon");
-//        filterChainDefinitionMap.put("/config/**", "anon");
-//        filterChainDefinitionMap.put("/doLogout", "logout");;
-//        filterChainDefinitionMap.put("/**", "url");
-//        shiroFilterFactoryBean.setFilters(customisedFilter);
-//        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-//        return shiroFilterFactoryBean;
+//        customisedFilter.put("theMember",theMember());
+//        customisedFilter.put("theAdmin",theAdmin());
+
+//        //配置映射关系 anon表示不需要权限即可访问
+//        filterChainDefinitionMap.put("/user/login", "anon");
         filterChainDefinitionMap.put("/admin/login", "anon");
-//        filterChainDefinitionMap.put("/admin/index", "anon");
+////        filterChainDefinitionMap.put("/admin/index", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/admin/config/**", "anon");
+        filterChainDefinitionMap.put("/admin/reg", "anon");
+        filterChainDefinitionMap.put("/admin/register", "anon");
+//        filterChainDefinitionMap.put("/user/doLogout", "logout");
         filterChainDefinitionMap.put("/admin/doLogout", "logout");
-        ;//后台登出
-//      单独放入member的配置中  filterChainDefinitionMap.put("/member/doLogout","logout");//前端客户登出
+//        ;//后台登出
+////      单独放入member的配置中  filterChainDefinitionMap.put("/member/doLogout","logout");//前端客户登出
+//        filterChainDefinitionMap.put("/user/**", "url"); //路径/shiro_admin/**全部需要进行权限验证
         filterChainDefinitionMap.put("/admin/**", "url"); //路径/shiro_admin/**全部需要进行权限验证
-        //其他资源都需要认证  authc 表示需要认证才能进行访问 user表示配置记住我或认证通过可以访问的地址
+//        //其他资源都需要认证  authc 表示需要认证才能进行访问 user表示配置记住我或认证通过可以访问的地址
+//        filterChainDefinitionMap.put("/user/**", "theMember");
         filterChainDefinitionMap.put("/admin/**", "user");
         shiroFilterFactoryBean.setFilters(customisedFilter);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
+
+
+//    private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean) {
+//
+//        Map<String, String> filterChainMap = new LinkedHashMap<String, String>();
+//
+//        shiroFilterFactoryBean.setLoginUrl("/user/login");
+//
+//
+//
+//
+//    }
+
+//    @Bean
+//    public AdminFilter theAdmin(){
+//        return new AdminFilter();
+//    }
+//
+//    @Bean
+//    public MemberFilter theMember(){
+//        return new MemberFilter();
+//    }
+
+//    public
+//
     public URLPathMatchingFilter getURLPathMatchingFilter() {
         return new URLPathMatchingFilter();
     }
 
-    @Bean
+
+    /*安全管理器*/
+    @Bean(name = "securityManager")
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //设置自定义realm.
         securityManager.setRealm(getDatabaseRealm());
 
-
         //配置记住我
         securityManager.setRememberMeManager(rememberMeManager());
 
+//        SecurityUtils.setSecurityManager(securityManager);
         return securityManager;
     }
+
+//    @Bean
+//    public FormAuthenticationFilter formAuthenticationFilter(){
+//        return new MyFormAuthenticationFilter();
+//    }
+
+
+
+//    @Bean
+//    public AdminRealm getAdminRealm(){
+//        AdminRealm adminRealm = new AdminRealm();
+//        adminRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+//        return adminRealm;
+//    }
+
+//    @Bean
+//    public MyRealm getMyRealm(){
+//        MyRealm myRealm = new MyRealm();
+//        myRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+//        return myRealm;
+//    }
+
+//    @Bean
+//    public MemberRealm getMemberRealm(){
+//        MemberRealm memberRealm = new MemberRealm();
+//        memberRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+//        return memberRealm;
+//    }
 
     @Bean
     public DatabaseRealm getDatabaseRealm() {
@@ -154,7 +231,7 @@ public class ShiroConfiguration {
     public SimpleCookie rememberMeCookie() {
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         simpleCookie.setHttpOnly(true);
-        simpleCookie.setPath("/admin/");
+        simpleCookie.setPath("/");
         simpleCookie.setMaxAge(60 * 60 * 24 * 30);//一个月cookie保留时间
         return simpleCookie;
     }
@@ -177,12 +254,12 @@ public class ShiroConfiguration {
      *
      * @return
      */
-    @Bean
-    public FormAuthenticationFilter formAuthenticationFilter() {
-        FormAuthenticationFilter formAuthenticationFilter = new FormAuthenticationFilter();
-        formAuthenticationFilter.setRememberMeParam("rememberMe");
-        return formAuthenticationFilter;
-    }
+//    @Bean
+//    public FormAuthenticationFilter formAuthenticationFilter() {
+//        FormAuthenticationFilter formAuthenticationFilter = new FormAuthenticationFilter();
+//        formAuthenticationFilter.setRememberMeParam("rememberMe");
+//        return formAuthenticationFilter;
+//    }
 
     /**
      * 开启shiro aop注解支持.

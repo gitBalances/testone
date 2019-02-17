@@ -1,6 +1,7 @@
 package com.tansuo365.test1.service;
 
 import com.tansuo365.test1.bean.User;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -12,11 +13,13 @@ public interface UserService {
 
 	public List<User> list();
 
-	public void add(User user);
+	public Long getCount(User user);
 
-	public void delete(Long id);
+	public Integer add(User user);
+
+	public Integer delete(Long id);
 
 	public User get(Long id);
 
-	public void update(User user);
+	public Integer update(User user);
 }

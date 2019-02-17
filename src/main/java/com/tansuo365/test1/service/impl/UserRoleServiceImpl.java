@@ -39,22 +39,41 @@ public class UserRoleServiceImpl implements UserRoleService {
 	}
 
 	@Override
-	public void deleteByUser(long userId) {
+	public Integer deleteByUser(long userId) {
 		UserRoleExample example = new UserRoleExample();
 		example.createCriteria().andUidEqualTo(userId);
 		List<UserRole> urs = userRoleMapper.selectByExample(example);
+		int count = 0;
+		int deleteSum = 0;
 		for (UserRole userRole : urs) {
-			userRoleMapper.deleteByPrimaryKey(userRole.getId());
+			int i = userRoleMapper.deleteByPrimaryKey(userRole.getId());
+			count++;
+			deleteSum += i;
+		}
+		/*如果两者相等则证明删除正好干净了,否则不是*/
+		if(count==deleteSum){
+			return 1;
+		}else{
+			return 0;
 		}
 	}
 
 	@Override
-	public void deleteByRole(long roleId) {
+	public Integer deleteByRole(long roleId) {
 		UserRoleExample example = new UserRoleExample();
 		example.createCriteria().andRidEqualTo(roleId);
 		List<UserRole> urs = userRoleMapper.selectByExample(example);
+		int deleteCode = 0;
+		int count = 0;
 		for (UserRole userRole : urs) {
-			userRoleMapper.deleteByPrimaryKey(userRole.getId());
+			int i = userRoleMapper.deleteByPrimaryKey(userRole.getId());
+			deleteCode += i;
+			count ++;
+		}
+		if(deleteCode==count && deleteCode !=0){
+			return 1;
+		}else{
+			return 0;
 		}
 	}
 

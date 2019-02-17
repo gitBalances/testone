@@ -59,6 +59,30 @@
     from role
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectByName" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from role
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+
+  <!--动态获取Role数据-->
+  <select id="selectRoleSelective" parameterType="com.tansuo365.test1.bean.Role" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from role
+    <where>
+      <if test="id != null and id !='' ">
+        and id = #{id}
+      </if>
+      <if test="name != null and name !='' ">
+        and name = #{name}
+      </if>
+      <if test="desc_ != null and desc_ !='' ">
+        and desc_ = #{desc_}
+      </if>
+    </where>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from role
     where id = #{id,jdbcType=BIGINT}
@@ -67,37 +91,43 @@
     insert into role (name, desc_)
     values (#{name,jdbcType=VARCHAR}, #{desc_,jdbcType=VARCHAR})
   </insert>
+
+  <!--动态插入role-->
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.Role" useGeneratedKeys="true">
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
+      <if test="name != null and name != '' " >
         name,
       </if>
-      <if test="desc_ != null">
+      <if test="desc_ != null and desc_ != '' ">
         desc_,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
+      <if test="name != null and name != '' ">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="desc_ != null">
+      <if test="desc_ != null and desc_ != '' ">
         #{desc_,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
+
+  <!--动态更新role-->
   <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.Role">
     update role
     <set>
-      <if test="name != null">
+      <if test="name != null and name != '' ">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="desc_ != null">
+      <if test="desc_ != null and desc_ != '' ">
         desc_ = #{desc_,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
   <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.Role">
     update role
     set name = #{name,jdbcType=VARCHAR},

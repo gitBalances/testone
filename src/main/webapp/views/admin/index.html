@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>索罗门后台管理系统</title>
-    <link th:href="@{/admin_css/index.css}" rel="stylesheet" />
-    <link th:href="@{/admin_css/themes/default/easyui.css}" rel="stylesheet" />
-    <link th:href="@{/admin_css/themes/icon.css}" rel="stylesheet" />
-    <link th:href="@{/admin_css/demo.css}" rel="stylesheet" />
+    <link th:href="@{/admin_css/index.css}" rel="stylesheet"/>
+    <link th:href="@{/admin_css/themes/default/easyui.css}" rel="stylesheet"/>
+    <link th:href="@{/admin_css/themes/icon.css}" rel="stylesheet"/>
+    <link th:href="@{/admin_css/demo.css}" rel="stylesheet"/>
     <script th:src="@{/admin_script/jquery.min.js}"></script>
     <script th:src="@{/admin_script/jquery.easyui.min.js}"></script>
 
@@ -15,20 +15,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.js"></script>
 
 
-
     <script>
         $(function () {
             bindEvent();
         });
+
         function bindEvent() {
             $(".btn_menu").click(function () {
                 var title = $(this).text();
                 var url = $(this).attr("url");
                 var isSelect = $("#container").tabs('exists', title);
                 if (isSelect) {
-                	
-                    $("#container").tabs('close', title); 
-                   
+
+                    $("#container").tabs('close', title);
+
                 }
                 $("#container").tabs('add', {
                     title: title,
@@ -42,78 +42,93 @@
             var strHtml = '<iframe src="' + url + '" scrolling="no" frameborder="0" fit="true" style="height:110%;width:100%;min-height:600px;" ></iframe>';
             return strHtml;
         }
-    </script>    
+    </script>
 </head>
 <body>
-    <div id="layout_div" class="easyui-layout">
-        <!-- 头部 -->
-        <div data-options="region:'north',border:false" style="overflow:hidden; height:70px;background:#338FCC;padding:10px;padding-left:30px;padding-top:15px">
-            <div style="float:left; height:70px;">
-                <img th:src="@{/img/logo.png}" height="60" width="60" style="margin-top:-10px;" />
-            </div>
-            <div style="color:#fff  ;font-size:3em; float:left;margin-left:30px;">
-                索罗门后台管理系统 - 测试版 0.1.002 version
-            </div>
-            <div style="float:right;height:70px; margin-right:50px;">
-                <!--获取用户信息,及退出按钮-->
-                <shiro:user>
-                    欢迎您,<shiro:principal/>,<a href="/admin/doLogout">退出</a>
-                </shiro:user>
-            </div>
+<div id="layout_div" class="easyui-layout">
+    <!-- 头部 -->
+    <div data-options="region:'north',border:false"
+         style="overflow:hidden; height:70px;background:#338FCC;padding:10px;padding-left:30px;padding-top:15px">
+        <div style="float:left; height:70px;">
+            <img th:src="@{/img/logo.png}" height="60" width="60" style="margin-top:-10px;"/>
         </div>
-        <!-- 左侧 菜单栏 -->
-        <div data-options="region:'west',split:false,title:'菜单',collapsible:false" style="width:170px;">
-            <div id="menu" class="easyui-accordion" fit="true">
-                <!-- a标签url属性中填写（/控制器名称/视图名称） -->
-                <div title="用户管理" data-options="iconCls:'icon-print'" style=" overflow:auto;padding:10px;">
-                    <!-- 显示风格 树状结构 -->
-                    <ul class="easyui-tree">
-                        <li><a href="javascript:;" class="btn_menu" url="/admin/person/shipper">货主管理</a></li>
-                        <li><a href="javascript:;" class="btn_menu" url="/admin/person/carowner">车主管理</a></li>
-                    </ul>
-                </div>
-
-                <div title="货品价格管理" data-options="iconCls:'icon-man'" style="overflow:auto;padding:10px;">
-                    <ul class="easyui-tree">
-                        <li><a href="javascript:;" class="btn_menu" url="/admin/goods/coke">石油焦</a></li>
-                    </ul>
-                </div>
-
-                <div title="员工管理" data-options="iconCls:'icon-tip'" style="overflow:auto;padding:10px;">
-                    <ul class="easyui-tree">
-                        <li><a href="javascript:;" class="btn_menu" url="/admin/employees/employees">员工管理</a></li>
-                    </ul>
-                </div>
-
-                <div title="系统管理员管理" data-options="iconCls:'icon-tip'" style="overflow:auto;padding:10px;">
-                    <ul class="easyui-tree">
-                        <li><a href="javascript:;" class="btn_menu" url="group_list.html">部门管理</a></li>
-                    </ul>
-                </div>
-                <div title="系统配置" data-options="iconCls:'icon-lock'" style="overflow:auto;padding:10px;">
-                    <ul class="easyui-tree">
-                        <li><a href="javascript:;" class="btn_menu" url="">系统配置</a></li>
-                    </ul>
-                </div>
-            </div>
+        <div style="color:#fff  ;font-size:3em; float:left;margin-left:30px;">
+            索罗门后台管理系统 - 测试版 0.1.002 version
         </div>
-        <!--下方代码 -->
-        <div data-options="region:'south',border:false" style="height:50px; font-size:15px; color:#fff; background:#338FCC;padding:10px; text-align:center">
-            © 2019 - 后台管理系统
-        </div>
-        <!--右侧代码控制  -->
-        <div data-options="region:'center'" style="overflow:hidden">
-            <div class="easyui-tabs" fit="true" id="container">
-                <div title="主页" style="padding:10px">
-
-
-                    <iframe src="/admin/file" scrolling="no" frameborder="0" height="2100%" width="1100" style="overflow:hidden; margin-bottom:10px;"></iframe>
-                </div>
-
-            </div>
-
+        <div style="float:right;height:70px; margin-right:50px;">
+            <!--获取用户信息,及退出按钮-->
+            <shiro:authenticated>
+                欢迎您,
+                <shiro:principal/>
+                ,<a href="/admin/doLogout">退出</a>
+            </shiro:authenticated>
         </div>
     </div>
+    <!-- 左侧 菜单栏 -->
+    <div data-options="region:'west',split:false,title:'菜单',collapsible:false" style="width:170px;">
+        <div id="menu" class="easyui-accordion" fit="true">
+            <!-- a标签url属性中填写（/控制器名称/视图名称） -->
+            <div title="会员管理" data-options="iconCls:'icon-print'" style=" overflow:auto;padding:10px;">
+                <!-- 显示风格 树状结构 -->
+                <ul class="easyui-tree">
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/member/members">会员管理</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/member/mrole">等级管理</a></li>
+                </ul>
+            </div>
+
+            <div title="货品价格管理" data-options="iconCls:'icon-man'" style="overflow:auto;padding:10px;">
+                <ul class="easyui-tree">
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/goods/coke">石油焦</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/goods/calcined">煅后焦</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/goods/asphalt">改质沥青</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/goods/anode">阳极</a></li>
+                </ul>
+            </div>
+
+            <div title="员工管理" data-options="iconCls:'icon-tip'" style="overflow:auto;padding:10px;">
+                <ul class="easyui-tree">
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/employees/employees">员工管理</a></li>
+                </ul>
+            </div>
+
+            <div title="管理员管理" data-options="iconCls:'icon-tip'" style="overflow:auto;padding:10px;">
+                <ul class="easyui-tree">
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/power/user">后台用户管理</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/power/role">系统角色管理</a></li>
+                </ul>
+            </div>
+            <!--<shiro:hasAllRoles name="">-->
+            <div title="系统配置" data-options="iconCls:'icon-lock'" style="overflow:auto;padding:10px;">
+                <ul class="easyui-tree">
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/auth/menu">系统路径配置</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/auth/roleconfig">角色数据</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/auth/dbbackup">数据库备份</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/auth/syslog">系统日志</a></li>
+                    <li><a href="javascript:;" class="btn_menu" url="/admin/auth/sysconfig">系统配置</a></li>
+                </ul>
+            </div>
+            <!--</shiro:hasAllRoles>-->
+        </div>
+    </div>
+    <!--下方代码 -->
+    <div data-options="region:'south',border:false"
+         style="height:50px; font-size:15px; color:#fff; background:#338FCC;padding:10px; text-align:center">
+        © 2019 - 后台管理系统
+    </div>
+    <!--右侧代码控制  -->
+    <div data-options="region:'center'" style="overflow:hidden">
+        <div class="easyui-tabs" fit="true" id="container">
+            <div title="主页" style="padding:10px">
+
+
+                <iframe src="/admin/file" scrolling="no" frameborder="0" height="2100%" width="1100"
+                        style="overflow:hidden; margin-bottom:10px;"></iframe>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 </body>
 
 </html>

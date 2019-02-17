@@ -52,13 +52,23 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		roleMapper.deleteByPrimaryKey(id);
+	public Integer addSelective(Role role) {
+		return roleMapper.insertSelective(role);
 	}
 
 	@Override
-	public void update(Role u) {
-		roleMapper.updateByPrimaryKeySelective(u);
+	public Integer delete(Long id) {
+		return roleMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public Integer update(Role u) {
+		return roleMapper.updateByPrimaryKeySelective(u);
+	}
+
+	@Override
+	public Role getByName(String name) {
+		return roleMapper.selectByName(name);
 	}
 
 	@Override
@@ -66,12 +76,18 @@ public class RoleServiceImpl implements RoleService {
 		return roleMapper.selectByPrimaryKey(id);
 	}
 
+
 	@Override
 	public List<Role> list() {
 		RoleExample example = new RoleExample();
 		example.setOrderByClause("id desc");
 		return roleMapper.selectByExample(example);
 
+	}
+
+	@Override
+	public List<Role> listSelective(Role role) {
+		return roleMapper.selectRoleSelective(role);
 	}
 
 	@Override
@@ -89,5 +105,6 @@ public class RoleServiceImpl implements RoleService {
 		}
 		return roles;
 	}
+
 
 }
