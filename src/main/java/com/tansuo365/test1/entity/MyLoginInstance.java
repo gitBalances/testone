@@ -7,4 +7,10 @@ public interface MyLoginInstance {
     String getInstancePassword();
 
     String getInstanceSalt();
+
+    void setInstanceName(String username);
+
+    void setInstancePassword(String password);
+
+    void setInstanceSalt(String salt);
 }

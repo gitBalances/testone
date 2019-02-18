@@ -1,96 +1,153 @@
 <!DOCTYPE html>
-<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
-
+<html>
 <head>
+    <meta charset="utf-8"/>
+    <title>SOLOMO ADMIN MASTER</title>
+    <meta name="author" content="DeathGhost"/>
+    <link rel="stylesheet" type="text/css" href="/css/style_jxc.css"/>
+    <style>
+        body {
+            height: 100%;
+            background: #16a085;
+            overflow: hidden;
+        }
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        canvas {
+            z-index: -1;
+            position: absolute;
+        }
 
-    <title>登录页面</title>
+        .black_overlay {
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=80);
+        }
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        .white_content {
+            display: none;
+            position: absolute;
+            top: 25%;
+            left: 35%;
+            width: 25%;
+            height: 15%;
+            padding: 16px;
+            border: solid black;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+        }
+    </style>
+    <script src="/js/jquery.js"></script>
+    <!--<script src="/js/verifyCode.js"></script>-->
+    <script src="/js/Particleground.js"></script>
+    <script>
 
-    <!-- MetisMenu CSS -->
-    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        $(document).ready(function () {
+            //粒子背景特效
+            $('body').particleground({
+                dotColor: '#5cbdaa',
+                lineColor: '#5cbdaa'
+            });
 
-    <!-- Custom CSS -->
-    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+            $("#loginBtn").click(function () {
+                $.post("/admin/loginadmin", {
+                    "username": $("#username").val(),
+                    "password": $("#password").val(),
+                    "rememberMe": $("#rememberMe").val()
+                }, function (result) {
+                    // alert("result.roleSize!"+result.roleSize);
+                    // alert("result.success!"+result.success);
+                    if (result.success) {
+                        if (result.roleSize == 1) {
+                            var roleId = result.roleList[0].id;
+                            $.post("/admin/user/saveRole", {roleId: roleId}, function (result) {
+                                if (result.success) {
+                                    window.location.href = "/admin/main";
+                                }
+                            });
+                        } else if(result.roleSize == 0 ){
+                            alert("该用户未设定角色,请联系管理员.");
+                        }else {
+                            $("#roleList").empty();
+                            // alert(JSON.stringify(result.roleList));
+                            var roles = result.roleList;
+                            for (var i = 0; i < roles.length; i++) {
+                                if (i == 0) {
+                                    $("#roleList").append("<input type='radio' checked=true  name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
 
-    <!-- Custom Fonts -->
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+                                } else {
+                                    $("#roleList").append("<input type='radio' name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
+                                }
+                            }
+                            document.getElementById('light').style.display = 'block';
+                            document.getElementById('fade').style.display = 'block';
+                        }
+                    } else {
+                        alert(result.errorInfo);
+                    }
+                });
+            });
+        });
 
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        function saveRole() {
+            var roleId = $("input[name='role']:checked").val();
+            $.post("/admin/user/saveRole", {roleId: roleId}, function (result) {
+                if (result.success) {
+                    window.location.href = "/admin/main";
+                }
+            });
+        }
 
+
+    </script>
 </head>
-
 <body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title" th:text="#{login.tip}">Please sign in</h3>
-                </div>
-                <div class="panel-body">
-                    <form role="form" id="loginForm" action="/admin/login" method="post">
-                        <fieldset>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="UserName" name="name" type="text"
-                                       th:placeholder="#{login.username}" autofocus>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="PassWord" name="password" type="password"
-                                       th:placeholder="#{login.password}">
-                            </div>
-                            <div class="form-group" th:hidden="hidden">
-                                <input class="form-control" placeholder="loginType" name="loginType" type="password" value="Admin">
-                            </div>
-                            <!--TODO 加上remember-->
-                            <div class="checkbox">
-                                <label>
-                                    <input class="form-control" id="rememberMe" value="true" name="rememberMe" type="checkbox" >[[#{login.remember}]]
-                                </label>
-                            </div>
-                            <!-- Change this to a button or input when using this as a form -->
-                            <input type="submit" id="loginBtn" class="btn btn-lg btn-success btn-block" th:value="#{login.btn}"
-                                    >
-                            </input>
-                        </fieldset>
-                    </form>
-                </div>
-
-                <a th:href="@{/admin/login(l='zh_CN')}" class="btn btn-sm">中文</a>
-                <a th:href="@{/admin/login(l='en_US')}" class="btn btn-sm">English</a>
-
-            </div>
-        </div>
+<dl class="admin_login">
+    <dt>
+        <strong>SOLOMO管理系统</strong>
+        <em>CRM</em>
+    </dt>
+    <dd class="user_icon">
+        <input type="text" id="username" placeholder="账号" class="login_txtbx"/>
+    </dd>
+    <dd class="pwd_icon">
+        <input type="password" id="password" placeholder="密码" class="login_txtbx"/>
+    </dd>
+    <dd class="">
+        <input type="checkbox" id="rememberMe" class="login_txtbx"/>
+    </dd>
+    <!--<dd class="val_icon">-->
+    <!--<div class="checkcode">-->
+    <!--<input type="text" id="imageCode" name="imageCode" placeholder="验证码" maxlength="4" class="login_txtbx">-->
+    <!--<img id="imgObj" title="看不清，换一张" src="/drawImage" onclick="changeImg()" />-->
+    <!--</div>-->
+    <!--</dd>-->
+    <dd>
+        <input type="button" id="loginBtn" value="立即登陆" class="submit_btn"/>
+    </dd>
+    <dd>
+        <p>© 2019 SOLOMO索罗门智慧物流平台 版权所有</p>
+        <p><a href="https://www.cnblogs.com/ukzq/" target="_blank">ukzq</a></p>
+    </dd>
+</dl>
+<div id="light" class="white_content">
+    <p>请选择一个角色登录系统</p>
+    <br/>
+    <div id="roleList">
     </div>
+    <br/>
+    <input type="button" value="提交" onclick="saveRole()"/>
 </div>
-
-
-<!-- jQuery -->
-<script src="/vendor/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/vendor/metisMenu/metisMenu.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/dist/js/sb-admin-2.js"></script>
-
+<div id="fade" class="black_overlay">
+</div>
 </body>
-
 </html>

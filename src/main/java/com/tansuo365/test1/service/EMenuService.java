@@ -33,7 +33,10 @@ public interface EMenuService {
     //根据父节点获取菜单节点
     public List<EMenu> findByParentId(Integer parentId);
 
-    //根据父节点以及角色id集合查询子节点 已去重
+    //根据父节点以及角色id集合查询子节点 已去重(unused)
     public List<EMenu> findByParentIdAndRoleId(int parentId,Set<Long> roleIdSet);
+
+    //根据父节点以及角色id集合查询子节点 已去重
+    public List<EMenu> findByParentIdAndSingleRoleId(int parentId,Long roleId);
 
 }

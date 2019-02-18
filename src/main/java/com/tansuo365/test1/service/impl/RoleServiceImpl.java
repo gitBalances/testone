@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 /*角色服务实现层*/
 @Service
 public class RoleServiceImpl implements RoleService {
+
 	@Resource
 	private RoleMapper roleMapper;
 	@Resource
@@ -59,6 +60,11 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Integer delete(Long id) {
 		return roleMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public Integer deleteByUserId(Long id) {
+		return roleMapper.deleteByUserId(id);
 	}
 
 	@Override

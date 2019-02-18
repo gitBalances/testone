@@ -25,6 +25,9 @@ public interface RoleService {
 
 	public Integer delete(Long id);
 
+	//根据用户id删除所有用户角色关联实体
+	public Integer deleteByUserId(Long id);
+
 	public Role get(Long id);
 
 	public Integer update(Role role);

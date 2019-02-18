@@ -9,6 +9,7 @@ import com.tansuo365.test1.bean.User;
 import com.tansuo365.test1.service.RoleService;
 import com.tansuo365.test1.service.UserRoleService;
 import com.tansuo365.test1.service.UserService;
+import com.tansuo365.test1.util.PasswordEncrypt;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,15 +67,16 @@ public class UserController {
 
 		String password = user.getPassword();
 		// 如果在修改的时候没有设置密码，就表示不改动密码
-		if (user.getPassword().length() != 0) {
-			String salt = new SecureRandomNumberGenerator().nextBytes().toString();
-			int times = 2;
-			String algorithmName = "md5";
-			String encodedPassword = new SimpleHash(algorithmName, password, salt, times).toString();
-			user.setSalt(salt);
-			user.setPassword(encodedPassword);
-		} else
-			user.setPassword(null);
+//		if (user.getPassword().length() != 0) {
+//			String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+//			int times = 2;
+//			String algorithmName = "md5";
+//			String encodedPassword = new SimpleHash(algorithmName, password, salt, times).toString();
+//			user.setSalt(salt);
+//			user.setPassword(encodedPassword);
+//		} else
+//			user.setPassword(null);
+		PasswordEncrypt.encryptPWD(user);
 
 		userService.update(user);
 

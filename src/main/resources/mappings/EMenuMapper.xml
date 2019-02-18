@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tansuo365.test1.mapper.EMenuMapper">
+    <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.EMenu">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="p_id" jdbcType="INTEGER" property="p_id"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, icon, name, state, url, p_id
+  </sql>
+    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.EMenuExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from e_menu
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+
+    <!--动态查询EMenu-->
+    <select id="selectEMenuSelective" parameterType="com.tansuo365.test1.bean.EMenu" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from e_menu
+        <where>
+            <if test="id != null and id != ''">
+                and id= #{id}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon= #{icon}
+            </if>
+            <if test="name != null and name != ''">
+                and name= #{name}
+            </if>
+            <if test="state != null and state != ''">
+                and state= #{state}
+            </if>
+            <if test="url != null and url != ''">
+                and url= #{url}
+            </if>
+            <if test="p_id != null and p_id != ''">
+                and p_id= #{p_id}
+            </if>
+        </where>
+    </select>
+
+    <!--查询所有EMenu-->
+    <select id="selectAllEMenu" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from e_menu
+    </select>
+
+    <!--选择EMenu实例信息通过Role ID-->
+    <select id="selectEMenuByRoleId" resultMap="BaseResultMap">
+        select m.*
+        from role r,e_menu m,role_menu rm
+        where rm.role_id = r.id
+        and
+        rm.menu_id =m.id
+        and
+        r.id = #{roleId}
+    </select>
+
+    <!--选择EMenu的ID通过Role ID-->
+    <select id="selectEIdByRoleId" resultType="java.lang.Integer">
+        select m.id
+        from role r,e_menu m,role_menu rm
+        where rm.role_id = r.id
+        and
+        rm.menu_id =m.id
+        and
+        r.id = #{param1}
+    </select>
+
+    <!--选择EMenu实例通过父节点ID-->
+    <select id="selectEMenuByParentId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from e_menu
+        where p_id = #{param1}
+    </select>
+
+    <select id="selectEMenuByParentIdAndRoleId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from e_menu
+        where p_id = #{param1} and
+        id in (select menu_id from role_menu where role_id= #{param2})
+    </select>
+
+    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.EMenuExample">
+        delete from e_menu
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.EMenu"
+            useGeneratedKeys="true">
+    insert into e_menu (icon, name, state, 
+      url, p_id)
+    values (#{icon,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{p_id,jdbcType=INTEGER})
+  </insert>
+
+    <!--动态插入-->
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.EMenu"
+            useGeneratedKeys="false">
+        insert into e_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != '' ">
+                id,
+            </if>
+            <if test="icon != null and icon != '' ">
+                icon,
+            </if>
+            <if test="name != null and name != '' ">
+                name,
+            </if>
+            <if test="state != null and state != '' ">
+                state,
+            </if>
+            <if test="url != null and url != '' ">
+                url,
+            </if>
+            <if test="p_id != null and p_id != '' ">
+                p_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != '' ">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="icon != null and icon != '' ">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null and name != '' ">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null and state != '' ">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="url != null and url != '' ">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="p_id != null and p_id != '' ">
+                #{p_id,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="countByExample" parameterType="com.tansuo365.test1.bean.EMenuExample" resultType="java.lang.Long">
+        select count(*) from e_menu
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update e_menu
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.icon != null">
+                icon = #{record.icon,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.state != null">
+                state = #{record.state,jdbcType=INTEGER},
+            </if>
+            <if test="record.url != null">
+                url = #{record.url,jdbcType=VARCHAR},
+            </if>
+            <if test="record.p_id != null">
+                p_id = #{record.p_id,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update e_menu
+        set id = #{record.id,jdbcType=INTEGER},
+        icon = #{record.icon,jdbcType=VARCHAR},
+        name = #{record.name,jdbcType=VARCHAR},
+        state = #{record.state,jdbcType=INTEGER},
+        url = #{record.url,jdbcType=VARCHAR},
+        p_id = #{record.p_id,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+
+    <!--动态更新EMenu-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.EMenu">
+        update e_menu
+        <set>
+            <if test="id != null and id != '' ">
+                id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null and icon != '' ">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null and name != '' ">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null and state != '' ">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="url != null and url != '' ">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="p_id != null and p_id != '' ">
+                p_id = #{p_id,jdbcType=INTEGER},
+            </if>
+        </set>
+
+    </update>
+
+
+</mapper>

@@ -11,6 +11,8 @@ import java.util.List;
 public interface RoleMapper {
 
 	int deleteByPrimaryKey(Long id);
+	/*根据用户id删除user_role数据对应关系元组 */
+	int deleteByUserId(Long id);
 
 	int insert(Role record);
 

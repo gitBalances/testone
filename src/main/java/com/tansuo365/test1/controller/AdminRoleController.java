@@ -17,10 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /*管理员角色控制层*/
@@ -91,7 +88,7 @@ public class AdminRoleController {
             return resultMap;
         }else{
             resultMap.put("success",false);
-            resultMap.put("errorInfo","保存失败!(⊙o⊙)？");
+            resultMap.put("errorInfo","保存失败!");
             return resultMap;
         }
     }
@@ -111,24 +108,42 @@ public class AdminRoleController {
             resultMap.put("success",true);
         }else{
             resultMap.put("success",false);
-            resultMap.put("errorInfo","删除失败了(⊙o⊙)？");
+            resultMap.put("errorInfo","删除失败了");
         }
         return resultMap;
     }
 
 
     /**
-     * 根据父节点获取所有复选框权限菜单树
+     * 根据父节点获取所有复选框权限菜单树 Array
      * @param parentId
      * @param roleIds
      * @return
      * @throws Exception
      */
-    @RequestMapping("/loadCheckMenuInfo")
-    public String loadCheckMenuInfo(Integer parentId,Integer[] roleIds)throws Exception{
+    @RequestMapping("/loadCheckMenuInfoArray")
+    public String loadCheckMenuInfoArray(Integer parentId,Integer[] roleIds)throws Exception{
         //根据角色查询所有权限菜单id信息(已在impl去重),首先要获取用户的roleid(集合)
         List<Integer> menuIdList = eMenuService.findMenuIdListByRoleIds(roleIds);
         return getAllCheckedEMenuByParentId(parentId,menuIdList).toString();
+    }
+
+    /**
+     * 根据父节点获取所有复选框权限菜单树
+     * @param parentId
+     * @param
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/loadCheckMenuInfo")
+    public String loadCheckMenuInfo(Integer parentId,Long roleId)throws Exception{
+        List<EMenu> eMenuList = eMenuService.findMenuListByRoleId(roleId);
+        List<Integer> eMenuIdList = new ArrayList<>();
+        for(EMenu eMenu:eMenuList){
+            Integer id = eMenu.getId();
+            eMenuIdList.add(id);
+        }
+        return getAllCheckedEMenuByParentId(parentId,eMenuIdList).toString();
     }
 
 
@@ -187,7 +202,6 @@ public class AdminRoleController {
         int count = 0;
         if(StringUtil.isNotEmpty(menuIds)){
             String idsStr[] = menuIds.split(",");
-
             for(int i=0;i<idsStr.length;i++){
                 RoleMenu roleMenu = new RoleMenu();
                 //设置传入的roleid到role_menu表

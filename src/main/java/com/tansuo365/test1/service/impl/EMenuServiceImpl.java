@@ -89,4 +89,9 @@ public class EMenuServiceImpl implements EMenuService {
         }
         return eMenuList;
     }
+
+    @Override
+    public List<EMenu> findByParentIdAndSingleRoleId(int parentId, Long roleId) {
+        return eMenuMapper.selectEMenuByParentIdAndRoleId(parentId,roleId);
+    }
 }

@@ -83,10 +83,17 @@
     </where>
   </select>
 
+  <!--根据roleid删除角色-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from role
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
+  <!--根据用户id删除user_role数据-->
+  <delete id="deleteByUserId" parameterType="java.lang.Long">
+    delete from user_role where uid = #{param1}
+  </delete>
+
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.Role" useGeneratedKeys="true">
     insert into role (name, desc_)
     values (#{name,jdbcType=VARCHAR}, #{desc_,jdbcType=VARCHAR})

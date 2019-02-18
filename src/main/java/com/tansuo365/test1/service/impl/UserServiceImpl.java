@@ -5,6 +5,7 @@ import com.tansuo365.test1.bean.UserExample;
 import com.tansuo365.test1.mapper.UserMapper;
 import com.tansuo365.test1.service.UserRoleService;
 import com.tansuo365.test1.service.UserService;
+import com.tansuo365.test1.util.PasswordEncrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,10 @@ public class UserServiceImpl implements UserService {
 	//添加用户
 	@Override
 	public Integer add(User u) {
+		//加密
+		PasswordEncrypt.encryptPWD(u);
 		return userMapper.insert(u);
+
 	}
 
 	@Override
@@ -59,6 +63,7 @@ public class UserServiceImpl implements UserService {
 	//更新用户
 	@Override
 	public Integer update(User u) {
+		PasswordEncrypt.encryptPWD(u);
 		return userMapper.updateByPrimaryKeySelective(u);
 	}
 

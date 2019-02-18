@@ -99,6 +99,7 @@ public class ShiroConfiguration {
 //        //配置映射关系 anon表示不需要权限即可访问
 //        filterChainDefinitionMap.put("/user/login", "anon");
         filterChainDefinitionMap.put("/admin/login", "anon");
+        filterChainDefinitionMap.put("/admin/loginadmin", "anon");
 ////        filterChainDefinitionMap.put("/admin/index", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/admin/config/**", "anon");

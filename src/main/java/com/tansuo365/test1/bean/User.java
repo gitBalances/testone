@@ -43,4 +43,19 @@ public class User implements Serializable,MyLoginInstance {
 	public String getInstanceSalt() {
 		return salt;
 	}
+
+	@Override
+	public void setInstanceName(String username) {
+		this.name = username;
+	}
+
+	@Override
+	public void setInstancePassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public void setInstanceSalt(String salt) {
+		this.salt = salt;
+	}
 }

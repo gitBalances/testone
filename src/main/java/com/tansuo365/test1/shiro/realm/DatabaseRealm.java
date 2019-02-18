@@ -59,9 +59,9 @@ public class DatabaseRealm extends AuthorizingRealm {
 		String username = (String) principalCollection.getPrimaryPrincipal();
 		/*通过用户名获取用户role实例*/
 		List<Role> roleList = roleService.listRoles(username);
-		if (roleList.size() > 0) {
+//		if (roleList.size() > 0) {
 			roles = new HashSet<>();
-		}
+//		}
 		for (Role role : roleList) {
 			roles.add(role.getName());//加入role角色名到Set集合roles
 			List<EMenu> eMenuList = eMenuService.findMenuListByRoleId(role.getId());
@@ -70,6 +70,7 @@ public class DatabaseRealm extends AuthorizingRealm {
 			}
 		}
 		info.setRoles(roles);
+		System.out.println("info:"+info.toString());
 		return info;
 	}
 

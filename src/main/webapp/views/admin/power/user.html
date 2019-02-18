@@ -39,17 +39,21 @@
             var userId = $("#userId").val();
             var selectedRows = $("#roleDg").datagrid("getSelections");
             var strRoleIds = [];
-            for (var i = 0; i < selectedRows.length; i++) {
+            var length = selectedRows.length;
+            // alert(length);
+            for (var i = 0; i < length; i++) {
                 strRoleIds.push(selectedRows[i].id);
             }
-            var roleIds = strRoleIds.join(",");
+            if (length > 0) {
+                var roleIds = strRoleIds.join(",");
+            }
             //@AdminUserController @saveRoleSet(String roleIds, Long userId)
             $.post("/admin/user/saveRoleSet", {roleIds: roleIds, userId: userId}, function (result) {
                 if (result.success) {
                     closeRoleSetDialog();
                     $("#dg").datagrid("reload");
                 } else {
-                    $.messager.alert("系统提示", "提交失败，请联系管理员！");
+                    $.messager.alert("系统提示", result.errorInfo );
                 }
             }, "json");
         }
@@ -57,7 +61,6 @@
         function closeRoleSetDialog() {
             $("#roleSetDialog").dialog("close");
         }
-
 
         function deleteUser() {
             var selectedRows = $("#dg").datagrid("getSelections");
@@ -81,7 +84,6 @@
             });
         }
 
-
         function openUserAddDialog() {
             $("#dlg").dialog("open").dialog("setTitle", "添加用户信息");
             //@AdminUserController saveUser(User user)
@@ -97,9 +99,25 @@
             var row = selectedRows[0];
             $("#dlg").dialog("open").dialog("setTitle", "修改用户信息");
             $("#fm").form("load", row);
-            $("#name").attr("readonly", "readonly")
+            $("#name").attr("readonly", "readonly");
+            AESPWD();
             //@AdminUserController saveUser(User user)
             url = "/admin/user/saveUser?id=" + row.id;
+        }
+
+        //aes加密
+        function AESPWD() {
+            // alert($("#password").val());
+            $.ajax({
+                url: "/admin/user/getPrimevalPWD",
+                method: "post",
+                data: {"pwd": $("#password").val()},
+                dataType: "text",
+                success: function (data) {
+                    $("#password").val(data);
+                }
+
+            })
         }
 
         //@AdminUserController saveUser(User user)
@@ -112,7 +130,7 @@
                 success: function (result) {
                     var result = eval('(' + result + ')');
                     if (result.success) {
-                        $.messager.alert("系统提示", result.saveMessage );
+                        $.messager.alert("系统提示", result.saveMessage);
                         resetValue();
                         $("#dlg").dialog("close");
                         $("#dg").datagrid("reload");
@@ -123,9 +141,8 @@
             });
         }
 
-
         function resetValue() {
-            $("#uname").val("");
+            $("#name").val("");
             $("#password").val("");
             // $("#trueName").val(""); TODO 将user数据库表完善殆尽
             $("#remarks").val("");
@@ -142,7 +159,6 @@
             });
         }
 
-
         $(function () {
 
             $("#dg").datagrid({
@@ -155,8 +171,6 @@
                     url = "/admin/user/saveUser?id=" + row.id;
                 }
             });
-
-
         });
     </script>
 </head>
@@ -169,7 +183,7 @@
     <tr>
         <th field="id" width="20" align="center">编号</th>
         <th field="name" width="50" align="center">用户名</th>
-        <th field="password" width="50" align="center">密码</th>
+        <!--<th field="password" width="50" align="center">密码</th>-->
         <!--<th field="trueName" width="50" align="center">真实姓名</th>-->
         <th field="remarks" width="80" align="center">备注</th>
         <th field="roles" width="150" align="center">拥有角色</th>
@@ -197,18 +211,19 @@
         <table cellspacing="8px">
             <tr>
                 <td>用户名：</td>
-                <td><input type="text" id="uname" name="name" class="easyui-validatebox" required="true"/></td>
+                <!--用户名更改时只读-->
+                <td><input type="text" id="name" name="name" class="easyui-validatebox" required="true"/></td>
             </tr>
             <tr>
                 <td>密码：</td>
                 <td><input type="text" id="password" name="password" class="easyui-validatebox" required="true"
-                           style="width: 250px"/></td>
+                           style="width: 250px"/><br/><span>如忘记密码请联系管理员进行更改</span></td>
             </tr>
-           <!-- <tr>
-                <td>真实姓名：</td>
-                <td><input type="text" id="trueName" name="trueName" class="easyui-validatebox" required="true"
-                           style="width: 250px"/></td>
-            </tr>-->
+            <!-- <tr>
+                 <td>真实姓名：</td>
+                 <td><input type="text" id="trueName" name="trueName" class="easyui-validatebox" required="true"
+                            style="width: 250px"/></td>
+             </tr>-->
             <tr>
                 <td valign="top">备注：</td>
                 <td>
@@ -234,7 +249,7 @@
             <th field="cb" checkbox="true" align="center"></th>
             <th field="id" width="50" align="left" hidden="true">编号</th>
             <th field="name" width="100" align="left">角色名称</th>
-            <th field="remarks" width="200" align="left">备注</th>
+            <th field="desc_" width="200" align="left">备注</th>
         </tr>
         </thead>
     </table>

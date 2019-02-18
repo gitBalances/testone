@@ -1,0 +1,555 @@
+﻿<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>石油焦信息管理</title>
+    <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/themes/icon.css" rel="stylesheet"/>
+    <link href="/css/xwb_list.css" rel="stylesheet"/>
+    <link href="/css/themes/color.css" rel="stylesheet"/>
+    <link href="/css/wm.css" rel="stylesheet"/>
+    <!--<script src="/script/jquery.min.js"></script>-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="/script/jquery.easyui.min.js"></script>
+    <script src="/script/easyui-lang-zh_CN.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/jquery.serializejson.js"></script>
+    <!--<script src="/js/xlsx.core.min.js"></script>-->
+
+    <script src="/js/jquery.ocupload-1.1.2.js"></script>
+
+
+</head>
+<body>
+
+<!-- 条件查询 -->
+<div>
+    <form id="searchform" method="post">
+        <table id="sec">
+            <tr>
+                <!--列举所有可查询字段-->
+                <!--<td>id：</td>
+                <td><input type="text" name="id" class="easyui-textbox" value=""/></td>-->
+                <td>省份：</td>
+                <td><input type="text" name="province" class="easyui-textbox" value=""/></td>
+                <td>公司名称:</td>
+                <td><input type="text" name="company" class="easyui-textbox" value=""/></td>
+                <td>硫含量_%:</td>
+                <td><input type="text" name="sulfur" class="easyui-textbox" value=""/></td>
+                <td>灰分_%:</td>
+                <td><input type="text" name="ash" class="easyui-textbox" value=""/></td>
+                <td>挥发分_%:</td>
+                <td><input type="text" name="volatile_matter" class="easyui-textbox" value=""/></td>
+                <td>扣水率_%:</td>
+                <td><input type="text" name="wdr" class="easyui-textbox" value=""/></td>
+
+            </tr>
+
+            <tr>
+                <td>钒含量_ppm:</td>
+                <td><input type="text" name="vanadium" class="easyui-textbox" value=""/></td>
+                <td>真密度_g/cm³:</td>
+                <td><input type="text" name="density" class="easyui-textbox" value=""/></td>
+                <td>粉焦量_%:</td>
+                <td><input type="text" name="coke_content" class="easyui-textbox" value=""/></td>
+                <!-- <td>海绵焦/弹丸焦:</td>
+                 <td><input type="text" name="coke_type" class="easyui-textbox" value=""/></td>-->
+                <td>类型:</td>
+                <td>
+                    <!--<input class="easyui-combobox" data-options="
+                        valueField: 'label',
+                        textField: 'value',
+                        data: [{
+                            label: '海绵焦',
+                            value: '海绵焦'
+                        },{
+                            label: '弹丸焦',
+                            value: '弹丸焦'
+                        }]"/>-->
+                    <select class="easyui-combobox" name="coke_type" panelHeight="auto"/>
+                    <option value=""></option>
+                    <option value="海绵焦">海绵焦</option>
+                    <option value="弹丸焦">弹丸焦</option>
+                    </select>
+                </td>
+                <td>今日报价:</td>
+                <td><input type="text" name="today_price" class="easyui-textbox" value=""/></td>
+                <td>备注:</td>
+                <td><input type="text" name="remarks" class="easyui-textbox" value=""/></td>
+
+            </tr>
+            <tr>
+                <td>品级:</td>
+                <td>
+                    <select class="easyui-combobox" name="grade" panelHeight="auto"/>
+                    <option value=""></option>
+                    <option value="1号">1号</option>
+                    <option value="2A">2A</option>
+                    <option value="2B">2B</option>
+                    <option value="3A">3A</option>
+                    <option value="3B">3B</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+
+                <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
+                   style="width:70px">查询</a>
+                <!--<button  type="reset" id="" class="easyui-linkbutton c1"
+                         style="width:70px" >重置</button>-->
+
+                <a href="javascript:window.location.reload()" class="easyui-linkbutton c1" style="width:70px">重置</a>
+                </td>
+
+                <!--<input id="import_excel" type="file" class="easyui-linkbutton c1"-->
+                <!--style="width:70px" value="导入excel" onchange="importExcel(this)"/>-->
+                <a href="javascript:void(0)" id="export_excel" class="easyui-linkbutton c1"
+                   style="width:70px">导出数据</a>
+
+                <!--<a href="javascript:void(0)" id="import_excel1" class="easyui-linkbutton c1" onclick="showUpload()"-->
+                <!--style="width:70px">导入数据</a>-->
+
+                <a id="uploadExcel" class="easyui-linkbutton c1" onclick="uploadidalogonline()">导入数据</a>
+
+
+                <div id="uploadonlineinfo" class="easyui-window" style="width:380px;padding:10px 40px" closed="true">
+
+                    <form id="fam" method="post" enctype="multipart/form-data">
+
+                        <!--<input class="easyui-filebox" id="onlinefilename" name="onlinefilename" data-options="prompt:'文件上传'"-->
+                        <!--style="width:100%" />-->
+                        <input type="file"
+                               id="uploadfile" name="uploadfile" style="width:100%"/>
+                    </form>
+
+                    <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">
+                        <button id="uploadBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
+                                style="width:80px">上传
+                        </button>
+                    </div>
+                </div>
+
+
+                <script type="text/javascript" th:inline="none">
+
+
+
+                    $("#uploadBtn").click(uploadonline);
+
+                    function uploadidalogonline() {
+                        $('#uploadonlineinfo').window('open').dialog('setTitle', '文件上传');
+                    }
+
+                    function uploadonline() {
+
+                        // var add = '/excel/importExcel';
+                        var uploadFile = $("#uploadfile")[0].files[0];
+                        console.log(uploadFile);
+                        var formData = new FormData();
+                        formData.append("uploadFile", uploadFile);
+                        console.log(formData);
+                        // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
+                        $.ajax({
+                            url: '/excel/importExcel',
+                            type: 'POST',
+                            data: formData,
+                            async: false,
+                            cache: false,
+                            contentType: false, //不设置内容类型
+                            processData: false, //不处理数据
+                            success: function (data) {
+                                // alert(data);
+                                if(data > 0){
+                                    $("#booten").linkbutton('enable');
+                                    $('#uploadonlineinfo').dialog('close');
+                                    $('#dg').datagrid('reload');
+                                }
+                            }
+                        })
+                    }
+                </script>
+
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+<table id="dg" title="石油焦展示">
+
+</table>
+<div id="toolbar">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增数据</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeUser()">删除数据</a>
+</div>
+<!-- 石油焦弹出窗口 -->
+<div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px"
+     closed="true" buttons="#dlg-buttons">
+    <div class="ftitle">石油焦信息</div>
+
+    <form id="fm" method="post" novalidate>
+        <div class="fitem" hidden="hidden">
+            <label>主键:</label>
+            <input name="id" class="easyui-validatebox">
+        </div>
+
+        <div class="fitem">
+            <label>省份:</label>
+            <input name="province" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>企业名称:</label>
+            <input name="company" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>简称:</label>
+            <input name="s_company" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>硫含量_%:</label>
+            <input name="sulfur" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>灰分_%:</label>
+            <input name="ash" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>挥发分_%:</label>
+            <input name="volatile_matter" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>扣水率_%:</label>
+            <input name="wdr" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>钒含量_ppm:</label>
+            <input name="vanadium" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>真密度_g/cm³:</label>
+            <input name="density" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>粉焦量_%:</label>
+            <input name="coke_content" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>类型:</label>
+            <select class="easyui-combobox" name="coke_type" panelHeight="auto" required="true">
+                <option value="海绵焦">海绵焦</option>
+                <option value="弹丸焦">弹丸焦</option>
+            </select>
+        </div>
+
+
+        <div class="fitem">
+            <label>今日报价:</label>
+            <input name="today_price" class="easyui-validatebox" required="true">
+        </div>
+
+        <div class="fitem">
+            <label>备注:</label>
+            <input name="remarks" class="easyui-validatebox">
+        </div>
+
+
+    </form>
+</div>
+<div id="dlg-buttons">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
+       onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+</div>
+
+<script th:inline="none">
+
+    $('#dg').datagrid({
+        url: '/petroleumCoke/selectPetroleumCokeSelective',
+        toolbar: '#toolbar',
+        pagination: 'true',
+        pageSize: 10,
+        pageList: [5, 10, 15, 20],
+        rownumbers: 'true',
+        fitColumns: 'true',
+        // singleSelect: 'true',
+        checkbox: 'true',
+        idField: 'id',
+        collapsible: 'true',
+        iconCls: 'icon-save',
+        // onCheckAll: 'addcheckItem',
+        // onCheck:'addcheckItem',
+        // onUncheckAll: 'removeAllItem',
+        // onUncheck: 'removeSingleItem',
+        // remoteSort:'true',
+        queryParams: form2Json('searchform'),
+
+        columns: [[
+
+            {field: 'id', align: 'center', title: '数据序列号', hidden: true},
+            {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
+            {field: 'grade', title: '品级', width: 30},
+            {field: 'province', title: '省份', width: 50},
+            {field: 'company', title: '企业名', width: 100},
+            {field: 's_company', title: '简称', width: 50},
+            {field: 'sulfur', title: '硫含量_%', width: 50},
+            {field: 'ash', title: '灰分_%', width: 50},
+            {field: 'volatile_matter', title: '挥发分_%', width: 50},
+            {field: 'wdr', title: '扣水率_%', width: 50},
+            {field: 'vanadium', title: '钒含量ppm', width: 50},
+            {field: 'density', title: '真密度g/cm³', width: 50},
+            {field: 'coke_content', title: '粉焦量', width: 50},
+            {field: 'coke_type', title: '类型', width: 60},
+            {field: 'today_price', title: '今日报价', width: 100},
+            {field: 'remarks', title: '备注', width: 100},
+            {field: 'create_time', title: '创建时间', width: 100},
+            {field: 'update_time', title: '更新时间', width: 100}
+        ]]
+    });
+
+    function form2Json(id) {
+
+        var arr = $("#" + id).serializeArray();
+        var jsonStr = "";
+
+        jsonStr += '{';
+        for (var i = 0; i < arr.length; i++) {
+            jsonStr += '"' + arr[i].name + '":"' + arr[i].value + '",'
+        }
+        jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
+        jsonStr += '}'
+
+        var json = JSON.parse(jsonStr);
+        return json;
+    }
+</script>
+
+<script type="text/javascript">
+    var url;
+
+    function newUser() {
+        //打开添加新闻 窗口
+        $('#dlg').dialog('open').dialog('setTitle', '插入数据');
+        //把form表单的内容给清空
+        $('#fm').form('clear');
+        //给url赋值
+        url = '/petroleumCoke/insertSelective';
+    }
+
+    function editUser() {
+        //获得 选中的行
+        var row = $('#dg').datagrid('getSelected');
+        // 是否选中
+        if (row) {
+            //打开窗口
+            $('#dlg').dialog('open').dialog('setTitle', '信息修改');
+            //让from 表单去加载 选中行的数据
+            $('#fm').form('load', row);
+            //修改的地址
+            url = '/petroleumCoke/updateByPrimaryKeySelective';
+        }
+    }
+
+    function saveUser() {
+        $('#fm').form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form('validate');
+            },
+            success: function (result) {
+
+                if (result > 0) {
+                    $.messager.alert('操作结果', '成功');
+                    //关闭添加新闻窗口
+                    $('#dlg').dialog('close');		// close the dialog
+                    //重新加载数据
+                    $('#dg').datagrid('reload');	// reload the data
+                } else {
+                    $.messager.alert('操作结果', '失败');
+                }
+            }
+        });
+    }
+
+    function removeUser() {
+        //获得选中记录 多选
+        var row = $('#dg').datagrid('getSelections');
+        console.log("row(s) -> " + JSON.stringify(row));
+        if (row) {
+            $.messager.confirm('确认按钮', '你确定要删除该数据?', function (r) {
+                if (r) {
+
+                    var ids = [];
+                    for (var i = 0; i < row.length; i++) {
+                        ids.push(row[i].id);
+                    }
+
+                    $.ajax({
+                        url: '/petroleumCoke/deleteBatchByPKs',
+                        dataType: 'json',
+                        data: {'ids': ids},
+                        type: 'POST',
+                        success: function (data) {
+                            if (data.code == '1') {
+                                $.messager.alert('提示消息', '删除失败', 'info');
+                            } else {
+                                $('#dg').datagrid('reload');
+                                $.messager.alert('提示消息', '删除成功', 'info');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    $("#submit_search").click(function () {
+        $('#dg').datagrid({url: "/petroleumCoke/selectPetroleumCokeSelective", queryParams: form2Json("searchform")});   //点击搜索
+    });
+
+
+    // 导出excel按钮
+    $("#export_excel").click(exportExcel);
+
+
+    // 导出excel
+    function exportExcel() {
+        //获得选中记录 多选
+        var row = $('#dg').datagrid('getSelections');
+        console.log("row(s) -> " + JSON.stringify(row));
+        if (row) {
+            $.messager.confirm('确认按钮', '你确定要导出该数据?', function (r) {
+                if (r) {
+                    downloadExl(row);
+                }
+            })
+        }
+    }
+
+    function downloadExl(data, type) {
+        var keys = Object.keys(data[0]);
+        var firstRow = {};
+        keys.forEach(function (item) {
+            console.log("item:" + item);
+            firstRow[item] = item;
+        });
+        data.unshift(firstRow);
+
+        var content = {};
+
+        //把json格式的数据转换为excel的行列形式
+        var sheetsData = data.map(function (item, rowIndex) {
+            return keys.map(function (key, columnIndex) {
+                return Object.assign({}, {
+                    value: item[key],
+                    position: (columnIndex > 25 ? getCharCol(columnIndex) : String.fromCharCode(65 + columnIndex)) + (rowIndex + 1),
+                });
+            });
+        }).reduce(function (prev, next) {
+            return prev.concat(next);
+        });
+
+        sheetsData.forEach(function (item, index) {
+            content[item.position] = {v: item.value};
+            // if (item.value == 'id') {
+            //     content[item.position] = {v: '序列号'};
+            // } else if (item.value == 'grade') {
+            //     content[item.position] = {v: '品级'};
+            // } else if (item.valu e == 'province') {
+            //     content[item.position] = {v: '省份'};
+            // } else if (item.value == 'company') {
+            //     content[item.position] = {v: '企业'};
+            // } else if (item.value == 's_company') {
+            //     content[item.position] = {v: '简称'};
+            // } else if (item.value == 'sulfur') {
+            //     content[item.position] = {v: '硫含量%'};
+            // } else if (item.value == 'ash') {
+            //     content[item.position] = {v: '灰分%'};
+            // } else if (item.value == 'volatile_matter') {
+            //     content[item.position] = {v: '挥发分%'};
+            // } else if (item.value == 'wdr') {
+            //     content[item.position] = {v: '扣水率%'};
+            // } else if (item.value == 'vanadium') {
+            //     content[item.position] = {v: '钒含量ppm'};
+            // } else if (item.value == 'density') {
+            //     content[item.position] = {v: '真密度g/cm³'};
+            // } else if (item.value == 'coke_content') {
+            //     content[item.position] = {v: '粉焦量'};
+            // } else if (item.value == 'coke_type') {
+            //     content[item.position] = {v: '类型'};
+            // } else if (item.value == 'today_price') {
+            //     content[item.position] = {v: '今日报价(元)'};
+            // } else if (item.value == 'remarks') {
+            //     content[item.position] = {v: '备注'};
+            // } else if (item.value == 'create_time') {
+            //     content[item.position] = {v: '创建时间'};
+            // } else if (item.value == 'update_time') {
+            //     content[item.position] = {v: '更新时间'};
+            // }
+        });
+
+        //设置区域,比如表格从A1到D10,SheetNames:标题
+        var coordinate = Object.keys(content);
+        var workBook = {
+            SheetNames: ["1"],
+            Sheets: {
+                "1": Object.assign({}, content, {"!ref": coordinate[0] + ":" + coordinate[coordinate.length - 1]}),
+            }
+        };
+
+
+        //这里的数据是用来定义导出的格式类型
+        var excelData = XLSX.write(workBook, {bookType: "xlsx", bookSST: false, type: "binary"});
+        var blob = new Blob([string2ArrayBuffer(excelData)], {type: ""});
+
+        // filename = "石油焦";
+        $.messager.prompt("输入框", "请输入保存文件名.", function (filename) {
+            if (filename) {
+                var nowTime = new Date().toLocaleDateString();
+                saveAs(blob, filename + nowTime + ".xlsx"); //文件名
+            }
+        });
+
+    }
+
+    //字符串转字符流
+    function string2ArrayBuffer(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) {
+            view[i] = s.charCodeAt(i) & 0xFF;
+        }
+        return buf;
+    }
+
+    //将指定的自然数转换为26进制表示. 映射关系: [0-25] -> [A-Z]
+    function getCharCol(n) {
+        var temCol = "",
+            s = "",
+            m = 0;
+        while (n > 0) {
+            m = n % 26 + 1;
+            s = String.fromCharCode(m + 64) + s;
+            n = (n - m) / 26;
+        }
+        return s;
+    }
+
+
+</script>
+
+
+</body>
+</html>
