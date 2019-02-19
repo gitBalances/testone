@@ -1,7 +1,7 @@
 package com.tansuo365.test1.mapper;
 
-import com.tansuo365.test1.bean.RoleMenu;
-import com.tansuo365.test1.bean.RoleMenuExample;
+import com.tansuo365.test1.bean.user.RoleMenu;
+import com.tansuo365.test1.bean.user.RoleMenuExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

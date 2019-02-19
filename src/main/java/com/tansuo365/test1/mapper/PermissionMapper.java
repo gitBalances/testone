@@ -1,7 +1,7 @@
 package com.tansuo365.test1.mapper;
 
-import com.tansuo365.test1.bean.Permission;
-import com.tansuo365.test1.bean.PermissionExample;
+import com.tansuo365.test1.bean.user.Permission;
+import com.tansuo365.test1.bean.user.PermissionExample;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

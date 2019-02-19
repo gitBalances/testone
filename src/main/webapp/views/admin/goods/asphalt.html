@@ -232,7 +232,7 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/petroleumCoke/selectPetroleumCokeSelective',
+        url: '/mAsphalt/selectSelective',
         toolbar: '#toolbar',
         pagination: 'true',
         pageSize: 10,
@@ -298,7 +298,7 @@
         //把form表单的内容给清空
         $('#fm').form('clear');
         //给url赋值
-        url = '/petroleumCoke/insertSelective';
+        url = '/mAsphalt/insertSelective';
     }
 
     function editUser() {
@@ -311,7 +311,7 @@
             //让from 表单去加载 选中行的数据
             $('#fm').form('load', row);
             //修改的地址
-            url = '/petroleumCoke/updateByPrimaryKeySelective';
+            url = '/mAsphalt/updateByPrimaryKeySelective';
         }
     }
 
@@ -350,16 +350,19 @@
                     }
 
                     $.ajax({
-                        url: '/petroleumCoke/deleteBatchByPKs',
+                        url: '/mAsphalt/deleteBatchByPKs',
                         dataType: 'json',
                         data: {'ids': ids},
                         type: 'POST',
                         success: function (data) {
-                            if (data.code == '1') {
-                                $.messager.alert('提示消息', '删除失败', 'info');
-                            } else {
+                            if (data > 0) {
+                                $.messager.alert('提示消息', '删除成功');
                                 $('#dg').datagrid('reload');
-                                $.messager.alert('提示消息', '删除成功', 'info');
+                                $('#dg').datagrid('clearSelections');
+                            } else {
+                                $.messager.alert('提示消息', '删除失败');
+                                $('#dg').datagrid('reload');
+                                $('#dg').datagrid('clearSelections');
                             }
                         }
                     });
@@ -369,7 +372,7 @@
     }
 
     $("#submit_search").click(function () {
-        $('#dg').datagrid({url: "/petroleumCoke/selectPetroleumCokeSelective", queryParams: form2Json("searchform")});   //点击搜索
+        $('#dg').datagrid({url: "/mAsphalt/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
     });
 
 

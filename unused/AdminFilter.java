@@ -1,6 +1,6 @@
 //package com.tansuo365.test1.unused;
 //
-//import com.tansuo365.test1.service.PermissionService;
+//import com.tansuo365.test1.service.user.PermissionService;
 //import org.apache.shiro.SecurityUtils;
 //import org.apache.shiro.authz.UnauthorizedException;
 //import org.apache.shiro.subject.Subject;

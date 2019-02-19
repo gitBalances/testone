@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tansuo365.test1.mapper.PetroleumCokeMapper">
-    <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.PetroleumCoke">
-        <id column="id" jdbcType="VARCHAR" property="id"/>
+<mapper namespace="com.tansuo365.test1.mapper.goods.PetroleumCokeMapper">
+    <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.goods.PetroleumCoke">
+        <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="company" jdbcType="VARCHAR" property="company"/>
         <result column="s_company" jdbcType="VARCHAR" property="s_company"/>
@@ -87,7 +87,7 @@
     today_price, remarks, grade, expand_2, expand_3, create_time, update_time, density, 
     coke_content
   </sql>
-    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.PetroleumCokeExample"
+    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.goods.PetroleumCokeExample"
             resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -111,14 +111,14 @@
     </select>
 
     <!--查询所有-->
-    <select id="selectAllPetroleumCoke" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from petroleum_coke_tbl
     </select>
 
     <!--动态查询-->
-    <select id="selectPetroleumCokeSelective" parameterType="com.tansuo365.test1.bean.PetroleumCoke"
+    <select id="selectGoodsSelective" parameterType="com.tansuo365.test1.bean.goods.PetroleumCoke"
             resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -178,13 +178,14 @@
         </where>
     </select>
 
+    <!--根据主键删除元组-->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from petroleum_coke_tbl
     where id = #{id,jdbcType=VARCHAR}
   </delete>
 
     <!--批量删除-->
-    <delete id="deleteBatchByPKArr" parameterType="java.lang.Long">
+    <delete id="deleteBatchByPKArr" parameterType="java.lang.String">
         delete from petroleum_coke_tbl
         where id in
         <foreach item="ids" index="index" collection="array" open="(" separator="," close=")">
@@ -193,14 +194,14 @@
     </delete>
 
 
-    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.PetroleumCokeExample">
+    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.goods.PetroleumCokeExample">
         delete from petroleum_coke_tbl
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
 
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.PetroleumCoke"
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.PetroleumCoke"
             useGeneratedKeys="true">
     insert into petroleum_coke_tbl (province, company, s_company,
       sulfur, ash, volatile_matter, 
@@ -219,7 +220,7 @@
   </insert>
 
     <!--动态插入数据-->
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.PetroleumCoke"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.PetroleumCoke"
             useGeneratedKeys="true">
         insert into petroleum_coke_tbl
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -478,7 +479,7 @@
         </trim>
     </insert>
 
-    <select id="countByExample" parameterType="com.tansuo365.test1.bean.PetroleumCokeExample"
+    <select id="countByExample" parameterType="com.tansuo365.test1.bean.goods.PetroleumCokeExample"
             resultType="java.lang.Long">
         select count(*) from petroleum_coke_tbl
         <if test="_parameter != null">
@@ -577,7 +578,7 @@
     </update>
 
     <!--动态更新数据-->
-    <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.PetroleumCoke">
+    <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.goods.PetroleumCoke">
         update petroleum_coke_tbl
         <set>
             <if test="province != null and province != '' ">
@@ -635,17 +636,17 @@
                 coke_content = #{coke_content,jdbcType=DOUBLE},
             </if>
         </set>
-        where id = #{id,jdbcType=VARCHAR}
+        where id = #{id}
     </update>
 
     <!--更改grade品级-->
     <update id="updateGradeByPrimaryKey">
     update petroleum_coke_tbl
     set grade = #{grade,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.PetroleumCoke">
+    <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.goods.PetroleumCoke">
     update petroleum_coke_tbl
     set province = #{province,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR},

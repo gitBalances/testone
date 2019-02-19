@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tansuo365.test1.mapper.CalcinedCokeMapper">
-  <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.CalcinedCoke">
+<mapper namespace="com.tansuo365.test1.mapper.goods.CalcinedCokeMapper">
+  <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.goods.CalcinedCoke">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="company" jdbcType="VARCHAR" property="company" />
@@ -86,7 +86,7 @@
     vanadium, granularity, today_price, remarks, create_time, update_time, expand_1, 
     expand_2, expand_3, reporter
   </sql>
-  <select id="selectByExample" parameterType="com.tansuo365.test1.bean.CalcinedCokeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -107,17 +107,87 @@
     from calcined_coke_tbl
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <!--动态查询-->
+  <select id="selectGoodsSelective" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from calcined_coke_tbl
+    <where>
+      <if test="id != null and id !='' ">
+        and id = #{id}
+      </if>
+      <if test="province != null and province !='' ">
+        and province = #{province}
+      </if>
+      <if test="company != null and company !='' ">
+        and company = #{company}
+      </if>
+      <if test="s_company != null and s_company != '' ">
+        and s_company = #{s_company}
+      </if>
+      <if test="sulfur != null and sulfur !='' ">
+        and sulfur = #{sulfur}
+      </if>
+      <if test="ash != null and ash !='' ">
+        and ash = #{ash}
+      </if>
+      <if test="volatile_matter != null and volatile_matter !='' ">
+        and volatile_matter = #{volatile_matter}
+      </if>
+      <if test="water != null and water !='' ">
+        and water = #{water}
+      </if>
+      <if test="density != null and density !='' ">
+        and density = #{density}
+      </if>
+      <if test="p_resistivity != null and p_resistivity !='' ">
+        and p_resistivity = #{p_resistivity}
+      </if>
+      <if test="vanadium != null and vanadium !='' ">
+        and vanadium = #{vanadium}
+      </if>
+      <if test="granularity != null and granularity !='' ">
+        and granularity = #{granularity}
+      </if>
+      <if test="today_price != null and today_price !='' ">
+        and today_price = #{today_price}
+      </if>
+      <if test="remarks != null and remarks !='' ">
+        and remarks = #{remarks}
+      </if>
+      <if test="create_time != null and create_time !='' ">
+        and create_time = #{create_time}
+      </if>
+      <if test="update_time != null and update_time !='' ">
+        and update_time = #{update_time}
+      </if>
+      <if test="reporter != null and reporter != '' ">
+        and reporter = #{reporter}
+      </if>
+    </where>
+  </select>
+
+
+  <!--查询所有-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from calcined_coke_tbl
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from calcined_coke_tbl
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.CalcinedCokeExample">
+  <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample">
     delete from calcined_coke_tbl
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.CalcinedCoke" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke" useGeneratedKeys="true">
     insert into calcined_coke_tbl (province, company, s_company, 
       sulfur, ash, volatile_matter, 
       water, density, p_resistivity, 
@@ -133,7 +203,7 @@
       #{expand_1,jdbcType=BIT}, #{expand_2,jdbcType=BIT}, #{expand_3,jdbcType=BIT}, #{reporter,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.CalcinedCoke" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke" useGeneratedKeys="true">
     insert into calcined_coke_tbl
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="province != null">
@@ -254,7 +324,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tansuo365.test1.bean.CalcinedCokeExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample" resultType="java.lang.Long">
     select count(*) from calcined_coke_tbl
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -354,7 +424,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.CalcinedCoke">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke">
     update calcined_coke_tbl
     <set>
       <if test="province != null">
@@ -417,7 +487,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.CalcinedCoke">
+  <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke">
     update calcined_coke_tbl
     set province = #{province,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR},

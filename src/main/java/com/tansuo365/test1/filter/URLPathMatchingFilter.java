@@ -1,7 +1,7 @@
 package com.tansuo365.test1.filter;
 
-import com.tansuo365.test1.service.EMenuService;
-import com.tansuo365.test1.service.PermissionService;
+import com.tansuo365.test1.service.user.EMenuService;
+import com.tansuo365.test1.service.user.PermissionService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;

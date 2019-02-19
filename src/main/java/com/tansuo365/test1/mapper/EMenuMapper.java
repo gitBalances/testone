@@ -1,10 +1,9 @@
 package com.tansuo365.test1.mapper;
 
-import com.tansuo365.test1.bean.EMenu;
-import com.tansuo365.test1.bean.EMenuExample;
+import com.tansuo365.test1.bean.user.EMenu;
+import com.tansuo365.test1.bean.user.EMenuExample;
 import java.util.List;
 
-import com.tansuo365.test1.bean.PetroleumCoke;
 import org.apache.ibatis.annotations.Param;
 
 public interface EMenuMapper {

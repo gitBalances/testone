@@ -120,7 +120,6 @@
                 <script type="text/javascript" th:inline="none">
 
 
-
                     $("#uploadBtn").click(uploadonline);
 
                     function uploadidalogonline() {
@@ -146,7 +145,7 @@
                             processData: false, //不处理数据
                             success: function (data) {
                                 // alert(data);
-                                if(data > 0){
+                                if (data > 0) {
                                     $("#booten").linkbutton('enable');
                                     $('#uploadonlineinfo').dialog('close');
                                     $('#dg').datagrid('reload');
@@ -162,7 +161,7 @@
 </div>
 
 
-<table id="dg" title="石油焦展示">
+<table id="dg" title="阳极信息">
 
 </table>
 <div id="toolbar">
@@ -242,8 +241,12 @@
         </div>
 
         <div class="fitem">
+            <label>碗数:</label>
+            <input name="bowl_sum" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
             <label>碗距:</label>
-            <input name="bowl" class="easyui-validatebox" required="true">
+            <input name="bowl_distance" class="easyui-validatebox" required="true">
         </div>
 
         <div class="fitem">
@@ -288,7 +291,7 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/petroleumCoke/selectPetroleumCokeSelective',
+        url: '/anode/selectSelective',
         toolbar: '#toolbar',
         pagination: 'true',
         pageSize: 10,
@@ -323,7 +326,8 @@
             {field: 'thermal', title: '热膨胀系数', width: 50},
             {field: 'ash', title: '灰分含量_%', width: 60},
             {field: 'size', title: '碳块尺寸', width: 100},
-            {field: 'bowl', title: '碗距', width: 100},
+            {field: 'bowl_sum', title: '碗数', width: 100},
+            {field: 'bowl_distance', title: '碗距', width: 100},
             {field: 'in_diameter', title: '内径', width: 100},
             {field: 'out_diameter', title: '外径', width: 100},
             {field: 'slot', title: '是否开槽', width: 100},
@@ -361,7 +365,7 @@
         //把form表单的内容给清空
         $('#fm').form('clear');
         //给url赋值
-        url = '/petroleumCoke/insertSelective';
+        url = '/anode/insertSelective';
     }
 
     function editUser() {
@@ -374,7 +378,7 @@
             //让from 表单去加载 选中行的数据
             $('#fm').form('load', row);
             //修改的地址
-            url = '/petroleumCoke/updateByPrimaryKeySelective';
+            url = '/anode/updateByPrimaryKeySelective';
         }
     }
 
@@ -413,16 +417,19 @@
                     }
 
                     $.ajax({
-                        url: '/petroleumCoke/deleteBatchByPKs',
+                        url: '/anode/deleteBatchByPKs',
                         dataType: 'json',
                         data: {'ids': ids},
                         type: 'POST',
                         success: function (data) {
-                            if (data.code == '1') {
-                                $.messager.alert('提示消息', '删除失败', 'info');
-                            } else {
+                            if (data > 0) {
+                                $.messager.alert('提示消息', '删除成功');
                                 $('#dg').datagrid('reload');
-                                $.messager.alert('提示消息', '删除成功', 'info');
+                                $('#dg').datagrid('clearSelections');
+                            } else {
+                                $.messager.alert('提示消息', '删除失败');
+                                $('#dg').datagrid('reload');
+                                $('#dg').datagrid('clearSelections');
                             }
                         }
                     });
@@ -432,7 +439,7 @@
     }
 
     $("#submit_search").click(function () {
-        $('#dg').datagrid({url: "/petroleumCoke/selectPetroleumCokeSelective", queryParams: form2Json("searchform")});   //点击搜索
+        $('#dg').datagrid({url: "/anode/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
     });
 
 

@@ -151,37 +151,43 @@
                     <form id="ff" style="margin-bottom:20px">
                         <div style="margin-bottom:20px" id="sulfurDiv">
                             硫含量%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                      id="sulfurCK" name="sulfur" value="" label="硫含量%:">
+                                       id="sulfurCK" name="sulfur" value="" label="硫含量%:">
                         </div>
                         <hr>
                         <div style="margin-bottom:20px" id="ashDiv">
-                            灰分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="ashCK" name="ash" value=""
+                            灰分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="ashCK"
+                                      name="ash" value=""
                                       label="灰分%:">
                         </div>
                         <hr>
                         <div style="margin-bottom:20px" id="volatile_matterDiv">
-                            挥发分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="volatile_matterCK"
-                                      name="volatile_matter" value="" label="挥发分%:">
+                            挥发分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                                       id="volatile_matterCK"
+                                       name="volatile_matter" value="" label="挥发分%:">
                         </div>
                         <hr>
                         <div style="margin-bottom:20px" id="wdrDiv">
-                            扣水率%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="wdrCK" name="wdr" value=""
-                                      label="扣水率%:">
+                            扣水率%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                                       id="wdrCK" name="wdr" value=""
+                                       label="扣水率%:">
                         </div>
                         <hr>
                         <div style="margin-bottom:20px" id="vanadiumDiv">
-                            钒含量ppm<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="vanadiumCK" name="vanadium" value=""
-                                      label="钒含量ppm:">
+                            钒含量ppm<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                                         id="vanadiumCK" name="vanadium" value=""
+                                         label="钒含量ppm:">
                         </div>
                         <hr>
                         <div style="margin-bottom:20px" id="densityDiv">
-                            真密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="densityCK" name="density" value=""
-                                      label="真密度g/cm³:">
+                            真密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                                           id="densityCK" name="density" value=""
+                                           label="真密度g/cm³:">
                         </div>
                         <hr>
                         <div style="margin-bottom:20px" id="coke_contentDiv">
-                            粉焦量g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="coke_contentCK" name="coke_content"
-                                      value="" label="粉焦量g/cm³:">
+                            粉焦量g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                                           id="coke_contentCK" name="coke_content"
+                                           value="" label="粉焦量g/cm³:">
                         </div>
                         <hr>
                         <!--<div style="margin-bottom:20px">-->
@@ -219,14 +225,14 @@
                     }
 
                     /*向div中input后添加子元素*/
-                    function appendChildAtInput(name){
+                    function appendChildAtInput(name) {
                         var childSelectL = document.createElement("select");
-                        childSelectL.id=name+"SelectL";
-                        var opt1 = new Option("＝","＝");
-                        var opt2 = new Option("＜","＜");
-                        var opt3 = new Option("≤","≤");
-                        var opt4 = new Option("＞","＞");
-                        var opt5 = new Option("≥","≥");
+                        childSelectL.id = name + "SelectL";
+                        var opt1 = new Option("＝", "＝");
+                        var opt2 = new Option("＜", "＜");
+                        var opt3 = new Option("≤", "≤");
+                        var opt4 = new Option("＞", "＞");
+                        var opt5 = new Option("≥", "≥");
                         childSelectL.options.add(opt1);
                         childSelectL.options.add(opt2);
                         childSelectL.options.add(opt3);
@@ -234,18 +240,18 @@
                         childSelectL.options.add(opt5);
 
                         var childInputL = document.createElement("input");
-                        childInputL.type="text";
-                        childInputL.id=name+"ChildL";
-                        childInputL.required=true;
+                        childInputL.type = "text";
+                        childInputL.id = name + "ChildL";
+                        childInputL.required = true;
 
                         var childSelectR = document.createElement("select");
-                        childSelectR.id=name+"SelectR";
-                        var opt0 = new Option("","");
-                        var opt1 = new Option("＝","＝");
-                        var opt2 = new Option("＜","＜");
-                        var opt3 = new Option("≤","≤");
-                        var opt4 = new Option("＞","＞");
-                        var opt5 = new Option("≥","≥");
+                        childSelectR.id = name + "SelectR";
+                        var opt0 = new Option("", "");
+                        var opt1 = new Option("＝", "＝");
+                        var opt2 = new Option("＜", "＜");
+                        var opt3 = new Option("≤", "≤");
+                        var opt4 = new Option("＞", "＞");
+                        var opt5 = new Option("≥", "≥");
                         childSelectR.options.add(opt0);
                         childSelectR.options.add(opt1);
                         childSelectR.options.add(opt2);
@@ -255,22 +261,22 @@
                         //设定了左右两个select,之后需要再设定R的select变更选项时,出现inputR
 
                         var childInputR = document.createElement("input");
-                        childInputR.type="text";
-                        childInputR.id=name+"ChildR";
+                        childInputR.type = "text";
+                        childInputR.id = name + "ChildR";
 
-                        document.getElementById(name+"Div").appendChild(childSelectL);
-                        document.getElementById(name+"Div").appendChild(childInputL);
-                        document.getElementById(name+"Div").appendChild(childSelectR);
-                        document.getElementById(name+"Div").appendChild(childInputR);
+                        document.getElementById(name + "Div").appendChild(childSelectL);
+                        document.getElementById(name + "Div").appendChild(childInputL);
+                        document.getElementById(name + "Div").appendChild(childSelectR);
+                        document.getElementById(name + "Div").appendChild(childInputR);
 
                     }
 
                     /*将div后的子元素移除*/
-                    function removeChildAtInput(name){
-                        document.getElementById(name+"Div").removeChild(document.getElementById(name+"SelectL"));
-                        document.getElementById(name+"Div").removeChild(document.getElementById(name+"ChildL"));
-                        document.getElementById(name+"Div").removeChild(document.getElementById(name+"SelectR"));
-                        document.getElementById(name+"Div").removeChild(document.getElementById(name+"ChildR"));
+                    function removeChildAtInput(name) {
+                        document.getElementById(name + "Div").removeChild(document.getElementById(name + "SelectL"));
+                        document.getElementById(name + "Div").removeChild(document.getElementById(name + "ChildL"));
+                        document.getElementById(name + "Div").removeChild(document.getElementById(name + "SelectR"));
+                        document.getElementById(name + "Div").removeChild(document.getElementById(name + "ChildR"));
                     }
 
 
@@ -332,16 +338,10 @@
                         }
                     }
 
-
-
-
-
-
                     // function testalert(){
 
 
                     // }
-
 
                     /*上传excel的窗口打开操作*/
 
@@ -361,8 +361,9 @@
                         console.log(formData);
                         // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
                         $.ajax({
-                            url: '/excel/importExcel',
+                            url: '/excel/importExcel?instance=' + "石油焦",
                             type: 'POST',
+                            // data: {"uploadFile":formData,"instance":"石油焦"},
                             data: formData,
                             async: false,
                             cache: false,
@@ -386,7 +387,7 @@
 </div>
 
 
-<table id="dg" title="石油焦展示">
+<table id="dg" title="石油焦信息">
 
 </table>
 <div id="toolbar">
@@ -486,7 +487,7 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/petroleumCoke/selectPetroleumCokeSelective',
+        url: '/petroleumCoke/selectSelective',
         toolbar: '#toolbar',
         pagination: 'true',
         pageSize: 10,
@@ -506,7 +507,6 @@
         queryParams: form2Json('searchform'),
 
         columns: [[
-
             {field: 'id', align: 'center', title: '数据序列号', hidden: true},
             {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
             {field: 'grade', title: '品级', width: 30},
@@ -521,10 +521,10 @@
             {field: 'density', title: '真密度g/cm³', width: 50},
             {field: 'coke_content', title: '粉焦量', width: 50},
             {field: 'coke_type', title: '类型', width: 60},
-            {field: 'today_price', title: '今日报价', width: 100},
+            {field: 'today_price', title: '今日报价', width: 60},
             {field: 'remarks', title: '备注', width: 100},
-            {field: 'create_time', title: '创建时间', width: 100},
-            {field: 'update_time', title: '更新时间', width: 100}
+            {field: 'create_time', title: '创建时间', width: 148},
+            {field: 'update_time', title: '更新时间', width: 148}
         ]]
     });
 
@@ -559,13 +559,14 @@
 
     function editUser() {
         //获得 选中的行
-        var row = $('#dg').datagrid('getSelected');
-        // 是否选中
-        if (row) {
+
+        var rowedit = $("#dg").datagrid('getSelected');
+        // // 是否选中
+        if (rowedit) {
             //打开窗口
             $('#dlg').dialog('open').dialog('setTitle', '信息修改');
-            //让from 表单去加载 选中行的数据
-            $('#fm').form('load', row);
+            //让form表单去加载 选中行的数据
+            $('#fm').form('load',rowedit);
             //修改的地址
             url = '/petroleumCoke/updateByPrimaryKeySelective';
         }
@@ -578,7 +579,6 @@
                 return $(this).form('validate');
             },
             success: function (result) {
-
                 if (result > 0) {
                     $.messager.alert('操作结果', '成功');
                     //关闭添加新闻窗口
@@ -594,28 +594,29 @@
 
     function removeUser() {
         //获得选中记录 多选
-        var row = $('#dg').datagrid('getSelections');
-        console.log("row(s) -> " + JSON.stringify(row));
-        if (row) {
+        var rows = $('#dg').datagrid('getSelections');
+        // console.log("row(s) -> " + JSON.stringify(row));
+        if (rows) {
             $.messager.confirm('确认按钮', '你确定要删除该数据?', function (r) {
                 if (r) {
-
                     var ids = [];
-                    for (var i = 0; i < row.length; i++) {
-                        ids.push(row[i].id);
+                    for (var i = 0; i < rows.length; i++) {
+                        ids.push(rows[i].id);
                     }
-
                     $.ajax({
                         url: '/petroleumCoke/deleteBatchByPKs',
                         dataType: 'json',
                         data: {'ids': ids},
                         type: 'POST',
                         success: function (data) {
-                            if (data.code == '1') {
-                                $.messager.alert('提示消息', '删除失败', 'info');
-                            } else {
+                            if (data > 0) {
+                                $.messager.alert('提示消息', '删除成功');
                                 $('#dg').datagrid('reload');
-                                $.messager.alert('提示消息', '删除成功', 'info');
+                                $('#dg').datagrid('clearSelections');
+                            } else {
+                                $.messager.alert('提示消息', '删除失败');
+                                $('#dg').datagrid('reload');
+                                $('#dg').datagrid('clearSelections');
                             }
                         }
                     });
@@ -625,7 +626,7 @@
     }
 
     $("#submit_search").click(function () {
-        $('#dg').datagrid({url: "/petroleumCoke/selectPetroleumCokeSelective", queryParams: form2Json("searchform")});   //点击搜索
+        $('#dg').datagrid({url: "/petroleumCoke/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
     });
 
 
@@ -671,42 +672,44 @@
         });
 
         sheetsData.forEach(function (item, index) {
-            content[item.position] = {v: item.value};
-            // if (item.value == 'id') {
-            //     content[item.position] = {v: '序列号'};
-            // } else if (item.value == 'grade') {
-            //     content[item.position] = {v: '品级'};
-            // } else if (item.valu e == 'province') {
-            //     content[item.position] = {v: '省份'};
-            // } else if (item.value == 'company') {
-            //     content[item.position] = {v: '企业'};
-            // } else if (item.value == 's_company') {
-            //     content[item.position] = {v: '简称'};
-            // } else if (item.value == 'sulfur') {
-            //     content[item.position] = {v: '硫含量%'};
-            // } else if (item.value == 'ash') {
-            //     content[item.position] = {v: '灰分%'};
-            // } else if (item.value == 'volatile_matter') {
-            //     content[item.position] = {v: '挥发分%'};
-            // } else if (item.value == 'wdr') {
-            //     content[item.position] = {v: '扣水率%'};
-            // } else if (item.value == 'vanadium') {
-            //     content[item.position] = {v: '钒含量ppm'};
-            // } else if (item.value == 'density') {
-            //     content[item.position] = {v: '真密度g/cm³'};
-            // } else if (item.value == 'coke_content') {
-            //     content[item.position] = {v: '粉焦量'};
-            // } else if (item.value == 'coke_type') {
-            //     content[item.position] = {v: '类型'};
-            // } else if (item.value == 'today_price') {
-            //     content[item.position] = {v: '今日报价(元)'};
-            // } else if (item.value == 'remarks') {
-            //     content[item.position] = {v: '备注'};
-            // } else if (item.value == 'create_time') {
-            //     content[item.position] = {v: '创建时间'};
-            // } else if (item.value == 'update_time') {
-            //     content[item.position] = {v: '更新时间'};
-            // }
+            // content[item.position] = {v: item.value};
+            if (item.value == 'id') {
+                content[item.position] = {v: '序列号'};
+            } else if (item.value == 'grade') {
+                content[item.position] = {v: '品级'};
+            } else if (item.value == 'province') {
+                content[item.position] = {v: '省份'};
+            } else if (item.value == 'company') {
+                content[item.position] = {v: '企业'};
+            } else if (item.value == 's_company') {
+                content[item.position] = {v: '简称'};
+            } else if (item.value == 'sulfur') {
+                content[item.position] = {v: '硫含量%'};
+            } else if (item.value == 'ash') {
+                content[item.position] = {v: '灰分%'};
+            } else if (item.value == 'volatile_matter') {
+                content[item.position] = {v: '挥发分%'};
+            } else if (item.value == 'wdr') {
+                content[item.position] = {v: '扣水率%'};
+            } else if (item.value == 'vanadium') {
+                content[item.position] = {v: '钒含量ppm'};
+            } else if (item.value == 'density') {
+                content[item.position] = {v: '真密度g/cm³'};
+            } else if (item.value == 'coke_content') {
+                content[item.position] = {v: '粉焦量'};
+            } else if (item.value == 'coke_type') {
+                content[item.position] = {v: '类型'};
+            } else if (item.value == 'today_price') {
+                content[item.position] = {v: '今日报价(元)'};
+            } else if (item.value == 'remarks') {
+                content[item.position] = {v: '备注'};
+            } else if (item.value == 'create_time') {
+                content[item.position] = {v: '创建时间'};
+            } else if (item.value == 'update_time') {
+                content[item.position] = {v: '更新时间'};
+            } else {
+                content[item.position] = {v: item.value};
+            }
         });
 
         //设置区域,比如表格从A1到D10,SheetNames:标题

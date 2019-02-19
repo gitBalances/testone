@@ -140,8 +140,8 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/admi
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: An Errors/BindingResult argument is expected to be declared immediately after the model attribute, the @RequestBody or the @RequestPart arguments to which they apply: public java.util.Map com.tansuo365.test1.controller.AdminLoginController.login(java.lang.String,java.lang.String,java.lang.String,org.springframework.validation.BindingResult)] with root cause
-java.lang.IllegalStateException: An Errors/BindingResult argument is expected to be declared immediately after the model attribute, the @RequestBody or the @RequestPart arguments to which they apply: public java.util.Map com.tansuo365.test1.controller.AdminLoginController.login(java.lang.String,java.lang.String,java.lang.String,org.springframework.validation.BindingResult)
+Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: An Errors/BindingResult argument is expected to be declared immediately after the model attribute, the @RequestBody or the @RequestPart arguments to which they apply: public java.util.Map com.tansuo365.test1.controller.admin.AdminLoginController.login(java.lang.String,java.lang.String,java.lang.String,org.springframework.validation.BindingResult)] with root cause
+java.lang.IllegalStateException: An Errors/BindingResult argument is expected to be declared immediately after the model attribute, the @RequestBody or the @RequestPart arguments to which they apply: public java.util.Map com.tansuo365.test1.controller.admin.AdminLoginController.login(java.lang.String,java.lang.String,java.lang.String,org.springframework.validation.BindingResult)
 	at org.springframework.web.method.annotation.ErrorsMethodArgumentResolver.resolveArgument(ErrorsMethodArgumentResolver.java:69)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:126)
 	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:166)
@@ -213,7 +213,7 @@ java.lang.IllegalStateException: An Errors/BindingResult argument is expected to
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.list(AdminUserController.java:52)
+	at com.tansuo365.test1.controller.admin.AdminUserController.list(AdminUserController.java:52)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -287,7 +287,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.list(AdminUserController.java:52)
+	at com.tansuo365.test1.controller.admin.AdminUserController.list(AdminUserController.java:52)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -361,7 +361,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminLoginController.login(AdminLoginController.java:69)
+	at com.tansuo365.test1.controller.admin.AdminLoginController.login(AdminLoginController.java:69)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -435,7 +435,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminLoginController.login(AdminLoginController.java:69)
+	at com.tansuo365.test1.controller.admin.AdminLoginController.login(AdminLoginController.java:69)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -509,7 +509,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.list(AdminUserController.java:56)
+	at com.tansuo365.test1.controller.admin.AdminUserController.list(AdminUserController.java:56)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -583,7 +583,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.list(AdminUserController.java:56)
+	at com.tansuo365.test1.controller.admin.AdminUserController.list(AdminUserController.java:56)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -657,7 +657,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.list(AdminUserController.java:56)
+	at com.tansuo365.test1.controller.admin.AdminUserController.list(AdminUserController.java:56)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -731,7 +731,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.list(AdminUserController.java:56)
+	at com.tansuo365.test1.controller.admin.AdminUserController.list(AdminUserController.java:56)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -805,7 +805,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.list(AdminUserController.java:56)
+	at com.tansuo365.test1.controller.admin.AdminUserController.list(AdminUserController.java:56)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -879,7 +879,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.list(AdminUserController.java:56)
+	at com.tansuo365.test1.controller.admin.AdminUserController.list(AdminUserController.java:56)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2089,7 +2089,7 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/admi
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.saveRoleSet(AdminUserController.java:87)
+	at com.tansuo365.test1.controller.admin.AdminUserController.saveRoleSet(AdminUserController.java:87)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2163,7 +2163,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.saveRoleSet(AdminUserController.java:87)
+	at com.tansuo365.test1.controller.admin.AdminUserController.saveRoleSet(AdminUserController.java:87)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2237,7 +2237,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.saveRoleSet(AdminUserController.java:87)
+	at com.tansuo365.test1.controller.admin.AdminUserController.saveRoleSet(AdminUserController.java:87)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2311,7 +2311,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminUserController.saveRoleSet(AdminUserController.java:87)
+	at com.tansuo365.test1.controller.admin.AdminUserController.saveRoleSet(AdminUserController.java:87)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2385,7 +2385,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminLoginController.loadMenuInfo(AdminLoginController.java:141)
+	at com.tansuo365.test1.controller.admin.AdminLoginController.loadMenuInfo(AdminLoginController.java:141)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2459,7 +2459,7 @@ java.lang.NullPointerException: null
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 java.lang.NullPointerException: null
-	at com.tansuo365.test1.controller.AdminLoginController.loadMenuInfo(AdminLoginController.java:141)
+	at com.tansuo365.test1.controller.admin.AdminLoginController.loadMenuInfo(AdminLoginController.java:141)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

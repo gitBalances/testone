@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tansuo365.test1.mapper.RoleMapper">
-  <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.Role">
+  <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.user.Role">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="desc_" jdbcType="VARCHAR" property="desc_" />
@@ -38,7 +38,7 @@
   <sql id="Base_Column_List">
     id, name, desc_
   </sql>
-  <select id="selectByExample" parameterType="com.tansuo365.test1.bean.RoleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tansuo365.test1.bean.user.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -67,7 +67,7 @@
   </select>
 
   <!--动态获取Role数据-->
-  <select id="selectRoleSelective" parameterType="com.tansuo365.test1.bean.Role" resultMap="BaseResultMap">
+  <select id="selectRoleSelective" parameterType="com.tansuo365.test1.bean.user.Role" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from role
     <where>
@@ -94,13 +94,13 @@
     delete from user_role where uid = #{param1}
   </delete>
 
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.Role" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.Role" useGeneratedKeys="true">
     insert into role (name, desc_)
     values (#{name,jdbcType=VARCHAR}, #{desc_,jdbcType=VARCHAR})
   </insert>
 
   <!--动态插入role-->
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.Role" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.Role" useGeneratedKeys="true">
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null and name != '' " >
@@ -121,7 +121,7 @@
   </insert>
 
   <!--动态更新role-->
-  <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.Role">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.user.Role">
     update role
     <set>
       <if test="name != null and name != '' ">
@@ -135,7 +135,7 @@
   </update>
 
 
-  <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.Role">
+  <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.user.Role">
     update role
     set name = #{name,jdbcType=VARCHAR},
       desc_ = #{desc_,jdbcType=VARCHAR}

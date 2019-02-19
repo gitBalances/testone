@@ -1,8 +1,7 @@
 package com.tansuo365.test1.mapper;
 
-import com.tansuo365.test1.bean.User;
-import com.tansuo365.test1.bean.UserExample;
-import org.apache.ibatis.annotations.Mapper;
+import com.tansuo365.test1.bean.user.User;
+import com.tansuo365.test1.bean.user.UserExample;
 
 import java.util.List;
 

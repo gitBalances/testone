@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tansuo365.test1.mapper.EMenuMapper">
-    <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.EMenu">
+    <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.user.EMenu">
         <result column="id" jdbcType="INTEGER" property="id"/>
         <result column="icon" jdbcType="VARCHAR" property="icon"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -72,7 +72,7 @@
     <sql id="Base_Column_List">
     id, icon, name, state, url, p_id
   </sql>
-    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.EMenuExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.user.EMenuExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -90,7 +90,7 @@
 
 
     <!--动态查询EMenu-->
-    <select id="selectEMenuSelective" parameterType="com.tansuo365.test1.bean.EMenu" resultMap="BaseResultMap">
+    <select id="selectEMenuSelective" parameterType="com.tansuo365.test1.bean.user.EMenu" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from e_menu
@@ -161,13 +161,13 @@
         id in (select menu_id from role_menu where role_id= #{param2})
     </select>
 
-    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.EMenuExample">
+    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.user.EMenuExample">
         delete from e_menu
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.EMenu"
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.EMenu"
             useGeneratedKeys="true">
     insert into e_menu (icon, name, state, 
       url, p_id)
@@ -176,7 +176,7 @@
   </insert>
 
     <!--动态插入-->
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.EMenu"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.EMenu"
             useGeneratedKeys="false">
         insert into e_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -222,7 +222,7 @@
     </insert>
 
 
-    <select id="countByExample" parameterType="com.tansuo365.test1.bean.EMenuExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.tansuo365.test1.bean.user.EMenuExample" resultType="java.lang.Long">
         select count(*) from e_menu
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
@@ -268,7 +268,7 @@
     </update>
 
     <!--动态更新EMenu-->
-    <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.EMenu">
+    <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.user.EMenu">
         update e_menu
         <set>
             <if test="id != null and id != '' ">

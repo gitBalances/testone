@@ -1,9 +1,9 @@
 package com.tansuo365.test1.unused;//package com.tansuo365.test1.shiro.realm;
 //
-//import com.tansuo365.test1.bean.User;
-//import com.tansuo365.test1.service.PermissionService;
-//import com.tansuo365.test1.service.RoleService;
-//import com.tansuo365.test1.service.UserService;
+//import com.tansuo365.test1.bean.user.User;
+//import com.tansuo365.test1.service.user.PermissionService;
+//import com.tansuo365.test1.service.user.RoleService;
+//import com.tansuo365.test1.service.user.UserService;
 //import org.apache.shiro.authc.*;
 //import org.apache.shiro.authz.AuthorizationInfo;
 //import org.apache.shiro.authz.SimpleAuthorizationInfo;

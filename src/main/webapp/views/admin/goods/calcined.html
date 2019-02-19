@@ -42,57 +42,35 @@
                 <td><input type="text" name="ash" class="easyui-textbox" value=""/></td>
                 <td>挥发分_%:</td>
                 <td><input type="text" name="volatile_matter" class="easyui-textbox" value=""/></td>
-                <td>扣水率_%:</td>
-                <td><input type="text" name="wdr" class="easyui-textbox" value=""/></td>
+                <td>水分%:</td>
+                <td><input type="text" name="water" class="easyui-textbox" value=""/></td>
 
             </tr>
 
             <tr>
-                <td>钒含量_ppm:</td>
-                <td><input type="text" name="vanadium" class="easyui-textbox" value=""/></td>
                 <td>真密度_g/cm³:</td>
                 <td><input type="text" name="density" class="easyui-textbox" value=""/></td>
-                <td>粉焦量_%:</td>
-                <td><input type="text" name="coke_content" class="easyui-textbox" value=""/></td>
+                <td>粉末电阻率µ.Ω.m:</td>
+                <td><input type="text" name="p_resistivity" class="easyui-textbox" value=""/></td>
+                <td>钒含量_ppm:</td>
+                <td><input type="text" name="vanadium" class="easyui-textbox" value=""/></td>
+                <td>粒度mm:</td>
+                <td><input type="text" name="granularity" class="easyui-textbox" value=""/></td>
+
                 <!-- <td>海绵焦/弹丸焦:</td>
                  <td><input type="text" name="coke_type" class="easyui-textbox" value=""/></td>-->
-                <td>类型:</td>
-                <td>
-                    <!--<input class="easyui-combobox" data-options="
-                        valueField: 'label',
-                        textField: 'value',
-                        data: [{
-                            label: '海绵焦',
-                            value: '海绵焦'
-                        },{
-                            label: '弹丸焦',
-                            value: '弹丸焦'
-                        }]"/>-->
-                    <select class="easyui-combobox" name="coke_type" panelHeight="auto"/>
-                    <option value=""></option>
-                    <option value="海绵焦">海绵焦</option>
-                    <option value="弹丸焦">弹丸焦</option>
-                    </select>
-                </td>
+
+
                 <td>今日报价:</td>
                 <td><input type="text" name="today_price" class="easyui-textbox" value=""/></td>
                 <td>备注:</td>
                 <td><input type="text" name="remarks" class="easyui-textbox" value=""/></td>
 
+                <td>汇报人:</td>
+                <td><input type="text" name="reporter" class="easyui-textbox" value=""/></td>
+
             </tr>
-            <tr>
-                <td>品级:</td>
-                <td>
-                    <select class="easyui-combobox" name="grade" panelHeight="auto"/>
-                    <option value=""></option>
-                    <option value="1号">1号</option>
-                    <option value="2A">2A</option>
-                    <option value="2B">2B</option>
-                    <option value="3A">3A</option>
-                    <option value="3B">3B</option>
-                    </select>
-                </td>
-            </tr>
+
             <tr>
 
                 <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
@@ -177,7 +155,7 @@
 </div>
 
 
-<table id="dg" title="石油焦展示">
+<table id="dg" title="煅后焦信息">
 
 </table>
 <div id="toolbar">
@@ -279,7 +257,7 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/petroleumCoke/selectPetroleumCokeSelective',
+        url: '/calcinedCoke/selectSelective',
         toolbar: '#toolbar',
         pagination: 'true',
         pageSize: 10,
@@ -313,11 +291,11 @@
             {field: 'p_resistivity', title: '粉末电阻率_µ.Ω.m', width: 50},
             {field: 'vanadium', title: '钒含量_ppm', width: 50},
             {field: 'granularity', title: '粒度_mm', width: 50},
-            {field: 'today_price', title: '今日报价', width: 100},
+            {field: 'today_price', title: '今日报价', width: 60},
             {field: 'remarks', title: '备注', width: 100},
             {field: 'reporter', title: '汇报人', width: 100},
-            {field: 'create_time', title: '创建时间', width: 100},
-            {field: 'update_time', title: '更新时间', width: 100}
+            {field: 'create_time', title: '创建时间', width: 148},
+            {field: 'update_time', title: '更新时间', width: 148}
         ]]
     });
 
@@ -347,7 +325,7 @@
         //把form表单的内容给清空
         $('#fm').form('clear');
         //给url赋值
-        url = '/petroleumCoke/insertSelective';
+        url = '/calcinedCoke/insertSelective';
     }
 
     function editUser() {
@@ -360,7 +338,7 @@
             //让from 表单去加载 选中行的数据
             $('#fm').form('load', row);
             //修改的地址
-            url = '/petroleumCoke/updateByPrimaryKeySelective';
+            url = '/calcinedCoke/updateByPrimaryKeySelective';
         }
     }
 
@@ -399,16 +377,19 @@
                     }
 
                     $.ajax({
-                        url: '/petroleumCoke/deleteBatchByPKs',
+                        url: '/calcinedCoke/deleteBatchByPKs',
                         dataType: 'json',
                         data: {'ids': ids},
                         type: 'POST',
                         success: function (data) {
-                            if (data.code == '1') {
-                                $.messager.alert('提示消息', '删除失败', 'info');
-                            } else {
+                            if (data > 0) {
+                                $.messager.alert('提示消息', '删除成功');
                                 $('#dg').datagrid('reload');
-                                $.messager.alert('提示消息', '删除成功', 'info');
+                                $('#dg').datagrid('clearSelections');
+                            } else {
+                                $.messager.alert('提示消息', '删除失败');
+                                $('#dg').datagrid('reload');
+                                $('#dg').datagrid('clearSelections');
                             }
                         }
                     });
@@ -418,7 +399,7 @@
     }
 
     $("#submit_search").click(function () {
-        $('#dg').datagrid({url: "/petroleumCoke/selectPetroleumCokeSelective", queryParams: form2Json("searchform")});   //点击搜索
+        $('#dg').datagrid({url: "/calcinedCoke/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
     });
 
 

@@ -1,14 +1,14 @@
 package com.tansuo365.test1.shiro.realm;
 
 
-import com.tansuo365.test1.bean.EMenu;
-import com.tansuo365.test1.bean.Role;
-import com.tansuo365.test1.bean.User;
+import com.tansuo365.test1.bean.user.EMenu;
+import com.tansuo365.test1.bean.user.Role;
+import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.entity.MyLoginInstance;
-import com.tansuo365.test1.service.EMenuService;
-import com.tansuo365.test1.service.PermissionService;
-import com.tansuo365.test1.service.RoleService;
-import com.tansuo365.test1.service.UserService;
+import com.tansuo365.test1.service.user.EMenuService;
+import com.tansuo365.test1.service.user.PermissionService;
+import com.tansuo365.test1.service.user.RoleService;
+import com.tansuo365.test1.service.user.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -17,7 +17,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.HashSet;

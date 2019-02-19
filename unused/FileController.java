@@ -1,6 +1,6 @@
 package com.tansuo365.test1.unused;//package com.tansuo365.test1.controller;
 //
-//import com.tansuo365.test1.bean.PetroleumCoke;
+//import com.tansuo365.test1.bean.goods.PetroleumCoke;
 //import com.tansuo365.test1.util.ExcelUtils;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.RequestMapping;

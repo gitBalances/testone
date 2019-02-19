@@ -2784,9 +2784,9 @@ java.io.FileNotFoundException: Could not open ServletContext resource [/WEB-INF/
 	at java.lang.Thread.run(Thread.java:748)
 Application run failed
 org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'backEndPageController' method 
-public java.lang.String com.tansuo365.test1.controller.BackEndPageController.jspIndex()
+public java.lang.String com.tansuo365.test1.controller.admin.BackEndPageController.jspIndex()
 to { /admin/index}: There is already 'backEndPageController' bean method
-public java.lang.String com.tansuo365.test1.controller.BackEndPageController.index() mapped.
+public java.lang.String com.tansuo365.test1.controller.admin.BackEndPageController.index() mapped.
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1745)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:576)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498)
@@ -2805,9 +2805,9 @@ public java.lang.String com.tansuo365.test1.controller.BackEndPageController.ind
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
 	at com.tansuo365.test1.Test1Application.main(Test1Application.java:16)
 Caused by: java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'backEndPageController' method 
-public java.lang.String com.tansuo365.test1.controller.BackEndPageController.jspIndex()
+public java.lang.String com.tansuo365.test1.controller.admin.BackEndPageController.jspIndex()
 to { /admin/index}: There is already 'backEndPageController' bean method
-public java.lang.String com.tansuo365.test1.controller.BackEndPageController.index() mapped.
+public java.lang.String com.tansuo365.test1.controller.admin.BackEndPageController.index() mapped.
 	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.assertUniqueMethodMapping(AbstractHandlerMethodMapping.java:621)
 	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:589)
 	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:315)
