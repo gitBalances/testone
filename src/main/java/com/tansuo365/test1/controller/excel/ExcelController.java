@@ -8,6 +8,10 @@ import com.tansuo365.test1.bean.log.LogEnum;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.excel.ExcelLogs;
 import com.tansuo365.test1.excel.ExcelUtil;
+import com.tansuo365.test1.mapper.goods.AnodeMapper;
+import com.tansuo365.test1.mapper.goods.CalcinedCokeMapper;
+import com.tansuo365.test1.mapper.goods.MAsphaltMapper;
+import com.tansuo365.test1.mapper.goods.PetroleumCokeMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
 import com.tansuo365.test1.util.CodeJudgerUtils;
 import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,6 +41,15 @@ public class ExcelController {
     private GoodsCommonService goodsCommonService;
     @Autowired
     private CodeJudgerUtils codeJudgerUtils;
+
+    @Resource
+    private PetroleumCokeMapper petroleumCokeMapper;
+    @Resource
+    private CalcinedCokeMapper calcinedCokeMapper;
+    @Resource
+    private MAsphaltMapper mAsphaltMapper;
+    @Resource
+    private AnodeMapper anodeMapper;
 
     private Class C;
 
@@ -65,49 +79,53 @@ public class ExcelController {
             model.addAttribute("m", message);
         }
         ExcelLogs log = new ExcelLogs();
+        int code = 0;
+        List<Goods> list = null;
+        //通过前端instance实例类型进行Class和Mapper类型的设置
+        instanceJudge(instance);
+        //获取货品泛型集合
+        Collection<Goods> goodsCollection = ExcelUtil.importExcel(getC(), in, "yyyy/MM/dd HH:mm:ss", log, 0);
+        list = (List) goodsCollection;
+        System.out.println(">>>list in excelcontro : "+list);
+        code = goodsCommonService.insertBatchList(list);
 
-        if(instance.equals("石油焦")){
-            setC(PetroleumCoke.class);
-        }
-        if(instance.equals("煅后焦")){
-            setC(CalcinedCoke.class);
-        }
-        if(instance.equals("改质沥青")){
-            setC(MAsphalt.class);
-        }
-        if(instance.equals("阳极")){
-            setC(Anode.class);
-        }
 //        if(instance.equals("石油焦")){
 //            List<Goods> newList = null;
 //            for(Goods goods:list){
-//                Goods newGoods = PetroleumCokeGradeUtil.setGradeBySulfur(goods);
+//                PetroleumCoke petroleumCoke = (PetroleumCoke) goods;
+//                Goods newGoodsAfterSetGrade = PetroleumCokeGradeUtil.setGradeBySulfur(petroleumCoke);
 //                if(newList == null){
 //                    newList = new ArrayList<>();
 //                }
-//                newList.add(newGoods);
+//                newList.add(newGoodsAfterSetGrade);
 //            }
-//        }
+//            code = goodsCommonService.insertBatchList(newList);
+//        }else{
 
-        Collection<Goods> goodsCollection = ExcelUtil.importExcel(getC(), in, "yyyy/MM/dd HH:mm:ss", log, 0);
-        List<Goods> list = (List) goodsCollection;
-        int code = 0;
-        if(instance.equals("石油焦")){
-            List<Goods> newList = null;
-            for(Goods goods:list){
-                Goods newGoods = PetroleumCokeGradeUtil.setGradeBySulfur(goods);
-                if(newList == null){
-                    newList = new ArrayList<>();
-                }
-                newList.add(newGoods);
-            }
-            code = goodsCommonService.insertBatchList(newList);
-        }else{
-            code = goodsCommonService.insertBatchList(list);
-        }
+//        }
 
         codeJudgerUtils.whichCodeIsOK(list, code, LogEnum.ADD_ACTION.toString(), instance);
 
         return code;
+    }
+
+    //判定前端导入instance类型
+    private void instanceJudge(String instance) {
+        if (instance.equals("石油焦")) {
+            goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
+            setC(PetroleumCoke.class);
+        }
+        if (instance.equals("煅后焦")) {
+            goodsCommonService.setGoodsTypeMapper(calcinedCokeMapper);
+            setC(CalcinedCoke.class);
+        }
+        if (instance.equals("改质沥青")) {
+            goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
+            setC(MAsphalt.class);
+        }
+        if (instance.equals("阳极")) {
+            goodsCommonService.setGoodsTypeMapper(anodeMapper);
+            setC(Anode.class);
+        }
     }
 }

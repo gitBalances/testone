@@ -15,7 +15,7 @@
     <result column="thermal" jdbcType="DOUBLE" property="thermal" />
     <result column="ash" jdbcType="DOUBLE" property="ash" />
     <result column="size" jdbcType="VARCHAR" property="size" />
-    <result column="bowl_sum" jdbcType="INTEGER" property="bowl_sum" />
+    <result column="bowl_sum" jdbcType="DOUBLE" property="bowl_sum" />
     <result column="bowl_distance" jdbcType="DOUBLE" property="bowl_distance" />
     <result column="in_diameter" jdbcType="DOUBLE" property="in_diameter" />
     <result column="out_diameter" jdbcType="DOUBLE" property="out_diameter" />
@@ -90,7 +90,7 @@
   <sql id="Base_Column_List">
     id, province, company, s_company, e_density, true_density, compressive, carbon, flexural, 
     room, thermal, ash, size, bowl_sum, bowl_distance, in_diameter, out_diameter, slot, 
-    today_price, remarks, create_time, update_time, expand_1, expand_2, expand_3, reporter
+    today_price, remarks,reporter, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.tansuo365.test1.bean.goods.AnodeExample" resultMap="BaseResultMap">
     select
@@ -123,6 +123,16 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  <!--批量删除-->
+  <delete id="deleteBatchByPKArr" parameterType="java.lang.String">
+    delete from anode_tbl
+    where id in
+    <foreach item="ids" index="index" collection="array" open="(" separator="," close=")">
+      #{ids}
+    </foreach>
+  </delete>
+
+
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.Anode" useGeneratedKeys="true">
     insert into anode_tbl (province, company, s_company, 
       e_density, true_density, compressive, 
@@ -136,13 +146,37 @@
     values (#{province,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{s_company,jdbcType=VARCHAR}, 
       #{e_density,jdbcType=DOUBLE}, #{true_density,jdbcType=DOUBLE}, #{compressive,jdbcType=DOUBLE}, 
       #{carbon,jdbcType=DOUBLE}, #{flexural,jdbcType=DOUBLE}, #{room,jdbcType=DOUBLE}, 
-      #{thermal,jdbcType=DOUBLE}, #{ash,jdbcType=DOUBLE}, #{size,jdbcType=VARCHAR}, #{bowl_sum,jdbcType=INTEGER}, 
+      #{thermal,jdbcType=DOUBLE}, #{ash,jdbcType=DOUBLE}, #{size,jdbcType=VARCHAR}, #{bowl_sum,jdbcType=DOUBLE},
       #{bowl_distance,jdbcType=DOUBLE}, #{in_diameter,jdbcType=DOUBLE}, #{out_diameter,jdbcType=DOUBLE}, 
       #{slot,jdbcType=VARCHAR}, #{today_price,jdbcType=DOUBLE}, #{remarks,jdbcType=VARCHAR}, 
       #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{expand_1,jdbcType=BIT}, 
       #{expand_2,jdbcType=BIT}, #{expand_3,jdbcType=BIT}, #{reporter,jdbcType=VARCHAR}
       )
   </insert>
+
+  <!--批量插入list-->
+  <insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+    insert into anode_tbl (province, company, s_company,
+    e_density, true_density, compressive,
+    carbon, flexural, room,
+    thermal, ash, size, bowl_sum,
+    bowl_distance, in_diameter, out_diameter,
+    slot, today_price, remarks,reporter,
+    create_time, update_time
+    )
+    values
+    <foreach collection="list" item="list" index="index" separator=",">
+      (#{list.province,jdbcType=VARCHAR}, #{list.company,jdbcType=VARCHAR}, #{list.s_company,jdbcType=VARCHAR},
+      #{list.e_density,jdbcType=DOUBLE}, #{list.true_density,jdbcType=DOUBLE}, #{list.compressive,jdbcType=DOUBLE},
+      #{list.carbon,jdbcType=DOUBLE}, #{list.flexural,jdbcType=DOUBLE}, #{list.room,jdbcType=DOUBLE},
+      #{list.thermal,jdbcType=DOUBLE}, #{list.ash,jdbcType=DOUBLE}, #{list.size,jdbcType=VARCHAR}, #{list.bowl_sum,jdbcType=DOUBLE},
+      #{list.bowl_distance,jdbcType=DOUBLE}, #{list.in_diameter,jdbcType=DOUBLE}, #{list.out_diameter,jdbcType=DOUBLE},
+      #{list.slot,jdbcType=VARCHAR}, #{list.today_price,jdbcType=DOUBLE}, #{list.remarks,jdbcType=VARCHAR},
+      #{list.reporter,jdbcType=VARCHAR},#{list.create_time,jdbcType=TIMESTAMP}, #{list.update_time,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+
   <!--动态插入数据-->
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.Anode"
           useGeneratedKeys="true">
@@ -205,14 +239,14 @@
       <if test="remarks != null and remarks != '' ">
         remarks,
       </if>
+      <if test="reporter != null and reporter != '' ">
+        reporter,
+      </if>
       <if test="create_time != null and create_time != '' ">
         create_time,
       </if>
       <if test="update_time != null and update_time != '' ">
         update_time,
-      </if>
-      <if test="reporter != null and reporter != '' ">
-        reporter,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -253,7 +287,7 @@
         #{size,jdbcType=VARCHAR},
       </if>
       <if test="bowl_sum != null and bowl_sum != '' ">
-        #{bowl_sum,jdbcType=INTEGER},
+        #{bowl_sum,jdbcType=DOUBLE},
       </if>
       <if test="bowl_distance != null and bowl_distance != '' ">
         #{bowl_distance,jdbcType=DOUBLE},
@@ -273,14 +307,14 @@
       <if test="remarks != null and remarks != '' ">
         #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="reporter != null and reporter != '' ">
+        #{reporter,jdbcType=VARCHAR},
+      </if>
       <if test="create_time != null and create_time != '' ">
         #{create_time,jdbcType=TIMESTAMP},
       </if>
       <if test="update_time != null and update_time != '' ">
         #{update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="reporter != null and reporter != '' ">
-        #{reporter,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -352,17 +386,16 @@
       <if test="remarks != null and remarks != '' ">
         and remarks = #{remarks}
       </if>
+      <if test="reporter != null and reporter != '' ">
+        and reporter = #{reporter}
+      </if>
       <if test="create_time != null and create_time != '' ">
         and create_time = #{create_time}
       </if>
       <if test="update_time != null and update_time != '' ">
         and update_time = #{update_time}
       </if>
-      <if test="reporter != null and reporter != '' ">
-        and reporter = #{reporter}
-      </if>
     </where>
-
   </select>
 
 
@@ -372,6 +405,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
   <update id="updateByExampleSelective" parameterType="map">
     update anode_tbl
     <set>
@@ -415,7 +449,7 @@
         size = #{record.size,jdbcType=VARCHAR},
       </if>
       <if test="record.bowl_sum != null">
-        bowl_sum = #{record.bowl_sum,jdbcType=INTEGER},
+        bowl_sum = #{record.bowl_sum,jdbcType=DOUBLE},
       </if>
       <if test="record.bowl_distance != null">
         bowl_distance = #{record.bowl_distance,jdbcType=DOUBLE},
@@ -473,7 +507,7 @@
       thermal = #{record.thermal,jdbcType=DOUBLE},
       ash = #{record.ash,jdbcType=DOUBLE},
       size = #{record.size,jdbcType=VARCHAR},
-      bowl_sum = #{record.bowl_sum,jdbcType=INTEGER},
+      bowl_sum = #{record.bowl_sum,jdbcType=DOUBLE},
       bowl_distance = #{record.bowl_distance,jdbcType=DOUBLE},
       in_diameter = #{record.in_diameter,jdbcType=DOUBLE},
       out_diameter = #{record.out_diameter,jdbcType=DOUBLE},
@@ -490,87 +524,80 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <!--动态更新-->
   <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.goods.Anode">
     update anode_tbl
     <set>
-      <if test="province != null">
+      <if test="province != null and province != '' ">
         province = #{province,jdbcType=VARCHAR},
       </if>
-      <if test="company != null">
+      <if test="company != null and company != '' ">
         company = #{company,jdbcType=VARCHAR},
       </if>
-      <if test="s_company != null">
+      <if test="s_company != null and s_company != '' ">
         s_company = #{s_company,jdbcType=VARCHAR},
       </if>
-      <if test="e_density != null">
+      <if test="e_density != null and e_density != '' ">
         e_density = #{e_density,jdbcType=DOUBLE},
       </if>
-      <if test="true_density != null">
+      <if test="true_density != null and true_density != '' ">
         true_density = #{true_density,jdbcType=DOUBLE},
       </if>
-      <if test="compressive != null">
+      <if test="compressive != null and compressive != '' ">
         compressive = #{compressive,jdbcType=DOUBLE},
       </if>
-      <if test="carbon != null">
+      <if test="carbon != null and carbon != '' ">
         carbon = #{carbon,jdbcType=DOUBLE},
       </if>
-      <if test="flexural != null">
+      <if test="flexural != null and flexural != '' ">
         flexural = #{flexural,jdbcType=DOUBLE},
       </if>
-      <if test="room != null">
+      <if test="room != null and room != '' ">
         room = #{room,jdbcType=DOUBLE},
       </if>
-      <if test="thermal != null">
+      <if test="thermal != null and thermal != '' ">
         thermal = #{thermal,jdbcType=DOUBLE},
       </if>
-      <if test="ash != null">
+      <if test="ash != null and ash != '' ">
         ash = #{ash,jdbcType=DOUBLE},
       </if>
-      <if test="size != null">
+      <if test="size != null and size != '' ">
         size = #{size,jdbcType=VARCHAR},
       </if>
-      <if test="bowl_sum != null">
-        bowl_sum = #{bowl_sum,jdbcType=INTEGER},
+      <if test="bowl_sum != null and bowl_sum != '' ">
+        bowl_sum = #{bowl_sum,jdbcType=DOUBLE},
       </if>
-      <if test="bowl_distance != null">
+      <if test="bowl_distance != null and bowl_distance != '' ">
         bowl_distance = #{bowl_distance,jdbcType=DOUBLE},
       </if>
-      <if test="in_diameter != null">
+      <if test="in_diameter != null and in_diameter != '' ">
         in_diameter = #{in_diameter,jdbcType=DOUBLE},
       </if>
-      <if test="out_diameter != null">
+      <if test="out_diameter != null and out_diameter != '' ">
         out_diameter = #{out_diameter,jdbcType=DOUBLE},
       </if>
-      <if test="slot != null">
+      <if test="slot != null and slot != '' ">
         slot = #{slot,jdbcType=VARCHAR},
       </if>
-      <if test="today_price != null">
+      <if test="today_price != null and today_price != '' ">
         today_price = #{today_price,jdbcType=DOUBLE},
       </if>
-      <if test="remarks != null">
+      <if test="remarks != null and remarks != '' ">
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="create_time != null">
+      <if test="reporter != null and reporter != '' ">
+        reporter = #{reporter,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null and create_time != '' ">
         create_time = #{create_time,jdbcType=TIMESTAMP},
       </if>
-      <if test="update_time != null">
+      <if test="update_time != null and update_time != '' ">
         update_time = #{update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="expand_1 != null">
-        expand_1 = #{expand_1,jdbcType=BIT},
-      </if>
-      <if test="expand_2 != null">
-        expand_2 = #{expand_2,jdbcType=BIT},
-      </if>
-      <if test="expand_3 != null">
-        expand_3 = #{expand_3,jdbcType=BIT},
-      </if>
-      <if test="reporter != null">
-        reporter = #{reporter,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.goods.Anode">
     update anode_tbl
     set province = #{province,jdbcType=VARCHAR},
@@ -585,7 +612,7 @@
       thermal = #{thermal,jdbcType=DOUBLE},
       ash = #{ash,jdbcType=DOUBLE},
       size = #{size,jdbcType=VARCHAR},
-      bowl_sum = #{bowl_sum,jdbcType=INTEGER},
+      bowl_sum = #{bowl_sum,jdbcType=DOUBLE},
       bowl_distance = #{bowl_distance,jdbcType=DOUBLE},
       in_diameter = #{in_diameter,jdbcType=DOUBLE},
       out_diameter = #{out_diameter,jdbcType=DOUBLE},

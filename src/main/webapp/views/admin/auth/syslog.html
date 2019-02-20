@@ -1,10 +1,264 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>石油焦信息管理</title>
+    <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/themes/icon.css" rel="stylesheet"/>
+    <link href="/css/xwb_list.css" rel="stylesheet"/>
+    <link href="/css/themes/color.css" rel="stylesheet"/>
+    <link href="/css/wm.css" rel="stylesheet"/>
+    <link href="/css/demoe.css" rel="stylesheet"/>
+    <!--<script src="/script/jquery.min.js"></script>-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="/script/jquery.easyui.min.js"></script>
+    <!--<script src="/js/jquery17.easyui.min.js"></script>-->
+    <script src="/script/easyui-lang-zh_CN.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/jquery.serializejson.js"></script>
+    <!--<script src="/js/xlsx.core.min.js"></script>-->
+
+    <script src="/js/jquery.ocupload-1.1.2.js"></script>
+
+
 </head>
 <body>
-syslog系统日志
+
+
+<!-- 条件查询 -->
+<div>
+    <form id="searchform" method="post">
+        <table id="sec">
+            <tr>
+
+                <td>操作内容:</td>
+                <td><input type="text" style="width: 150%" name="content" class="easyui-textbox" value=""/></td>
+
+
+                <td>用户ID:</td>
+                <td><input type="text" name="user_id" class="easyui-textbox" value=""/></td>
+
+
+                <td>日志类型:</td>
+                <td>
+                    <select class="easyui-combobox" name="type" panelHeight="auto"/>
+                    <option value="">所有类型</option>
+                    <option value="查询操作">查询操作</option>
+                    <option value="删除操作">删除操作</option>
+                    <option value="添加操作">添加操作</option>
+                    <option value="更新操作">更新操作</option>
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+
+
+<table id="dg" title="系统日志信息">
+
+</table>
+
+<div id="toolbar">
+    <tr>
+        <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
+           style="width:70px">查询</a>
+
+        <a href="javascript:window.location.reload()" class="easyui-linkbutton c1" style="width:70px">重置</a>
+        </td>
+
+        <a href="javascript:void(0)" id="export_excel" class="easyui-linkbutton c1"
+           style="width:70px">导出数据</a>
+    </tr>
+</div>
+
+
+
+<script th:inline="none">
+
+    $('#dg').datagrid({
+        url: '/admin/auth/listLogSelectiveByPage',
+        toolbar: '#toolbar',
+        pagination: 'true',
+        pageSize: 10,
+        pageList: [5, 10, 15, 20],
+        rownumbers: 'true',
+        fitColumns: 'true',
+        // singleSelect: 'true',
+        checkbox: 'true',
+        idField: 'id',
+        collapsible: 'true',
+        iconCls: 'icon-save',
+
+        queryParams: form2Json('searchform'),
+
+        columns: [[
+            {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
+            {field: 'id', align: 'center', title: '日志序列号'},
+            {field: 'type', title: '日志类型', width: 30},
+            {field: 'user_id', title: '用户ID', width: 30},
+            {field: 'time', title: '操作时间', width: 50},
+            {field: 'content', title: '操作内容', width: 249}
+        ]]
+    });
+
+    function form2Json(id) {
+
+        var arr = $("#" + id).serializeArray();
+        var jsonStr = "";
+
+        jsonStr += '{';
+        for (var i = 0; i < arr.length; i++) {
+            jsonStr += '"' + arr[i].name + '":"' + arr[i].value + '",'
+        }
+        jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
+        jsonStr += '}'
+
+        var json = JSON.parse(jsonStr);
+        return json;
+    }
+</script>
+
+<script type="text/javascript">
+    var url;
+
+    function saveUser() {
+        $('#fm').form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form('validate');
+            },
+            success: function (result) {
+                if (result > 0) {
+                    $.messager.alert('操作结果', '成功');
+                    //关闭添加新闻窗口
+                    $('#dlg').dialog('close');		// close the dialog
+                    //重新加载数据
+                    $('#dg').datagrid('reload');	// reload the data
+                } else {
+                    $.messager.alert('操作结果', '失败');
+                }
+            }
+        });
+    }
+
+
+    $("#submit_search").click(function () {
+        $('#dg').datagrid({url: "/admin/auth/listLogSelectiveByPage", queryParams: form2Json("searchform")});   //点击搜索
+    });
+
+
+    // 导出excel按钮
+    $("#export_excel").click(exportExcel);
+
+
+    // 导出excel
+    function exportExcel() {
+        //获得选中记录 多选
+        var row = $('#dg').datagrid('getSelections');
+        // alert("row(s) -> " + JSON.stringify(row));
+        if (row) {
+            $.messager.confirm('确认按钮', '你确定要导出该数据?', function (r) {
+                if (r) {
+                    downloadExl(row);
+                }
+            })
+        }
+    }
+
+    function downloadExl(data, type) {
+        var keys = Object.keys(data[0]);
+        var firstRow = {};
+        keys.forEach(function (item) {
+            console.log("item:" + item);
+            firstRow[item] = item;
+        });
+        data.unshift(firstRow);
+
+        var content = {};
+
+        //把json格式的数据转换为excel的行列形式
+        var sheetsData = data.map(function (item, rowIndex) {
+            return keys.map(function (key, columnIndex) {
+                return Object.assign({}, {
+                    value: item[key],
+                    position: (columnIndex > 25 ? getCharCol(columnIndex) : String.fromCharCode(65 + columnIndex)) + (rowIndex + 1),
+                });
+            });
+        }).reduce(function (prev, next) {
+            return prev.concat(next);
+        });
+
+        sheetsData.forEach(function (item, index) {
+            // content[item.position] = {v: item.value};
+            if (item.value == 'id') {
+                content[item.position] = {v: '序列号'};
+            } else if (item.value == 'content') {
+                content[item.position] = {v: '操作内容'};
+            } else if (item.value == 'time') {
+                content[item.position] = {v: '操作时间'};
+            } else if (item.value == 'type') {
+                content[item.position] = {v: '操作类型'};
+            } else if (item.value == 'user_id') {
+                content[item.position] = {v: '用户ID'};
+            } else {
+                content[item.position] = {v: item.value};
+            }
+        });
+
+        //设置区域,比如表格从A1到D10,SheetNames:标题
+        var coordinate = Object.keys(content);
+        var workBook = {
+            SheetNames: ["1"],
+            Sheets: {
+                "1": Object.assign({}, content, {"!ref": coordinate[0] + ":" + coordinate[coordinate.length - 1]}),
+            }
+        };
+
+
+        //这里的数据是用来定义导出的格式类型
+        var excelData = XLSX.write(workBook, {bookType: "xlsx", bookSST: false, type: "binary"});
+        var blob = new Blob([string2ArrayBuffer(excelData)], {type: ""});
+
+        // filename = "石油焦";
+        $.messager.prompt("输入框", "请输入保存文件名.", function (filename) {
+            if (filename) {
+                var nowTime = new Date().toLocaleDateString();
+                saveAs(blob, filename + nowTime + ".xlsx"); //文件名
+            }
+        });
+
+    }
+
+    //字符串转字符流
+    function string2ArrayBuffer(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) {
+            view[i] = s.charCodeAt(i) & 0xFF;
+        }
+        return buf;
+    }
+
+    //将指定的自然数转换为26进制表示. 映射关系: [0-25] -> [A-Z]
+    function getCharCol(n) {
+        var temCol = "",
+            s = "",
+            m = 0;
+        while (n > 0) {
+            m = n % 26 + 1;
+            s = String.fromCharCode(m + 64) + s;
+            n = (n - m) / 26;
+        }
+        return s;
+    }
+
+
+</script>
+
+
 </body>
 </html>

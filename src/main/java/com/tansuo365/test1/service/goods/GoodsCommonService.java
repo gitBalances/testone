@@ -44,15 +44,7 @@ public class GoodsCommonService implements IGoodsCommonService{
 
     @Override
     public Integer insertBatchList(List<Goods> list) {
-        List<Goods> newList = null;
-        for(Goods goods:list){
-            Goods newGoods = PetroleumCokeGradeUtil.setGradeBySulfur(goods);
-            if(newList == null){
-                newList = new ArrayList<>();
-            }
-            newList.add(newGoods);
-        }
-        return goodsCommonMapper.insertBatch(newList);
+        return goodsCommonMapper.insertBatch(list);
     }
 
     @Override

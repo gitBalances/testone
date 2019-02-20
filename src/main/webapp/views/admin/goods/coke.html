@@ -91,6 +91,8 @@
                 <td><input type="text" name="today_price" class="easyui-textbox" value=""/></td>
                 <td>备注:</td>
                 <td><input type="text" name="remarks" class="easyui-textbox" value=""/></td>
+                <td>汇报人:</td>
+                <td><input type="text" name="reporter" class="easyui-textbox" value=""/></td>
 
             </tr>
             <tr>
@@ -371,10 +373,14 @@
                             processData: false, //不处理数据
                             success: function (data) {
                                 // alert(data);
-                                if (data > 0) {
+                                if(data > 0){
+                                    $.messager.alert('操作结果', '导入数据成功');
                                     $("#booten").linkbutton('enable');
                                     $('#uploadonlineinfo').dialog('close');
                                     $('#dg').datagrid('reload');
+                                }else{
+                                    $.messager.alert('操作结果', '导入数据失败');
+                                    $('#uploadonlineinfo').dialog('close');
                                 }
                             }
                         })
@@ -470,11 +476,17 @@
             <input name="today_price" class="easyui-validatebox" required="true">
         </div>
 
+
+
         <div class="fitem">
             <label>备注:</label>
             <input name="remarks" class="easyui-validatebox">
         </div>
 
+        <div class="fitem">
+            <label>汇报人:</label>
+            <input name="reporter" class="easyui-validatebox">
+        </div>
 
     </form>
 </div>
@@ -523,6 +535,7 @@
             {field: 'coke_type', title: '类型', width: 60},
             {field: 'today_price', title: '今日报价', width: 60},
             {field: 'remarks', title: '备注', width: 100},
+            {field: 'reporter', title: '汇报人', width: 90},
             {field: 'create_time', title: '创建时间', width: 148},
             {field: 'update_time', title: '更新时间', width: 148}
         ]]
@@ -595,7 +608,6 @@
     function removeUser() {
         //获得选中记录 多选
         var rows = $('#dg').datagrid('getSelections');
-        // console.log("row(s) -> " + JSON.stringify(row));
         if (rows) {
             $.messager.confirm('确认按钮', '你确定要删除该数据?', function (r) {
                 if (r) {
@@ -638,7 +650,7 @@
     function exportExcel() {
         //获得选中记录 多选
         var row = $('#dg').datagrid('getSelections');
-        console.log("row(s) -> " + JSON.stringify(row));
+        // alert("row(s) -> " + JSON.stringify(row));
         if (row) {
             $.messager.confirm('确认按钮', '你确定要导出该数据?', function (r) {
                 if (r) {
@@ -703,7 +715,9 @@
                 content[item.position] = {v: '今日报价(元)'};
             } else if (item.value == 'remarks') {
                 content[item.position] = {v: '备注'};
-            } else if (item.value == 'create_time') {
+            } else if(item.value=='reporter'){
+                content[item.position] = {v: '汇报人'};
+            }else if (item.value == 'create_time') {
                 content[item.position] = {v: '创建时间'};
             } else if (item.value == 'update_time') {
                 content[item.position] = {v: '更新时间'};

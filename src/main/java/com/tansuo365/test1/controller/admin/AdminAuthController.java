@@ -1,10 +1,17 @@
 package com.tansuo365.test1.controller.admin;
 
+import com.tansuo365.test1.bean.goods.CalcinedCoke;
+import com.tansuo365.test1.bean.log.LogEnum;
+import com.tansuo365.test1.bean.log.LogUser;
 import com.tansuo365.test1.bean.user.EMenu;
+import com.tansuo365.test1.service.log.LogService;
 import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -20,6 +27,8 @@ public class AdminAuthController {
     private EMenuService eMenuService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private LogService logService;
 
     /**
      * 查询所有EMenu
@@ -63,35 +72,25 @@ public class AdminAuthController {
         resultMap.put("success",true);
         resultMap.put("saveMessage","菜单添加成功!");
 
-
         return resultMap;
 
-//        if(eMenu.getId()==null){
-//            if(eMenuService.getByName(eMenu.getName())!=null){
-//                resultMap.put("success",false);
-//                resultMap.put("errorInfo","菜单已经存在!");
-//                return resultMap;
-//            }
-//        }
-//        int updateCode = 0;
-//        int insertCode = 0;
-//        if(eMenu.getId()!=null){ //不为空,则要进行升级管理员user信息
-//            updateCode = eMenuService.update(eMenu);
-//            resultMap.put("saveMessage","菜单信息更新成功!");
-//        }else{ //为空,则说明是要注册新的管理员user
-//            insertCode = eMenuService.add(eMenu);
-//            resultMap.put("saveMessage","菜单添加成功!");
-//        }
-//        /*如果更新code或者插入code成功状态则success true,否则不是*/
-//        if(updateCode==1 || insertCode==1){
-//            resultMap.put("success",true);
-//            return resultMap;
-//        }else{
-//            resultMap.put("success",false);
-//            resultMap.put("errorInfo","保存失败!(⊙o⊙)？");
-//            return resultMap;
-//        }
     }
+
+
+    /**
+     * 查询日志
+     * @param logUser
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/listLogSelectiveByPage")
+    public Map<String, Object> getLogSelectiveByPage(LogUser logUser, Integer page, Integer rows){
+        return logService.getLogSelectiveByPage(logUser,page,rows);
+    }
+
+
+
 
 
 

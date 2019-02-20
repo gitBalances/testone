@@ -99,7 +99,6 @@
                 <script type="text/javascript" th:inline="none">
 
 
-
                     $("#uploadBtn").click(uploadonline);
 
                     function uploadidalogonline() {
@@ -116,7 +115,7 @@
                         console.log(formData);
                         // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
                         $.ajax({
-                            url: '/excel/importExcel',
+                            url: '/excel/importExcel?instance=' + "改质沥青",
                             type: 'POST',
                             data: formData,
                             async: false,
@@ -125,10 +124,14 @@
                             processData: false, //不处理数据
                             success: function (data) {
                                 // alert(data);
-                                if(data > 0){
+                                if (data > 0) {
+                                    $.messager.alert('操作结果', '导入数据成功');
                                     $("#booten").linkbutton('enable');
                                     $('#uploadonlineinfo').dialog('close');
                                     $('#dg').datagrid('reload');
+                                } else {
+                                    $.messager.alert('操作结果', '导入数据失败');
+                                    $('#uploadonlineinfo').dialog('close');
                                 }
                             }
                         })
@@ -418,7 +421,40 @@
         });
 
         sheetsData.forEach(function (item, index) {
-            content[item.position] = {v: item.value};
+            // content[item.position] = {v: item.value};
+            if (item.value == 'id') {
+                content[item.position] = {v: '序列号'};
+            } else if (item.value == 'province') {
+                content[item.position] = {v: '省份'};
+            } else if (item.value == 'company') {
+                content[item.position] = {v: '企业'};
+            } else if (item.value == 's_company') {
+                content[item.position] = {v: '简称'};
+            } else if (item.value == 'softening_point') {
+                content[item.position] = {v: '软化点℃'};
+            } else if (item.value == 'toluene') {
+                content[item.position] = {v: '甲苯不溶物含量%'};
+            } else if (item.value == 'quinoline') {
+                content[item.position] = {v: '喹啉不溶物含量%'};
+            } else if (item.value == 'beta_resin') {
+                content[item.position] = {v: 'β树脂含量%'};
+            } else if (item.value == 'coking_value') {
+                content[item.position] = {v: '结焦值%'};
+            } else if (item.value == 'ash') {
+                content[item.position] = {v: '灰分%'};
+            } else if (item.value == 'today_price') {
+                content[item.position] = {v: '今日报价(元)'};
+            } else if (item.value == 'remarks') {
+                content[item.position] = {v: '备注'};
+            } else if (item.value == 'reporter') {
+                content[item.position] = {v: '汇报人'};
+            } else if (item.value == 'create_time') {
+                content[item.position] = {v: '创建时间'};
+            } else if (item.value == 'update_time') {
+                content[item.position] = {v: '更新时间'};
+            } else {
+                content[item.position] = {v: item.value};
+            }
         });
 
         //设置区域,比如表格从A1到D10,SheetNames:标题

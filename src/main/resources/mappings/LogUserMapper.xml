@@ -91,7 +91,6 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-
   <!--动态获取-->
   <select id="getBySelective" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
@@ -113,6 +112,7 @@
         user_id = #{user_id}
       </if>
     </where>
+    order by time DESC
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

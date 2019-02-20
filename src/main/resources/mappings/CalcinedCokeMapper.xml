@@ -1,193 +1,206 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tansuo365.test1.mapper.goods.CalcinedCokeMapper">
-  <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.goods.CalcinedCoke">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="province" jdbcType="VARCHAR" property="province" />
-    <result column="company" jdbcType="VARCHAR" property="company" />
-    <result column="s_company" jdbcType="VARCHAR" property="s_company" />
-    <result column="sulfur" jdbcType="DOUBLE" property="sulfur" />
-    <result column="ash" jdbcType="DOUBLE" property="ash" />
-    <result column="volatile_matter" jdbcType="DOUBLE" property="volatile_matter" />
-    <result column="water" jdbcType="DOUBLE" property="water" />
-    <result column="density" jdbcType="DOUBLE" property="density" />
-    <result column="p_resistivity" jdbcType="VARCHAR" property="p_resistivity" />
-    <result column="vanadium" jdbcType="DOUBLE" property="vanadium" />
-    <result column="granularity" jdbcType="DOUBLE" property="granularity" />
-    <result column="today_price" jdbcType="DOUBLE" property="today_price" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
-    <result column="expand_1" jdbcType="BIT" property="expand_1" />
-    <result column="expand_2" jdbcType="BIT" property="expand_2" />
-    <result column="expand_3" jdbcType="BIT" property="expand_3" />
-    <result column="reporter" jdbcType="VARCHAR" property="reporter" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.goods.CalcinedCoke">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="s_company" jdbcType="VARCHAR" property="s_company"/>
+        <result column="sulfur" jdbcType="DOUBLE" property="sulfur"/>
+        <result column="ash" jdbcType="DOUBLE" property="ash"/>
+        <result column="volatile_matter" jdbcType="DOUBLE" property="volatile_matter"/>
+        <result column="water" jdbcType="DOUBLE" property="water"/>
+        <result column="density" jdbcType="DOUBLE" property="density"/>
+        <result column="p_resistivity" jdbcType="VARCHAR" property="p_resistivity"/>
+        <result column="vanadium" jdbcType="DOUBLE" property="vanadium"/>
+        <result column="granularity" jdbcType="DOUBLE" property="granularity"/>
+        <result column="today_price" jdbcType="DOUBLE" property="today_price"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="update_time"/>
+        <result column="expand_1" jdbcType="BIT" property="expand_1"/>
+        <result column="expand_2" jdbcType="BIT" property="expand_2"/>
+        <result column="expand_3" jdbcType="BIT" property="expand_3"/>
+        <result column="reporter" jdbcType="VARCHAR" property="reporter"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     id, province, company, s_company, sulfur, ash, volatile_matter, water, density, p_resistivity, 
-    vanadium, granularity, today_price, remarks, create_time, update_time, expand_1, 
-    expand_2, expand_3, reporter
+    vanadium, granularity, today_price, remarks,reporter, create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from calcined_coke_tbl
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from calcined_coke_tbl
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from calcined_coke_tbl
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from calcined_coke_tbl
+        where id = #{id,jdbcType=BIGINT}
+    </select>
 
-  <!--动态查询-->
-  <select id="selectGoodsSelective" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke"
-          resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from calcined_coke_tbl
-    <where>
-      <if test="id != null and id !='' ">
-        and id = #{id}
-      </if>
-      <if test="province != null and province !='' ">
-        and province = #{province}
-      </if>
-      <if test="company != null and company !='' ">
-        and company = #{company}
-      </if>
-      <if test="s_company != null and s_company != '' ">
-        and s_company = #{s_company}
-      </if>
-      <if test="sulfur != null and sulfur !='' ">
-        and sulfur = #{sulfur}
-      </if>
-      <if test="ash != null and ash !='' ">
-        and ash = #{ash}
-      </if>
-      <if test="volatile_matter != null and volatile_matter !='' ">
-        and volatile_matter = #{volatile_matter}
-      </if>
-      <if test="water != null and water !='' ">
-        and water = #{water}
-      </if>
-      <if test="density != null and density !='' ">
-        and density = #{density}
-      </if>
-      <if test="p_resistivity != null and p_resistivity !='' ">
-        and p_resistivity = #{p_resistivity}
-      </if>
-      <if test="vanadium != null and vanadium !='' ">
-        and vanadium = #{vanadium}
-      </if>
-      <if test="granularity != null and granularity !='' ">
-        and granularity = #{granularity}
-      </if>
-      <if test="today_price != null and today_price !='' ">
-        and today_price = #{today_price}
-      </if>
-      <if test="remarks != null and remarks !='' ">
-        and remarks = #{remarks}
-      </if>
-      <if test="create_time != null and create_time !='' ">
-        and create_time = #{create_time}
-      </if>
-      <if test="update_time != null and update_time !='' ">
-        and update_time = #{update_time}
-      </if>
-      <if test="reporter != null and reporter != '' ">
-        and reporter = #{reporter}
-      </if>
-    </where>
-  </select>
+    <!--动态查询-->
+    <select id="selectGoodsSelective" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from calcined_coke_tbl
+        <where>
+            <if test="id != null and id != '' ">
+                and id = #{id}
+            </if>
+            <if test="province != null and province != '' ">
+                and province = #{province}
+            </if>
+            <if test="company != null and company != '' ">
+                and company = #{company}
+            </if>
+            <if test="s_company != null and s_company != '' ">
+                and s_company = #{s_company}
+            </if>
+            <if test="sulfur != null and sulfur != '' ">
+                and sulfur = #{sulfur}
+            </if>
+            <if test="ash != null and ash != '' ">
+                and ash = #{ash}
+            </if>
+            <if test="volatile_matter != null and volatile_matter != '' ">
+                and volatile_matter = #{volatile_matter}
+            </if>
+            <if test="water != null and water != '' ">
+                and water = #{water}
+            </if>
+            <if test="density != null and density != '' ">
+                and density = #{density}
+            </if>
+            <if test="p_resistivity != null and p_resistivity != '' ">
+                and p_resistivity = #{p_resistivity}
+            </if>
+            <if test="vanadium != null and vanadium != '' ">
+                and vanadium = #{vanadium}
+            </if>
+            <if test="granularity != null and granularity != '' ">
+                and granularity = #{granularity}
+            </if>
+            <if test="today_price != null and today_price != '' ">
+                and today_price = #{today_price}
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                and remarks = #{remarks}
+            </if>
+            <if test="reporter != null and reporter != '' ">
+                and reporter = #{reporter}
+            </if>
+            <if test="create_time != null and create_time != '' ">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != '' ">
+                and update_time = #{update_time}
+            </if>
+        </where>
+    </select>
 
 
-  <!--查询所有-->
-  <select id="selectAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from calcined_coke_tbl
-  </select>
+    <!--查询所有-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from calcined_coke_tbl
+    </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from calcined_coke_tbl
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample">
-    delete from calcined_coke_tbl
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke" useGeneratedKeys="true">
+    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample">
+        delete from calcined_coke_tbl
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatchByPKArr" parameterType="java.lang.String">
+        delete from calcined_coke_tbl
+        where id in
+        <foreach item="ids" index="index" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke"
+            useGeneratedKeys="true">
     insert into calcined_coke_tbl (province, company, s_company, 
       sulfur, ash, volatile_matter, 
       water, density, p_resistivity, 
@@ -203,291 +216,293 @@
       #{expand_1,jdbcType=BIT}, #{expand_2,jdbcType=BIT}, #{expand_3,jdbcType=BIT}, #{reporter,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke" useGeneratedKeys="true">
-    insert into calcined_coke_tbl
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="province != null">
-        province,
-      </if>
-      <if test="company != null">
-        company,
-      </if>
-      <if test="s_company != null">
-        s_company,
-      </if>
-      <if test="sulfur != null">
-        sulfur,
-      </if>
-      <if test="ash != null">
-        ash,
-      </if>
-      <if test="volatile_matter != null">
-        volatile_matter,
-      </if>
-      <if test="water != null">
-        water,
-      </if>
-      <if test="density != null">
-        density,
-      </if>
-      <if test="p_resistivity != null">
-        p_resistivity,
-      </if>
-      <if test="vanadium != null">
-        vanadium,
-      </if>
-      <if test="granularity != null">
-        granularity,
-      </if>
-      <if test="today_price != null">
-        today_price,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
-      <if test="create_time != null">
-        create_time,
-      </if>
-      <if test="update_time != null">
-        update_time,
-      </if>
-      <if test="expand_1 != null">
-        expand_1,
-      </if>
-      <if test="expand_2 != null">
-        expand_2,
-      </if>
-      <if test="expand_3 != null">
-        expand_3,
-      </if>
-      <if test="reporter != null">
-        reporter,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="province != null">
-        #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="company != null">
-        #{company,jdbcType=VARCHAR},
-      </if>
-      <if test="s_company != null">
-        #{s_company,jdbcType=VARCHAR},
-      </if>
-      <if test="sulfur != null">
-        #{sulfur,jdbcType=DOUBLE},
-      </if>
-      <if test="ash != null">
-        #{ash,jdbcType=DOUBLE},
-      </if>
-      <if test="volatile_matter != null">
-        #{volatile_matter,jdbcType=DOUBLE},
-      </if>
-      <if test="water != null">
-        #{water,jdbcType=DOUBLE},
-      </if>
-      <if test="density != null">
-        #{density,jdbcType=DOUBLE},
-      </if>
-      <if test="p_resistivity != null">
-        #{p_resistivity,jdbcType=VARCHAR},
-      </if>
-      <if test="vanadium != null">
-        #{vanadium,jdbcType=DOUBLE},
-      </if>
-      <if test="granularity != null">
-        #{granularity,jdbcType=DOUBLE},
-      </if>
-      <if test="today_price != null">
-        #{today_price,jdbcType=DOUBLE},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="create_time != null">
-        #{create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="update_time != null">
-        #{update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="expand_1 != null">
-        #{expand_1,jdbcType=BIT},
-      </if>
-      <if test="expand_2 != null">
-        #{expand_2,jdbcType=BIT},
-      </if>
-      <if test="expand_3 != null">
-        #{expand_3,jdbcType=BIT},
-      </if>
-      <if test="reporter != null">
-        #{reporter,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample" resultType="java.lang.Long">
-    select count(*) from calcined_coke_tbl
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update calcined_coke_tbl
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.province != null">
+
+    <!--批量插入list-->
+    <insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+        insert into calcined_coke_tbl (province,company, s_company,
+        sulfur, ash, volatile_matter,
+        water, density, p_resistivity,
+        vanadium, granularity, today_price,
+        remarks,reporter,create_time, update_time
+        )
+        values
+        <foreach collection="list" item="list" index="index" separator=",">
+            (#{list.province,jdbcType=VARCHAR},
+            #{list.company,jdbcType=VARCHAR}, #{list.s_company,jdbcType=VARCHAR},
+            #{list.sulfur,jdbcType=DOUBLE}, #{list.ash,jdbcType=DOUBLE}, #{list.volatile_matter,jdbcType=DOUBLE},
+            #{list.water,jdbcType=DOUBLE}, #{list.density,jdbcType=DOUBLE}, #{list.p_resistivity,jdbcType=VARCHAR},
+            #{list.vanadium,jdbcType=DOUBLE}, #{list.granularity,jdbcType=DOUBLE}, #{list.today_price,jdbcType=DOUBLE},
+            #{list.remarks,jdbcType=VARCHAR}, #{list.reporter,jdbcType=VARCHAR}, #{list.create_time,jdbcType=TIMESTAMP},
+            #{list.update_time,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke" useGeneratedKeys="true">
+        insert into calcined_coke_tbl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="province != null and province != '' ">
+                province,
+            </if>
+            <if test="company != null and company != '' ">
+                company,
+            </if>
+            <if test="s_company != null and s_company != '' ">
+                s_company,
+            </if>
+            <if test="sulfur != null and sulfur != '' ">
+                sulfur,
+            </if>
+            <if test="ash != null and ash != '' ">
+                ash,
+            </if>
+            <if test="volatile_matter != null and volatile_matter != '' ">
+                volatile_matter,
+            </if>
+            <if test="water != null and water != '' ">
+                water,
+            </if>
+            <if test="density != null and density != '' ">
+                density,
+            </if>
+            <if test="p_resistivity != null and p_resistivity != '' ">
+                p_resistivity,
+            </if>
+            <if test="vanadium != null and vanadium != '' ">
+                vanadium,
+            </if>
+            <if test="granularity != null and granularity != '' ">
+                granularity,
+            </if>
+            <if test="today_price != null and today_price != '' ">
+                today_price,
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                remarks,
+            </if>
+            <if test="reporter != null and reporter != '' ">
+                reporter,
+            </if>
+            <if test="create_time != null and create_time != '' ">
+                create_time,
+            </if>
+            <if test="update_time != null and update_time != '' ">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="province != null and province != '' ">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null and company != '' ">
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="s_company != null and s_company != '' ">
+                #{s_company,jdbcType=VARCHAR},
+            </if>
+            <if test="sulfur != null and sulfur != '' ">
+                #{sulfur,jdbcType=DOUBLE},
+            </if>
+            <if test="ash != null and ash != '' ">
+                #{ash,jdbcType=DOUBLE},
+            </if>
+            <if test="volatile_matter != null and volatile_matter != '' ">
+                #{volatile_matter,jdbcType=DOUBLE},
+            </if>
+            <if test="water != null and water != '' ">
+                #{water,jdbcType=DOUBLE},
+            </if>
+            <if test="density != null and density != '' ">
+                #{density,jdbcType=DOUBLE},
+            </if>
+            <if test="p_resistivity != null and p_resistivity != '' ">
+                #{p_resistivity,jdbcType=VARCHAR},
+            </if>
+            <if test="vanadium != null and vanadium != '' ">
+                #{vanadium,jdbcType=DOUBLE},
+            </if>
+            <if test="granularity != null and granularity != '' ">
+                #{granularity,jdbcType=DOUBLE},
+            </if>
+            <if test="today_price != null and today_price != '' ">
+                #{today_price,jdbcType=DOUBLE},
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="reporter != null and reporter != '' ">
+                #{reporter,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time != null and create_time != '' ">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null and update_time != '' ">
+                #{update_time,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample"
+            resultType="java.lang.Long">
+        select count(*) from calcined_coke_tbl
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update calcined_coke_tbl
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.province != null">
+                province = #{record.province,jdbcType=VARCHAR},
+            </if>
+            <if test="record.company != null">
+                company = #{record.company,jdbcType=VARCHAR},
+            </if>
+            <if test="record.s_company != null">
+                s_company = #{record.s_company,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sulfur != null">
+                sulfur = #{record.sulfur,jdbcType=DOUBLE},
+            </if>
+            <if test="record.ash != null">
+                ash = #{record.ash,jdbcType=DOUBLE},
+            </if>
+            <if test="record.volatile_matter != null">
+                volatile_matter = #{record.volatile_matter,jdbcType=DOUBLE},
+            </if>
+            <if test="record.water != null">
+                water = #{record.water,jdbcType=DOUBLE},
+            </if>
+            <if test="record.density != null">
+                density = #{record.density,jdbcType=DOUBLE},
+            </if>
+            <if test="record.p_resistivity != null">
+                p_resistivity = #{record.p_resistivity,jdbcType=VARCHAR},
+            </if>
+            <if test="record.vanadium != null">
+                vanadium = #{record.vanadium,jdbcType=DOUBLE},
+            </if>
+            <if test="record.granularity != null">
+                granularity = #{record.granularity,jdbcType=DOUBLE},
+            </if>
+            <if test="record.today_price != null">
+                today_price = #{record.today_price,jdbcType=DOUBLE},
+            </if>
+            <if test="record.remarks != null">
+                remarks = #{record.remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="record.create_time != null">
+                create_time = #{record.create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.update_time != null">
+                update_time = #{record.update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.expand_1 != null">
+                expand_1 = #{record.expand_1,jdbcType=BIT},
+            </if>
+            <if test="record.expand_2 != null">
+                expand_2 = #{record.expand_2,jdbcType=BIT},
+            </if>
+            <if test="record.expand_3 != null">
+                expand_3 = #{record.expand_3,jdbcType=BIT},
+            </if>
+            <if test="record.reporter != null">
+                reporter = #{record.reporter,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update calcined_coke_tbl
+        set id = #{record.id,jdbcType=BIGINT},
         province = #{record.province,jdbcType=VARCHAR},
-      </if>
-      <if test="record.company != null">
         company = #{record.company,jdbcType=VARCHAR},
-      </if>
-      <if test="record.s_company != null">
         s_company = #{record.s_company,jdbcType=VARCHAR},
-      </if>
-      <if test="record.sulfur != null">
         sulfur = #{record.sulfur,jdbcType=DOUBLE},
-      </if>
-      <if test="record.ash != null">
         ash = #{record.ash,jdbcType=DOUBLE},
-      </if>
-      <if test="record.volatile_matter != null">
         volatile_matter = #{record.volatile_matter,jdbcType=DOUBLE},
-      </if>
-      <if test="record.water != null">
         water = #{record.water,jdbcType=DOUBLE},
-      </if>
-      <if test="record.density != null">
         density = #{record.density,jdbcType=DOUBLE},
-      </if>
-      <if test="record.p_resistivity != null">
         p_resistivity = #{record.p_resistivity,jdbcType=VARCHAR},
-      </if>
-      <if test="record.vanadium != null">
         vanadium = #{record.vanadium,jdbcType=DOUBLE},
-      </if>
-      <if test="record.granularity != null">
         granularity = #{record.granularity,jdbcType=DOUBLE},
-      </if>
-      <if test="record.today_price != null">
         today_price = #{record.today_price,jdbcType=DOUBLE},
-      </if>
-      <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="record.create_time != null">
         create_time = #{record.create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.update_time != null">
         update_time = #{record.update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.expand_1 != null">
         expand_1 = #{record.expand_1,jdbcType=BIT},
-      </if>
-      <if test="record.expand_2 != null">
         expand_2 = #{record.expand_2,jdbcType=BIT},
-      </if>
-      <if test="record.expand_3 != null">
         expand_3 = #{record.expand_3,jdbcType=BIT},
-      </if>
-      <if test="record.reporter != null">
-        reporter = #{record.reporter,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update calcined_coke_tbl
-    set id = #{record.id,jdbcType=BIGINT},
-      province = #{record.province,jdbcType=VARCHAR},
-      company = #{record.company,jdbcType=VARCHAR},
-      s_company = #{record.s_company,jdbcType=VARCHAR},
-      sulfur = #{record.sulfur,jdbcType=DOUBLE},
-      ash = #{record.ash,jdbcType=DOUBLE},
-      volatile_matter = #{record.volatile_matter,jdbcType=DOUBLE},
-      water = #{record.water,jdbcType=DOUBLE},
-      density = #{record.density,jdbcType=DOUBLE},
-      p_resistivity = #{record.p_resistivity,jdbcType=VARCHAR},
-      vanadium = #{record.vanadium,jdbcType=DOUBLE},
-      granularity = #{record.granularity,jdbcType=DOUBLE},
-      today_price = #{record.today_price,jdbcType=DOUBLE},
-      remarks = #{record.remarks,jdbcType=VARCHAR},
-      create_time = #{record.create_time,jdbcType=TIMESTAMP},
-      update_time = #{record.update_time,jdbcType=TIMESTAMP},
-      expand_1 = #{record.expand_1,jdbcType=BIT},
-      expand_2 = #{record.expand_2,jdbcType=BIT},
-      expand_3 = #{record.expand_3,jdbcType=BIT},
-      reporter = #{record.reporter,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke">
-    update calcined_coke_tbl
-    <set>
-      <if test="province != null">
-        province = #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="company != null">
-        company = #{company,jdbcType=VARCHAR},
-      </if>
-      <if test="s_company != null">
-        s_company = #{s_company,jdbcType=VARCHAR},
-      </if>
-      <if test="sulfur != null">
-        sulfur = #{sulfur,jdbcType=DOUBLE},
-      </if>
-      <if test="ash != null">
-        ash = #{ash,jdbcType=DOUBLE},
-      </if>
-      <if test="volatile_matter != null">
-        volatile_matter = #{volatile_matter,jdbcType=DOUBLE},
-      </if>
-      <if test="water != null">
-        water = #{water,jdbcType=DOUBLE},
-      </if>
-      <if test="density != null">
-        density = #{density,jdbcType=DOUBLE},
-      </if>
-      <if test="p_resistivity != null">
-        p_resistivity = #{p_resistivity,jdbcType=VARCHAR},
-      </if>
-      <if test="vanadium != null">
-        vanadium = #{vanadium,jdbcType=DOUBLE},
-      </if>
-      <if test="granularity != null">
-        granularity = #{granularity,jdbcType=DOUBLE},
-      </if>
-      <if test="today_price != null">
-        today_price = #{today_price,jdbcType=DOUBLE},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="create_time != null">
-        create_time = #{create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="update_time != null">
-        update_time = #{update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="expand_1 != null">
-        expand_1 = #{expand_1,jdbcType=BIT},
-      </if>
-      <if test="expand_2 != null">
-        expand_2 = #{expand_2,jdbcType=BIT},
-      </if>
-      <if test="expand_3 != null">
-        expand_3 = #{expand_3,jdbcType=BIT},
-      </if>
-      <if test="reporter != null">
-        reporter = #{reporter,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke">
+        reporter = #{record.reporter,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <!--动态更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke">
+        update calcined_coke_tbl
+        <set>
+            <if test="province != null and province != '' ">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null and company != '' ">
+                company = #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="s_company != null and s_company != '' ">
+                s_company = #{s_company,jdbcType=VARCHAR},
+            </if>
+            <if test="sulfur != null and sulfur != '' ">
+                sulfur = #{sulfur,jdbcType=DOUBLE},
+            </if>
+            <if test="ash != null and ash != '' ">
+                ash = #{ash,jdbcType=DOUBLE},
+            </if>
+            <if test="volatile_matter != null and volatile_matter != '' ">
+                volatile_matter = #{volatile_matter,jdbcType=DOUBLE},
+            </if>
+            <if test="water != null and water != '' ">
+                water = #{water,jdbcType=DOUBLE},
+            </if>
+            <if test="density != null and density != '' ">
+                density = #{density,jdbcType=DOUBLE},
+            </if>
+            <if test="p_resistivity != null and p_resistivity !='' ">
+                p_resistivity = #{p_resistivity,jdbcType=VARCHAR},
+            </if>
+            <if test="vanadium != null and vanadium != '' ">
+                vanadium = #{vanadium,jdbcType=DOUBLE},
+            </if>
+            <if test="granularity != null and granularity != '' ">
+                granularity = #{granularity,jdbcType=DOUBLE},
+            </if>
+            <if test="today_price != null and today_price != '' ">
+                today_price = #{today_price,jdbcType=DOUBLE},
+            </if>
+            <if test="remarks != null and remarks != '' ">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="reporter != null and reporter != '' ">
+                reporter = #{reporter,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time != null and create_time != '' ">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null and update_time != '' ">
+                update_time = #{update_time,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke">
     update calcined_coke_tbl
     set province = #{province,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR},

@@ -136,7 +136,7 @@
                         console.log(formData);
                         // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
                         $.ajax({
-                            url: '/excel/importExcel',
+                            url: '/excel/importExcel?instance=' + "阳极",
                             type: 'POST',
                             data: formData,
                             async: false,
@@ -146,9 +146,13 @@
                             success: function (data) {
                                 // alert(data);
                                 if (data > 0) {
+                                    $.messager.alert('操作结果', '导入数据成功');
                                     $("#booten").linkbutton('enable');
                                     $('#uploadonlineinfo').dialog('close');
                                     $('#dg').datagrid('reload');
+                                } else {
+                                    $.messager.alert('操作结果', '导入数据失败');
+                                    $('#uploadonlineinfo').dialog('close');
                                 }
                             }
                         })
@@ -485,7 +489,58 @@
         });
 
         sheetsData.forEach(function (item, index) {
-            content[item.position] = {v: item.value};
+            // content[item.position] = {v: item.value};
+            if (item.value == 'id') {
+                content[item.position] = {v: '序列号'};
+            } else if (item.value == 'province') {
+                content[item.position] = {v: '省份'};
+            } else if (item.value == 'company') {
+                content[item.position] = {v: '企业'};
+            } else if (item.value == 's_company') {
+                content[item.position] = {v: '简称'};
+            } else if (item.value == 'e_density') {
+                content[item.position] = {v: '表现密度g/cm³'};
+            } else if (item.value == 'true_density') {
+                content[item.position] = {v: '真密度g/cm³'};
+            } else if (item.value == 'compressive') {
+                content[item.position] = {v: '耐压强度MPa'};
+            } else if (item.value == 'carbon') {
+                content[item.position] = {v: '二氧化碳反应性%'};
+            } else if (item.value == 'flexural') {
+                content[item.position] = {v: '抗折强度MPa'};
+            } else if (item.value == 'room') {
+                content[item.position] = {v: '室温电阻率µ.Ω.m'};
+            } else if (item.value == 'thermal') {
+                content[item.position] = {v: '热膨胀系数'};
+            } else if (item.value == 'ash') {
+                content[item.position] = {v: '灰分%'};
+            } else if (item.value == 'today_price') {
+                content[item.position] = {v: '今日报价(元)'};
+            } else if (item.value == 'size') {
+                content[item.position] = {v: '尺寸(长宽高)'};
+            } else if (item.value == 'bowl_sum') {
+                content[item.position] = {v: '碗数'};
+            } else if (item.value == 'bowl_distance') {
+                content[item.position] = {v: '碗距mm'};
+            } else if (item.value == 'in_diameter') {
+                content[item.position] = {v: '内径mm'};
+            } else if (item.value == 'out_diameter') {
+                content[item.position] = {v: '外径mm'};
+            } else if (item.value == 'slot') {
+                content[item.position] = {v: '是/否开槽'};
+            } else if (item.value == 'today_price') {
+                content[item.position] = {v: '今日价格'};
+            } else if (item.value == 'remarks') {
+                content[item.position] = {v: '备注'};
+            } else if (item.value == 'reporter') {
+                content[item.position] = {v: '汇报人'};
+            } else if (item.value == 'create_time') {
+                content[item.position] = {v: '创建时间'};
+            } else if (item.value == 'update_time') {
+                content[item.position] = {v: '更新时间'};
+            } else {
+                content[item.position] = {v: item.value};
+            }
         });
 
         //设置区域,比如表格从A1到D10,SheetNames:标题

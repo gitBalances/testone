@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Date;
 /**
  * 货品石油焦
  * 原使用poi的导出(@Excel),改为直接使用js前端进行导出(@ExcelCell)
+ * 指定的index如果不指定将按照数据库顺序给出,不影响导出
  */
 @Data
 @Builder
@@ -68,14 +70,18 @@ public class PetroleumCoke implements Serializable,Goods {
     //    @Excel(name = "备注", orderNum = "13")
     @ExcelCell(index = 12)
     private String remarks;
-    private Boolean expand_2;
-    private Boolean expand_3;
 
+//    private Boolean expand_2;
+//    private Boolean expand_3;
+
+    @ExcelCell(index = 13)
+    private String reporter;
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    @Excel(name = "创建时间", exportFormat = "yyyy-MM-dd HH:mm:ss", orderNum = "14")
-    @ExcelCell(index = 13)
+    @ExcelCell(index = 14)
     private Date create_time;
+
 
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") //时区+8
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

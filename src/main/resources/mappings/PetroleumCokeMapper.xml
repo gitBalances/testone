@@ -21,6 +21,7 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="update_time"/>
         <result column="density" jdbcType="DOUBLE" property="density"/>
         <result column="coke_content" jdbcType="DOUBLE" property="coke_content"/>
+        <result column="reporter" jdbcType="VARCHAR" property="reporter"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -84,7 +85,7 @@
     </sql>
     <sql id="Base_Column_List">
     id, province, company, s_company, sulfur, ash, volatile_matter, wdr, vanadium, coke_type, 
-    today_price, remarks, grade, expand_2, expand_3, create_time, update_time, density, 
+    today_price, remarks, grade, /*expand_2, expand_3,*/ reporter,create_time, update_time, density,
     coke_content
   </sql>
     <select id="selectByExample" parameterType="com.tansuo365.test1.bean.goods.PetroleumCokeExample"
@@ -160,6 +161,9 @@
             <if test="remarks != null and remarks !='' ">
                 and remarks = #{remarks}
             </if>
+            <if test="reporter != null and reporter !='' ">
+                and reporter = #{reporter}
+            </if>
             <if test="grade !=null and grade != '' ">
                 and grade = #{grade}
             </if>
@@ -206,15 +210,15 @@
     insert into petroleum_coke_tbl (province, company, s_company,
       sulfur, ash, volatile_matter, 
       wdr, vanadium, coke_type, 
-      today_price, remarks, grade, 
-      expand_2, expand_3, create_time, 
+      today_price, remarks, grade, reporter,
+      create_time,
       update_time, density, coke_content
       )
     values (#{province,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{s_company,jdbcType=VARCHAR}, 
       #{sulfur,jdbcType=DOUBLE}, #{ash,jdbcType=DOUBLE}, #{volatile_matter,jdbcType=DOUBLE}, 
       #{wdr,jdbcType=DOUBLE}, #{vanadium,jdbcType=DOUBLE}, #{coke_type,jdbcType=VARCHAR}, 
       #{today_price,jdbcType=DOUBLE}, #{remarks,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
-      #{expand_2,jdbcType=BIT}, #{expand_3,jdbcType=BIT}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{reporter}, #{create_time,jdbcType=TIMESTAMP},
       #{update_time,jdbcType=TIMESTAMP}, #{density,jdbcType=DOUBLE}, #{coke_content,jdbcType=DOUBLE}
       )
   </insert>
@@ -257,14 +261,11 @@
             <if test="remarks != null and remarks != '' ">
                 remarks,
             </if>
+            <if test="reporter != null and reporter != '' ">
+                reporter,
+            </if>
             <if test="grade != null and grade != '' ">
                 grade,
-            </if>
-            <if test="expand_2 != null">
-                expand_2,
-            </if>
-            <if test="expand_3 != null">
-                expand_3,
             </if>
             <if test="create_time != null and create_time != '' ">
                 create_time,
@@ -313,14 +314,11 @@
             <if test="remarks != null and remarks != '' ">
                 #{remarks,jdbcType=VARCHAR},
             </if>
+            <if test="reporter != null and reporter != '' ">
+                #{reporter},
+            </if>
             <if test="grade != null and grade != '' ">
                 #{grade,jdbcType=VARCHAR},
-            </if>
-            <if test="expand_2 != null">
-                #{expand_2,jdbcType=TINYINT},
-            </if>
-            <if test="expand_3 != null">
-                #{expand_3,jdbcType=TINYINT},
             </if>
             <if test="create_time != null and create_time != '' ">
                 #{create_time,jdbcType=TIMESTAMP},
@@ -342,7 +340,7 @@
         insert into petroleum_coke_tbl (province, company, s_company,
         sulfur, ash, volatile_matter,
         wdr, vanadium, coke_type,
-        today_price, remarks, grade, create_time,
+        today_price, remarks, reporter, grade, create_time,
         update_time, density, coke_content
         )
         values
@@ -351,7 +349,7 @@
             #{list.province,jdbcType=VARCHAR}, #{list.company,jdbcType=VARCHAR}, #{list.s_company,jdbcType=VARCHAR},
             #{list.sulfur,jdbcType=DOUBLE}, #{list.ash,jdbcType=DOUBLE}, #{list.volatile_matter,jdbcType=DOUBLE},
             #{list.wdr,jdbcType=DOUBLE}, #{list.vanadium,jdbcType=DOUBLE}, #{list.coke_type,jdbcType=VARCHAR},
-            #{list.today_price,jdbcType=DOUBLE}, #{list.remarks,jdbcType=VARCHAR}, #{list.grade,jdbcType=VARCHAR},
+            #{list.today_price,jdbcType=DOUBLE}, #{list.remarks,jdbcType=VARCHAR}, #{list.reporter,jdbcType=VARCHAR},#{list.grade,jdbcType=VARCHAR},
             #{list.create_time,jdbcType=TIMESTAMP}, #{list.update_time,jdbcType=TIMESTAMP},
             #{list.density,jdbcType=DOUBLE},#{list.coke_content,jdbcType=DOUBLE}
             )
@@ -359,7 +357,7 @@
     </insert>
 
 
-    <!--动态批量插入数据-->
+    <!--动态批量插入数据unused-->
     <insert id="insertBatchSelective1" keyColumn="id" keyProperty="id" parameterType="java.util.List"
             useGeneratedKeys="true">
         insert into petroleum_coke_tbl
@@ -614,14 +612,11 @@
             <if test="remarks != null and remarks != '' ">
                 remarks = #{remarks,jdbcType=VARCHAR},
             </if>
+            <if test="reporter != null and reporter != '' ">
+                reporter = #{reporter,jdbcType=VARCHAR},
+            </if>
             <if test="grade != null and grade != '' ">
                 grade = #{grade,jdbcType=VARCHAR},
-            </if>
-            <if test="expand_2 != null">
-                expand_2 = #{expand_2,jdbcType=TINYINT},
-            </if>
-            <if test="expand_3 != null">
-                expand_3 = #{expand_3,jdbcType=TINYINT},
             </if>
             <if test="create_time != null and create_time != '' ">
                 create_time = #{create_time,jdbcType=TIMESTAMP},
@@ -659,9 +654,8 @@
       coke_type = #{coke_type,jdbcType=VARCHAR},
       today_price = #{today_price,jdbcType=DOUBLE},
       remarks = #{remarks,jdbcType=VARCHAR},
+      reporter = #{reporter,jdbcType=VARCHAR},
       grade = #{grade,jdbcType=VARCHAR},
-      expand_2 = #{expand_2,jdbcType=BIT},
-      expand_3 = #{expand_3,jdbcType=BIT},
       create_time = #{create_time,jdbcType=TIMESTAMP},
       update_time = #{update_time,jdbcType=TIMESTAMP},
       density = #{density,jdbcType=DOUBLE},

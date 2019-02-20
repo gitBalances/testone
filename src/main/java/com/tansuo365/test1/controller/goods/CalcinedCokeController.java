@@ -38,6 +38,13 @@ public class CalcinedCokeController {
     @Autowired
     private CodeJudgerUtils codeJudgerUtils;
 
+    /**
+     * 分页查询获取数据
+     * @param calcinedCoke
+     * @param page
+     * @param rows
+     * @return
+     */
     @RequestMapping("/selectSelective")
     public Map<String, Object> selectSelective(CalcinedCoke calcinedCoke, Integer page, Integer rows){
         goodsCommonService.setGoodsTypeMapper(calcinedCokeMapper);
@@ -53,12 +60,10 @@ public class CalcinedCokeController {
     }
 
     /*动态插入数据*/
-    //插入数据时根据sulfur字段判定品级并更新品级字段grade
     @RequestMapping("/insertSelective")
     public Integer insertSelective(CalcinedCoke calcinedCoke) {
         goodsCommonService.setGoodsTypeMapper(calcinedCokeMapper);
-        Goods goods = PetroleumCokeGradeUtil.setGradeBySulfur(calcinedCoke);
-        int code = goodsCommonService.addBySelective(goods);
+        int code = goodsCommonService.addBySelective(calcinedCoke);
         codeJudgerUtils.whichCodeIsOK(null,code, LogEnum.ADD_ACTION.toString(), instance);
         return code;
     }

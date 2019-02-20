@@ -130,7 +130,7 @@
                         console.log(formData);
                         // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
                         $.ajax({
-                            url: '/excel/importExcel',
+                            url: '/excel/importExcel?instance='+"煅后焦",
                             type: 'POST',
                             data: formData,
                             async: false,
@@ -140,9 +140,13 @@
                             success: function (data) {
                                 // alert(data);
                                 if(data > 0){
+                                    $.messager.alert('操作结果', '导入数据成功');
                                     $("#booten").linkbutton('enable');
                                     $('#uploadonlineinfo').dialog('close');
                                     $('#dg').datagrid('reload');
+                                }else{
+                                    $.messager.alert('操作结果', '导入数据失败');
+                                    $('#uploadonlineinfo').dialog('close');
                                 }
                             }
                         })
@@ -366,7 +370,6 @@
     function removeUser() {
         //获得选中记录 多选
         var row = $('#dg').datagrid('getSelections');
-        console.log("row(s) -> " + JSON.stringify(row));
         if (row) {
             $.messager.confirm('确认按钮', '你确定要删除该数据?', function (r) {
                 if (r) {
@@ -375,7 +378,7 @@
                     for (var i = 0; i < row.length; i++) {
                         ids.push(row[i].id);
                     }
-
+                    // alert(ids.toString());
                     $.ajax({
                         url: '/calcinedCoke/deleteBatchByPKs',
                         dataType: 'json',
@@ -445,7 +448,44 @@
         });
 
         sheetsData.forEach(function (item, index) {
-            content[item.position] = {v: item.value};
+            // content[item.position] = {v: item.value};
+            if (item.value == 'id') {
+                content[item.position] = {v: '序列号'};
+            } else if (item.value == 'province') {
+                content[item.position] = {v: '省份'};
+            } else if (item.value == 'company') {
+                content[item.position] = {v: '企业'};
+            } else if (item.value == 's_company') {
+                content[item.position] = {v: '简称'};
+            } else if (item.value == 'sulfur') {
+                content[item.position] = {v: '硫含量%'};
+            } else if (item.value == 'ash') {
+                content[item.position] = {v: '灰分%'};
+            } else if (item.value == 'volatile_matter') {
+                content[item.position] = {v: '挥发分%'};
+            } else if (item.value == 'water') {
+                content[item.position] = {v: '水分%'};
+            }  else if (item.value == 'density') {
+                content[item.position] = {v: '真密度g/cm³'};
+            } else if (item.value == 'p_resistivity') {
+                content[item.position] = {v: '粉末电阻率µ.Ω.m'};
+            } else if (item.value == 'vanadium') {
+                content[item.position] = {v: '钒含量ppm'};
+            } else if (item.value == 'granularity') {
+                content[item.position] = {v: '粒度mm'};
+            } else if (item.value == 'today_price') {
+                content[item.position] = {v: '今日报价(元)'};
+            } else if (item.value == 'remarks') {
+                content[item.position] = {v: '备注'};
+            } else if(item.value=='reporter'){
+                content[item.position] = {v: '汇报人'};
+            }else if (item.value == 'create_time') {
+                content[item.position] = {v: '创建时间'};
+            } else if (item.value == 'update_time') {
+                content[item.position] = {v: '更新时间'};
+            } else {
+                content[item.position] = {v: item.value};
+            }
         });
 
         //设置区域,比如表格从A1到D10,SheetNames:标题
