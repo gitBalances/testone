@@ -1,0 +1,121 @@
+function getAllPetroleumCoke(myChart) {
+    // /*获取json数据中的某一个字段*/
+    alert(myChart);
+    var newJson = null;
+    //获取展示形式如:
+    var newJson2 = null;
+    var newArr = [];
+    var companys = null;
+    var today_price = null; //今日价格汇总
+    var createTimes = null; //创建时间
+    var allData = null;
+    myChart.showLoading();
+    $.ajax({
+        // url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
+        type: "post",
+        success: function (data) {
+            myChart.hideLoading(); //数据data加载后隐藏loading
+            // alert(JSON.stringify(data.petroleumCokes)); OK
+            // petroleumCokesJson = JSON.stringify(data); OK
+            //石油焦json数据
+            // petroleumCokesJson = data; //OK
+            // console.log("JSON.stringify(data):" + JSON.stringify(data));
+            console.log(">>data:" + JSON.stringify(data));
+            allData = data;
+            //获取去重复后的公司名称数组
+            companys = getParamValues("company", data).delDuplicate();
+            console.log("companys:" + companys);
+            console.log("companys.length:" + companys.length);
+            console.log("companys.length:" + companys.length);
+            console.log("companys[0]:" + companys[0]);
+            // company[0]的所有历史价格
+            // 根据字段获取指定公司的today_price数组
+            price0 = getParamValuesByCname("today_price", data, "company", companys[0]);
+            console.log("price0:" + price0);
+            //根据公司名查询历史价格 -> (数组)
+            /*newJson:{'华联石化':[2323,5321],'海油石化':[3000,2311],'昌邑石化':[2703,1688]}*/
+            newJson = getJsonResult("today_price", data, "company", companys);
+            console.log("newJson:" + newJson);
+            today_price = getParamValues("today_price", data); //OK
+            console.log(today_price); //OK
+            // alert(today_price); //OK
+            createTimes = getParamValues("create_time", data).delDuplicate();
+            console.log("createTimes:" + createTimes);
+            newJson2 = getJsonResultPro("today_price", data, "company", companys, "createTimes");
+            console.log("newJson2:" + newJson2);
+
+            newArr = getArrayResultPro("today_price", data, "company", companys, "createTime");
+            console.log("newArr:" + newArr);
+            var seriesContent = getSeriesContent(companys.length, "line", "row");
+            console.log(seriesContent);
+            //获取时间和公司数组
+            var timeAndcompanyArr = ArrChangeToStringArr(companys, "createTime");
+            myChart.setOption({
+                legend: {
+                    data: companys
+                },
+                tooltip: {trigger: 'axis',},
+                // dataset:{
+                //     source:
+                //     newJson2
+                // },
+                dataset: {
+                    //Array形式
+                    source: newArr,
+                    dimensions: timeAndcompanyArr
+                    // dimensions: [
+                    //     'createTime',
+                    //     '华联石化',
+                    //     '海油石化',
+                    //     '昌邑石化',
+                    //     // 'sulfur1',
+                    //     // 'sulfur2',
+                    //     // 'sulfur3',
+                    //     // '2012',
+                    // ]
+
+                },
+                xAxis: [
+                    {
+                        type: 'category', gridIndex: 0, axisLabel: {
+                            rotate: 50, interval: 0
+                        }
+                    }
+                    // {gridIndex: 0},
+                    // {
+                    //     type: 'category',
+                    //
+                    //     // data:createTimes,
+                    //     // axisLabel: {
+                    //     //    rotate: 50, interval: 0
+                    //     // }
+                    // },
+                    // {type: 'category', gridIndex: 1}
+                ],
+                yAxis:
+                    [
+                        {type: 'value', gridIndex: 0}
+                        // {gridIndex: 0},
+                        //
+                        // {
+                        //     // type:'value',
+                        //     // gridIndex: 0, axisLabel: {
+                        //     //     rotate: 0, interval: 0,
+                        //     //     // formatter: function (value) {
+                        //     //     //     return value + '元'
+                        //     //     // }
+                        //     // }
+                        // },
+                        // {gridIndex: 1}
+                    ],
+                grid:
+                    [
+                        {bottom: '55%'},
+                        {top: '55%'}
+                    ],
+                series:
+                seriesContent
+            });
+        }
+    });
+}

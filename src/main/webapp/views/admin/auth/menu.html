@@ -69,8 +69,7 @@
             var id = selectedRows[0].id;
             $.messager.confirm("系统提示", "您确定要删除这条数据吗？", function (r) {
                 if (r) {
-                    //@AdminUserController @deleteUserById(Long id)
-                    $.post("/admin/user/deleteUserById", {id: id}, function (result) {
+                    $.post("/admin/auth/deleteEMenuById", {id: id}, function (result) {
                         if (result.success) {
                             $.messager.alert("系统提示", "数据已成功删除！");
                             $("#dg").datagrid("reload");
@@ -103,7 +102,6 @@
             url = "/admin/auth/saveMenu?id=" + row.id;
         }
 
-        //@AdminUserController saveUser(User user)
         function saveUser() {
             $("#fm").form("submit", {
                 url: url,

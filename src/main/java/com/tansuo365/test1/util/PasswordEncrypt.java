@@ -7,6 +7,8 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
 import java.security.Key;
+import java.util.HashMap;
+import java.util.Map;
 
 //登录实例密码加密
 public class PasswordEncrypt {
@@ -26,6 +28,26 @@ public class PasswordEncrypt {
         }
     }
 
+    /**
+     *
+     * @param password 传入密码
+     * @param times 加密次数
+     * @return
+     */
+    public static Map<String, Object> encryptPWDBySalt(String password,int times) {
+        Map resultMap = null;
+        if (password.length() != 0) {
+            String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+            String algorithmName = "md5"; //md5轻易不可逆
+            String encodedPassword = new SimpleHash(algorithmName, password, salt, times).toString();
+            resultMap = new HashMap();
+            resultMap.put("encryptPWD",encodedPassword);
+            resultMap.put("salt",salt);
+            return resultMap;
+        }
+        return resultMap;
+    }
+
     /*二次加密*/
     public static String encryptPwd(String pwd) {
         // AES算法实现：
@@ -41,5 +63,6 @@ public class PasswordEncrypt {
 
         return encrptText;
     }
+
 
 }

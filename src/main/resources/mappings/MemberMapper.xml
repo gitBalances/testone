@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tansuo365.test1.mapper.member.MemberMapper">
+    <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.member.Member">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="truename" jdbcType="VARCHAR" property="truename"/>
+        <result column="phone" jdbcType="BIGINT" property="phone"/>
+        <result column="sex" jdbcType="SMALLINT" property="sex"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="member_type" jdbcType="SMALLINT" property="member_type"/>
+        <result column="member_level" jdbcType="SMALLINT" property="member_level"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="update_time"/>
+        <result column="lastlogin_time" jdbcType="TIMESTAMP" property="lastlogin_time"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="expand_2" jdbcType="TINYINT" property="expand_2"/>
+        <result column="expand_3" jdbcType="TINYINT" property="expand_3"/>
+        <result column="expand_4" jdbcType="TINYINT" property="expand_4"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, username, password, company, truename, phone, sex, email, member_type, member_level, 
+    create_time, update_time, lastlogin_time, salt, expand_2, expand_3, expand_4
+  </sql>
+    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.member.MemberExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from member_tbl
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from member_tbl
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!--动态获取实例-->
+    <select id="selectInstanceSelective" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from member_tbl
+        <where>
+            <if test="id != null and id !='' ">
+                and id = #{id}
+            </if>
+            <if test="username != null and username !='' ">
+                and username = #{username}
+            </if>
+            <if test="password != null and password !='' ">
+                and password = #{password}
+            </if>
+            <if test="company != null and company != '' ">
+                and company = #{company}
+            </if>
+            <if test="truename != null and truename != '' ">
+                and truename = #{truename}
+            </if>
+            <if test="phone != null and phone != '' ">
+                and phone = #{phone}
+            </if>
+            <if test="sex != null and sex != '' ">
+                and sex = #{sex}
+            </if>
+            <if test="email != null and email != '' ">
+                and email = #{email}
+            </if>
+            <if test="member_type != null and member_type != '' ">
+                and member_type = #{member_type}
+            </if>
+            <if test="member_level != null and member_level != '' ">
+                and member_level = #{member_level}
+            </if>
+            <if test="create_time != null and create_time != '' ">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != '' ">
+                and ash = #{ash}
+            </if>
+            <if test="lastlogin_time != null and lastlogin_time != '' ">
+                and lastlogin_time = #{lastlogin_time}
+            </if>
+            <if test="salt != null and salt != '' ">
+                and salt = #{salt}
+            </if>
+        </where>
+    </select>
+
+    <!--根据登录名查实例-->
+    <select id="selectInstanceByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from member_tbl where username = #{username}
+    </select>
+
+    <!--根据id查等级 short是否该设置为integer-->
+    <select id="selectMemberLevelById" resultType="java.lang.Short">
+        select member_level from member_tbl
+        where id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from member_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.member.MemberExample">
+        delete from member_tbl
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.member.Member"
+            useGeneratedKeys="true">
+    insert into member_tbl (username, password, company, 
+      truename, phone, sex, 
+      email, member_type, member_level, 
+      create_time, update_time, lastlogin_time, 
+      salt, expand_2, expand_3, 
+      expand_4)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{truename,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, #{sex,jdbcType=SMALLINT}, 
+      #{email,jdbcType=VARCHAR}, #{member_type,jdbcType=SMALLINT}, #{member_level,jdbcType=SMALLINT}, 
+      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{lastlogin_time,jdbcType=TIMESTAMP}, 
+      #{salt,jdbcType=VARCHAR}, #{expand_2,jdbcType=TINYINT}, #{expand_3,jdbcType=TINYINT}, 
+      #{expand_4,jdbcType=TINYINT})
+  </insert>
+
+    <!--动态插入数据-->
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.member.Member"
+            useGeneratedKeys="true">
+        insert into member_tbl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null and username != '' ">
+                username,
+            </if>
+            <if test="password != null and password != '' ">
+                password,
+            </if>
+            <if test="company != null  and company != '' ">
+                company,
+            </if>
+            <if test="truename != null  and truename != '' ">
+                truename,
+            </if>
+            <if test="phone != null  and phone != '' ">
+                phone,
+            </if>
+            <if test="sex != null and sex != '' ">
+                sex,
+            </if>
+            <if test="email != null and email != '' ">
+                email,
+            </if>
+            <if test="member_type != null and member_type != '' ">
+                member_type,
+            </if>
+            <if test="member_level != null and member_level != '' ">
+                member_level,
+            </if>
+            <if test="create_time != null and create_time != '' ">
+                create_time,
+            </if>
+            <if test="update_time != null and update_time != '' ">
+                update_time,
+            </if>
+            <if test="lastlogin_time != null and lastlogin_time != '' ">
+                lastlogin_time,
+            </if>
+            <if test="salt != null and salt != '' ">
+                salt,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null and username != '' ">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password != '' ">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null and company != '' ">
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="truename != null and truename != '' ">
+                #{truename,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null and phone != '' ">
+                #{phone,jdbcType=BIGINT},
+            </if>
+            <if test="sex != null and sex != '' ">
+                #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="email != null and email != '' ">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="member_type != null and member_type != '' ">
+                #{member_type,jdbcType=SMALLINT},
+            </if>
+            <if test="member_level != null and member_level != '' ">
+                #{member_level,jdbcType=SMALLINT},
+            </if>
+            <if test="create_time != null and create_time != '' ">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null and update_time != '' ">
+                #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastlogin_time != null and lastlogin_time != '' ">
+                #{lastlogin_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="salt != null and salt != '' ">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="countByExample" parameterType="com.tansuo365.test1.bean.member.MemberExample"
+            resultType="java.lang.Long">
+        select count(*) from member_tbl
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update member_tbl
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.username != null">
+                username = #{record.username,jdbcType=VARCHAR},
+            </if>
+            <if test="record.password != null">
+                password = #{record.password,jdbcType=VARCHAR},
+            </if>
+            <if test="record.company != null">
+                company = #{record.company,jdbcType=VARCHAR},
+            </if>
+            <if test="record.truename != null">
+                truename = #{record.truename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phone != null">
+                phone = #{record.phone,jdbcType=BIGINT},
+            </if>
+            <if test="record.sex != null">
+                sex = #{record.sex,jdbcType=SMALLINT},
+            </if>
+            <if test="record.email != null">
+                email = #{record.email,jdbcType=VARCHAR},
+            </if>
+            <if test="record.member_type != null">
+                member_type = #{record.member_type,jdbcType=SMALLINT},
+            </if>
+            <if test="record.member_level != null">
+                member_level = #{record.member_level,jdbcType=SMALLINT},
+            </if>
+            <if test="record.create_time != null">
+                create_time = #{record.create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.update_time != null">
+                update_time = #{record.update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.lastlogin_time != null">
+                lastlogin_time = #{record.lastlogin_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.salt != null">
+                salt = #{record.salt,jdbcType=VARCHAR},
+            </if>
+            <if test="record.expand_2 != null">
+                expand_2 = #{record.expand_2,jdbcType=TINYINT},
+            </if>
+            <if test="record.expand_3 != null">
+                expand_3 = #{record.expand_3,jdbcType=TINYINT},
+            </if>
+            <if test="record.expand_4 != null">
+                expand_4 = #{record.expand_4,jdbcType=TINYINT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update member_tbl
+        set id = #{record.id,jdbcType=BIGINT},
+        username = #{record.username,jdbcType=VARCHAR},
+        password = #{record.password,jdbcType=VARCHAR},
+        company = #{record.company,jdbcType=VARCHAR},
+        truename = #{record.truename,jdbcType=VARCHAR},
+        phone = #{record.phone,jdbcType=BIGINT},
+        sex = #{record.sex,jdbcType=SMALLINT},
+        email = #{record.email,jdbcType=VARCHAR},
+        member_type = #{record.member_type,jdbcType=SMALLINT},
+        member_level = #{record.member_level,jdbcType=SMALLINT},
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+        update_time = #{record.update_time,jdbcType=TIMESTAMP},
+        lastlogin_time = #{record.lastlogin_time,jdbcType=TIMESTAMP},
+        salt = #{record.salt,jdbcType=VARCHAR},
+        expand_2 = #{record.expand_2,jdbcType=TINYINT},
+        expand_3 = #{record.expand_3,jdbcType=TINYINT},
+        expand_4 = #{record.expand_4,jdbcType=TINYINT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+
+    <!--动态更新数据-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.member.Member">
+        update member_tbl
+        <set>
+            <if test="username != null and username != '' ">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password != '' ">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null and company != '' ">
+                company = #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="truename != null and truename != '' ">
+                truename = #{truename,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null and phone != '' ">
+                phone = #{phone,jdbcType=BIGINT},
+            </if>
+            <if test="sex != null and sex != '' ">
+                sex = #{sex,jdbcType=SMALLINT},
+            </if>
+            <if test="email != null and email != '' ">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="member_type != null and member_type != '' ">
+                member_type = #{member_type,jdbcType=SMALLINT},
+            </if>
+            <if test="member_level != null and member_level != '' ">
+                member_level = #{member_level,jdbcType=SMALLINT},
+            </if>
+            <if test="create_time != null and create_time != '' ">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null and update_time != '' ">
+                update_time = #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastlogin_time != null and lastlogin_time != '' ">
+                lastlogin_time = #{lastlogin_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="salt != null and salt != '' ">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.member.Member">
+    update member_tbl
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      truename = #{truename,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=BIGINT},
+      sex = #{sex,jdbcType=SMALLINT},
+      email = #{email,jdbcType=VARCHAR},
+      member_type = #{member_type,jdbcType=SMALLINT},
+      member_level = #{member_level,jdbcType=SMALLINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      lastlogin_time = #{lastlogin_time,jdbcType=TIMESTAMP},
+      salt = #{salt,jdbcType=VARCHAR},
+      expand_2 = #{expand_2,jdbcType=TINYINT},
+      expand_3 = #{expand_3,jdbcType=TINYINT},
+      expand_4 = #{expand_4,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

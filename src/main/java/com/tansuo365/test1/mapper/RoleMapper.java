@@ -14,6 +14,8 @@ public interface RoleMapper {
 	/*根据用户id删除user_role数据对应关系元组 */
 	int deleteByUserId(Long id);
 
+	List<Role> selectByUserId3Table(int id);
+
 	int insert(Role record);
 
 	//动态插入role

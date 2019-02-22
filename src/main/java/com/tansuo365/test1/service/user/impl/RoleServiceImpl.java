@@ -26,26 +26,26 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private UserService userService;
 
-	@Override
-	public Set<String> listRoleNames(String userName) {
-		Set<String> result = new HashSet<>();
-		List<Role> roles = listRoles(userName);
-		for (Role role : roles) {
-			result.add(role.getName());
-		}
-		return result;
-	}
+//	@Override
+//	public Set<String> listRoleNames(String userName) {
+//		Set<String> result = new HashSet<>();
+//		List<Role> roles = listRoles(userName);
+//		for (Role role : roles) {
+//			result.add(role.getName());
+//		}
+//		return result;
+//	}
 
-	@Override
-	public List<Role> listRoles(String userName) {
-		List<Role> roles = new ArrayList<>();
-		User user = userService.getByName(userName);
-		if (null == user)
-			return roles;
-
-		roles = listRoles(user);
-		return roles;
-	}
+//	@Override
+//	public List<Role> listRoles(String userName) {
+//		List<Role> roles = new ArrayList<>();
+//		User user = userService.getByName(userName);
+//		if (null == user)
+//			return roles;
+//
+//		roles = listRoles(user);
+//		return roles;
+//	}
 
 	@Override
 	public void add(Role u) {
@@ -97,12 +97,17 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
+	public List<Role> listRolesByUserId(int id) {
+		return roleMapper.selectByUserId3Table(id);
+	}
+
+	@Override
 	public List<Role> listRoles(User user) {
 		List<Role> roles = new ArrayList<>();
 
 		UserRoleExample example = new UserRoleExample();
 
-		example.createCriteria().andUidEqualTo(user.getId());
+		example.createCriteria().andUidEqualTo(Long.parseLong(user.getId().toString()));
 		List<UserRole> userRoles = userRoleMapper.selectByExample(example);
 
 		for (UserRole userRole : userRoles) {

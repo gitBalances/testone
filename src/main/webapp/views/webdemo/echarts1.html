@@ -120,135 +120,135 @@
     </p>
 
     <!--content-->
-    <div id="container" style="height: 700px"></div>
-    <script type="text/javascript" th:inline="none">
-        //根据输入公司名获取公司的历史价格数组
+    <!--<div id="container" style="height: 700px"></div>-->
+    <!--<script type="text/javascript" th:inline="none">-->
+        <!--//根据输入公司名获取公司的历史价格数组-->
 
 
-        var dom = document.getElementById("container");
-        var myChart = echarts.init(dom);
-        myChart.showLoading();
-        var today_price = null;
-        var companys = null;
-        var newJson = null;
-        var createTimes = null;
-        // var priceArr = "'海昌石化':[123,112,33,22]";
+        <!--var dom = document.getElementById("container");-->
+        <!--var myChart = echarts.init(dom);-->
+        <!--myChart.showLoading();-->
+        <!--var today_price = null;-->
+        <!--var companys = null;-->
+        <!--var newJson = null;-->
+        <!--var createTimes = null;-->
+        <!--// var priceArr = "'海昌石化':[123,112,33,22]";-->
 
-        //TODO 测试echart数据
-        $.ajax({
-            url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
-            type: "POST",
-            success: function (data) {
-                myChart.hideLoading(); //数据data加载后隐藏loading
+        <!--//TODO 测试echart数据-->
+        <!--$.ajax({-->
+            <!--url: "/petroleumCoke/selectAll", //获取所有石油焦数据list-->
+            <!--type: "POST",-->
+            <!--success: function (data) {-->
+                <!--myChart.hideLoading(); //数据data加载后隐藏loading-->
 
-                today_price = getParamValues("today_price", data); //OK
-                console.log("today_price:>>>" + today_price); //OK
-                companys = getParamValues("company", data);
-                companys = companys.delDuplicate(); //去重
-                console.log("companys:" + companys);
+                <!--today_price = getParamValues("today_price", data); //OK-->
+                <!--console.log("today_price:>>>" + today_price); //OK-->
+                <!--companys = getParamValues("company", data);-->
+                <!--companys = companys.delDuplicate(); //去重-->
+                <!--console.log("companys:" + companys);-->
 
-                newJson = getJsonResult("today_price", data, "company", companys.delDuplicate());
-                // priceArr = getPriceByCname(companys[0],newJson);
-                // console.log("priceArr:"+priceArr);
-                console.log("newJson:" + newJson);
-
-
-                createTimes = getParamValues("create_time", data).delDuplicate();
-                console.log("createTimes:" + createTimes);
-
-                // console.log("newJson:" + newJson);
-                var jsonObj = eval('(' + newJson + ')');
-                console.log("JSON.stringify(jsonObj):" + JSON.stringify(jsonObj));
-                // console.log("jsonObj.get(\"海昌石化\"):"+jsonObj.get("海昌石化"));
-                // var priceByCname = getPriceByCname("海昌石化", jsonObj);
-                // console.log("priceByCname:" + priceByCname);
-                //
-                // var b = getArrByName("海昌石化", jsonObj);
-
-                myChart.setOption({
-                    title: {
-                        text: '石油焦价格走向图'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: { //点选标题
-                        data: companys
-                    },
-                    grid: { //布局
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    toolbox: {
-                        feature: {
-                            saveAsImage: {} //保存为图片
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        //底部x轴
-                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                    },
-                    yAxis: {
-                        type: 'value',
-                        axisLabel: {
-                            formatter: '{value} 元'
-                        }
-                    },
-                    dataset: {
-                        source: {}
-                    },
-                    series: [{
-                        type: 'bar',
-                    },
-                        newJson,
+                <!--newJson = getJsonResult("today_price", data, "company", companys.delDuplicate());-->
+                <!--// priceArr = getPriceByCname(companys[0],newJson);-->
+                <!--// console.log("priceArr:"+priceArr);-->
+                <!--console.log("newJson:" + newJson);-->
 
 
-                        // {
-                        //     name: companys[0],
-                        //     type: 'line',
-                        //     // stack: '总量',
-                        //     smooth: false, //硬线转丝滑线 (smooth)
-                        //     // symbol: 'roundRect', //鼠标放置上去后的显示状态(圆点⚪,方块 ■)
-                        //     data: [400, 132, 101, 134, 90, 230, 210],
-                        // },
-                        // {
-                        //     name: companys[1],
-                        //     type: 'line',
-                        //     // stack: '总量',
-                        //     data: [220, 182, 191, 234, 290, 330, 310]
-                        // },
-                        // {
-                        //     name: companys[2],
-                        //     type: 'line',
-                        //     // stack: '总量',
-                        //     data: [150, 232, 201, 154, 190, 330, 410]
-                        // }
-                        // {
-                        //     name: '直接访问',
-                        //     type: 'line',
-                        //     stack: '总量',
-                        //     data: [320, 332, 301, 334, 390, 330, 320]
-                        // },
-                        // {
-                        //     name: '搜索引擎',
-                        //     type: 'line',
-                        //     stack: '总量',
-                        //     data: [820, 932, 901, 934, 1290, 1330, 1320]
-                        // }
-                    ]
-                })
-            }
-        });
-        //
-        // if (option && typeof option === "object") {
-        //     myChart.setOption(option, true);
-        // }
+                <!--createTimes = getParamValues("create_time", data).delDuplicate();-->
+                <!--console.log("createTimes:" + createTimes);-->
 
-    </script>
+                <!--// console.log("newJson:" + newJson);-->
+                <!--var jsonObj = eval('(' + newJson + ')');-->
+                <!--// console.log("JSON.stringify(jsonObj):" + JSON.stringify(jsonObj));-->
+                <!--// console.log("jsonObj.get(\"海昌石化\"):"+jsonObj.get("海昌石化"));-->
+                <!--// var priceByCname = getPriceByCname("海昌石化", jsonObj);-->
+                <!--// console.log("priceByCname:" + priceByCname);-->
+                <!--//-->
+                <!--// var b = getArrByName("海昌石化", jsonObj);-->
+
+                <!--myChart.setOption({-->
+                    <!--title: {-->
+                        <!--text: '石油焦价格走向图'-->
+                    <!--},-->
+                    <!--tooltip: {-->
+                        <!--trigger: 'axis'-->
+                    <!--},-->
+                    <!--legend: { //点选标题-->
+                        <!--data: companys-->
+                    <!--},-->
+                    <!--grid: { //布局-->
+                        <!--left: '3%',-->
+                        <!--right: '4%',-->
+                        <!--bottom: '3%',-->
+                        <!--containLabel: true-->
+                    <!--},-->
+                    <!--toolbox: {-->
+                        <!--feature: {-->
+                            <!--saveAsImage: {} //保存为图片-->
+                        <!--}-->
+                    <!--},-->
+                    <!--xAxis: {-->
+                        <!--type: 'category',-->
+                        <!--boundaryGap: false,-->
+                        <!--//底部x轴-->
+                        <!--data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']-->
+                    <!--},-->
+                    <!--yAxis: {-->
+                        <!--type: 'value',-->
+                        <!--axisLabel: {-->
+                            <!--formatter: '{value} 元'-->
+                        <!--}-->
+                    <!--},-->
+                    <!--dataset: {-->
+                        <!--source: {}-->
+                    <!--},-->
+                    <!--series: [{-->
+                        <!--type: 'bar',-->
+                    <!--},-->
+                        <!--newJson,-->
+
+
+                        <!--// {-->
+                        <!--//     name: companys[0],-->
+                        <!--//     type: 'line',-->
+                        <!--//     // stack: '总量',-->
+                        <!--//     smooth: false, //硬线转丝滑线 (smooth)-->
+                        <!--//     // symbol: 'roundRect', //鼠标放置上去后的显示状态(圆点⚪,方块 ■)-->
+                        <!--//     data: [400, 132, 101, 134, 90, 230, 210],-->
+                        <!--// },-->
+                        <!--// {-->
+                        <!--//     name: companys[1],-->
+                        <!--//     type: 'line',-->
+                        <!--//     // stack: '总量',-->
+                        <!--//     data: [220, 182, 191, 234, 290, 330, 310]-->
+                        <!--// },-->
+                        <!--// {-->
+                        <!--//     name: companys[2],-->
+                        <!--//     type: 'line',-->
+                        <!--//     // stack: '总量',-->
+                        <!--//     data: [150, 232, 201, 154, 190, 330, 410]-->
+                        <!--// }-->
+                        <!--// {-->
+                        <!--//     name: '直接访问',-->
+                        <!--//     type: 'line',-->
+                        <!--//     stack: '总量',-->
+                        <!--//     data: [320, 332, 301, 334, 390, 330, 320]-->
+                        <!--// },-->
+                        <!--// {-->
+                        <!--//     name: '搜索引擎',-->
+                        <!--//     type: 'line',-->
+                        <!--//     stack: '总量',-->
+                        <!--//     data: [820, 932, 901, 934, 1290, 1330, 1320]-->
+                        <!--// }-->
+                    <!--]-->
+                <!--})-->
+            <!--}-->
+        <!--});-->
+        <!--//-->
+        <!--// if (option && typeof option === "object") {-->
+        <!--//     myChart.setOption(option, true);-->
+        <!--// }-->
+
+    <!--</script>-->
 
 
 </div>
@@ -347,6 +347,7 @@
             //获取去重复后的公司名称数组
             companys = getParamValues("company", data).delDuplicate();
             console.log("companys:" + companys);
+            console.log("companystoString:" + companys.toString());
             console.log("companys.length:" + companys.length);
             console.log("companys.length:" + companys.length);
             console.log("companys[0]:" + companys[0]);
@@ -385,6 +386,16 @@
                 return contentArr;
             }
 
+            // String.prototype.
+
+            //
+
+            var timeAndcompanyArr = ArrChangeToStringArr(companys,"createTime");
+
+            // console.log("timeAndcompanyArr"+timeAndcompanyArr);
+            //
+            // console.log(timeAndcompanyArr);
+            // alert(timeAndcompanyArr);
 
             myChart.setOption({
                 legend: {
@@ -398,16 +409,22 @@
                 dataset: {
                     //Array形式
                     source: newArr,
-                    dimensions: [
-                        'createTime',
-                        '华联石化',
-                        '海油石化',
-                        '昌邑石化',
-                        // 'sulfur1',
-                        // 'sulfur2',
-                        // 'sulfur3',
-                        // '2012',
-                    ]
+                    dimensions:timeAndcompanyArr
+                    // dimensions: [
+                    //     'createTime',
+                        // '华联石化',
+                        // '海油石化',
+                        // '昌邑石化',
+                    //     // companyArr
+                    //
+                    //     '华联石化','海油石化'
+                    //     ,'青岛石化','石大科技','齐鲁石化','华龙石化',
+                    //     '胜利油田','鑫泰石化','聊城石化'
+                    //     // 'sulfur1',
+                    //     // 'sulfur2',
+                    //     // 'sulfur3',
+                    //     // '2012',
+                    // ]
                     // source:
 
                     // [newJson2]

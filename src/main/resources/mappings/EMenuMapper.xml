@@ -161,12 +161,30 @@
         id in (select menu_id from role_menu where role_id= #{param2})
     </select>
 
+    <!--根据ParentId和Role数组获取不重复的EMenu list集合-->
+    <select id="selectEMenuByParentIdAndRoleIdArr"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from e_menu
+        where p_id = #{param1} and
+        id in (select distinct menu_id  from role_menu where role_id in
+        <foreach item="param2" index="index" collection="param2" open="(" separator="," close=")">
+            #{param2}
+        </foreach>)
+    </select>
+
     <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.user.EMenuExample">
         delete from e_menu
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
+
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+      delete from e_menu
+      where id = #{id,jdbcType=INTEGER}
+  </delete>
+
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.EMenu"
             useGeneratedKeys="true">
     insert into e_menu (icon, name, state, 

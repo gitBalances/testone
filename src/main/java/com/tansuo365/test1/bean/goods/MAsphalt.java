@@ -18,7 +18,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MAsphalt implements Serializable,Goods {
+public class MAsphalt implements Serializable, Goods {
 
     private Long id;
 
@@ -53,10 +53,17 @@ public class MAsphalt implements Serializable,Goods {
     @ExcelCell(index = 13)
     private Date update_time;
 
-//    private Boolean expand_1;
+    //    private Boolean expand_1;
 //
 //    private Boolean expand_2;
 //
 //    private Boolean expand_3;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @javax.persistence.Transient
+    private String b_time; //起始时间 搜索用到
+
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @javax.persistence.Transient
+    private String e_time; //结束时间 搜索用到
 
 }

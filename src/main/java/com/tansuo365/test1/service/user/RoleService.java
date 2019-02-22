@@ -9,9 +9,11 @@ import java.util.Set;
 /*角色服务接口*/
 public interface RoleService {
 
-	public Set<String> listRoleNames(String userName);
+	public List<Role> listRolesByUserId(int id);
 
-	public List<Role> listRoles(String userName);
+//	public Set<String> listRoleNames(String userName);
+
+//	public List<Role> listRoles(String userName);
 
 	public List<Role> listRoles(User user);
 

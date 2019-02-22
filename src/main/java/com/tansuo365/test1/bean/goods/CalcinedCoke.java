@@ -63,4 +63,12 @@ public class CalcinedCoke implements Serializable, Goods {
     @ExcelCell(index = 15)
     private Date update_time;
 
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @javax.persistence.Transient
+    private String b_time; //起始时间 搜索用到
+
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @javax.persistence.Transient
+    private String e_time; //结束时间 搜索用到
+
 }

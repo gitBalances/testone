@@ -9,6 +9,8 @@ import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,12 +32,14 @@ public class AdminAuthController {
     @Autowired
     private LogService logService;
 
+
     /**
      * 查询所有EMenu
      * @return
      * @throws Exception
      */
     @RequestMapping("/listAllEMenu")
+    @RequiresPermissions("路径配置")
     public Map<String,Object> listEMenu()throws Exception{
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("rows",eMenuService.list());
@@ -49,6 +53,7 @@ public class AdminAuthController {
      * @throws Exception
      */
     @RequestMapping("/listAllEMenuSelective")
+    @RequiresPermissions("路径配置")
     public Map<String,Object> listEMenu(EMenu eMenu)throws Exception{
         Map<String, Object> resultMap = new HashMap<>();
         List<EMenu> menuList = eMenuService.listSelect(eMenu);
@@ -63,6 +68,7 @@ public class AdminAuthController {
      * @return
      */
     @RequestMapping("/saveMenu")
+    @RequiresPermissions("路径配置")
     public Map<String,Object> saveMenu(EMenu eMenu){
         //eMenu含有id录入,因为menu的id不是自动生成而是手动给与
         //当判定时除了
@@ -78,6 +84,27 @@ public class AdminAuthController {
 
 
     /**
+     * 删除Emenu元组
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/deleteEMenuById")
+    @RequiresPermissions("路径配置")
+    public Map<String,Object> deleteEMenuById(int id)throws Exception{
+        Map<String, Object> resultMap = new HashMap<>();
+        int deleteCode = eMenuService.delete(id);
+        if(deleteCode==1){
+            resultMap.put("success",true);
+        }else{
+            resultMap.put("success",false);
+            resultMap.put("errorInfo","删除失败了");
+        }
+        return resultMap;
+    }
+
+
+    /**
      * 查询日志
      * @param logUser
      * @param page
@@ -85,6 +112,7 @@ public class AdminAuthController {
      * @return
      */
     @RequestMapping("/listLogSelectiveByPage")
+    @RequiresPermissions(value={"系统日志"})
     public Map<String, Object> getLogSelectiveByPage(LogUser logUser, Integer page, Integer rows){
         return logService.getLogSelectiveByPage(logUser,page,rows);
     }

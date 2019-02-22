@@ -8,6 +8,9 @@ import com.tansuo365.test1.service.user.UserRoleService;
 import com.tansuo365.test1.service.user.UserService;
 import com.tansuo365.test1.util.PasswordEncrypt;
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +43,7 @@ public class AdminUserController {
      * @throws Exception
      */
     @RequestMapping("/listAllUser")
+    @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> list() throws Exception {
         //TODO
         List<User> userList = userService.list();
@@ -84,6 +88,7 @@ public class AdminUserController {
      * @return
      */
     @RequestMapping("/saveRoleSet")
+    @RequiresPermissions(value = {"后台用户管理","路径配置"},logical = Logical.OR) //有其中一个权限即可
     public Map<String, Object> saveRoleSet(String roleIds, Long userId) {
         Map<String, Object> resultMap = new HashMap<>();
         roleService.deleteByUserId(userId);//根据用户id删除所有用户角色关联实体数据元组
@@ -113,6 +118,7 @@ public class AdminUserController {
      * @return
      */
     @RequestMapping("/saveUser")
+    @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> saveUser(User user) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
         if (user.getId() == null) {
@@ -149,6 +155,7 @@ public class AdminUserController {
      * @return
      */
     @RequestMapping("/deleteUserById")
+    @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> deleteUserById(Long id) {
         Map<String, Object> resultMap = new HashMap<>();
         //内部包含删除用户以及删除用户角色
@@ -165,6 +172,7 @@ public class AdminUserController {
 
     //展示出来的password 通过AES加密
     @RequestMapping("/getPrimevalPWD")
+    @RequiresPermissions(value = {"后台用户管理"})
     public String getPrimevalPWD(@RequestParam("pwd") String pwd) {
         return PasswordEncrypt.encryptPwd(pwd);
     }
@@ -179,6 +187,7 @@ public class AdminUserController {
      */
     @ResponseBody
     @RequestMapping("/saveRole")
+    @RequiresAuthentication
     public Map<String, Object> saveRole(Long roleId, HttpSession session) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         Role currentRole = roleService.get(roleId);

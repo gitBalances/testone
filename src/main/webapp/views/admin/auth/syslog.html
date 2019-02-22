@@ -40,7 +40,8 @@
                 <td>用户ID:</td>
                 <td><input type="text" name="user_id" class="easyui-textbox" value=""/></td>
 
-
+            </tr>
+            <tr>
                 <td>日志类型:</td>
                 <td>
                     <select class="easyui-combobox" name="type" panelHeight="auto"/>
@@ -51,6 +52,12 @@
                     <option value="更新操作">更新操作</option>
                     </select>
                 </td>
+
+                <td>开始时间:</td>
+                <td><input  name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+                <td>结束时间:</td>
+                <td><input  name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+
             </tr>
 
         </table>
@@ -118,6 +125,7 @@
         jsonStr += '}'
 
         var json = JSON.parse(jsonStr);
+        // alert(JSON.stringify(json));
         return json;
     }
 </script>

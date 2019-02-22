@@ -5,10 +5,10 @@
 
 	<mapper namespace="com.tansuo365.test1.mapper.RoleMapper">
 	    <select id="listRolesByUserName"  parameterType="string" resultType="Role">
-			select r.id, r.name from user u 
+			select r.*, r.name from user u
 				left join user_role ur 
 					on u.id = ur.uid 
-				left join Role r 
+				left join role r
 					on r.id = ur.rid 
 			where u.name = #{0}
 	    </select>

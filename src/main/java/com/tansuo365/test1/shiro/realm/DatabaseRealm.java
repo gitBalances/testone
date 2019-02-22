@@ -31,8 +31,6 @@ public class DatabaseRealm extends AuthorizingRealm {
 	@Autowired
 	private RoleService roleService;
 	@Autowired
-	private PermissionService permissionService;
-	@Autowired
 	private EMenuService eMenuService;
 
 	@Override
@@ -54,8 +52,10 @@ public class DatabaseRealm extends AuthorizingRealm {
 
 		// 能进入到这里，表示账号已经通过验证了
 		String username = (String) principalCollection.getPrimaryPrincipal();
+		User user = userService.getByName(username);
 		/*通过用户名获取用户role实例*/
-		List<Role> roleList = roleService.listRoles(username);
+
+		List<Role> roleList = roleService.listRolesByUserId(user.getId());
 //		if (roleList.size() > 0) {
 			roles = new HashSet<>();
 //		}

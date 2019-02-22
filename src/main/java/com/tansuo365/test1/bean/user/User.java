@@ -12,13 +12,16 @@ import java.io.Serializable;
 
 /*管理员*/
 
+/**
+ * TODO 待加入生成时间,update时间
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable,MyLoginInstance {
 
-	private Long id;
+	private Integer id;
 
 	private String name;
 

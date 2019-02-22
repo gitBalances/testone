@@ -10,6 +10,7 @@ import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserRoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +37,7 @@ public class AdminRoleController {
      * @throws Exception
      */
     @RequestMapping("/listAllRoles")
+    @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> listAll()throws Exception{
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("rows", roleService.list());
@@ -45,6 +47,7 @@ public class AdminRoleController {
 
     //对管理员role的动态查询
     @RequestMapping("/listAllRoleSelective")
+    @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> listAllRoleSelective(Role role)throws Exception{
         Map<String, Object> resultMap = new HashMap<>();
         List<Role> roles = roleService.listSelective(role);
@@ -54,6 +57,7 @@ public class AdminRoleController {
 
     //对role的新增或更改
     @RequestMapping("/saveRole")
+    @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> saveRole(Role role) {
         Map<String,Object> resultMap = new HashMap<>();
 
@@ -97,6 +101,7 @@ public class AdminRoleController {
      * @throws Exception
      */
     @RequestMapping("/deleteRoleById")
+    @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> deleteRoleById(Long id)throws Exception{
         Map<String, Object> resultMap = new HashMap<>();
         userRoleService.deleteByRole(id); // 删除用户角色关联信息
@@ -111,19 +116,19 @@ public class AdminRoleController {
     }
 
 
-    /**
-     * 根据父节点获取所有复选框权限菜单树 Array
-     * @param parentId
-     * @param roleIds
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/loadCheckMenuInfoArray")
-    public String loadCheckMenuInfoArray(Integer parentId,Integer[] roleIds)throws Exception{
-        //根据角色查询所有权限菜单id信息(已在impl去重),首先要获取用户的roleid(集合)
-        List<Integer> menuIdList = eMenuService.findMenuIdListByRoleIds(roleIds);
-        return getAllCheckedEMenuByParentId(parentId,menuIdList).toString();
-    }
+//    /**
+//     * 根据父节点获取所有复选框权限菜单树 Array
+//     * @param parentId
+//     * @param roleIds
+//     * @return
+//     * @throws Exception
+//     */
+//    @RequestMapping("/loadCheckMenuInfoArray")
+//    public String loadCheckMenuInfoArray(Integer parentId,Integer[] roleIds)throws Exception{
+//        //根据角色查询所有权限菜单id信息(已在impl去重),首先要获取用户的roleid(集合)
+//        List<Integer> menuIdList = eMenuService.findMenuIdListByRoleIds(roleIds);
+//        return getAllCheckedEMenuByParentId(parentId,menuIdList).toString();
+//    }
 
     /**
      * 根据父节点获取所有复选框权限菜单树
@@ -133,6 +138,7 @@ public class AdminRoleController {
      * @throws Exception
      */
     @RequestMapping("/loadCheckMenuInfo")
+    @RequiresPermissions(value = {"系统角色管理"})
     public String loadCheckMenuInfo(Integer parentId,Long roleId)throws Exception{
         List<EMenu> eMenuList = eMenuService.findMenuListByRoleId(roleId);
         List<Integer> eMenuIdList = new ArrayList<>();
@@ -189,6 +195,7 @@ public class AdminRoleController {
      * @return
      */
     @RequestMapping("/saveMenuSet")
+    @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> saveMenuSet(String menuIds,Integer roleId){
         Map<String,Object> resultMap = new HashMap<>();
         int deleteCode = roleMenuService.deleteByRoleId(roleId);

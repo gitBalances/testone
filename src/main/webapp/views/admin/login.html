@@ -61,37 +61,36 @@
                 $.post("/admin/loginadmin", {
                     "username": $("#username").val(),
                     "password": $("#password").val(),
-                    "rememberMe": $("#rememberMe").val()
+                    "rememberMe": $("#rememberMe").prop("checked")
                 }, function (result) {
                     // alert("result.roleSize!"+result.roleSize);
                     // alert("result.success!"+result.success);
                     if (result.success) {
-                        if (result.roleSize == 1) {
-                            var roleId = result.roleList[0].id;
-                            $.post("/admin/user/saveRole", {roleId: roleId}, function (result) {
-                                if (result.success) {
+                        if (result.roleSize > 0) { //当角色信息size大于0跳转main
+                            // var roleId = result.roleList[0].id;
+                            // $.post("/admin/user/saveRole", {roleId: roleId}, function (result) {
+                            //     if (result.success) {
                                     window.location.href = "/admin/main";
-                                }
-                            });
+                                // }
+                            // });
                         } else if(result.roleSize == 0 ){
                             alert("该用户未设定角色,请联系管理员.");
                         }else {
-                            $("#roleList").empty();
-                            // alert(JSON.stringify(result.roleList));
-                            var roles = result.roleList;
-                            for (var i = 0; i < roles.length; i++) {
-                                if (i == 0) {
-                                    $("#roleList").append("<input type='radio' checked=true  name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
-
-                                } else {
-                                    $("#roleList").append("<input type='radio' name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
-                                }
-                            }
-                            document.getElementById('light').style.display = 'block';
-                            document.getElementById('fade').style.display = 'block';
+                            alert(result.errorInfo);
+                            // $("#roleList").empty();
+                            // // alert(JSON.stringify(result.roleList));
+                            // var roles = result.roleList;
+                            // for (var i = 0; i < roles.length; i++) {
+                            //     if (i == 0) {
+                            //         $("#roleList").append("<input type='radio' checked=true  name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
+                            //
+                            //     } else {
+                            //         $("#roleList").append("<input type='radio' name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
+                            //     }
+                            // }
+                            // document.getElementById('light').style.display = 'block';
+                            // document.getElementById('fade').style.display = 'block';
                         }
-                    } else {
-                        alert(result.errorInfo);
                     }
                 });
             });
@@ -117,13 +116,13 @@
         <em>CRM</em>
     </dt>
     <dd class="user_icon">
-        <input type="text" id="username" placeholder="账号" class="login_txtbx"/>
+        <input type="text" id="username" placeholder="用户名" class="login_txtbx"/>
     </dd>
     <dd class="pwd_icon">
         <input type="password" id="password" placeholder="密码" class="login_txtbx"/>
     </dd>
     <dd class="">
-        <input type="checkbox" id="rememberMe" class="login_txtbx"/>
+        <p style="text-align: center;font-size: smaller">记住登录</p><input type="checkbox" id="rememberMe"  value="" class="login_txtbx"/><br>
     </dd>
     <!--<dd class="val_icon">-->
     <!--<div class="checkcode">-->
@@ -139,14 +138,14 @@
         <p><a href="https://www.cnblogs.com/ukzq/" target="_blank">ukzq</a></p>
     </dd>
 </dl>
-<div id="light" class="white_content">
-    <p>请选择一个角色登录系统</p>
-    <br/>
-    <div id="roleList">
-    </div>
-    <br/>
-    <input type="button" value="提交" onclick="saveRole()"/>
-</div>
+<!--<div id="light" class="white_content">-->
+    <!--<p>请选择一个角色登录系统</p>-->
+    <!--<br/>-->
+    <!--<div id="roleList">-->
+    <!--</div>-->
+    <!--<br/>-->
+    <!--<input type="button" value="提交" onclick="saveRole()"/>-->
+<!--</div>-->
 <div id="fade" class="black_overlay">
 </div>
 </body>

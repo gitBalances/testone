@@ -22,7 +22,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 	public void setRoles(User user, long[] roleIds) {
 		// 删除当前用户所有的角色
 		UserRoleExample example = new UserRoleExample();
-		example.createCriteria().andUidEqualTo(user.getId());
+		example.createCriteria().andUidEqualTo(Long.parseLong(user.getId().toString()));
 		List<UserRole> urs = userRoleMapper.selectByExample(example);
 		for (UserRole userRole : urs)
 			userRoleMapper.deleteByPrimaryKey(userRole.getId());
@@ -32,7 +32,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 			for (long rid : roleIds) {
 				UserRole userRole = new UserRole();
 				userRole.setRid(rid);
-				userRole.setUid(user.getId());
+				userRole.setUid(Long.parseLong(user.getId().toString()));
 				userRoleMapper.insert(userRole);
 			}
 	}

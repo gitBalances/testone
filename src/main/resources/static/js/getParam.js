@@ -279,3 +279,33 @@ function getCreateTimes(name, json) {
     return ret;
 }
 
+//将普通形式数组转为有''加持的.(在ECharts中一般在之前配合数据的时间进行设置)
+//[1,2,3]or[nihao,shijie,dajia,doushuo,shijie,henda] ==>
+//['1','2','3']or['nihao','shijie','dajia','doushuo','shijie','henda']
+//本方法最终返回形式: ['timeName',"companyName1","companyName2","companyName3"]
+function ArrChangeToStringArr(companys,timeName){
+    var timeAndcompanyArr = [];
+    timeAndcompanyArr.push(timeName);
+    return changeToStringArr(companys,timeAndcompanyArr);
+}
+
+//将普通形式数组转为有''加持的.(在ECharts中一般在之前配合数据的时间进行设置)
+//[1,2,3]or[nihao,shijie,dajia,doushuo,shijie,henda] ==>
+//['1','2','3']or['nihao','shijie','dajia','doushuo','shijie','henda']
+function changeToStringArr(companys,resultArr){
+    let companyArr = companys.map(String);
+    // TODO 改变加入方式
+    /**
+     * 如果直接将companysStrArr加入timeAndcompanyArr数组则形式不正确;
+     * 不正确方式:['createTime',['companyName1','companyName2','companyName3']]
+     */
+    for(var i in companyArr){
+        resultArr.push(companyArr[i]);
+    }
+    return resultArr;
+}
+
+
+
+
+

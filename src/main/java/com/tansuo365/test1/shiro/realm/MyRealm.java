@@ -33,8 +33,8 @@ public class MyRealm extends AuthorizingRealm {
 
     //    @Autowired
 //    private MroleService mroleService;//member
-    @Resource
-    private PermissionService permissionService;
+//    @Resource
+//    private PermissionService permissionService;
     @Resource
     private RoleService roleService; //user
     @Resource
@@ -54,8 +54,9 @@ public class MyRealm extends AuthorizingRealm {
 
         // 能进入到这里，表示账号已经通过验证了
         String username = (String) principals.getPrimaryPrincipal();
+        User user = userService.getByName(username);
         /*通过用户名获取用户role实例*/
-        List<Role> roleList = roleService.listRoles(username);
+        List<Role> roleList = roleService.listRolesByUserId(user.getId());
         if (roleList.size() > 0) {
             roles = new HashSet<>();
         }

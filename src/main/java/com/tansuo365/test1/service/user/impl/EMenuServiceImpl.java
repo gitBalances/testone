@@ -7,12 +7,19 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class EMenuServiceImpl implements EMenuService {
 
     @Resource
     private EMenuMapper eMenuMapper;
+
+    @Override
+    public Integer delete(int id) {
+        return eMenuMapper.deleteByPrimaryKey(id);
+    }
 
     @Override
     public List<EMenu> list() {
@@ -48,14 +55,14 @@ public class EMenuServiceImpl implements EMenuService {
         List<EMenu> resultList = new ArrayList<>();
         List<Integer> eMenuIdList = new LinkedList<>();
         Set<EMenu> eMenuSet = new HashSet();
-        for(long roleId : roleIds){
+        for (long roleId : roleIds) {
             List<EMenu> menuList = eMenuMapper.selectEMenuByRoleId(roleId);
             //多个List去重 放入menu的id而不是实例
             eMenuSet.addAll(menuList);
         }
         resultList.addAll(eMenuSet);
         //获取去重后的EMenu,将id放入eMenuIdList
-        for(EMenu eMenu : resultList){
+        for (EMenu eMenu : resultList) {
             eMenuIdList.add(eMenu.getId());
         }
         return eMenuIdList;
@@ -63,35 +70,24 @@ public class EMenuServiceImpl implements EMenuService {
 
     @Override
     public List<EMenu> findMenuListByRoleId(Long roleId) {
-       return eMenuMapper.selectEMenuByRoleId(roleId);
+        return eMenuMapper.selectEMenuByRoleId(roleId);
     }
 
     @Override
     public List<EMenu> findByParentId(Integer parentId) {
-       return eMenuMapper.selectEMenuByParentId(parentId);
+        return eMenuMapper.selectEMenuByParentId(parentId);
     }
 
+    /*通过父节点和角色id数组获取EMenuList,已在SQL中进行了菜单去重*/
     @Override
-    public List<EMenu> findByParentIdAndRoleId(int parentId, Set<Long> roleIdSet) {
-        List<EMenu> resultList = new ArrayList<>();
-        List<EMenu> eMenuList = new ArrayList<>();//result~
-        Set<EMenu> eMenuSet = new HashSet();
-//        Long[] roleIds = (Long[])
-        Object[] roleIds = roleIdSet.toArray();
-        for (Object roleId : roleIds) {
-            System.err.println("roleIds.length:"+roleIds.length);
-            List<EMenu> menuList = eMenuMapper.selectEMenuByParentIdAndRoleId(parentId, (Long)roleId);
-            eMenuSet.addAll(menuList);
-        }
-        resultList.addAll(eMenuSet);
-        for(EMenu eMenu:resultList){
-            eMenuList.add(eMenu);
-        }
+    public List<EMenu> findByParentIdAndRoleIdArr(int parentId, Long[] ids) {
+        System.err.println("ids.length:" + ids.length);
+        List<EMenu> eMenuList = eMenuMapper.selectEMenuByParentIdAndRoleIdArr(parentId, ids);
         return eMenuList;
     }
 
     @Override
     public List<EMenu> findByParentIdAndSingleRoleId(int parentId, Long roleId) {
-        return eMenuMapper.selectEMenuByParentIdAndRoleId(parentId,roleId);
+        return eMenuMapper.selectEMenuByParentIdAndRoleId(parentId, roleId);
     }
 }

@@ -36,8 +36,8 @@ public class LogServiceImpl implements LogService{
 
     @Override
     public void saveUserLog(LogUser log) {
-        Long userId = userService.getByName((String) SecurityUtils.getSubject().getPrincipal()).getId();
-        log.setUser_id(Integer.parseInt(userId.toString()));
+        Integer userId = userService.getByName((String) SecurityUtils.getSubject().getPrincipal()).getId();
+        log.setUser_id(userId);
         logUserMapper.insertSelective(log);
     }
 

@@ -13,6 +13,8 @@ public interface EMenuMapper {
 
     int insert(EMenu record);
 
+    int deleteByPrimaryKey(int id);
+
     //动态插入
     int insertSelective(EMenu eMenu);
 
@@ -32,6 +34,8 @@ public interface EMenuMapper {
 
     //根据父节点以及角色id集合查询子节点
     List<EMenu> selectEMenuByParentIdAndRoleId(Integer parentId,Long roleId);
+
+    List<EMenu> selectEMenuByParentIdAndRoleIdArr(Integer parentId,Long[] ids);
 
     int updateByExampleSelective(@Param("record") EMenu record, @Param("example") EMenuExample example);
 

@@ -168,7 +168,14 @@
             <if test="update_time != null and update_time != '' ">
                 and update_time = #{update_time}
             </if>
+            <if test="b_time != null and b_time != '' ">
+                and create_time &gt;= #{b_time}
+            </if>
+            <if test="e_time != null and e_time != '' ">
+                and create_time &lt;= #{e_time}
+            </if>
         </where>
+        order by create_time DESC
     </select>
 
 
