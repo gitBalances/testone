@@ -48,66 +48,7 @@
     <script src="/js/jquery.js"></script>
     <!--<script src="/js/verifyCode.js"></script>-->
     <script src="/js/Particleground.js"></script>
-    <script>
 
-        $(document).ready(function () {
-            //粒子背景特效
-            $('body').particleground({
-                dotColor: '#5cbdaa',
-                lineColor: '#5cbdaa'
-            });
-
-            $("#loginBtn").click(function () {
-                $.post("/admin/loginadmin", {
-                    "username": $("#username").val(),
-                    "password": $("#password").val(),
-                    "rememberMe": $("#rememberMe").prop("checked")
-                }, function (result) {
-                    // alert("result.roleSize!"+result.roleSize);
-                    // alert("result.success!"+result.success);
-                    if (result.success) {
-                        if (result.roleSize > 0) { //当角色信息size大于0跳转main
-                            // var roleId = result.roleList[0].id;
-                            // $.post("/admin/user/saveRole", {roleId: roleId}, function (result) {
-                            //     if (result.success) {
-                                    window.location.href = "/admin/main";
-                                // }
-                            // });
-                        } else if(result.roleSize == 0 ){
-                            alert("该用户未设定角色,请联系管理员.");
-                        }else {
-                            alert(result.errorInfo);
-                            // $("#roleList").empty();
-                            // // alert(JSON.stringify(result.roleList));
-                            // var roles = result.roleList;
-                            // for (var i = 0; i < roles.length; i++) {
-                            //     if (i == 0) {
-                            //         $("#roleList").append("<input type='radio' checked=true  name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
-                            //
-                            //     } else {
-                            //         $("#roleList").append("<input type='radio' name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
-                            //     }
-                            // }
-                            // document.getElementById('light').style.display = 'block';
-                            // document.getElementById('fade').style.display = 'block';
-                        }
-                    }
-                });
-            });
-        });
-
-
-        function saveRole() {
-            var roleId = $("input[name='role']:checked").val();
-            $.post("/admin/user/saveRole", {roleId: roleId}, function (result) {
-                if (result.success) {
-                    window.location.href = "/admin/main";
-                }
-            });
-        }
-
-
-    </script>
 </head>
 <body>
 <dl class="admin_login">
@@ -149,4 +90,63 @@
 <div id="fade" class="black_overlay">
 </div>
 </body>
+
+
+
+<script>
+    $(document).ready(function () {
+        //粒子背景特效
+        $('body').particleground({
+            dotColor: '#5cbdaa',
+            lineColor: '#5cbdaa'
+        });
+        $("#loginBtn").click(function () {
+            $.post("/admin/loginAdmin", {
+                "username": $("#username").val(),
+                "password": $("#password").val(),
+                // "rememberMe": $("#rememberMe").prop("checked")
+            }, function (result) {
+                // alert("result.roleSize!"+result.roleSize);
+                // alert("result.success!"+result.success);
+                if (result.success) {
+                    if (result.roleSize > 0) { //当角色信息size大于0跳转main
+                        // var roleId = result.roleList[0].id;
+                        // $.post("/admin/user/saveRole", {roleId: roleId}, function (result) {
+                        //     if (result.success) {
+                        window.location.href = "/admin/main";
+                        // }
+                        // });
+                    } else if(result.roleSize == 0 ){
+                        alert("该用户未设定角色,请联系管理员.");
+                    }else {
+                        alert(result.errorInfo);
+                        // $("#roleList").empty();
+                        // // alert(JSON.stringify(result.roleList));
+                        // var roles = result.roleList;
+                        // for (var i = 0; i < roles.length; i++) {
+                        //     if (i == 0) {
+                        //         $("#roleList").append("<input type='radio' checked=true  name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
+                        //
+                        //     } else {
+                        //         $("#roleList").append("<input type='radio' name='role' value='" + roles[i].id + "'/>" + roles[i].name + "&nbsp;&nbsp;")
+                        //     }
+                        // }
+                        // document.getElementById('light').style.display = 'block';
+                        // document.getElementById('fade').style.display = 'block';
+                    }
+                }
+            });
+        });
+    });
+    function saveRole() {
+        var roleId = $("input[name='role']:checked").val();
+        $.post("/admin/user/saveRole", {roleId: roleId}, function (result) {
+            if (result.success) {
+                window.location.href = "/admin/main";
+            }
+        });
+    }
+</script>
+
+
 </html>

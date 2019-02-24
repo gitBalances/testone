@@ -1,16 +1,9 @@
 package com.tansuo365.test1.service.log;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.tansuo365.test1.bean.goods.CalcinedCoke;
-import com.tansuo365.test1.bean.log.LogEnum;
-import com.tansuo365.test1.bean.log.LogUser;
 import com.tansuo365.test1.bean.log.LogMember;
-import com.tansuo365.test1.entity.Goods;
-import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.tansuo365.test1.bean.log.LogUser;
 
-import java.util.HashMap;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +23,7 @@ public interface LogService {
 
     /*--------------------------------------------*/
     //存储或修改会员日志
-    public void saveMemberLog(LogMember log);
+    public void saveMemberLog(LogMember log, HttpSession session);
 
 
 }

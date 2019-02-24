@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>tansuo365 index</title>
+    <script th:src="@{/js/jquery.min.js}"></script>
 </head>
 <body>
 
@@ -33,6 +34,49 @@
 
 
 <a href="/admin/login">后台admin用户登录</a> <br>
-<a href="/admin/reg">后台admin用户注册(仅测试模式下开放)</a>
+<a href="/admin/reg">后台admin用户注册(仅测试模式下开放)</a> <br>
+<a href="/member/login">前端member会员注册及登录(测试echarts)</a>
+<!--<div th:text="${session.currentMember}">[...]</div>-->
+
+<!--<div th:object="${session.currentMember}">-->
+    <!--<p>欢迎,<span th:text="*{truename}">游客名称</span></p>-->
+    <!--<p>用户等级:<span th:text="*{member_level}"></span></p>-->
+    <!--<p>创建时间:<span th:text="${#calendars.format(*{create_time},'dd MMMM yyyy')}"></span></p>-->
+<!--</div>-->
+<div th:if="${session.currentMember!=null}" th:object="${session.currentMember}">
+    <p>欢迎,<span th:text="*{truename}">游客名称</span></p>
+    <p>用户等级:<span th:text="*{member_level}"></span></p>
+    <a id="logoutBtn"><u>登出</u></a>
+    <!--<p>创建时间:<span th:text="${#calendars.format(*{create_time},'dd MMMM yyyy')}"></span></p>-->
+</div>
+
+
+<hr>
+
+<a href="/data/echarts0">图表0查看</a> <br>
+<a href="/data/echarts1">图表1查看</a> <br>
+<a href="/data/echarts2">图表2查看</a> <br>
+<a href="/data/echarts3">图表3查看</a> <br>
+
+<script th:inline="none">
+    /*会员登出*/
+    $("#logoutBtn").click(doLogout);
+    function doLogout(){
+        $.ajax({
+            url:"/member/doLogout",
+            type:"post",
+            success:function(data){
+                window.location.reload();
+            }
+        })
+    }
+</script>
+<!--<div th:object="${session.currentMember}!=null">-->
+    <!--<p>欢迎,<span th:text="*{truename}">游客名称</span></p>-->
+    <!--<p>用户等级:<span th:text="*{member_level}"></span></p>-->
+    <!--<p>创建时间:<span th:text="${#calendars.format(*{create_time},'dd MMMM yyyy')}"></span></p>-->
+<!--</div>-->
+
+
 </body>
 </html>

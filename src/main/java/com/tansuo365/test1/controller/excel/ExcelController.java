@@ -15,6 +15,8 @@ import com.tansuo365.test1.mapper.goods.PetroleumCokeMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
 import com.tansuo365.test1.util.CodeJudgerUtils;
 import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,7 @@ import java.util.List;
  * 用于excel导入的controller
  * {@link #importExcel 导入excel,接收excel导入,文件为uploadFile,接收文件参数String instance标识上传类型}
  */
+@Api(value = "Excel导入控制层",description = "Excel导入控制层,导出使用js插件")
 @RestController
 @RequestMapping("/excel")
 public class ExcelController {
@@ -61,6 +64,7 @@ public class ExcelController {
         this.C = c;
     }
 
+    @ApiOperation(value="导入Excel", notes="导入Excel")
     @RequestMapping("/importExcel")
     public Integer importExcel(@RequestParam(value = "uploadFile") MultipartFile uploadFile,
                                @RequestParam(value = "instance") String instance, Model model) {

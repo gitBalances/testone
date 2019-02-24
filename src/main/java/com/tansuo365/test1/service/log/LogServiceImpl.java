@@ -5,17 +5,16 @@ import com.github.pagehelper.PageInfo;
 import com.tansuo365.test1.bean.log.LogEnum;
 import com.tansuo365.test1.bean.log.LogMember;
 import com.tansuo365.test1.bean.log.LogUser;
-import com.tansuo365.test1.entity.Goods;
+import com.tansuo365.test1.bean.member.Member;
+import com.tansuo365.test1.mapper.member.LogMemberMapper;
 import com.tansuo365.test1.mapper.LogUserMapper;
 import com.tansuo365.test1.service.user.UserService;
 import com.tansuo365.test1.util.CodeJudgerUtils;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +28,8 @@ public class LogServiceImpl implements LogService{
     private String instance = "系统日志";
     @Resource
     private UserService userService;
+    @Resource
+    private LogMemberMapper logMemberMapper;
     @Resource
     private LogUserMapper logUserMapper;
     @Resource
@@ -65,7 +66,9 @@ public class LogServiceImpl implements LogService{
 
     /*--------------------------------------------*/
     @Override
-    public void saveMemberLog(LogMember log) {
-
+    public void saveMemberLog(LogMember log, HttpSession session) {
+        Member currentMember = (Member)session.getAttribute("currentMember");
+        log.setMember_id(currentMember.getId());
+        logMemberMapper.insertSelective(log);
     }
 }

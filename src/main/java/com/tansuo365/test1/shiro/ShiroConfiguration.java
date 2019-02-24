@@ -3,7 +3,6 @@ package com.tansuo365.test1.shiro;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.tansuo365.test1.shiro.filter.MyFormAuthenticationFilter;
 import com.tansuo365.test1.shiro.realm.DatabaseRealm;
-import com.tansuo365.test1.shiro.realm.MyRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -92,15 +91,15 @@ public class ShiroConfiguration {
         //拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         //自定义拦截器
-        Map<String, Filter> customisedFilter = new HashMap<>();
-        customisedFilter.put("url", getURLPathMatchingFilter());
+//        Map<String, Filter> customisedFilter = new HashMap<>();
+//        customisedFilter.put("url", getURLPathMatchingFilter());
 //        customisedFilter.put("theMember",theMember());
 //        customisedFilter.put("theAdmin",theAdmin());
 
 //        //配置映射关系 anon表示不需要权限即可访问
 //        filterChainDefinitionMap.put("/user/login", "anon");
         filterChainDefinitionMap.put("/admin/login", "anon");
-        filterChainDefinitionMap.put("/admin/loginadmin", "anon");
+        filterChainDefinitionMap.put("/admin/loginAdmin", "anon");
 ////        filterChainDefinitionMap.put("/admin/index", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/admin/config/**", "anon");
@@ -115,7 +114,7 @@ public class ShiroConfiguration {
 //        //其他资源都需要认证  authc 表示需要认证才能进行访问 user表示配置记住我或认证通过可以访问的地址
 //        filterChainDefinitionMap.put("/user/**", "theMember");
         filterChainDefinitionMap.put("/admin/**", "user");
-        shiroFilterFactoryBean.setFilters(customisedFilter);
+//        shiroFilterFactoryBean.setFilters(customisedFilter);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

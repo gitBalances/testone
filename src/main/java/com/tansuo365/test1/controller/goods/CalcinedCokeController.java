@@ -95,7 +95,6 @@ public class CalcinedCokeController {
         return code;
     }
 
-
     @RequestMapping("/selectAll")
     public List<Goods> selectAll(){
         goodsCommonService.setGoodsTypeMapper(calcinedCokeMapper);
@@ -104,7 +103,5 @@ public class CalcinedCokeController {
         codeJudgerUtils.whichCodeIsOK(all,code,LogEnum.SEARCH_ACTION.toString(),instance);
         return all;
     }
-
-
 
 }

@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 货物curd公用service
+ * 货物crud公用service
  */
 @Service
 public class GoodsCommonService implements IGoodsCommonService{
-
 
     private IGoodsCommonMapper goodsCommonMapper;
 

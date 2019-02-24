@@ -22,14 +22,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 石油焦Controller
+ */
 @RestController
 @RequestMapping("/petroleumCoke")
 public class PetroleumCokeController {
 
     private String instance = "石油焦";
 
-    //    @Autowired
-//    private PetroleumCokeServiceImpl petroleumCokeService;
     @Autowired
     private IGoodsCommonService goodsCommonService;
     @Resource

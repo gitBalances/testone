@@ -10,6 +10,8 @@ import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserRoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import java.util.*;
 
 
 /*管理员角色控制层*/
+@Api(value = "管理员角色控制层",description = "管理员角色控制层,配置系统角色")
 @RestController
 @RequestMapping("/admin/role")
 public class AdminRoleController {
@@ -36,6 +39,7 @@ public class AdminRoleController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="查询所有系统角色", notes="查询所有系统角色listAllRoles")
     @RequestMapping("/listAllRoles")
     @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> listAll()throws Exception{
@@ -46,6 +50,7 @@ public class AdminRoleController {
 
 
     //对管理员role的动态查询
+    @ApiOperation(value="动态查询所有系统角色", notes="动态查询所有系统角色listAllRoleSelective")
     @RequestMapping("/listAllRoleSelective")
     @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> listAllRoleSelective(Role role)throws Exception{
@@ -56,6 +61,7 @@ public class AdminRoleController {
     }
 
     //对role的新增或更改
+    @ApiOperation(value="新增或更改角色信息", notes="新增或更改角色信息")
     @RequestMapping("/saveRole")
     @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> saveRole(Role role) {
@@ -100,6 +106,7 @@ public class AdminRoleController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="删除角色", notes="删除角色根据ID")
     @RequestMapping("/deleteRoleById")
     @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> deleteRoleById(Long id)throws Exception{
@@ -137,6 +144,7 @@ public class AdminRoleController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="权限菜单", notes="根据父节点获取所有复选框权限菜单树")
     @RequestMapping("/loadCheckMenuInfo")
     @RequiresPermissions(value = {"系统角色管理"})
     public String loadCheckMenuInfo(Integer parentId,Long roleId)throws Exception{
@@ -194,6 +202,7 @@ public class AdminRoleController {
      * @param roleId
      * @return
      */
+    @ApiOperation(value="保存角色权限设置", notes="保存角色权限设置根据给定菜单ids,角色id")
     @RequestMapping("/saveMenuSet")
     @RequiresPermissions(value = {"系统角色管理"})
     public Map<String,Object> saveMenuSet(String menuIds,Integer roleId){

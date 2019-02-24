@@ -67,7 +67,6 @@ public class DatabaseRealm extends AuthorizingRealm {
 			}
 		}
 		info.setRoles(roles);
-		System.out.println("info:"+info.toString());
 		return info;
 	}
 

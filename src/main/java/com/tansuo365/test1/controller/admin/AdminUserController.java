@@ -7,6 +7,8 @@ import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserRoleService;
 import com.tansuo365.test1.service.user.UserService;
 import com.tansuo365.test1.util.PasswordEncrypt;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /*管理员控制层*/
+@Api(value = "管理员控制层",description = "管理员设置角色,增删改查")
 @RestController
 @RequestMapping("/admin/user")
 public class AdminUserController {
@@ -42,6 +45,7 @@ public class AdminUserController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="查询所有管理员", notes="查询所有管理员listAllUser")
     @RequestMapping("/listAllUser")
     @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> list() throws Exception {
@@ -87,6 +91,7 @@ public class AdminUserController {
      * @param userId  管理员id 单个
      * @return
      */
+    @ApiOperation(value="保存管理员角色设置", notes="保存管理员角色设置saveRoleSet")
     @RequestMapping("/saveRoleSet")
     @RequiresPermissions(value = {"后台用户管理","路径配置"},logical = Logical.OR) //有其中一个权限即可
     public Map<String, Object> saveRoleSet(String roleIds, Long userId) {
@@ -117,6 +122,7 @@ public class AdminUserController {
      * @param user
      * @return
      */
+    @ApiOperation(value="添加或修改管理员信息", notes="添加或修改管理员信息saveUser")
     @RequestMapping("/saveUser")
     @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> saveUser(User user) throws Exception {
@@ -154,6 +160,7 @@ public class AdminUserController {
      * @param id
      * @return
      */
+    @ApiOperation(value="删除管理员信息", notes="删除管理员信息根据ID")
     @RequestMapping("/deleteUserById")
     @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> deleteUserById(Long id) {
@@ -171,6 +178,7 @@ public class AdminUserController {
     }
 
     //展示出来的password 通过AES加密
+//    @ApiOperation(value="删除管理员信息", notes="删除管理员信息根据ID")
     @RequestMapping("/getPrimevalPWD")
     @RequiresPermissions(value = {"后台用户管理"})
     public String getPrimevalPWD(@RequestParam("pwd") String pwd) {
@@ -185,6 +193,7 @@ public class AdminUserController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="保存角色信息", notes="保存角色信息saveRole")
     @ResponseBody
     @RequestMapping("/saveRole")
     @RequiresAuthentication

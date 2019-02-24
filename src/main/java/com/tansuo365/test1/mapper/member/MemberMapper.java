@@ -23,6 +23,8 @@ public interface MemberMapper {
 
     Member selectInstanceByName(String username);
 
+//    Member selectInstanceByNameAndPWD(String username,String password);
+
     Member selectByPrimaryKey(Long id);
 
     int selectMemberLevelById(Long id);

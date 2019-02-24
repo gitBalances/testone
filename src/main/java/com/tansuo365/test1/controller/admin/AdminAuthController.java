@@ -7,6 +7,8 @@ import com.tansuo365.test1.bean.user.EMenu;
 import com.tansuo365.test1.service.log.LogService;
 import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /*配置EMenu*/
+@Api(value = "管理员权限控制层",description = "管理员权限路径,仅作为系统管理员可调用")
 @RestController
 @RequestMapping("/admin/auth")
 public class AdminAuthController {
@@ -38,6 +41,7 @@ public class AdminAuthController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="查询所有权限菜单", notes="查询所有权限菜单listAllEMenu")
     @RequestMapping("/listAllEMenu")
     @RequiresPermissions("路径配置")
     public Map<String,Object> listEMenu()throws Exception{
@@ -52,6 +56,7 @@ public class AdminAuthController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="动态查询所有权限菜单", notes="动态查询所有权限菜单listAllEMenuSelective")
     @RequestMapping("/listAllEMenuSelective")
     @RequiresPermissions("路径配置")
     public Map<String,Object> listEMenu(EMenu eMenu)throws Exception{
@@ -67,6 +72,7 @@ public class AdminAuthController {
      * @param eMenu
      * @return
      */
+    @ApiOperation(value="保存或修改权限菜单", notes="保存或修改权限菜单saveMenu")
     @RequestMapping("/saveMenu")
     @RequiresPermissions("路径配置")
     public Map<String,Object> saveMenu(EMenu eMenu){
@@ -89,6 +95,7 @@ public class AdminAuthController {
      * @return
      * @throws Exception
      */
+    @ApiOperation(value="删除权限菜单", notes="删除权限菜单deleteEMenuById")
     @RequestMapping("/deleteEMenuById")
     @RequiresPermissions("路径配置")
     public Map<String,Object> deleteEMenuById(int id)throws Exception{
@@ -111,6 +118,7 @@ public class AdminAuthController {
      * @param rows
      * @return
      */
+    @ApiOperation(value="分页查询日志信息", notes="分页查询日志信息listLogSelectiveByPage")
     @RequestMapping("/listLogSelectiveByPage")
     @RequiresPermissions(value={"系统日志"})
     public Map<String, Object> getLogSelectiveByPage(LogUser logUser, Integer page, Integer rows){

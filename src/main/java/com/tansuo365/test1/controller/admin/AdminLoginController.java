@@ -8,6 +8,8 @@ import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -27,6 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
+@Api(value = "管理员登录控制层",description = "管理员登录,包括获取树形结构菜单")
 @RequestMapping("/admin")
 @Controller
 public class AdminLoginController {
@@ -37,7 +40,7 @@ public class AdminLoginController {
     @Autowired
     private EMenuService eMenuService;
 
-
+    @ApiOperation(value="/login登录页", notes="返回/admin下login.html")
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "/admin/login"; //对应用户登录展示
@@ -50,9 +53,11 @@ public class AdminLoginController {
      * @param
      * @return
      */
+    @ApiOperation(value="登录请求POST", notes="登录请求POST,通过shiro进行鉴权")
     @ResponseBody
-    @RequestMapping(value = "/loginadmin", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginAdmin", method = RequestMethod.POST)
     public Map<String, Object> login(String username, String password, String rememberMe, HttpSession session) {
+
         Map<String, Object> map = new HashMap<String, Object>();
 
         System.out.println("rememberMe>>>>:" + rememberMe);
@@ -141,6 +146,7 @@ public class AdminLoginController {
      * @param parentId
      * @return
      */
+    @ApiOperation(value="读取系统菜单", notes="[待改善]树形结构,根据roleid按需获取,而不是显示没有权限访问")
     @ResponseBody
     @RequestMapping("/loadMenuInfo")
     @RequiresAuthentication
