@@ -70,3 +70,6 @@
 - 1. 增加了member的Mapper Service后,之后编写MemberController
 - 2. 通过登录member后返回member_level,在前端展示该显示哪些数据/数据量
 - 3. 根据前端选择的图表的时间年份/月份/日期进行按日期查询(更改selectAll(条件))
+
+与搜索table一致,前端echarts显示根据选定时间区间进行搜索b_time,e_time.
+公有货品controller完善

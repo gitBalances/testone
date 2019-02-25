@@ -9,7 +9,6 @@
     <title>数据图表0</title>
 
 
-
     <script src="/js/jquery.min.js"></script>
     <script src="/js/getParam.js"></script>
     <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
@@ -20,80 +19,172 @@
 <body>
 echarts0
 <!--test-->
-<div id="graduateyear" class="chart"></div>
+<div th:id="${myChartsContainerId}" class="chart"></div>
+
 <style>
     .chart {
         width: 700px;
         height: 600px;
     }
 </style>
+
+
+<hr>
+<button onclick="setGoodsType(0)">查看石油焦</button>
+<button onclick="setGoodsType(1)">查看煅后焦</button>
+<button onclick="setGoodsType(2)">查看改质沥青</button>
+<button onclick="setGoodsType(3)">查看阳极</button>
+
+<hr>
+
+<!--<button onclick="setOrderType(0)">时间正序查看</button>-->
+<!--<button onclick="setOrderType(1)">时间倒序查看</button>-->
+
+
 </body>
 
 
-<script >
-    var myChart = echarts.init(document.getElementById("graduateyear"));
-    var goodsType = ['petroleumCoke','calcinedCoke','mAsphalt','anode'];
+<script>
+    /*声明创建货品类型数组*/
+    var goodsType = ['PetroleumCoke', 'CalcinedCoke', 'MAsphalt', 'Anode'];
+    /*声明创建ECharts对象*/
+    var myChart = echarts.init(document.getElementById("test"));
 
-    getAllGoodsByType(myChart,goodsType[0]);
+    myChartDefalut();
 
-    function getAllGoodsByType(myChart,goodsType,memberLevel) {
+    var goodsTypeIndex;
+    var selectOrder = 0;
+
+    /*根据传入的货品数组的下标来查询指定下标的货品类型*/
+    function setGoodsType(index) {
+        goodsTypeIndex = index;
+        getAllGoodsByType(myChart,index, null, null, selectOrder);
+        myChartDefalut();
+        // getAllGoodsByType(myChart,index, null, null, selectOrder);
+    }
+
+    function myChartDefalut(){
+       myChart.setOption({
+            legend: {
+                data: []
+            },
+            tooltip: {trigger: 'axis',},
+            dataset: {
+                source: {},
+                dimensions: []
+            },
+            xAxis: [
+                {
+                    type: 'category', gridIndex: 0, axisLabel: {
+                        rotate: 50, interval: 0
+                    }
+                }
+            ],
+            yAxis:
+                [
+                    {type: 'value', gridIndex: 0}
+                ],
+            grid:
+                [
+                    {bottom: '55%'},
+                    {top: '55%'}
+                ],
+            series:
+                []
+        });
+    }
+
+
+
+
+    /*设置选取的货品数据时间排序方式,asc,desc*/
+    function setOrderType(order) {
+        getAllGoodsByType(myChart, goodsType[goodsTypeIndex], null, null, order);
+    }
+
+
+    /*默认获取石油焦信息,可按需更改*/
+    // getAllGoodsByType(myChart,goodsType[0],null,null,);
+
+    //除了根据会员等级查询,还应该根据用户点击显示几个月,几年的按钮进行展示(timeInteval)
+    /*myChart:图表对象,goodsType:货品类型,memberLevel:用户等级,timeInterval:时间区间,selectOrder:查询排序*/
+    function getAllGoodsByType(myChart,index, memberLevel, timeInterval, selectOrder) {
+        // /*获取json数据中的某一个字段*/
         // /*获取json数据中的某一个字段*/
         var newJson = null;
         //获取展示形式如:
         var newJson2 = null;
         var newArr = [];
-        var companys = null;
+        // var companys = null;
+        var companys = [];
         var today_price = null; //今日价格汇总
         var createTimes = null; //创建时间
         var allData = null;
-        var url = "/"+goodsType+"/"+"selectAll";
+        var option = null;
+        var url = "/goods/" + this.goodsType[index] + "/" + "testselectSelective";
+        // var companys = null;
+        // var url = "/goods/"+goodsType+"/"+"selectAll";
         myChart.showLoading();
         $.ajax({
             // url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
-            url:url, //按需获取goods数据
-            data:{"member_level":memberLevel},
-            dataType:"json",
+            url: url, //按需获取goods数据
+            data: {'order': selectOrder},
+            dataType: "json",
+            // contentType:"application/json;charset=UTF-8",
             type: "post",
             success: function (data) {
+
                 myChart.hideLoading(); //数据data加载后隐藏loading
+
+                // alert(data);
                 // alert(JSON.stringify(data.petroleumCokes)); OK
                 // petroleumCokesJson = JSON.stringify(data); OK
                 //石油焦json数据
                 // petroleumCokesJson = data; //OK
                 // console.log("JSON.stringify(data):" + JSON.stringify(data));
-                console.log(">>data:" + JSON.stringify(data));
+                // console.log(">>data:" + JSON.stringify(data));
                 allData = data;
-                //获取去重复后的公司名称数组
-                companys = getParamValues("company", data).delDuplicate();
-                console.log("companys:" + companys);
-                console.log("companys.length:" + companys.length);
-                console.log("companys.length:" + companys.length);
-                console.log("companys[0]:" + companys[0]);
+                //获取公司字段,获取公司数组,去重
+               companys = getParamValues("company", data).delDuplicate();
+
+
+
+
+
+
                 // company[0]的所有历史价格
                 // 根据字段获取指定公司的today_price数组
                 price0 = getParamValuesByCname("today_price", data, "company", companys[0]);
-                console.log("price0:" + price0);
+                // console.log("price0:" + price0);
                 //根据公司名查询历史价格 -> (数组)
                 /*newJson:{'华联石化':[2323,5321],'海油石化':[3000,2311],'昌邑石化':[2703,1688]}*/
                 newJson = getJsonResult("today_price", data, "company", companys);
-                console.log("newJson:" + newJson);
+                // console.log("newJson:" + newJson);
                 today_price = getParamValues("today_price", data); //OK
-                console.log(today_price); //OK
+                // console.log(today_price); //OK
                 // alert(today_price); //OK
                 createTimes = getParamValues("create_time", data).delDuplicate();
-                console.log("createTimes:" + createTimes);
-                newJson2 = getJsonResultPro("today_price", data, "company", companys, "createTimes");
-                console.log("newJson2:" + newJson2);
 
-                newArr = getArrayResultPro("today_price", data, "company", companys, "createTime");
-                console.log("newArr:" + newArr);
+                // console.log("createTimes:" + createTimes);
+                // newJson2 = getJsonResultPro("today_price", data, "company", companys, "createTimes");
+                // console.log("newJson2:" + newJson2);
+
+                newArr = getArrayResultPro("today_price", data, "company", companys, "createTime",createTimes);
+                // console.log("newArr:" + newArr);
                 var seriesContent = getSeriesContent(companys.length, "line", "row");
-                console.log(seriesContent);
-                //获取时间和公司数组
-                var timeAndcompanyArr = ArrChangeToStringArr(companys, "createTime");
-                myChart.setOption({
+                // console.log(seriesContent);
+                //获取时间和公司数组填入维度
+                var dimensions = twoArrayToOne(companys, "createTime");
+
+
+                //legendData 展示公司名称数组,在切换其它货品信息时,不能有效地获取companys
+                var legendData = changeToStringArr(companys);
+
+
+
+                option = {
                     legend: {
-                        data: companys
+                        data: legendData
                     },
                     tooltip: {trigger: 'axis',},
                     // dataset:{
@@ -103,12 +194,12 @@ echarts0
                     dataset: {
                         //Array形式
                         source: newArr,
-                        dimensions: timeAndcompanyArr
+                        dimensions: dimensions
                         // dimensions: [
                         //     'createTime',
-                        //     '华联石化',
-                        //     '海油石化',
-                        //     '昌邑石化',
+                        //     'A公司',
+                        //     'B企业',
+                        //     'C公司',
                         //     // 'sulfur1',
                         //     // 'sulfur2',
                         //     // 'sulfur3',
@@ -156,9 +247,13 @@ echarts0
                         ],
                     series:
                     seriesContent
-                });
+                };
+                myChart.setOption(option);
             }
         });
+
+
+
     }
 
 

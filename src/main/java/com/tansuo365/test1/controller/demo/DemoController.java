@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class DemoController {
 
+    @ApiOperation(value="开发过程文档", notes="开发过程文档")
+    @RequestMapping("/doc")
+    public String doc(){
+        return "doc";
+    }
     //form样式
     @ApiOperation(value="form表单样式", notes="[前端]form表单样式")
     @RequestMapping("/formstyle")

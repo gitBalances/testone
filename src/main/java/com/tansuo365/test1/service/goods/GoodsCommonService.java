@@ -57,6 +57,11 @@ public class GoodsCommonService implements IGoodsCommonService{
     }
 
     @Override
+    public List<Goods> getGoodsByType(Goods goods) {
+        return goodsCommonMapper.selectAllByTypeForECharts(goods);
+    }
+
+    @Override
     public Integer updateBySelective(Goods goods) {
         return goodsCommonMapper.updateByPrimaryKeySelective(goods);
     }

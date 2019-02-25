@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 /**
@@ -77,14 +78,14 @@ public class PetroleumCoke implements Serializable,Goods {
     @ExcelCell(index = 13)
     private String reporter;
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 //    @Excel(name = "创建时间", exportFormat = "yyyy-MM-dd HH:mm:ss", orderNum = "14")
     @ExcelCell(index = 14)
     private Date create_time;
 
 
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") //时区+8
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 //    @Excel(name = "更新时间", exportFormat = "yyyy-MM-dd HH:mm:ss", orderNum = "15")
 //    @ExcelCell(index = 14)
     private Date update_time;
@@ -96,5 +97,8 @@ public class PetroleumCoke implements Serializable,Goods {
     //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @javax.persistence.Transient
     private String e_time; //结束时间 搜索用到
+
+    @javax.persistence.Transient
+    private Integer order; //查询排序 正序0,倒序1
 
 }

@@ -186,7 +186,9 @@
                 and create_time &lt;= #{e_time}
             </if>
         </where>
-        order by create_time DESC
+        <if test="order != 0 and order != '' ">
+            order by create_time DESC
+        </if>
     </select>
 
     <!--根据主键删除元组-->

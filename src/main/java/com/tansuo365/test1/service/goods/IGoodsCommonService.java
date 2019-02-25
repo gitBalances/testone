@@ -37,6 +37,9 @@ public interface IGoodsCommonService {
     //选择全部
     public List<Goods> getAll();
 
+    //选择全部根据货品实例(针对ECharts使用)
+    public List<Goods> getGoodsByType(Goods goods);
+
     //动态更新
     public Integer updateBySelective(Goods goods);
 }

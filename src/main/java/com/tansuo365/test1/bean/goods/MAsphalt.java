@@ -46,10 +46,10 @@ public class MAsphalt implements Serializable, Goods {
     private String remarks;
     @ExcelCell(index = 11)
     private String reporter;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ExcelCell(index = 12)
     private Date create_time;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ExcelCell(index = 13)
     private Date update_time;
 
@@ -65,5 +65,8 @@ public class MAsphalt implements Serializable, Goods {
     //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @javax.persistence.Transient
     private String e_time; //结束时间 搜索用到
+
+    @javax.persistence.Transient
+    private Integer order; //查询排序 正序0,倒序1
 
 }

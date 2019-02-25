@@ -1,6 +1,7 @@
 package com.tansuo365.test1.mapper.goods;
 
 import com.tansuo365.test1.entity.Goods;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ public interface IGoodsCommonMapper {
 
     //选取全部 new
     List<Goods> selectAll();
+
+    //根据货品类型选择全部
+    List<Goods> selectAllByTypeForECharts(Goods goods);
 
     //根据PK获取货品实例
     Goods selectByPrimaryKey(Long id);
