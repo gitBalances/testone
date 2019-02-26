@@ -20,6 +20,7 @@ public class EChartsController {
     @ApiOperation(value="echarts0", notes="[曲线图]/data/echarts0")
     @RequestMapping("/echarts0")
     public String echarts0(Model model){
+        //设定一个前端页面的id
         model.addAttribute("myChartsContainerId","test");
         return "/data/echarts0";
     }

@@ -37,9 +37,11 @@ echarts0
 
 <hr>
 
+<button onclick="setChartType(1)">曲线图模式</button>
+<button onclick="setChartType(2)">柱状图模式</button>
+
 <!--<button onclick="setOrderType(0)">时间正序查看</button>-->
 <!--<button onclick="setOrderType(1)">时间倒序查看</button>-->
-
 
 </body>
 
@@ -52,19 +54,47 @@ echarts0
 
     myChartDefalut();
 
-    var goodsTypeIndex;
+    var goodsTypeIndex = null;
     var selectOrder = 0;
+    var ChartType = 0;
+    var thisChartType = null;
+
+    function initDefaultChartType(){
+        return "line";
+    }
+
+    function setChartType(chartType) {
+        if (chartType === 1 && chartType !== ChartType) {
+            ChartType = chartType;
+            thisChartType = "line"; //曲线图
+            if(goodsTypeIndex == null){
+                alert("请先选择一种货品进行查看.");
+                return;
+            }
+            getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
+
+        }
+        if (chartType === 2 && chartType !== ChartType) {
+            ChartType = chartType;
+            thisChartType = "bar" //柱状图
+            if(goodsTypeIndex == null){
+                alert("请先选择一种货品进行查看.");
+                return;
+            }
+            getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
+        }
+    }
 
     /*根据传入的货品数组的下标来查询指定下标的货品类型*/
     function setGoodsType(index) {
         goodsTypeIndex = index;
-        getAllGoodsByType(myChart,index, null, null, selectOrder);
+        getAllGoodsByType(myChart, thisChartType, index, null, null, selectOrder);
         myChartDefalut();
         // getAllGoodsByType(myChart,index, null, null, selectOrder);
     }
 
-    function myChartDefalut(){
-       myChart.setOption({
+    function myChartDefalut() {
+        myChart.setOption({
             legend: {
                 data: []
             },
@@ -95,11 +125,9 @@ echarts0
     }
 
 
-
-
     /*设置选取的货品数据时间排序方式,asc,desc*/
     function setOrderType(order) {
-        getAllGoodsByType(myChart, goodsType[goodsTypeIndex], null, null, order);
+        getAllGoodsByType(myChart, thisChartType, goodsType[goodsTypeIndex], null, null, order);
     }
 
 
@@ -108,7 +136,11 @@ echarts0
 
     //除了根据会员等级查询,还应该根据用户点击显示几个月,几年的按钮进行展示(timeInteval)
     /*myChart:图表对象,goodsType:货品类型,memberLevel:用户等级,timeInterval:时间区间,selectOrder:查询排序*/
-    function getAllGoodsByType(myChart,index, memberLevel, timeInterval, selectOrder) {
+    function getAllGoodsByType(myChart, thisChartType, index, memberLevel, timeInterval, selectOrder) {
+        if(thisChartType==null){
+            thisChartType = initDefaultChartType();
+        }
+
         // /*获取json数据中的某一个字段*/
         // /*获取json数据中的某一个字段*/
         var newJson = null;
@@ -121,7 +153,7 @@ echarts0
         var createTimes = null; //创建时间
         var allData = null;
         var option = null;
-        var url = "/goods/" + this.goodsType[index] + "/" + "testselectSelective";
+        var url = "/goods/" + this.goodsType[index] + "/" + "selectGoodsByType";
         // var companys = null;
         // var url = "/goods/"+goodsType+"/"+"selectAll";
         myChart.showLoading();
@@ -136,22 +168,16 @@ echarts0
 
                 myChart.hideLoading(); //数据data加载后隐藏loading
 
-                // alert(data);
                 // alert(JSON.stringify(data.petroleumCokes)); OK
                 // petroleumCokesJson = JSON.stringify(data); OK
                 //石油焦json数据
                 // petroleumCokesJson = data; //OK
                 // console.log("JSON.stringify(data):" + JSON.stringify(data));
-                // console.log(">>data:" + JSON.stringify(data));
+                console.log(">>data:" + JSON.stringify(data));
                 allData = data;
                 //获取公司字段,获取公司数组,去重
-               companys = getParamValues("company", data).delDuplicate();
-
-
-
-
-
-
+                companys = getParamValues("company", data).delDuplicate();
+                // console.log(">>companys:"+companys);
                 // company[0]的所有历史价格
                 // 根据字段获取指定公司的today_price数组
                 price0 = getParamValuesByCname("today_price", data, "company", companys[0]);
@@ -165,21 +191,20 @@ echarts0
                 // alert(today_price); //OK
                 createTimes = getParamValues("create_time", data).delDuplicate();
 
-                // console.log("createTimes:" + createTimes);
-                // newJson2 = getJsonResultPro("today_price", data, "company", companys, "createTimes");
+                newJson2 = getJsonResultPro("today_price", data, "company", companys, "createTimes");
                 // console.log("newJson2:" + newJson2);
 
-                newArr = getArrayResultPro("today_price", data, "company", companys, "createTime",createTimes);
+                //
+                newArr = getArrayResultPro("today_price", data, "company", companys, "createTime", "create_time");
                 // console.log("newArr:" + newArr);
-                var seriesContent = getSeriesContent(companys.length, "line", "row");
-                // console.log(seriesContent);
+                var seriesContent = getSeriesContent(companys.length, thisChartType, "row");
+                // console.log("seriesContent:"+JSON.stringify(seriesContent));
                 //获取时间和公司数组填入维度
                 var dimensions = twoArrayToOne(companys, "createTime");
-
+                // console.log("dimensions:"+dimensions);
 
                 //legendData 展示公司名称数组,在切换其它货品信息时,不能有效地获取companys
-                var legendData = changeToStringArr(companys);
-
+                var legendData = companys.map(String);
 
 
                 option = {
@@ -251,7 +276,6 @@ echarts0
                 myChart.setOption(option);
             }
         });
-
 
 
     }

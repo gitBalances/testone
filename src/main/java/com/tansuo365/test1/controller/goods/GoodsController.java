@@ -6,6 +6,7 @@ import com.tansuo365.test1.bean.goods.Anode;
 import com.tansuo365.test1.bean.goods.CalcinedCoke;
 import com.tansuo365.test1.bean.goods.MAsphalt;
 import com.tansuo365.test1.bean.goods.PetroleumCoke;
+import com.tansuo365.test1.bean.member.Member;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.mapper.goods.AnodeMapper;
 import com.tansuo365.test1.mapper.goods.CalcinedCokeMapper;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +67,7 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("/selectSelective")
-    public Map<String, Object> selectSelective(@PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode, Integer page, Integer rows) {
+    public Map<String, Object> selectSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode, Integer page, Integer rows) {
         Map<String, Object> map = new HashMap<String, Object>();
         PageHelper.startPage(page, rows);
         List<Goods> list = goodsCommonService.getBySelective(goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
@@ -163,10 +165,12 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("/selectGoodsByType")
-    public List<Goods> selectAll(@PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) {
+    public List<Goods> selectAll(HttpSession session,@PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) {
+        Member currentMember = (Member)session.getAttribute("currentMember");
+        if(currentMember==null){
+            return null;
+        }
         List<Goods> list = goodsCommonService.getBySelective(goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
-//        goodsTypeJudger(goodsType,goods);
-        List<Goods> all = goodsCommonService.getAll();
         return list;
     }
 

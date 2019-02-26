@@ -11,6 +11,7 @@ import com.tansuo365.test1.mapper.goods.MAsphaltMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
 import com.tansuo365.test1.util.CodeJudgerUtils;
 import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import java.util.Map;
 /**
  * 改质沥青controller
  */
+@Api(value = "沥青控制层",description = "沥青控制层,之后要弃用,改为统一goods-controller")
 @RestController
 @RequestMapping("/mAsphalt")
 public class MAsphaltController {

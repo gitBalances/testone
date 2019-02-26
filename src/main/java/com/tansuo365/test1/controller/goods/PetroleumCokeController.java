@@ -11,6 +11,7 @@ import com.tansuo365.test1.service.goods.IGoodsCommonService;
 import com.tansuo365.test1.service.redis.RedisService;
 import com.tansuo365.test1.util.CodeJudgerUtils;
 import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import java.util.Map;
 /**
  * 石油焦Controller
  */
+@Api(value = "石油焦控制层",description = "石油焦控制层,之后要弃用,改为统一goods-controller")
 @RestController
 @RequestMapping("/petroleumCoke")
 public class PetroleumCokeController {

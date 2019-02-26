@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 阳极controller
  */
-@Api(value = "阳极控制层",description = "展示前端页面控制层")
+@Api(value = "阳极控制层",description = "阳极控制层,之后要弃用,改为统一goods-controller")
 @RestController
 @RequestMapping("/anode")
 public class AnodeController {
