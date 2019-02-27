@@ -1,6 +1,7 @@
 package com.tansuo365.test1.bean.log;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tansuo365.test1.entity.LogUsers;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LogMember {
+public class LogMember implements LogUsers {
 
     private Integer id;
 
@@ -40,9 +41,14 @@ public class LogMember {
 //    @JoinColumn(name="user_id")
 //    private User user; // 操作用户
 
-    public LogMember(String type,String content) {
+    @Override
+    public void setTypeContent(String type, String content) {
         this.type = type;
         this.content = content;
     }
 
+    @Override
+    public void setUsersId(Integer id) {
+        this.member_id = Long.valueOf(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.tansuo365.test1.bean.member;
 
+import com.tansuo365.test1.entity.MyLoginInstance;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member implements MyLoginInstance {
 
     private Long id;
 
@@ -51,4 +52,38 @@ public class Member {
 
     private Byte expand_4;
 
+    @Override
+    public Integer getInstanceId() {
+        return Math.toIntExact(id);
+    }
+
+    @Override
+    public String getInstanceName() {
+        return username;
+    }
+
+    @Override
+    public String getInstancePassword() {
+        return password;
+    }
+
+    @Override
+    public String getInstanceSalt() {
+        return salt;
+    }
+
+    @Override
+    public void setInstanceName(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public void setInstancePassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public void setInstanceSalt(String salt) {
+        this.salt = salt;
+    }
 }

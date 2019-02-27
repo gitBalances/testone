@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -46,10 +47,10 @@ public class MAsphalt implements Serializable, Goods {
     private String remarks;
     @ExcelCell(index = 11)
     private String reporter;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ExcelCell(index = 12)
     private Date create_time;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ExcelCell(index = 13)
     private Date update_time;
 
@@ -68,5 +69,34 @@ public class MAsphalt implements Serializable, Goods {
 
     @javax.persistence.Transient
     private Integer order; //查询排序 正序0,倒序1
+
+
+    /*搜索指标用*/
+    @Transient
+    private String s_softening_point;
+    @Transient
+    private String s_toluene;
+    @Transient
+    private String s_quinoline;
+    @Transient
+    private String s_beta_resin;
+    @Transient
+    private String s_coking_value;
+    @Transient
+    private String s_ash;
+    @Transient
+    private String s_today_price;
+
+    public void setSearchParams(String s_spoint,String s_toluene,
+                                String s_quinoline,String s_beta_resin,String s_c_value,
+                                String s_ash,String s_price){
+        this.s_softening_point = s_spoint;
+        this.s_toluene = s_toluene;
+        this.s_quinoline = s_quinoline;
+        this.s_beta_resin = s_beta_resin;
+        this.s_coking_value = s_c_value;
+        this.s_ash = s_ash;
+        this.s_today_price = s_price;
+    }
 
 }

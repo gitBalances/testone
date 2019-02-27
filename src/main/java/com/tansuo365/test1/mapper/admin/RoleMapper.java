@@ -1,4 +1,4 @@
-package com.tansuo365.test1.mapper;
+package com.tansuo365.test1.mapper.admin;
 
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.RoleExample;

@@ -2,6 +2,8 @@ package com.tansuo365.test1.entity;
 
 public interface MyLoginInstance {
 
+    Integer getInstanceId();
+
     String getInstanceName();
 
     String getInstancePassword();

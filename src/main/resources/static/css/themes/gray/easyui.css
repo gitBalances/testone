@@ -13,7 +13,7 @@
   border-style: solid;
 }
 .panel-header {
-  padding: 5px;
+  padding: 1px;
   position: relative;
 }
 .panel-title {
@@ -2007,7 +2007,7 @@
 }
 .slider-v .slider-rule span {
   width: 5px;
-  height: 'auto';
+  height: auto;
   border-left: 0;
   border-width: 1px 0 0 0;
   border-style: solid;

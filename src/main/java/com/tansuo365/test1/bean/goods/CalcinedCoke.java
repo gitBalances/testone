@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -64,14 +65,49 @@ public class CalcinedCoke implements Serializable, Goods {
     private Date update_time;
 
     //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @javax.persistence.Transient
+    @Transient
     private String b_time; //起始时间 搜索用到
 
     //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @javax.persistence.Transient
+    @Transient
     private String e_time; //结束时间 搜索用到
 
-    @javax.persistence.Transient
+    @Transient
     private Integer order; //查询排序 正序0,倒序1
+
+
+    /*搜索用*/
+    @Transient
+    private String s_sulfur;
+    @Transient
+    private String s_ash;
+    @Transient
+    private String s_volatile_matter;
+    @Transient
+    private String s_water;
+    @Transient
+    private String s_density;
+    @Transient
+    private String s_p_resistivity;
+    @Transient
+    private String s_vanadium;
+    @Transient
+    private String s_granularity;
+    @Transient
+    private String s_today_price;
+
+    public void setSearchParams(String s_sulfur,String s_ash,String s_v_matter,
+                                String s_water,String s_density,String s_p_resistivity,String s_vanadium,
+                                String s_granularity,String s_price){
+        this.s_sulfur = s_sulfur;
+        this.s_ash = s_ash;
+        this.s_volatile_matter = s_v_matter;
+        this.s_water = s_water;
+        this.s_density = s_density;
+        this.s_p_resistivity = s_p_resistivity;
+        this.s_vanadium = s_vanadium;
+        this.s_granularity = s_granularity;
+        this.s_today_price = s_price;
+    }
 
 }

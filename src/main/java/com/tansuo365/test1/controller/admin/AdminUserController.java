@@ -2,7 +2,7 @@ package com.tansuo365.test1.controller.admin;
 
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.User;
-import com.tansuo365.test1.mapper.UserMapper;
+import com.tansuo365.test1.mapper.admin.UserMapper;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserRoleService;
 import com.tansuo365.test1.service.user.UserService;

@@ -20,6 +20,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,7 +70,7 @@ public class AdminLoginController {
             String userName = (String) SecurityUtils.getSubject().getPrincipal();
             User user = userService.getByName(userName);
 //            Session session = currentUser.getSession();
-            session.setAttribute("currentUser", currentUser);
+            session.setAttribute("currentUser", user);
             /*通过用户名查询角色list*/
             List<Role> roleList = roleService.listRolesByUserId(user.getId());
             roleList.remove(null);// TODO 会有null,异常
@@ -140,21 +141,26 @@ public class AdminLoginController {
 //    }
 
     /**
+     * TODO 完善树形菜单
      * 加载权限菜单 通过用户roleList,如有权限菜单重复则去除
      * 如果有多个role去除可能role对应重复的emenu,并留下交叉的
+     * 根据用户实例,用户角色list作为key存储redis,下次不再查询节约资源
      *
      * @param parentId
      * @return
      */
     @ApiOperation(value="读取系统菜单", notes="[待改善]树形结构,根据roleid按需获取,而不是显示没有权限访问")
+    @Cacheable(value = "allMenu", key = "#session.getAttribute('currentUser').toString()+#session.getAttribute('roleList').toString()", condition = "#parentId !=  '' ")
     @ResponseBody
     @RequestMapping("/loadMenuInfo")
     @RequiresAuthentication
     @RequiresPermissions("系统菜单")
     public String loadMenuInfo(HttpSession session, Integer parentId) {
 //        Role currentRole = (Role)session.getAttribute("currentRole");
+        System.out.println("读取系统菜单,仅对该用户执行一次");
         List<Role> roleList = (List<Role>) session.getAttribute("roleList");
-        System.out.println("roleList.size():" + roleList.size());
+
+
         Long[] ids = new Long[roleList.size()];
         int i = 0;
 
@@ -168,7 +174,8 @@ public class AdminLoginController {
         }
         Long[] idsNew = new Long[1];
         idsNew[0] = 1L;
-        return getAllMenuByParentIdAndSingleRoleId(parentId, idsNew[0]).toString();
+        String allMenu = getAllMenuByParentIdAndSingleRoleId(parentId, idsNew[0]).toString();
+        return allMenu;
 //        if (ids.length == 1) {
 //            return getAllMenuByParentIdAndSingleRoleId(parentId, ids[0]).toString();
 //        }

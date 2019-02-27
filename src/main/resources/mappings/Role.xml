@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="com.tansuo365.test1.mapper.RoleMapper">
+	<mapper namespace="com.tansuo365.test1.mapper.admin.RoleMapper">
 	    <select id="listRolesByUserName"  parameterType="string" resultType="Role">
 			select r.*, r.name from user u
 				left join user_role ur 

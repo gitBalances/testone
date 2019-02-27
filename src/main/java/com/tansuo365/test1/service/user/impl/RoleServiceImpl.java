@@ -1,13 +1,11 @@
 package com.tansuo365.test1.service.user.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.tansuo365.test1.bean.user.*;
-import com.tansuo365.test1.mapper.RoleMapper;
-import com.tansuo365.test1.mapper.UserRoleMapper;
+import com.tansuo365.test1.mapper.admin.RoleMapper;
+import com.tansuo365.test1.mapper.admin.UserRoleMapper;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

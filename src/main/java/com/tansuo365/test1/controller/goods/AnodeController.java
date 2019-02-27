@@ -8,10 +8,9 @@ import com.tansuo365.test1.bean.log.LogEnum;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.mapper.goods.AnodeMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
-import com.tansuo365.test1.util.CodeJudgerUtils;
+import com.tansuo365.test1.util.LogUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +38,7 @@ public class AnodeController {
     private AnodeMapper anodeMapper;
 
     @Autowired
-    private CodeJudgerUtils codeJudgerUtils;
+    private LogUtils logUtils;
 
     //todo 将不同的货品controller改为一个common controller
     @ApiOperation(value="其它", notes="其它")
@@ -53,7 +52,7 @@ public class AnodeController {
         map.put("rows", pageInfo.getList());
         map.put("total", pageInfo.getTotal());
         int code = 0;
-        codeJudgerUtils.whichCodeIsOK(list,code,LogEnum.SEARCH_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(list,code,LogEnum.SEARCH_ACTION.toString(),instance);
         return map;
     }
 
@@ -62,7 +61,7 @@ public class AnodeController {
     public Integer insertSelective(Anode anode) {
         goodsCommonService.setGoodsTypeMapper(anodeMapper);
         int code = goodsCommonService.addBySelective(anode);
-        codeJudgerUtils.whichCodeIsOK(null,code, LogEnum.ADD_ACTION.toString(), instance);
+//        logUtils.whichCodeIsOK(null,code, LogEnum.ADD_ACTION.toString(), instance);
         return code;
     }
 
@@ -71,7 +70,7 @@ public class AnodeController {
     public Integer updateByPrimaryKeySelective(Anode anode) {
         goodsCommonService.setGoodsTypeMapper(anodeMapper);
         int code = goodsCommonService.updateBySelective(anode);
-        codeJudgerUtils.whichCodeIsOK(null,code, LogEnum.UPDATE_ACTION.toString(), instance);
+//        logUtils.whichCodeIsOK(null,code, LogEnum.UPDATE_ACTION.toString(), instance);
         return code;
     }
 
@@ -80,7 +79,7 @@ public class AnodeController {
     public Integer deleteByPrimaryKey(Long id) {
         goodsCommonService.setGoodsTypeMapper(anodeMapper);
         int code = goodsCommonService.delete(id);
-        codeJudgerUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
         return code;
     }
 
@@ -89,7 +88,7 @@ public class AnodeController {
     public Integer deleteBatch(@RequestParam(value = "ids[]") Long[] ids) {
         goodsCommonService.setGoodsTypeMapper(anodeMapper);
         int code = goodsCommonService.deleteBatchByPKs(ids);
-        codeJudgerUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
         return code;
     }
 
@@ -99,7 +98,7 @@ public class AnodeController {
         goodsCommonService.setGoodsTypeMapper(anodeMapper);
         List<Goods> all = goodsCommonService.getAll();
         int code = 0;
-        codeJudgerUtils.whichCodeIsOK(all,code,LogEnum.SEARCH_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(all,code,LogEnum.SEARCH_ACTION.toString(),instance);
         return all;
     }
 

@@ -1,8 +1,7 @@
 package com.tansuo365.test1.controller.admin;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import com.tansuo365.test1.bean.user.User;
-import com.tansuo365.test1.mapper.UserMapper;
+import com.tansuo365.test1.mapper.admin.UserMapper;
 import com.tansuo365.test1.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,8 +11,6 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 

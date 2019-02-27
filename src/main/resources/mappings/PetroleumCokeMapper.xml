@@ -185,6 +185,30 @@
             <if test="e_time != null and e_time != '' ">
                 and create_time &lt;= #{e_time}
             </if>
+            <if test="s_sulfur != null and s_sulfur != '' ">
+                and sulfur ${s_sulfur}
+            </if>
+            <if test="s_ash != null and s_ash != '' ">
+                and ash ${s_ash}
+            </if>
+            <if test="s_volatile_matter != null and s_volatile_matter != '' ">
+                and volatile_matter ${s_volatile_matter}
+            </if>
+            <if test="s_wdr != null and s_wdr != '' ">
+                and wdr ${s_wdr}
+            </if>
+            <if test="s_vanadium != null and s_vanadium != '' ">
+                and vanadium ${s_vanadium}
+            </if>
+            <if test="s_density != null and s_density != '' ">
+                and density ${s_density}
+            </if>
+            <if test="s_coke_content != null and s_coke_content != '' ">
+                and coke_content ${s_coke_content}
+            </if>
+            <if test="s_today_price != null and s_today_price != '' ">
+                and today_price ${s_today_price}
+            </if>
         </where>
         <if test="order != 0 and order != '' ">
             order by create_time DESC

@@ -5,6 +5,7 @@ import com.tansuo365.test1.bean.goods.CalcinedCoke;
 import com.tansuo365.test1.bean.goods.MAsphalt;
 import com.tansuo365.test1.bean.goods.PetroleumCoke;
 import com.tansuo365.test1.bean.log.LogEnum;
+import com.tansuo365.test1.bean.log.UserType;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.excel.ExcelLogs;
 import com.tansuo365.test1.excel.ExcelUtil;
@@ -13,8 +14,7 @@ import com.tansuo365.test1.mapper.goods.CalcinedCokeMapper;
 import com.tansuo365.test1.mapper.goods.MAsphaltMapper;
 import com.tansuo365.test1.mapper.goods.PetroleumCokeMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
-import com.tansuo365.test1.util.CodeJudgerUtils;
-import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
+import com.tansuo365.test1.util.LogUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class ExcelController {
     @Autowired
     private GoodsCommonService goodsCommonService;
     @Autowired
-    private CodeJudgerUtils codeJudgerUtils;
+    private LogUtils logUtils;
 
     @Resource
     private PetroleumCokeMapper petroleumCokeMapper;
@@ -67,7 +67,7 @@ public class ExcelController {
     @ApiOperation(value="导入Excel", notes="导入Excel")
     @RequestMapping("/importExcel")
     public Integer importExcel(@RequestParam(value = "uploadFile") MultipartFile uploadFile,
-                               @RequestParam(value = "instance") String instance, Model model) {
+                               @RequestParam(value = "instance") String instance, Model model, HttpSession session) {
         InputStream in = null;
         System.out.println("in Excel Controller importExcel method;");
         //获取前台excel输入流
@@ -108,7 +108,7 @@ public class ExcelController {
 
 //        }
 
-        codeJudgerUtils.whichCodeIsOK(list, code, LogEnum.ADD_ACTION.toString(), instance);
+//        logUtils.doLog(list, code,UserType.MEMBER,LogEnum.ADD_ACTION, instance,session);
 
         return code;
     }

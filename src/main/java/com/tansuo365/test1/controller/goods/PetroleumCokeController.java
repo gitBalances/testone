@@ -9,7 +9,7 @@ import com.tansuo365.test1.mapper.goods.PetroleumCokeMapper;
 import com.tansuo365.test1.service.goods.IGoodsCommonService;
 //import com.tansuo365.test1.service.goods.PetroleumCokeServiceImpl;
 import com.tansuo365.test1.service.redis.RedisService;
-import com.tansuo365.test1.util.CodeJudgerUtils;
+import com.tansuo365.test1.util.LogUtils;
 import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class PetroleumCokeController {
     @Autowired
     private RedisTemplate redisTemplate;
     @Autowired
-    private CodeJudgerUtils codeJudgerUtils;
+    private LogUtils logUtils;
 
 
     /*动态获取数据*/
@@ -57,7 +57,7 @@ public class PetroleumCokeController {
         map.put("rows", pageInfo.getList());
         map.put("total", pageInfo.getTotal());
         int code = 0;
-        codeJudgerUtils.whichCodeIsOK(list,code,LogEnum.SEARCH_ACTION.toString(), instance);
+//        logUtils.whichCodeIsOK(list,code,LogEnum.SEARCH_ACTION.toString(), instance);
         return map;
     }
 
@@ -68,7 +68,7 @@ public class PetroleumCokeController {
         goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
         Goods goods = PetroleumCokeGradeUtil.setGradeBySulfur(petroleumCoke);
         int code = goodsCommonService.addBySelective(goods);
-        codeJudgerUtils.whichCodeIsOK(null,code, LogEnum.ADD_ACTION.toString(), instance);
+//        logUtils.whichCodeIsOK(null,code, LogEnum.ADD_ACTION.toString(), instance);
         return code;
     }
 
@@ -77,7 +77,7 @@ public class PetroleumCokeController {
     public Integer updateByPrimaryKeySelective(PetroleumCoke petroleumCoke) {
         goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
         int code = goodsCommonService.updateBySelective(petroleumCoke);
-        codeJudgerUtils.whichCodeIsOK(null,code, LogEnum.UPDATE_ACTION.toString(), instance);
+//        logUtils.whichCodeIsOK(null,code, LogEnum.UPDATE_ACTION.toString(), instance);
         return code;
     }
 
@@ -86,7 +86,7 @@ public class PetroleumCokeController {
     public Integer deleteByPrimaryKey(Long id) {
         goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
         int code = goodsCommonService.delete(id);
-        codeJudgerUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
         return code;
     }
 
@@ -95,7 +95,7 @@ public class PetroleumCokeController {
     public Integer deleteBatch(@RequestParam(value = "ids[]") Long[] ids) {
         goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
         int code = goodsCommonService.deleteBatchByPKs(ids);
-        codeJudgerUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
         return code;
     }
 
@@ -106,7 +106,7 @@ public class PetroleumCokeController {
         goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
         List<Goods> all = goodsCommonService.getAll();
         int code = 0;
-        codeJudgerUtils.whichCodeIsOK(all,code,LogEnum.SEARCH_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(all,code,LogEnum.SEARCH_ACTION.toString(),instance);
         return all;
     }
     //查询所有石油焦,加入缓存机制

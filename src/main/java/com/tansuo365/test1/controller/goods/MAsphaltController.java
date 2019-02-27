@@ -2,15 +2,12 @@ package com.tansuo365.test1.controller.goods;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.tansuo365.test1.bean.goods.CalcinedCoke;
 import com.tansuo365.test1.bean.goods.MAsphalt;
-import com.tansuo365.test1.bean.goods.PetroleumCoke;
 import com.tansuo365.test1.bean.log.LogEnum;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.mapper.goods.MAsphaltMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
-import com.tansuo365.test1.util.CodeJudgerUtils;
-import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
+import com.tansuo365.test1.util.LogUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +36,7 @@ public class MAsphaltController {
     private MAsphaltMapper mAsphaltMapper;
 
     @Autowired
-    private CodeJudgerUtils codeJudgerUtils;
+    private LogUtils logUtils;
 
     @RequestMapping("/selectSelective")
     public Map<String, Object> selectSelective(MAsphalt mAsphalt, Integer page, Integer rows){
@@ -51,7 +48,7 @@ public class MAsphaltController {
         map.put("rows", pageInfo.getList());
         map.put("total", pageInfo.getTotal());
         int code = 0;
-        codeJudgerUtils.whichCodeIsOK(list,code,LogEnum.SEARCH_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(list,code,LogEnum.SEARCH_ACTION.toString(),instance);
         return map;
     }
 
@@ -60,7 +57,7 @@ public class MAsphaltController {
     public Integer insertSelective(MAsphalt mAsphalt) {
         goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
         int code = goodsCommonService.addBySelective(mAsphalt);
-        codeJudgerUtils.whichCodeIsOK(null,code, LogEnum.ADD_ACTION.toString(), instance);
+//        logUtils.whichCodeIsOK(null,code, LogEnum.ADD_ACTION.toString(), instance);
         return code;
     }
 
@@ -69,7 +66,7 @@ public class MAsphaltController {
     public Integer updateByPrimaryKeySelective(MAsphalt mAsphalt) {
         goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
         int code = goodsCommonService.updateBySelective(mAsphalt);
-        codeJudgerUtils.whichCodeIsOK(null,code, LogEnum.UPDATE_ACTION.toString(), instance);
+//        logUtils.whichCodeIsOK(null,code, LogEnum.UPDATE_ACTION.toString(), instance);
         return code;
     }
 
@@ -78,7 +75,7 @@ public class MAsphaltController {
     public Integer deleteByPrimaryKey(Long id) {
         goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
         int code = goodsCommonService.delete(id);
-        codeJudgerUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
         return code;
     }
 
@@ -87,7 +84,7 @@ public class MAsphaltController {
     public Integer deleteBatch(@RequestParam(value = "ids[]") Long[] ids) {
         goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
         int code = goodsCommonService.deleteBatchByPKs(ids);
-        codeJudgerUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(null,code,LogEnum.DELETE_ACTION.toString(),instance);
         return code;
     }
 
@@ -97,7 +94,7 @@ public class MAsphaltController {
         goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
         List<Goods> all = goodsCommonService.getAll();
         int code = 0;
-        codeJudgerUtils.whichCodeIsOK(all,code,LogEnum.SEARCH_ACTION.toString(),instance);
+//        logUtils.whichCodeIsOK(all,code,LogEnum.SEARCH_ACTION.toString(),instance);
         return all;
     }
 

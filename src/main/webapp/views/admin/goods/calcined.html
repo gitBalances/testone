@@ -173,6 +173,9 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增数据</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeUser()">删除数据</a>
+    <a href="javascript:window.location.reload()" iconCls="icon-reload" class="easyui-linkbutton" plain="true">重置数据</a>
+    <a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton" plain="true">批量导入</a>
+    <a href="javascript:void(0)" id="export_excel" iconCls="icon-save" class="easyui-linkbutton" plain="true">保存数据</a>
 </div>
 <!-- 石油焦弹出窗口 -->
 <div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px"
@@ -268,7 +271,7 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/calcinedCoke/selectSelective',
+        url: '/goods/CalcinedCoke/selectSelective',
         toolbar: '#toolbar',
         pagination: 'true',
         pageSize: 10,
@@ -336,7 +339,7 @@
         //把form表单的内容给清空
         $('#fm').form('clear');
         //给url赋值
-        url = '/calcinedCoke/insertSelective';
+        url = '/goods/CalcinedCoke/insertSelective';
     }
 
     function editUser() {
@@ -349,7 +352,7 @@
             //让from 表单去加载 选中行的数据
             $('#fm').form('load', row);
             //修改的地址
-            url = '/calcinedCoke/updateByPrimaryKeySelective';
+            url = '/goods/CalcinedCoke/updateByPKSelective';
         }
     }
 
@@ -387,7 +390,7 @@
                     }
                     // alert(ids.toString());
                     $.ajax({
-                        url: '/calcinedCoke/deleteBatchByPKs',
+                        url: '/goods/CalcinedCoke/deleteBatchByPKs',
                         dataType: 'json',
                         data: {'ids': ids},
                         type: 'POST',
@@ -409,7 +412,7 @@
     }
 
     $("#submit_search").click(function () {
-        $('#dg').datagrid({url: "/calcinedCoke/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
+        $('#dg').datagrid({url: "/goods/CalcinedCoke/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
     });
 
 

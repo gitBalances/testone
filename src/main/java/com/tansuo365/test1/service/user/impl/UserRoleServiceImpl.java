@@ -5,7 +5,7 @@ import java.util.List;
 import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.bean.user.UserRole;
 import com.tansuo365.test1.bean.user.UserRoleExample;
-import com.tansuo365.test1.mapper.UserRoleMapper;
+import com.tansuo365.test1.mapper.admin.UserRoleMapper;
 import com.tansuo365.test1.service.user.UserRoleService;
 import org.springframework.stereotype.Service;
 

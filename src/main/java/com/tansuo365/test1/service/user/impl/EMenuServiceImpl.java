@@ -1,14 +1,12 @@
 package com.tansuo365.test1.service.user.impl;
 
 import com.tansuo365.test1.bean.user.EMenu;
-import com.tansuo365.test1.mapper.EMenuMapper;
+import com.tansuo365.test1.mapper.admin.EMenuMapper;
 import com.tansuo365.test1.service.user.EMenuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class EMenuServiceImpl implements EMenuService {

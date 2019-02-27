@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tansuo365.test1.mapper.RoleMenuMapper">
+<mapper namespace="com.tansuo365.test1.mapper.admin.RoleMenuMapper">
   <resultMap id="BaseResultMap" type="com.tansuo365.test1.bean.user.RoleMenu">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="menu_id" jdbcType="INTEGER" property="menu_id" />

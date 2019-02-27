@@ -55,7 +55,7 @@
                 <td><input type="text" name="today_price" class="easyui-textbox" value=""/></td>
                 <td>备注:</td>
                 <td><input type="text" name="remarks" class="easyui-textbox" value=""/></td>
-                <!--TODO 汇报人及备注应该使用模糊查询-->
+                <!--TODO 汇报人及备注应该使用模糊查询,其它字段的模糊查询-->
                 <td>汇报人:</td>
                 <td><input type="text" name="reporter" class="easyui-textbox" value=""/></td>
             </tr>
@@ -163,6 +163,9 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增数据</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeUser()">删除数据</a>
+    <a href="javascript:window.location.reload()" iconCls="icon-reload" class="easyui-linkbutton" plain="true">重置数据</a>
+    <a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton" plain="true">批量导入</a>
+    <a href="javascript:void(0)" id="export_excel" iconCls="icon-save" class="easyui-linkbutton" plain="true">保存数据</a>
 </div>
 <!-- 石油焦弹出窗口 -->
 <div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px"
@@ -247,7 +250,7 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/mAsphalt/selectSelective',
+        url: '/goods/MAsphalt/selectSelective',
         toolbar: '#toolbar',
         pagination: 'true',
         pageSize: 10,
@@ -313,7 +316,7 @@
         //把form表单的内容给清空
         $('#fm').form('clear');
         //给url赋值
-        url = '/mAsphalt/insertSelective';
+        url = '/goods/MAsphalt/insertSelective';
     }
 
     function editUser() {
@@ -326,7 +329,7 @@
             //让from 表单去加载 选中行的数据
             $('#fm').form('load', row);
             //修改的地址
-            url = '/mAsphalt/updateByPrimaryKeySelective';
+            url = '/goods/MAsphalt/updateByPKSelective';
         }
     }
 
@@ -365,7 +368,7 @@
                     }
 
                     $.ajax({
-                        url: '/mAsphalt/deleteBatchByPKs',
+                        url: '/goods/MAsphalt/deleteBatchByPKs',
                         dataType: 'json',
                         data: {'ids': ids},
                         type: 'POST',
@@ -387,7 +390,7 @@
     }
 
     $("#submit_search").click(function () {
-        $('#dg').datagrid({url: "/mAsphalt/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
+        $('#dg').datagrid({url: "/goods/MAsphalt/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
     });
 
 

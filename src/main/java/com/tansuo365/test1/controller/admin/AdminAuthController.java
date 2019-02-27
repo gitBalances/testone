@@ -1,21 +1,15 @@
 package com.tansuo365.test1.controller.admin;
 
-import com.tansuo365.test1.bean.goods.CalcinedCoke;
-import com.tansuo365.test1.bean.log.LogEnum;
 import com.tansuo365.test1.bean.log.LogUser;
 import com.tansuo365.test1.bean.user.EMenu;
-import com.tansuo365.test1.service.log.LogService;
 import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.data.domain.Sort;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -32,8 +26,8 @@ public class AdminAuthController {
     private EMenuService eMenuService;
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private LogService logService;
+//    @Autowired
+//    private LogService logService;
 
 
     /**
@@ -45,6 +39,7 @@ public class AdminAuthController {
     @RequestMapping("/listAllEMenu")
     @RequiresPermissions("路径配置")
     public Map<String,Object> listEMenu()throws Exception{
+        System.out.println("第一次走数据库");
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("rows",eMenuService.list());
         return resultMap;
@@ -111,7 +106,7 @@ public class AdminAuthController {
     }
 
 
-    /**
+    /**TODO 完善
      * 查询日志
      * @param logUser
      * @param page
@@ -122,7 +117,8 @@ public class AdminAuthController {
     @RequestMapping("/listLogSelectiveByPage")
     @RequiresPermissions(value={"系统日志"})
     public Map<String, Object> getLogSelectiveByPage(LogUser logUser, Integer page, Integer rows){
-        return logService.getLogSelectiveByPage(logUser,page,rows);
+//        return logService.getLogSelectiveByPage(logUser,page,rows);
+        return null;
     }
 
 

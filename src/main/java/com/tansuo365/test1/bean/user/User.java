@@ -33,6 +33,11 @@ public class User implements Serializable,MyLoginInstance {
 	private String roles; //展示用户角色
 
 	@Override
+	public Integer getInstanceId() {
+		return id;
+	}
+
+	@Override
 	public String getInstanceName() {
 		return name;
 	}

@@ -2,7 +2,7 @@ package com.tansuo365.test1.service.user.impl;
 
 import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.bean.user.UserExample;
-import com.tansuo365.test1.mapper.UserMapper;
+import com.tansuo365.test1.mapper.admin.UserMapper;
 import com.tansuo365.test1.service.user.UserRoleService;
 import com.tansuo365.test1.service.user.UserService;
 import com.tansuo365.test1.util.PasswordEncrypt;

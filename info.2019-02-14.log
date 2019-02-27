@@ -130,7 +130,7 @@ Authentication failed for token submission [com.tansuo365.test1.shiro.realm.MyAu
 org.springframework.jdbc.BadSqlGrammarException: 
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'salt' in 'field list'
 ### The error may exist in file [D:\新建文件夹\test1\target\classes\mappings\UserMapper.xml]
-### The error may involve com.tansuo365.test1.mapper.UserMapper.selectByExample-Inline
+### The error may involve com.tansuo365.test1.mapper.admin.UserMapper.selectByExample-Inline
 ### The error occurred while setting parameters
 ### SQL: select           'false' as QUERYID,           id, name, password, salt         from user                    WHERE (  name = ? )
 ### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'salt' in 'field list'
@@ -339,7 +339,7 @@ Authentication failed for token submission [com.tansuo365.test1.shiro.realm.MyAu
 org.springframework.jdbc.BadSqlGrammarException: 
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'salt' in 'field list'
 ### The error may exist in file [D:\新建文件夹\test1\target\classes\mappings\UserMapper.xml]
-### The error may involve com.tansuo365.test1.mapper.UserMapper.selectByExample-Inline
+### The error may involve com.tansuo365.test1.mapper.admin.UserMapper.selectByExample-Inline
 ### The error occurred while setting parameters
 ### SQL: select           'false' as QUERYID,           id, name, password, salt         from user                    WHERE (  name = ? )
 ### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'salt' in 'field list'
@@ -548,7 +548,7 @@ Authentication failed for token submission [com.tansuo365.test1.shiro.realm.MyAu
 org.springframework.jdbc.BadSqlGrammarException: 
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'salt' in 'field list'
 ### The error may exist in file [D:\新建文件夹\test1\target\classes\mappings\UserMapper.xml]
-### The error may involve com.tansuo365.test1.mapper.UserMapper.selectByExample-Inline
+### The error may involve com.tansuo365.test1.mapper.admin.UserMapper.selectByExample-Inline
 ### The error occurred while setting parameters
 ### SQL: select           'false' as QUERYID,           id, name, password, salt         from user                    WHERE (  name = ? )
 ### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'salt' in 'field list'

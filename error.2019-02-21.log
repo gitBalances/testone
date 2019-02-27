@@ -3615,7 +3615,7 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [/], t
 	at java.lang.Thread.run(Thread.java:748)
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.DuplicateKeyException: 
 ### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'zhang3' for key 'name'
-### The error may involve com.tansuo365.test1.mapper.UserMapper.insertSelective-Inline
+### The error may involve com.tansuo365.test1.mapper.admin.UserMapper.insertSelective-Inline
 ### The error occurred while setting parameters
 ### SQL: insert into user      ( name,                       password,                       salt )       values ( ?,                       ?,                       ? )
 ### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'zhang3' for key 'name'

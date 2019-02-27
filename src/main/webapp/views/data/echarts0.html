@@ -274,6 +274,10 @@ echarts0
                     seriesContent
                 };
                 myChart.setOption(option);
+            },
+            error:function(){
+                alert("获取数据失败,请先登录.");
+                window.location.href="/member/login";
             }
         });
 
