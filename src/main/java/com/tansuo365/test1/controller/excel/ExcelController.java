@@ -88,8 +88,9 @@ public class ExcelController {
         //通过前端instance实例类型进行Class和Mapper类型的设置
         instanceJudge(instance);
         //获取货品泛型集合
-        Collection<Goods> goodsCollection = ExcelUtil.importExcel(getC(), in, "yyyy/MM/dd HH:mm:ss", log, 0);
+        Collection<Goods> goodsCollection = ExcelUtil.importExcel(getC(), in, "yyyy-MM-dd HH:mm:ss", log, 0);
         list = (List) goodsCollection;
+
         System.out.println(">>>list in excelcontro : "+list);
         code = goodsCommonService.insertBatchList(list);
 
@@ -115,19 +116,19 @@ public class ExcelController {
 
     //判定前端导入instance类型
     private void instanceJudge(String instance) {
-        if (instance.equals("石油焦")) {
+        if ("石油焦".equals(instance)) {
             goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
             setC(PetroleumCoke.class);
         }
-        if (instance.equals("煅后焦")) {
+        if ("煅后焦".equals(instance)) {
             goodsCommonService.setGoodsTypeMapper(calcinedCokeMapper);
             setC(CalcinedCoke.class);
         }
-        if (instance.equals("改质沥青")) {
+        if ("改质沥青".equals(instance)) {
             goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
             setC(MAsphalt.class);
         }
-        if (instance.equals("阳极")) {
+        if ("阳极".equals(instance)) {
             goodsCommonService.setGoodsTypeMapper(anodeMapper);
             setC(Anode.class);
         }

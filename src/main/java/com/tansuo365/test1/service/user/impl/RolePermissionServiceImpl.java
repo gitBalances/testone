@@ -24,17 +24,19 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 		RolePermissionExample example = new RolePermissionExample();
 		example.createCriteria().andRidEqualTo(role.getId());
 		List<RolePermission> rps = rolePermissionMapper.selectByExample(example);
-		for (RolePermission rolePermission : rps)
-			rolePermissionMapper.deleteByPrimaryKey(rolePermission.getId());
+		for (RolePermission rolePermission : rps) {
+            rolePermissionMapper.deleteByPrimaryKey(rolePermission.getId());
+        }
 
 		// 设置新的权限关系
-		if (null != permissionIds)
-			for (long pid : permissionIds) {
-				RolePermission rolePermission = new RolePermission();
-				rolePermission.setPid(pid);
-				rolePermission.setRid(role.getId());
-				rolePermissionMapper.insert(rolePermission);
-			}
+		if (null != permissionIds) {
+            for (long pid : permissionIds) {
+                RolePermission rolePermission = new RolePermission();
+                rolePermission.setPid(pid);
+                rolePermission.setRid(role.getId());
+                rolePermissionMapper.insert(rolePermission);
+            }
+        }
 	}
 
 	@Override
@@ -42,8 +44,9 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 		RolePermissionExample example = new RolePermissionExample();
 		example.createCriteria().andRidEqualTo(roleId);
 		List<RolePermission> rps = rolePermissionMapper.selectByExample(example);
-		for (RolePermission rolePermission : rps)
-			rolePermissionMapper.deleteByPrimaryKey(rolePermission.getId());
+		for (RolePermission rolePermission : rps) {
+            rolePermissionMapper.deleteByPrimaryKey(rolePermission.getId());
+        }
 	}
 
 	@Override
@@ -51,8 +54,9 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 		RolePermissionExample example = new RolePermissionExample();
 		example.createCriteria().andPidEqualTo(permissionId);
 		List<RolePermission> rps = rolePermissionMapper.selectByExample(example);
-		for (RolePermission rolePermission : rps)
-			rolePermissionMapper.deleteByPrimaryKey(rolePermission.getId());
+		for (RolePermission rolePermission : rps) {
+            rolePermissionMapper.deleteByPrimaryKey(rolePermission.getId());
+        }
 	}
 
 }

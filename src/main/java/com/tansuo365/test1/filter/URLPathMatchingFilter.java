@@ -52,9 +52,9 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
                 }
             }
 
-            if (hasPermission)
+            if (hasPermission) {
                 return true;
-            else {
+            } else {
                 UnauthorizedException ex = new UnauthorizedException("当前用户没有访问路径 " + requestURI + " 的权限");
 
                 subject.getSession().setAttribute("ex", ex);

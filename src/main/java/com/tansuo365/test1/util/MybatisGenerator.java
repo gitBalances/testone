@@ -29,8 +29,9 @@ public class MybatisGenerator {
 			return;
 		}
 
-		if (false)
-			return;
+		if (false) {
+            return;
+        }
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
 		InputStream is = MybatisGenerator.class.getClassLoader().getResource("generatorConfig.xml").openStream();

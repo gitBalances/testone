@@ -24,8 +24,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String getPassword(String name) {
 		User user = getByName(name);
-		if (null == user)
-			return null;
+		if (null == user) {
+            return null;
+        }
 		return user.getPassword();
 	}
 
@@ -34,8 +35,9 @@ public class UserServiceImpl implements UserService {
 		UserExample example = new UserExample();
 		example.createCriteria().andNameEqualTo(name);
 		List<User> users = userMapper.selectByExample(example);
-		if (users.isEmpty())
-			return null;
+		if (users.isEmpty()) {
+            return null;
+        }
 		return users.get(0);
 	}
 

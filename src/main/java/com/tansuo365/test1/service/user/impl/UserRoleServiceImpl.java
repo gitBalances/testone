@@ -24,17 +24,19 @@ public class UserRoleServiceImpl implements UserRoleService {
 		UserRoleExample example = new UserRoleExample();
 		example.createCriteria().andUidEqualTo(Long.parseLong(user.getId().toString()));
 		List<UserRole> urs = userRoleMapper.selectByExample(example);
-		for (UserRole userRole : urs)
-			userRoleMapper.deleteByPrimaryKey(userRole.getId());
+		for (UserRole userRole : urs) {
+            userRoleMapper.deleteByPrimaryKey(userRole.getId());
+        }
 
 		// 设置新的角色关系
-		if (null != roleIds)
-			for (long rid : roleIds) {
-				UserRole userRole = new UserRole();
-				userRole.setRid(rid);
-				userRole.setUid(Long.parseLong(user.getId().toString()));
-				userRoleMapper.insert(userRole);
-			}
+		if (null != roleIds) {
+            for (long rid : roleIds) {
+                UserRole userRole = new UserRole();
+                userRole.setRid(rid);
+                userRole.setUid(Long.parseLong(user.getId().toString()));
+                userRoleMapper.insert(userRole);
+            }
+        }
 	}
 
 	@Override

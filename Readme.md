@@ -82,7 +82,10 @@
 - 5. 待将admin查询货品调用的controller改为统一接口. OK (还待增强)
 
 ##### 2019-2-27
-- 1. 让easyui界面更加简洁清新.'指标查询'应该改为'条件搜索'
-- 2. GoodsController中对搜索传入指标字符串的判定,以及更改Mapper中SQL按比较符号搜索.(多条件查询SQL更改)
+- 1. 让easyui界面更加简洁清新.'指标查询'应该改为'条件搜索' OK
+- 2. GoodsController中对搜索传入指标字符串的判定,
+     以及更改Mapper中SQL按比较符号搜索.(多条件查询SQL更改) OK,
+     还差几个字段的模糊查询和拆分查询如anode的size 
 - 3. 已经加入了admin登录后的对menu的redis存储.key为user+userRoleList
 - 4. 
+

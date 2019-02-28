@@ -42,7 +42,7 @@ public class Anode implements Serializable, Goods {
     @ExcelCell(index = 10)
     private Double ash;
     @ExcelCell(index = 11)
-    private String size;
+    private String size; //TODO 待拆分,查询
     @ExcelCell(index = 12)
     private Double bowl_sum;
     @ExcelCell(index = 13)

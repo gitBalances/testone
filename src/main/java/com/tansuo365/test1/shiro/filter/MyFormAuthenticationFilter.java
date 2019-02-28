@@ -28,6 +28,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 //        this.loginType = loginType;
 //    }
 
+    @Override
     protected MyAuthenticationToken createToken(ServletRequest request, ServletResponse response) {
         String username = getUsername(request);
         String password = getPassword(request);
@@ -69,11 +70,11 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
         MyAuthenticationToken myToken = (MyAuthenticationToken)token;
         String loginType = myToken.getLoginType();
 
-        if(loginType.equals("Admin")){
+        if("Admin".equals(loginType)){
             System.out.println(">>>>>>>>redirect to path /admin");
             WebUtils.issueRedirect(request,response,"/admin");
         }
-        if(loginType.equals("Member")){
+        if("Member".equals(loginType)){
             System.out.println(">>>>>>>>redirect to path /");
             WebUtils.issueRedirect(request,response,"/");
         }

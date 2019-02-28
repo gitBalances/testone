@@ -15,10 +15,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.text.MessageFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
+
+import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
 
 /**
  * The <code>ExcelUtil</code> 与 {@link ExcelCell}搭配使用
@@ -30,6 +30,8 @@ public class ExcelUtil {
 
     private static Logger LG = LoggerFactory.getLogger(ExcelUtil.class);
 
+    private static String datePattern;
+
     /**
      * 用来验证excel与Vo中的类型是否一致 <br>
      * Map<栏位类型,只能是哪些Cell类型>
@@ -38,13 +40,13 @@ public class ExcelUtil {
 
     static {
         validateMap.put(String[].class, new CellType[]{CellType.STRING});
-        validateMap.put(Double[].class, new CellType[]{CellType.NUMERIC});
+        validateMap.put(Double[].class, new CellType[]{NUMERIC});
         validateMap.put(String.class, new CellType[]{CellType.STRING});
-        validateMap.put(Double.class, new CellType[]{CellType.NUMERIC});
-        validateMap.put(Date.class, new CellType[]{CellType.NUMERIC, CellType.STRING});
-        validateMap.put(Integer.class, new CellType[]{CellType.NUMERIC});
-        validateMap.put(Float.class, new CellType[]{CellType.NUMERIC});
-        validateMap.put(Long.class, new CellType[]{CellType.NUMERIC});
+        validateMap.put(Double.class, new CellType[]{NUMERIC});
+        validateMap.put(Date.class, new CellType[]{NUMERIC, CellType.STRING});
+        validateMap.put(Integer.class, new CellType[]{NUMERIC});
+        validateMap.put(Float.class, new CellType[]{NUMERIC});
+        validateMap.put(Long.class, new CellType[]{NUMERIC});
         validateMap.put(Boolean.class, new CellType[]{CellType.BOOLEAN});
     }
 
@@ -62,64 +64,119 @@ public class ExcelUtil {
      * @return
      */
     private static String getCellTypeByInt(CellType cellType) {
-        if(cellType == CellType.BLANK)
+        if(cellType == CellType.BLANK) {
             return "Null type";
-        else if(cellType == CellType.BOOLEAN)
+        } else if(cellType == CellType.BOOLEAN) {
             return "Boolean type";
-        else if(cellType == CellType.ERROR)
+        } else if(cellType == CellType.ERROR) {
             return "Error type";
-        else if(cellType == CellType.FORMULA)
+        } else if(cellType == CellType.FORMULA) {
             return "Formula type";
-        else if(cellType == CellType.NUMERIC)
+        } else if(cellType == NUMERIC) {
             return "Numeric type";
-        else if(cellType == CellType.STRING)
+        } else if(cellType == CellType.STRING) {
             return "String type";
-        else
+        } else {
             return "Unknown type";
+        }
     }
 
     /**
-     * 获取单元格值
+     * 获取单元格值 TODO delete
      *
      * @param cell
      * @return
      */
-    private static Object getCellValue(Cell cell) {
-        if (cell == null
-                || (cell.getCellTypeEnum() == CellType.STRING && isBlank(cell
-                .getStringCellValue()))) {
-            return null;
-        }
-        CellType cellType = cell.getCellTypeEnum();
-            if(cellType == CellType.BLANK)
-                return null;
-            else if(cellType == CellType.BOOLEAN)
-                return cell.getBooleanCellValue();
-            else if(cellType == CellType.ERROR)
-                return cell.getErrorCellValue();
-            else if(cellType == CellType.FORMULA) {
-                try {
-                    if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                        return cell.getDateCellValue();
-                    } else {
-                        return cell.getNumericCellValue();
-                    }
-                } catch (IllegalStateException e) {
-                    return cell.getRichStringCellValue();
-                }
-            }
-            else if(cellType == CellType.NUMERIC){
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getDateCellValue();
-                } else {
-                    return cell.getNumericCellValue();
-                }
-            }
-            else if(cellType == CellType.STRING) {
+//    private static Object getCellValue1(Cell cell) {
+//        if (cell == null
+//                || (cell.getCellType() == CellType.STRING && isBlank(cell
+//                .getStringCellValue()))) {
+//            return null;
+//        }
+////        CellType cellType = cell.getCellTypeEnum();
+//        CellType cellType = cell.getCellType();
+//        if(cellType == CellType.BLANK) {
+//                return null;
+//            } else if(cellType == CellType.BOOLEAN) {
+//                return cell.getBooleanCellValue();
+//            } else if(cellType == CellType.ERROR) {
+//                return cell.getErrorCellValue();
+//            } else if(cellType == CellType.FORMULA) {
+//                try {
+//                    if (HSSFDateUtil.isCellDateFormatted(cell)) {
+//                        return cell.getDateCellValue();
+//                    } else {
+//                        return cell.getNumericCellValue();
+//                    }
+//                } catch (IllegalStateException e) {
+//                    return cell.getRichStringCellValue();
+//                }
+//            }
+//            else if(cellType == CellType.NUMERIC){
+//                if (DateUtil.isCellDateFormatted(cell)) {
+//                    return cell.getDateCellValue();
+//                } else {
+//                    return cell.getNumericCellValue();
+//                }
+//            }
+//            else if(cellType == CellType.STRING) {
+//
+//                return cell.getStringCellValue();
+//            }
+//                return null;
+//    }
 
-                return cell.getStringCellValue();
+    private static Object getCellValue(Cell cell){
+        Object cellValue = null;
+
+        if (null != cell)
+        {
+            // 以下是判断数据的类型
+            switch (cell.getCellType())
+            {
+                case NUMERIC: // 数字
+                    if (HSSFDateUtil.isCellDateFormatted(cell))
+                    {
+                        double numericValue = cell.getNumericCellValue();
+                        TimeZone zone = TimeZone.getTimeZone("GMT");
+                        Date javaDate = DateUtil.getJavaDate(numericValue, zone);
+                        System.out.println("javaDate:"+javaDate);
+                        cellValue = javaDate;
+                    }
+                    else
+                    {
+//                        DecimalFormat df = new DecimalFormat("0");
+//                        cellValue = df.format(cell.getNumericCellValue());
+                        cellValue = cell.getNumericCellValue();
+                    }
+                    break;
+                case STRING: // 字符串
+                    cellValue = cell.getStringCellValue();
+                    break;
+
+                case BOOLEAN: // Boolean
+                    cellValue = cell.getBooleanCellValue() + "";
+                    break;
+
+                case FORMULA: // 公式
+                    cellValue = cell.getCellFormula() + "";
+                    break;
+
+                case BLANK: // 空值
+                    cellValue = "";
+                    break;
+
+                case ERROR: // 故障
+                    cellValue = "非法字符";
+                    break;
+
+                default:
+                    cellValue = "未知类型";
+                    break;
             }
-                return null;
+
+        }
+        return cellValue;
     }
 
     /**
@@ -149,6 +206,9 @@ public class ExcelUtil {
      */
     public static <T> void exportExcel(Map<String,String> headers, Collection<T> dataset, OutputStream out,
                                        String pattern) {
+        if(pattern!=null){
+            datePattern = pattern;
+        }
         // 声明一个工作薄
         HSSFWorkbook workbook = new HSSFWorkbook();
         // 生成一个表格
@@ -251,7 +311,8 @@ public class ExcelUtil {
                                         String pattern) {
         //时间格式默认"yyyy-MM-dd"
         if (isBlank(pattern)){
-            pattern = "yyyy-MM-dd";
+//            pattern = "yyyy-MM-dd";
+            pattern = "yyyy-MM-dd HH:mm:ss";
         }
         // 产生表格标题行
         HSSFRow row = sheet.createRow(0);
@@ -396,7 +457,7 @@ public class ExcelUtil {
      * @throws RuntimeException
      */
     public static <T> Collection<T> importExcel(Class<T> clazz, InputStream inputStream,
-                                                String pattern, ExcelLogs logs, Integer... arrayCount) {
+                                                String pattern, ExcelLogs logs, Integer... arrayCount)  {
         Workbook workBook;
         try {
             workBook = WorkbookFactory.create(inputStream);
@@ -497,10 +558,15 @@ public class ExcelUtil {
                                 Object value = null;
                                 // 处理特殊情况,Excel中的String,转换成Bean的Date
                                 if (field.getType().equals(Date.class)
-                                        && cell.getCellTypeEnum() == CellType.STRING) {
+                                        && cell.getCellType() == CellType.STRING) {
                                     Object strDate = getCellValue(cell);
                                     try {
-                                        value = new SimpleDateFormat(pattern).parse(strDate.toString());
+                                        //并不会走这里
+                                        TimeZone zone = TimeZone.getTimeZone("GMT");
+                                        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                                        sdf.setTimeZone(zone);
+                                        value = sdf.parse(strDate.toString());
+                                        System.out.println("value:"+value);
                                     } catch (ParseException e) {
 
                                         errMsg =
@@ -509,12 +575,14 @@ public class ExcelUtil {
                                     }
                                 } else {
                                     value = getCellValue(cell);
+
                                     // 处理特殊情况,excel的value为String,且bean中为其他,且defaultValue不为空,那就=defaultValue
                                     ExcelCell annoCell = field.getAnnotation(ExcelCell.class);
                                     if (value instanceof String && !field.getType().equals(String.class)
                                             && isNotBlank(annoCell.defaultValue())) {
                                         value = annoCell.defaultValue();
                                         //TODO 设定除了string和double的其它类型
+                                        System.out.println("value instanceof String:"+value);
                                     }
 //                                    if(value instanceof Float){
 //                                        Float value1 = (Float) value;
@@ -564,21 +632,21 @@ public class ExcelUtil {
         }
         ExcelCell annoCell = field.getAnnotation(ExcelCell.class);
         if (cell == null
-                || (cell.getCellTypeEnum() == CellType.STRING && isBlank(cell
+                || (cell.getCellType() == CellType.STRING && isBlank(cell
                 .getStringCellValue()))) {
             if (annoCell != null && annoCell.valid().allowNull() == false) {
                 result = MessageFormat.format("the cell [{0}] can not null", columnName);
             }
             ;
-        } else if (cell.getCellTypeEnum() == CellType.BLANK && annoCell.valid().allowNull()) {
+        } else if (cell.getCellType() == CellType.BLANK && annoCell.valid().allowNull()) {
             return result;
         } else {
             List<CellType> cellTypes = Arrays.asList(cellTypeArr);
 
             // 如果類型不在指定範圍內,並且沒有默認值
-            if (!(cellTypes.contains(cell.getCellTypeEnum()))
+            if (!(cellTypes.contains(cell.getCellType()))
                     || isNotBlank(annoCell.defaultValue())
-                    && cell.getCellTypeEnum() == CellType.STRING) {
+                    && cell.getCellType() == CellType.STRING) {
                 StringBuilder strType = new StringBuilder();
                 for (int i = 0; i < cellTypes.size(); i++) {
                     CellType cellType = cellTypes.get(i);
@@ -592,7 +660,7 @@ public class ExcelUtil {
             } else {
                 // 类型符合验证,但值不在要求范围内的
                 // String in
-                if (annoCell.valid().in().length != 0 && cell.getCellTypeEnum() == CellType.STRING) {
+                if (annoCell.valid().in().length != 0 && cell.getCellType() == CellType.STRING) {
                     String[] in = annoCell.valid().in();
                     String cellValue = cell.getStringCellValue();
                     boolean isIn = false;
@@ -606,9 +674,9 @@ public class ExcelUtil {
                     }
                 }
                 // 数字型
-                if (cell.getCellTypeEnum() == CellType.NUMERIC) {
+                if (cell.getCellType() == NUMERIC) {
                     double cellValue = cell.getNumericCellValue();
-                    CellType cellTypeEnum = cell.getCellTypeEnum();
+                    CellType cellTypeEnum = cell.getCellType();
                     String string = cellTypeEnum.toString();
                     // 小于
                     if (!Double.isNaN(annoCell.valid().lt())) {

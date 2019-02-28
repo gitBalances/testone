@@ -23,10 +23,10 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PetroleumCoke implements Serializable,Goods {
+public class PetroleumCoke implements Serializable, Goods {
 
     private static final long serialVersionUID = -6077958594667413658L;
-//    @ExcelCell(index = 0)
+    //    @ExcelCell(index = 0)
     private Long id;
     //    @Excel(name = "品级", orderNum = "0")
 //    @ExcelCell(index = 1)
@@ -76,24 +76,26 @@ public class PetroleumCoke implements Serializable,Goods {
 
     @ExcelCell(index = 13)
     private String reporter;
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    @Excel(name = "创建时间", exportFormat = "yyyy-MM-dd HH:mm:ss", orderNum = "14")
     @ExcelCell(index = 14)
     private Date create_time;
 
 
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") //时区+8
-@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") //时区+8
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    @Excel(name = "更新时间", exportFormat = "yyyy-MM-dd HH:mm:ss", orderNum = "15")
 //    @ExcelCell(index = 14)
     private Date update_time;
 
     //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String b_time; //起始时间 搜索用到
 
     //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String e_time; //结束时间 搜索用到
 
@@ -123,7 +125,7 @@ public class PetroleumCoke implements Serializable,Goods {
     private String s_today_price;
 
     public void setSearchParams(String s_sulfur, String s_ash, String s_v_matter, String s_wdr, String s_vanadium
-            , String s_density, String s_c_content, String s_price){
+            , String s_density, String s_c_content, String s_price) {
         this.s_sulfur = s_sulfur;
         this.s_ash = s_ash;
         this.s_volatile_matter = s_v_matter;
