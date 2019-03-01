@@ -2,7 +2,7 @@
 <html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>石油焦信息管理</title>
+    <title>系统日志</title>
     <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
     <link href="/css/themes/icon.css" rel="stylesheet"/>
     <link href="/css/xwb_list.css" rel="stylesheet"/>
@@ -20,6 +20,7 @@
     <script src="/js/jquery.serializejson.js"></script>
     <!--<script src="/js/xlsx.core.min.js"></script>-->
 
+    <script src="/js/easyui_html/search-goods-index.js"></script>
     <script src="/js/jquery.ocupload-1.1.2.js"></script>
 
 
@@ -28,7 +29,8 @@
 
 
 <!-- 条件查询 -->
-<div>
+<div id="theIndexSearchFrame" class="easyui-window" style="width:800px;height:550px;padding:10px 40px"
+     closed="true">
     <form id="searchform" method="post">
         <table id="sec">
             <tr>
@@ -54,13 +56,15 @@
                 </td>
 
                 <td>开始时间:</td>
-                <td><input  name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+                <td><input name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
                 <td>结束时间:</td>
-                <td><input  name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+                <td><input name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
 
             </tr>
 
         </table>
+        <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
+           style="width:70px">查询</a>
     </form>
 </div>
 
@@ -70,30 +74,30 @@
 </table>
 
 <div id="toolbar">
-    <tr>
-        <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
-           style="width:70px">查询</a>
-
-        <a href="javascript:window.location.reload()" class="easyui-linkbutton c1" style="width:70px">重置</a>
-        </td>
-
-        <a href="javascript:void(0)" id="export_excel" class="easyui-linkbutton c1"
-           style="width:70px">导出数据</a>
-    </tr>
+    <!--<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增数据</a>-->
+    <!--<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="removeUser()">删除数据</a>-->
+    <a href="javascript:window.location.reload()" iconCls="icon-reload" class="easyui-linkbutton" plain="true">重置数据</a>
+    <!--<a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton"
+       plain="true">批量导入</a>-->
+    <a href="javascript:void(0)" id="export_excel" iconCls="icon-save" class="easyui-linkbutton" plain="true">保存数据</a>
+    <a id="quality_index_search" onclick="showIndexSearchFrame()" iconCls="icon-search" class="easyui-linkbutton"
+       plain="true">条件查询</a>
 </div>
-
 
 
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/admin/auth/listLogSelectiveByPage',
+        url: '/admin/syslog/admin/listLogSelectiveByPage',
         toolbar: '#toolbar',
         pagination: 'true',
         pageSize: 10,
         pageList: [5, 10, 15, 20],
         rownumbers: 'true',
         fitColumns: 'true',
+        loadMsg: '数据加载中请稍后……',
+        fit: 'true',
         // singleSelect: 'true',
         checkbox: 'true',
         idField: 'id',
@@ -155,7 +159,7 @@
 
 
     $("#submit_search").click(function () {
-        $('#dg').datagrid({url: "/admin/auth/listLogSelectiveByPage", queryParams: form2Json("searchform")});   //点击搜索
+        $('#dg').datagrid({url: '/admin/syslog/admin/listLogSelectiveByPage', queryParams: form2Json("searchform")});   //点击搜索
     });
 
 
@@ -264,6 +268,15 @@
         return s;
     }
 
+
+</script>
+
+<script type="text/javascript" th:inline="none">
+
+    /*指标窗口打开操作*/
+    function showIndexSearchFrame() {
+        $('#theIndexSearchFrame').window('open').dialog('setTitle', '指标查询');
+    }
 
 </script>
 

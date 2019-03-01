@@ -129,13 +129,16 @@
                 and id = #{id}
             </if>
             <if test="province != null and province !='' ">
-                and province = #{province}
+                <bind name="provincePattern" value="'%'+province+'%'"/>
+                and province like #{provincePattern}
             </if>
             <if test="company != null and company !='' ">
-                and company = #{company}
+                <bind name="companyPattern" value="'%'+company+'%'"/>
+                and company like #{companyPattern}
             </if>
             <if test="s_company != null and s_company != '' ">
-                and s_company = #{s_company}
+                <bind name="s_companyPattern" value="'%'+s_company+'%'"/>
+                and s_company like #{s_companyPattern}
             </if>
             <if test="sulfur != null and sulfur !='' ">
                 and sulfur = #{sulfur}
@@ -159,10 +162,12 @@
                 and today_price = #{today_price}
             </if>
             <if test="remarks != null and remarks !='' ">
-                and remarks = #{remarks}
+                <bind name="remarksPattern" value="'%'+remarks+'%'"/>
+                and remarks like #{remarksPattern}
             </if>
             <if test="reporter != null and reporter !='' ">
-                and reporter = #{reporter}
+                <bind name="reporterPattern" value="'%'+reporter+'%'"/>
+                and reporter like #{reporterPattern}
             </if>
             <if test="grade !=null and grade != '' ">
                 and grade = #{grade}
@@ -257,7 +262,8 @@
   </insert>
 
     <!--动态插入数据-->
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.goods.PetroleumCoke"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.tansuo365.test1.bean.goods.PetroleumCoke"
             useGeneratedKeys="true">
         insert into petroleum_coke_tbl
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -382,7 +388,8 @@
             #{list.province,jdbcType=VARCHAR}, #{list.company,jdbcType=VARCHAR}, #{list.s_company,jdbcType=VARCHAR},
             #{list.sulfur,jdbcType=DOUBLE}, #{list.ash,jdbcType=DOUBLE}, #{list.volatile_matter,jdbcType=DOUBLE},
             #{list.wdr,jdbcType=DOUBLE}, #{list.vanadium,jdbcType=DOUBLE}, #{list.coke_type,jdbcType=VARCHAR},
-            #{list.today_price,jdbcType=DOUBLE}, #{list.remarks,jdbcType=VARCHAR}, #{list.reporter,jdbcType=VARCHAR},#{list.grade,jdbcType=VARCHAR},
+            #{list.today_price,jdbcType=DOUBLE}, #{list.remarks,jdbcType=VARCHAR},
+            #{list.reporter,jdbcType=VARCHAR},#{list.grade,jdbcType=VARCHAR},
             #{list.create_time,jdbcType=TIMESTAMP}, #{list.update_time,jdbcType=TIMESTAMP},
             #{list.density,jdbcType=DOUBLE},#{list.coke_content,jdbcType=DOUBLE}
             )

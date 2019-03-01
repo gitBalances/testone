@@ -69,7 +69,7 @@
             var id = selectedRows[0].id;
             $.messager.confirm("系统提示", "您确定要删除这条数据吗？", function (r) {
                 if (r) {
-                    $.post("/admin/auth/deleteEMenuById", {id: id}, function (result) {
+                    $.post("/admin/menu/deleteEMenuById", {id: id}, function (result) {
                         if (result.success) {
                             $.messager.alert("系统提示", "数据已成功删除！");
                             $("#dg").datagrid("reload");
@@ -85,7 +85,7 @@
         function openUserAddDialog() {
             $("#dlg").dialog("open").dialog("setTitle", "添加路径信息");
             //@AdminAuthController saveMenu(EMenu eMenu)
-            url = "/admin/auth/saveMenu";
+            url = "/admin/menu/saveMenu";
         }
 
         function openUserModifyDialog() {
@@ -99,7 +99,7 @@
             $("#fm").form("load", row);
             $("#name").attr("readonly", "readonly")
             //@AdminAuthController saveMenu(EMenu eMenu)
-            url = "/admin/auth/saveMenu?id=" + row.id;
+            url = "/admin/menu/updateMenu?id=" + row.id;
         }
 
         function saveUser() {
@@ -153,7 +153,7 @@
                     $("#fm").form("load", row);
                     $("#name").attr("readonly", "readonly");
                     //@AdminAuthController saveMenu(EMenu eMenu)
-                    url = "/admin/auth/saveMenu?id=" + row.id;
+                    url = "/admin/menu/updateMenu?id=" + row.id;
                 }
             });
 
@@ -164,7 +164,7 @@
 <body style="margin: 1px">
 <table id="dg" title="菜单管理" class="easyui-datagrid"
        fitColumns="true" pagination="true" rownumbers="true" singleSelect="true"
-       url="/admin/auth/listAllEMenuSelective" fit="true" toolbar="#tb">
+       url="/admin/menu/listAllEMenuSelective" fit="true" toolbar="#tb">
     <!--@AdminAuthController listEMenu(EMenu eMenu)-->
     <thead>
     <tr>
@@ -184,13 +184,13 @@
     <div>
         <a href="javascript:openUserAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
         <a href="javascript:openUserModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
-        <a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+        <a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">删除</a>
     </div>
-    <div>
-        &nbsp;主键：&nbsp;<input type="text" id="s_id" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>
-        &nbsp;用户名：&nbsp;<input type="text" id="s_name" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>
-        <a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
-    </div>
+    <!--<div>-->
+        <!--&nbsp;主键：&nbsp;<input type="text" id="s_id" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>-->
+        <!--&nbsp;用户名：&nbsp;<input type="text" id="s_name" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>-->
+        <!--<a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>-->
+    <!--</div>-->
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:450px;height:300px;padding: 10px 20px"

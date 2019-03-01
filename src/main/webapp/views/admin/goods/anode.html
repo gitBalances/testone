@@ -8,10 +8,12 @@
     <link href="/css/xwb_list.css" rel="stylesheet"/>
     <link href="/css/themes/color.css" rel="stylesheet"/>
     <link href="/css/wm.css" rel="stylesheet"/>
+    <link href="/css/demoe.css" rel="stylesheet"/>
     <!--<script src="/script/jquery.min.js"></script>-->
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="/script/jquery.easyui.min.js"></script>
+    <!--<script src="/js/jquery17.easyui.min.js"></script>-->
     <script src="/script/easyui-lang-zh_CN.js"></script>
     <script src="/js/FileSaver.min.js"></script>
     <script src="/js/xlsx.full.min.js"></script>
@@ -20,7 +22,6 @@
 
     <script src="/js/easyui_html/search-goods-index.js"></script>
     <script src="/js/jquery.ocupload-1.1.2.js"></script>
-
 
 </head>
 <body>
@@ -40,8 +41,21 @@
                 <td>企业名称:</td>
                 <td><input type="text" name="company" class="easyui-textbox" value=""/></td>
                 <!--密度及属于区间的数值应该使用>,<进行区间数值选择-->
+                <!--<td>是否开槽:</td>-->
+                <!--<td><input type="text" name="slot" class="easyui-textbox" value=""/></td>-->
+
                 <td>是否开槽:</td>
-                <td><input type="text" name="slot" class="easyui-textbox" value=""/></td>
+                <td>
+                    <select class="easyui-combobox" name="slot" panelHeight="auto"/>
+                    <option value=""></option>
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                    </select>
+                </td>
+
+                <td>碳块尺寸:</td>
+                <td><input type="text" name="size" class="easyui-textbox" value=""/></td>
+
 
             </tr>
 
@@ -101,11 +115,12 @@
                             id="ashCK" name="s_ash" label="灰分%:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_sizeDiv">
+            <!--先改为模糊查询-->
+           <!-- <div style="margin-bottom:20px" id="s_sizeDiv">
                 碳块尺寸<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
                           id="sizeCK" name="s_size" label="碳块尺寸:">
             </div>
-            <hr>
+            <hr>-->
             <div style="margin-bottom:20px" id="s_bowl_sumDiv">
                 碗数<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
                          id="bowl_sumCK" name="s_bowl_sum" label="碗数:">
@@ -229,7 +244,11 @@
         </div>
         <div class="fitem">
             <label>是否开槽:</label>
-            <input name="slot" class="easyui-validatebox" required="true">
+                <select class="easyui-combobox" name="slot" panelHeight="auto"/>
+                <option value=""></option>
+                <option value="是">是</option>
+                <option value="否">否</option>
+                </select>
         </div>
         <div class="fitem">
             <label>今日报价:</label>
@@ -426,7 +445,7 @@
     //先判定每个checkbox是否选定,如果选定了的获取其中两个select两个input的value,赋值给原input的value
     function beforeSearch() {
         //声明多input条件查询字段id数组
-        var indexArr = ['e_densityCK', 'true_densityCK', 'compressiveCK', 'carbonCK', 'flexuralCK', 'roomCK', 'thermalCK', 'ashCK','sizeCK',
+        var indexArr = ['e_densityCK', 'true_densityCK', 'compressiveCK', 'carbonCK', 'flexuralCK', 'roomCK', 'thermalCK', 'ashCK',
             'bowl_sumCK','bowl_distanceCK','in_diameterCK','out_diameterCK','today_priceCK'];
         for (var i in indexArr) {
             var box = (document.getElementById(indexArr[i]));
@@ -457,7 +476,16 @@
     function exportExcel() {
         //获得选中记录 多选
         var row = $('#dg').datagrid('getSelections');
-        console.log("row(s) -> " + JSON.stringify(row));
+        //去除不需要导出的实体字段
+        var deleteKey = ['b_time', 'e_time', 'order', 's_e_density', 's_true_density',
+            's_compressive', 's_carbon', 's_flexural', 's_room', 's_thermal','s_ash',
+            's_size','s_bowl_sum','s_bowl_distance','s_in_diameter','s_out_diameter',
+            's_slot','s_today_price'];
+        for (var i in row) {
+            for (var j in deleteKey) {
+                delete row[i][deleteKey[j]];
+            }
+        }
         if (row) {
             $.messager.confirm('确认按钮', '你确定要导出该数据?', function (r) {
                 if (r) {

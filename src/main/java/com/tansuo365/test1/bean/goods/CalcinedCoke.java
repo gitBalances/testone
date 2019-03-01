@@ -57,18 +57,18 @@ public class CalcinedCoke implements Serializable, Goods {
     @ExcelCell(index = 13)
     private String reporter;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelCell(index = 14)
     private Date create_time;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelCell(index = 15)
     private Date update_time;
 
-    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String b_time; //起始时间 搜索用到
 
-    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String e_time; //结束时间 搜索用到
 
@@ -96,9 +96,9 @@ public class CalcinedCoke implements Serializable, Goods {
     @Transient
     private String s_today_price;
 
-    public void setSearchParams(String s_sulfur,String s_ash,String s_v_matter,
-                                String s_water,String s_density,String s_p_resistivity,String s_vanadium,
-                                String s_granularity,String s_price){
+    public void setSearchParams(String s_sulfur, String s_ash, String s_v_matter,
+                                String s_water, String s_density, String s_p_resistivity, String s_vanadium,
+                                String s_granularity, String s_price) {
         this.s_sulfur = s_sulfur;
         this.s_ash = s_ash;
         this.s_volatile_matter = s_v_matter;
