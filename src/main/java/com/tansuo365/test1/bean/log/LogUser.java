@@ -25,14 +25,13 @@ public class LogUser implements LogUsers {
     private String content; //操作内容
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    @Temporal(TemporalType.TIMESTAMP)
     private Date time; //操作时间
 
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String b_time; //起始时间 搜索用到
 
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String e_time; //结束时间 搜索用到
 

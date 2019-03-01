@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 
 /**
  * 用于货品增删改查的工具类
+ *
  * @Author ukzq
  */
 @Component
@@ -39,12 +40,11 @@ public class GoodsUtils {
     private AnodeMapper anodeMapper;
 
 
-
-    public  Goods goodsTypeJudger(String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) {
+    public Goods goodsTypeJudger(String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) {
         switch (goodsType) {
             case PETROLEUM_COKE:
                 goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
-                if(petroleumCoke==null){
+                if (petroleumCoke == null) {
                     return null;
                 }
                 String s_sulfur = petroleumCoke.getS_sulfur();
@@ -58,10 +58,12 @@ public class GoodsUtils {
                 checkIndexParams(petroleumCoke, s_sulfur, s_ash, s_volatile_matter, s_wdr, s_vanadium,
                         s_density, s_coke_content, s_today_price);
 
-                return petroleumCoke;
+                PetroleumCoke petroleumCokeWithGrade = PetroleumCokeGradeUtil.setGradeBySulfur(petroleumCoke);
+
+                return petroleumCokeWithGrade;
             case CALCINED_COKE:
                 goodsCommonService.setGoodsTypeMapper(calcinedCokeMapper);
-                if(calcinedCoke==null){
+                if (calcinedCoke == null) {
                     return null;
                 }
                 String s_sulfur1 = calcinedCoke.getS_sulfur();
@@ -73,13 +75,13 @@ public class GoodsUtils {
                 String s_vanadium1 = calcinedCoke.getS_vanadium();
                 String s_granularity = calcinedCoke.getS_granularity();
                 String s_today_price1 = calcinedCoke.getS_today_price();
-                checkIndexParams1(calcinedCoke,s_sulfur1,s_ash1,s_volatile_matter1,
-                        s_water,s_density1, s_p_resistivity,s_vanadium1,s_granularity,s_today_price1);
+                checkIndexParams1(calcinedCoke, s_sulfur1, s_ash1, s_volatile_matter1,
+                        s_water, s_density1, s_p_resistivity, s_vanadium1, s_granularity, s_today_price1);
 
                 return calcinedCoke;
             case MASPHALT:
                 goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
-                if(mAsphalt==null){
+                if (mAsphalt == null) {
                     return null;
                 }
                 String s_softening_point = mAsphalt.getS_softening_point();
@@ -89,13 +91,13 @@ public class GoodsUtils {
                 String s_coking_value = mAsphalt.getS_coking_value();
                 String s_ash2 = mAsphalt.getS_ash();
                 String s_today_price2 = mAsphalt.getS_today_price();
-                checkIndexParams2(mAsphalt,s_softening_point,s_toluene,s_quinoline,s_beta_resin,
-                        s_coking_value,s_ash2,s_today_price2);
+                checkIndexParams2(mAsphalt, s_softening_point, s_toluene, s_quinoline, s_beta_resin,
+                        s_coking_value, s_ash2, s_today_price2);
 
                 return mAsphalt;
             case ANODE:
                 goodsCommonService.setGoodsTypeMapper(anodeMapper);
-                if(anode==null){
+                if (anode == null) {
                     return null;
                 }
                 checkIndexParams3(anode,
@@ -157,9 +159,9 @@ public class GoodsUtils {
 
     }
 
-    private void checkIndexParams2(MAsphalt mAsphalt,String s_spoint,String s_toluene,
-                                   String s_quinoline,String s_beta_resin,String s_c_value,
-                                   String s_ash,String s_price){
+    private void checkIndexParams2(MAsphalt mAsphalt, String s_spoint, String s_toluene,
+                                   String s_quinoline, String s_beta_resin, String s_c_value,
+                                   String s_ash, String s_price) {
         mAsphalt.setSearchParams(
                 columnTextTranslate(s_spoint),
                 columnTextTranslate(s_toluene),
@@ -171,12 +173,12 @@ public class GoodsUtils {
         );
     }
 
-    private void checkIndexParams3(Anode anode,String s_e_density,String s_true_density,
-                                   String s_compressive,String s_carbon,String s_flexural,
-                                   String s_room,String s_thermal,String s_ash,
-                                   String s_size,String s_bowl_sum,String s_bowl_dis,
-                                   String s_in_dia,String s_out_dia,String s_slot,
-                                   String s_price){
+    private void checkIndexParams3(Anode anode, String s_e_density, String s_true_density,
+                                   String s_compressive, String s_carbon, String s_flexural,
+                                   String s_room, String s_thermal, String s_ash,
+                                   String s_size, String s_bowl_sum, String s_bowl_dis,
+                                   String s_in_dia, String s_out_dia, String s_slot,
+                                   String s_price) {
         anode.setSearchParams(
                 columnTextTranslate(s_e_density),
                 columnTextTranslate(s_true_density),

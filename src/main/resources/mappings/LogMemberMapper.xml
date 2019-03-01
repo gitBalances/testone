@@ -84,6 +84,38 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <!--动态获取-->
+  <select id="getBySelective" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from log_user
+    <where>
+      <if test="id != null and id != '' ">
+        id = #{id}
+      </if>
+      <if test="content != null and content != '' ">
+        content = #{content}
+      </if>
+      <if test="time != null and time != '' ">
+        time = #{time}
+      </if>
+      <if test="type != null and type != '' ">
+        type = #{type}
+      </if>
+      <if test="member_id != null and member_id != '' ">
+        member_id = #{member_id}
+      </if>
+      <if test="b_time != null and b_time != '' ">
+        time &gt;= #{b_time}
+      </if>
+      <if test="e_time != null and e_time != '' ">
+        and time &lt;= #{e_time}
+      </if>
+    </where>
+    order by time DESC
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

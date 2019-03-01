@@ -14,7 +14,9 @@ import com.tansuo365.test1.mapper.goods.CalcinedCokeMapper;
 import com.tansuo365.test1.mapper.goods.MAsphaltMapper;
 import com.tansuo365.test1.mapper.goods.PetroleumCokeMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
+import com.tansuo365.test1.util.GoodsUtils;
 import com.tansuo365.test1.util.LogUtils;
+import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -44,6 +47,8 @@ public class ExcelController {
     private GoodsCommonService goodsCommonService;
     @Autowired
     private LogUtils logUtils;
+    @Autowired
+    private GoodsUtils goodsUtils;
 
     @Resource
     private PetroleumCokeMapper petroleumCokeMapper;
@@ -85,30 +90,34 @@ public class ExcelController {
         ExcelLogs log = new ExcelLogs();
         int code = 0;
         List<Goods> list = null;
+
+
         //通过前端instance实例类型进行Class和Mapper类型的设置
         instanceJudge(instance);
         //获取货品泛型集合
         Collection<Goods> goodsCollection = ExcelUtil.importExcel(getC(), in, "yyyy-MM-dd HH:mm:ss", log, 0);
         list = (List) goodsCollection;
 
+
+        if(instance.equals("石油焦")){
+            //如果是石油焦,则获取每个实例元组,通过sulfur字段改变grade字段值(品级)
+            List<Goods> newList = null;
+            for(Goods goods:list){
+                PetroleumCoke petroleumCoke = (PetroleumCoke) goods;
+                Goods newGoodsAfterSetGrade = PetroleumCokeGradeUtil.setGradeBySulfur(petroleumCoke);
+                if(newList == null){
+                    newList = new ArrayList<>();
+                }
+                newList.add(newGoodsAfterSetGrade);
+            }
+            code = goodsCommonService.insertBatchList(newList);
+        }else{
+            //如果不是石油焦就直接批量插入数据
+          code = goodsCommonService.insertBatchList(list);
+        }
+
         System.out.println(">>>list in excelcontro : "+list);
-        code = goodsCommonService.insertBatchList(list);
-
-//        if(instance.equals("石油焦")){
-//            List<Goods> newList = null;
-//            for(Goods goods:list){
-//                PetroleumCoke petroleumCoke = (PetroleumCoke) goods;
-//                Goods newGoodsAfterSetGrade = PetroleumCokeGradeUtil.setGradeBySulfur(petroleumCoke);
-//                if(newList == null){
-//                    newList = new ArrayList<>();
-//                }
-//                newList.add(newGoodsAfterSetGrade);
-//            }
-//            code = goodsCommonService.insertBatchList(newList);
-//        }else{
-
-//        }
-
+        //TODO 更改批量插入数据时,如果是petrolumn则按照sulfur更改grade
 //        logUtils.doLog(list, code,UserType.MEMBER,LogEnum.ADD_ACTION, instance,session);
 
         return code;

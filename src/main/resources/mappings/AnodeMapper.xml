@@ -345,13 +345,16 @@
                 and id = #{id}
             </if>
             <if test="province != null and province !='' ">
-                and province = #{province}
+                <bind name="provincePattern" value="'%'+province+'%'"/>
+                and province like #{provincePattern}
             </if>
             <if test="company != null and company !='' ">
-                and company = #{company}
+                <bind name="companyPattern" value="'%'+company+'%'"/>
+                and company like #{companyPattern}
             </if>
             <if test="s_company != null and s_company != '' ">
-                and s_company = #{s_company}
+                <bind name="s_companyPattern" value="'%'+s_company+'%'"/>
+                and s_company like #{s_companyPattern}
             </if>
             <if test="e_density != null and e_density != '' ">
                 and e_density = #{e_density}
@@ -378,7 +381,8 @@
                 and ash = #{ash}
             </if>
             <if test="size != null and size != '' ">
-                and size = #{size}
+                <bind name="sizePattern" value="'%'+size+'%'"/>
+                and size like #{sizePattern}
             </if>
             <if test="bowl_sum != null and bowl_sum != '' ">
                 and bowl_sum = #{bowl_sum}
@@ -399,10 +403,12 @@
                 and today_price = #{today_price}
             </if>
             <if test="remarks != null and remarks != '' ">
-                and remarks = #{remarks}
+                <bind name="remarksPattern" value="'%'+remarks+'%'"/>
+                and remarks like #{remarksPattern}
             </if>
             <if test="reporter != null and reporter != '' ">
-                and reporter = #{reporter}
+                <bind name="reporterPattern" value="'%'+reporter+'%'"/>
+                and reporter like #{reporterPattern}
             </if>
             <if test="create_time != null and create_time != '' ">
                 and create_time = #{create_time}

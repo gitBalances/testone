@@ -30,11 +30,20 @@ public class LogUtils {
     final String MEMBER_LOGOUT= "";
     final String ADMIN_LOGOUT = "";
 
-    final String PETROLEUM_COKE = "PetroleumCoke";
-    final String CALCINED_COKE = "CalcinedCoke";
-    final String MASPHALT = "MAsphalt";
-    final String ANODE = "Anode";
+    final private String PETROLEUM_COKE = "PetroleumCoke";
+    final private String CALCINED_COKE = "CalcinedCoke";
+    final private String MASPHALT = "MAsphalt";
+    final private String ANODE = "Anode";
 
+    final private String MEMBER_TYPE = "member";
+    final private String ADMIN_TYPE = "admin";
+
+    final private String COMMON_LOG = "syslog";
+    final private String MEMBER_LOG = "member_log";
+    final private String ADMIN_LOG = "admin_log";
+
+    //标注此次查询日志时的日志类型
+    private String thisLogInstance = null;
 
     @Resource
     private ILogCommonService logCommonService;
@@ -50,11 +59,14 @@ public class LogUtils {
      * @param actionType 执行操作类型
      * @param instance 操作的实体类型
      */
-    public void doLog(List list, int code, Enum<LogEnum> actionType, String instance, HttpSession session) throws InstantiationException, IllegalAccessException {
+    public void doLog(List list, int code, Enum<LogEnum> actionType, String instance, HttpSession session) {
+        //执行日志记录,通过session判定操作日志的是member还是admin(user)
+        //获取当前登录用户实例
         Member currentMember = (Member)session.getAttribute("currentMember");
         User currentUser = (User) session.getAttribute("currentUser");
         MyLoginInstance myLoginInstance = null;
         String user = null;
+
         if(currentMember != null){
             user = UserType.MEMBER.toString();
             myLoginInstance = currentMember;
@@ -63,31 +75,43 @@ public class LogUtils {
             user = UserType.ADMIN.toString();
             myLoginInstance = currentUser;
         }
-
+        //如果是公共日志,则判定字符串user
+        if(instance.equals(COMMON_LOG)){
+            instance  = thisLogInstance;
+        }
 //        String user = userType.toString();
         String action = actionType.toString();
 
         System.out.println("user"+user);
 
         code = listJudge(list,code);
+
+        //与goodsTypeJudger一样,判定该次的user类型,传入不同mapper
         LogUsers logUsers = typeJudge(code, user, action, instance);
 
-        if (code == 1) {
-            System.out.println(whenCodeOne);
-            logUsers.setTypeContent(action,whenCodeOne);
-            logCommonService.saveLog(logUsers,myLoginInstance);
-        } else if (code == 0) {
-            System.err.println(whenCodeZero);
-            logUsers.setTypeContent(action,whenCodeZero);
-            logCommonService.saveLog(logUsers,myLoginInstance);
-        }else if(code > 1){
-            System.err.println(whenCodeMany);
-            logUsers.setTypeContent(action,whenCodeMany);
-            logCommonService.saveLog(logUsers,myLoginInstance);
-        }else{
-            System.err.println(whenOtherCase);
-            logUsers.setTypeContent(action,whenOtherCase);
-            logCommonService.saveLog(logUsers,myLoginInstance);
+        try {
+            if (code == 1) {
+                System.out.println(whenCodeOne);
+                logUsers.setTypeContent(action,whenCodeOne);
+                logCommonService.saveLog(logUsers,myLoginInstance);
+            } else if (code == 0) {
+                System.err.println(whenCodeZero);
+                logUsers.setTypeContent(action,whenCodeZero);
+                logCommonService.saveLog(logUsers,myLoginInstance);
+            }else if(code > 1){
+                System.err.println(whenCodeMany);
+                logUsers.setTypeContent(action,whenCodeMany);
+                logCommonService.saveLog(logUsers,myLoginInstance);
+            }else{
+                System.err.println(whenOtherCase);
+                logUsers.setTypeContent(action,whenOtherCase);
+                logCommonService.saveLog(logUsers,myLoginInstance);
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } finally {
         }
     }
 
@@ -168,12 +192,40 @@ public class LogUtils {
         return null;
     }
 
+    /**
+     * 判定日志操作类型
+     * @param logType 前端传入日志类型
+     * @param logUser 管理员
+     * @param logMember 会员
+     * @return
+     */
+    public LogUsers logTypeJudger(String logType,LogUser logUser,LogMember logMember){
+        if(logType.equals(ADMIN_TYPE)){
+            logCommonService.setLogTypeMapper(logUserMapper);
+            thisLogInstance = ADMIN_LOG;
+            return logUser;
+        }
+        if (logType.equals(MEMBER_TYPE)){
+            logCommonService.setLogTypeMapper(logMemberMapper);
+            thisLogInstance = MEMBER_LOG;
+            return logMember;
+        }
+        return null;
+    }
+
+    /**
+     * 转义instance字符串用于存入数据库字段 如"查询石油焦数据成功"=>content
+     * @param instance
+     * @return
+     */
     private String getInstance(String instance){
         switch (instance){
             case PETROLEUM_COKE:return "石油焦";
             case CALCINED_COKE:return "煅后焦";
             case MASPHALT:return "改质沥青";
             case ANODE:return "阳极";
+            case MEMBER_LOG:return "会员日志";
+            case ADMIN_LOG:return "管理员日志";
             default:return null;
         }
     }

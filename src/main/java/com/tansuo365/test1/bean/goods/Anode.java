@@ -59,10 +59,10 @@ public class Anode implements Serializable, Goods {
     private String remarks;
     @ExcelCell(index = 19)
     private String reporter;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelCell(index = 20)
     private Date create_time;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelCell(index = 21)
     private Date update_time;
 
@@ -71,11 +71,11 @@ public class Anode implements Serializable, Goods {
 //    private Boolean expand_2;
 //
 //    private Boolean expand_3;
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String b_time; //起始时间 搜索用到
 
-    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String e_time; //结束时间 搜索用到
 
@@ -115,12 +115,12 @@ public class Anode implements Serializable, Goods {
     @Transient
     private String s_today_price;
 
-    public void setSearchParams(String s_e_density,String s_true_density,
-                                String s_compressive,String s_carbon,String s_flexural,
-                                String s_room,String s_thermal,String s_ash,
-                                String s_size,String s_bowl_sum,String s_bowl_dis,
-                                String s_in_dia,String s_out_dia,String s_slot,
-                                String s_price){
+    public void setSearchParams(String s_e_density, String s_true_density,
+                                String s_compressive, String s_carbon, String s_flexural,
+                                String s_room, String s_thermal, String s_ash,
+                                String s_size, String s_bowl_sum, String s_bowl_dis,
+                                String s_in_dia, String s_out_dia, String s_slot,
+                                String s_price) {
         this.s_e_density = s_e_density;
         this.s_true_density = s_true_density;
         this.s_compressive = s_compressive;

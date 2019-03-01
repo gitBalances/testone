@@ -396,7 +396,15 @@
     function exportExcel() {
         //获得选中记录 多选
         var row = $('#dg').datagrid('getSelections');
-        console.log("row(s) -> " + JSON.stringify(row));
+        //去除不需要导出的实体字段
+        var deleteKey = ['b_time', 'e_time', 'order', 's_sulfur', 's_ash',
+            's_volatile_matter', 's_water', 's_density', 's_p_resistivity',
+            's_vanadium','s_granularity','s_today_price'];
+        for (var i in row) {
+            for (var j in deleteKey) {
+                delete row[i][deleteKey[j]];
+            }
+        }
         if (row) {
             $.messager.confirm('确认按钮', '你确定要导出该数据?', function (r) {
                 if (r) {

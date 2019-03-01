@@ -1,5 +1,6 @@
 package com.tansuo365.test1.service.log;
 
+import com.github.pagehelper.PageHelper;
 import com.tansuo365.test1.bean.log.UserType;
 import com.tansuo365.test1.bean.member.Member;
 import com.tansuo365.test1.entity.LogUsers;
@@ -36,6 +37,7 @@ public class MyLogServiceImpl implements ILogCommonService {
         System.out.println("loginInstance:"+myLoginInstance);
         System.out.println("logUsers"+logUsers);
         logUsers.setUsersId(myLoginInstance.getInstanceId());
+        //TODO 待直接传入会员的名称,管理员的实名(替代id)
         return logCommonMapper.insertSelective(logUsers);
     }
 
@@ -46,7 +48,7 @@ public class MyLogServiceImpl implements ILogCommonService {
 
     @Override
     public Map<String, Object> getLogSelectiveByPage(LogUsers logUsers, Integer page, Integer rows) {
-        return null;
+       return null;
     }
 
 }

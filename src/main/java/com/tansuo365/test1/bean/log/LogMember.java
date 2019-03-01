@@ -24,11 +24,11 @@ public class LogMember implements LogUsers {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date time;
 
-    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String b_time; //起始时间 搜索用到
 
-    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Transient
     private String e_time; //结束时间 搜索用到
 
@@ -36,10 +36,6 @@ public class LogMember implements LogUsers {
 
     @ManyToOne
     private Long member_id;
-
-//    @ManyToOne
-//    @JoinColumn(name="user_id")
-//    private User user; // 操作用户
 
     @Override
     public void setTypeContent(String type, String content) {

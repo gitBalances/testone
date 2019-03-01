@@ -146,6 +146,14 @@ public class BackEndPageController {
         return "/admin/auth/syslog";
     }
 
+    //会员日志
+    @ApiOperation(value="会员日志", notes="会员日志")
+    @RequestMapping("/auth/memberlog")
+    @RequiresPermissions(value = {"会员日志"})
+    public String memberlog(){
+        return "/admin/auth/memberlog";
+    }
+
     //系统设置
     @ApiOperation(value="系统配置", notes="系统配置")
     @RequestMapping("/auth/sysconfig")
