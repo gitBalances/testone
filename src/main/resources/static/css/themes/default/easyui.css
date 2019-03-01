@@ -103,6 +103,7 @@
 }
 .panel-tool-collapse {
   background: url('images/panel_tools.png') no-repeat -32px 0;
+  padding-right: 30px !important;
 }
 .panel-tool-expand {
   background: url('images/panel_tools.png') no-repeat -32px -16px;
