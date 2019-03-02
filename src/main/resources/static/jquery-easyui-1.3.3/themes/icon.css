@@ -129,28 +129,28 @@
 	background:url('usericons/plugin.gif') no-repeat center center;
 }
 
-.menu-1{
-	background:url('usericons/menu-1.gif') no-repeat center center;
-}
+/*.menu-1{*/
+	/*background:url('usericons/menu-1.gif') no-repeat center center;*/
+/*}*/
 
 .menu-1{
-	background:url('usericons/menu-1.gif') no-repeat center center;
+	background:url('usericons/menu-62.gif') no-repeat center center;
 }
 
 .menu-2{
-	background:url('usericons/menu-2.gif') no-repeat center center;
+	background:url('usericons/menu-5.gif') no-repeat center center;
 }
 
 .menu-3{
-	background:url('usericons/menu-3.gif') no-repeat center center;
+	background:url('usericons/menu-51.gif') no-repeat center center;
 }
 
 .menu-4{
-	background:url('usericons/menu-4.gif') no-repeat center center;
+	background:url('usericons/menu-51.gif') no-repeat center center;
 }
 
 .menu-5{
-	background:url('usericons/menu-5.gif') no-repeat center center;
+	background:url('usericons/menu-6.gif') no-repeat center center;
 }
 
 .menu-6{
@@ -158,11 +158,11 @@
 }
 
 .menu-11{
-	background:url('usericons/menu-11.gif') no-repeat center center;
+	background:url('usericons/menu-13.gif') no-repeat center center;
 }
 
 .menu-12{
-	background:url('usericons/menu-12.gif') no-repeat center center;
+	background:url('usericons/menu-13.gif') no-repeat center center;
 }
 
 .menu-13{
@@ -174,23 +174,23 @@
 }
 
 .menu-15{
-	background:url('usericons/menu-15.gif') no-repeat center center;
+	background:url('usericons/menu-13.gif') no-repeat center center;
 }
 
 .menu-21{
-	background:url('usericons/menu-11.gif') no-repeat center center;
+	background:url('usericons/menu-41.gif') no-repeat center center;
 }
 
 .menu-22{
-	background:url('usericons/menu-12.gif') no-repeat center center;
+	background:url('usericons/menu-41.gif') no-repeat center center;
 }
 
 .menu-23{
-	background:url('usericons/menu-13.gif') no-repeat center center;
+	background:url('usericons/menu-41.gif') no-repeat center center;
 }
 
 .menu-24{
-	background:url('usericons/menu-13.gif') no-repeat center center;
+	background:url('usericons/menu-41.gif') no-repeat center center;
 }
 
 .menu-25{
@@ -198,15 +198,15 @@
 }
 
 .menu-31{
-	background:url('usericons/menu-31.gif') no-repeat center center;
+	background:url('usericons/menu-13.gif') no-repeat center center;
 }
 
 .menu-32{
-	background:url('usericons/menu-32.gif') no-repeat center center;
+	background:url('usericons/menu-13.gif') no-repeat center center;
 }
 
 .menu-33{
-	background:url('usericons/menu-33.gif') no-repeat center center;
+	background:url('usericons/menu-13.gif') no-repeat center center;
 }
 
 .menu-34{
@@ -218,11 +218,11 @@
 }
 
 .menu-41{
-	background:url('usericons/menu-41.gif') no-repeat center center;
+	background:url('usericons/menu-61.gif') no-repeat center center;
 }
 
 .menu-42{
-	background:url('usericons/menu-41.gif') no-repeat center center;
+	background:url('usericons/menu-61.gif') no-repeat center center;
 }
 
 .menu-43{
@@ -242,19 +242,23 @@
 }
 
 .menu-51{
-	background:url('usericons/menu-51.gif') no-repeat center center;
-}
-
-.menu-52{
-	background:url('usericons/menu-51.gif') no-repeat center center;
-}
-
-.menu-53{
 	background:url('usericons/menu-53.gif') no-repeat center center;
 }
 
+.menu-52{
+	background:url('usericons/menu-33.gif') no-repeat center center;
+}
+
+.menu-53{
+	background:url('usericons/log.png') no-repeat center center;
+}
+
 .menu-54{
-	background:url('usericons/menu-54.gif') no-repeat center center;
+	background:url('usericons/log.png') no-repeat center center;
+}
+
+.menu-55{
+	background:url('usericons/menu-6.gif') no-repeat center center;
 }
 
 .menu-61{

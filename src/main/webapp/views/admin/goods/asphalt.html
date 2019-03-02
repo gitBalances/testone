@@ -111,6 +111,8 @@
     <a href="javascript:void(0)" id="export_excel" iconCls="icon-save" class="easyui-linkbutton" plain="true">保存数据</a>
     <a id="quality_index_search" onclick="showIndexSearchFrame()" iconCls="icon-search" class="easyui-linkbutton"
        plain="true">条件查询</a>
+    <a id="chart_and_table" onclick="chartAndTable()" iconCls="icon-large-chart" class="easyui-linkbutton"
+       plain="true">切换图表</a>
 </div>
 <!-- 石油焦弹出窗口 -->
 <div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px"
@@ -567,6 +569,11 @@
                 // testalert();
             }
         });
+    }
+
+    //图表和表单展示切换
+    function chartAndTable(){
+        window.location.href="/easy/goods/asphalt_charts";
     }
 
 </script>

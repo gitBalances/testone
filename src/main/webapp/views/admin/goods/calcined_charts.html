@@ -1,587 +1,290 @@
 ﻿<!DOCTYPE html>
-<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<!--正式数据-->
+<html lang="en" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" style="height: 100%" >-->
+<!--指定公共引入页面,引入静态资源-->
+<!--<head th:include="admin/data/common/commonjscss">-->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>煅后焦信息管理</title>
-    <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
-    <link href="/css/themes/icon.css" rel="stylesheet"/>
-    <link href="/css/xwb_list.css" rel="stylesheet"/>
-    <link href="/css/themes/color.css" rel="stylesheet"/>
-    <link href="/css/wm.css" rel="stylesheet"/>
-    <!--<script src="/script/jquery.min.js"></script>-->
-    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="/script/jquery.easyui.min.js"></script>
-    <script src="/script/easyui-lang-zh_CN.js"></script>
-    <script src="/js/FileSaver.min.js"></script>
-    <script src="/js/xlsx.full.min.js"></script>
-    <script src="/js/jquery.serializejson.js"></script>
-    <!--<script src="/js/xlsx.core.min.js"></script>-->
+    <meta charset="UTF-8">
+    <title>煅后焦图表</title>
 
-    <script src="/js/easyui_html/search-goods-index.js"></script>
-    <script src="/js/jquery.ocupload-1.1.2.js"></script>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/getParam.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
+    <script src="/js/petroleum.js"></script>
 
 
 </head>
 <body>
+<a href="/admin/goods/calcined">返回表单</a>
 
-<!-- 条件查询 -->
-<!--指标查询frame窗-->
-<div id="theIndexSearchFrame" class="easyui-window" style="width:800px;height:550px;padding:10px 40px"
-     closed="true">
-    <form id="searchform" method="post">
-        <table id="sec">
-            <tr>
-                <!--列举所有可查询字段-->
-                <!--<td>id：</td>
-                <td><input type="text" name="id" class="easyui-textbox" value=""/></td>-->
-                <td>省份：</td>
-                <td><input type="text" name="province" class="easyui-textbox" value=""/></td>
-                <td>公司名称:</td>
-                <td><input type="text" name="company" class="easyui-textbox" value=""/></td>
+<button onclick="setChartType(1)">曲线图模式</button>
+<button onclick="setChartType(2)">柱状图模式</button>
+<!--test-->
+<div id="test" class="chart"></div>
 
-            </tr>
-
-            <tr>
-
-
-                <td>备注:</td>
-                <td><input type="text" name="remarks" class="easyui-textbox" value=""/></td>
-
-                <td>汇报人:</td>
-                <td><input type="text" name="reporter" class="easyui-textbox" value=""/></td>
-
-            </tr>
-
-            <tr>
-                <td>开始时间:</td>
-                <td><input name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
-                <td>结束时间:</td>
-                <td><input name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
-            </tr>
-
-            <div style="margin-bottom:20px" id="s_sulfurDiv">
-                硫含量%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                           id="sulfurCK" name="s_sulfur" label="硫含量%:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_ashDiv">
-                灰分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                          id="ashCK" name="s_ash" label="灰分%:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_volatile_matterDiv">
-                挥发分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                           id="volatile_matterCK" name="s_volatile_matter" label="挥发分%:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_waterDiv">
-                水分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                          id="waterCK" name="s_water" label="水分%:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_densityDiv">
-                真密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                id="densityCK" name="s_density" label="真密度_g/cm³:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_p_resistivityDiv">
-                粉末电阻率µ.Ω.m<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                 id="p_resistivityCK" name="s_p_resistivity" label="粉末电阻率µ.Ω.m:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_vanadiumDiv">
-                钒含量ppm<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                             id="vanadiumCK" name="s_vanadium" label="钒含量ppm:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_granularityDiv">
-                粒度mm<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                           id="granularityCK" name="s_granularity" label="粒度mm:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_today_priceDiv">
-                今日报价<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                           id="today_priceCK" name="s_today_price" label="今日报价:">
-            </div>
-            <hr>
-
-        </table>
-        <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
-           style="width:70px">查询</a>
-    </form>
-</div>
-
-
-<table id="dg" title="煅后焦信息">
-
-</table>
-<div id="toolbar">
-    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增数据</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="removeUser()">删除数据</a>
-    <a href="javascript:window.location.reload()" iconCls="icon-reload" class="easyui-linkbutton" plain="true">重置数据</a>
-    <a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton"
-       plain="true">批量导入</a>
-    <a href="javascript:void(0)" id="export_excel" iconCls="icon-save" class="easyui-linkbutton" plain="true">保存数据</a>
-    <a id="quality_index_search" onclick="showIndexSearchFrame()" iconCls="icon-search" class="easyui-linkbutton"
-       plain="true">条件查询</a>
-</div>
-<!-- 煅后焦弹出窗口 -->
-<div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px"
-     closed="true" buttons="#dlg-buttons">
-    <div class="ftitle">煅后焦信息</div>
-    <form id="fm" method="post" novalidate>
-        <div class="fitem" hidden="hidden">
-            <label>主键:</label>
-            <input name="id" class="easyui-validatebox">
-        </div>
-        <div class="fitem">
-            <label>省份:</label>
-            <input name="province" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>企业名称:</label>
-            <input name="company" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>简称:</label>
-            <input name="s_company" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>硫含量_%:</label>
-            <input name="sulfur" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>灰分_%:</label>
-            <input name="ash" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>挥发分_%:</label>
-            <input name="volatile_matter" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>水分_%:</label>
-            <input name="water" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>真密度_g/cm³:</label>
-            <input name="density" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>粉末电阻率_µ.Ω.m:</label>
-            <input name="p_resistivity" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>钒含量_ppm:</label>
-            <input name="vanadium" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>粒度_mm:</label>
-            <input name="granularity" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>今日报价:</label>
-            <input name="today_price" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>备注:</label>
-            <input name="remarks" class="easyui-validatebox">
-        </div>
-        <div class="fitem">
-            <label>汇报人:</label>
-            <input name="reporter" class="easyui-validatebox">
-        </div>
-    </form>
-</div>
-<div id="dlg-buttons">
-    <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
-       onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
-</div>
-
-<!--上传excel的弹出窗-->
-<div id="uploadonlineinfo" class="easyui-window" style="width:380px;padding:10px 40px" closed="true">
-
-    <form id="fam" method="post" enctype="multipart/form-data">
-
-        <!--<input class="easyui-filebox" id="onlinefilename" name="onlinefilename" data-options="prompt:'文件上传'"-->
-        <!--style="width:100%" />-->
-        <input type="file"
-               id="uploadfile" name="uploadfile" style="width:100%"/>
-    </form>
-
-    <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">
-        <button id="uploadBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
-                style="width:80px">上传
-        </button>
-    </div>
-</div>
-
-<script th:inline="none">
-
-    $('#dg').datagrid({
-        url: '/goods/CalcinedCoke/selectSelective',
-        toolbar: '#toolbar',
-        pagination: 'true',
-        pageSize: 10,
-        pageList: [5, 10, 15, 20],
-        rownumbers: 'true',
-        fitColumns: 'true',
-        loadMsg: '数据加载中请稍后……',
-        fit: 'true',
-        // singleSelect: 'true',
-        checkbox: 'true',
-        idField: 'id',
-        collapsible: 'true',
-        iconCls: 'icon-save',
-        queryParams: form2Json('searchform'),
-
-        columns: [[
-
-            {field: 'id', align: 'center', title: '数据序列号', hidden: true},
-            {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
-            {field: 'province', title: '省份', width: 50},
-            {field: 'company', title: '企业名', width: 100},
-            {field: 's_company', title: '简称', width: 50},
-            {field: 'sulfur', title: '硫含量_%', width: 50},
-            {field: 'ash', title: '灰分_%', width: 50},
-            {field: 'volatile_matter', title: '挥发分_%', width: 50},
-            {field: 'water', title: '水分_%', width: 50},
-            {field: 'density', title: '真密度_g/cm³', width: 50},
-            {field: 'p_resistivity', title: '粉末电阻率_µ.Ω.m', width: 50},
-            {field: 'vanadium', title: '钒含量_ppm', width: 50},
-            {field: 'granularity', title: '粒度_mm', width: 50},
-            {field: 'today_price', title: '今日报价', width: 60},
-            {field: 'remarks', title: '备注', width: 100},
-            {field: 'reporter', title: '汇报人', width: 100},
-            {field: 'create_time', title: '创建时间', width: 148},
-            {field: 'update_time', title: '更新时间', width: 148}
-        ]]
-    });
-
-    function form2Json(id) {
-
-        var arr = $("#" + id).serializeArray();
-        var jsonStr = "";
-
-        jsonStr += '{';
-        for (var i = 0; i < arr.length; i++) {
-            jsonStr += '"' + arr[i].name + '":"' + arr[i].value + '",'
-        }
-        jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
-        jsonStr += '}'
-
-        var json = JSON.parse(jsonStr);
-        return json;
+<style>
+    .chart {
+        width: 100%;
+        height: 800px;
     }
-</script>
-
-<script type="text/javascript">
-    var url;
-
-    function newUser() {
-        //打开添加新闻 窗口
-        $('#dlg').dialog('open').dialog('setTitle', '插入数据');
-        //把form表单的内容给清空
-        $('#fm').form('clear');
-        //给url赋值
-        url = '/goods/CalcinedCoke/insertSelective';
-    }
-
-    function editUser() {
-        //获得 选中的行
-        var row = $('#dg').datagrid('getSelected');
-        // 是否选中
-        if (row) {
-            //打开窗口
-            $('#dlg').dialog('open').dialog('setTitle', '信息修改');
-            //让from 表单去加载 选中行的数据
-            $('#fm').form('load', row);
-            //修改的地址
-            url = '/goods/CalcinedCoke/updateByPKSelective';
-        }
-    }
-
-    function saveUser() {
-        $('#fm').form('submit', {
-            url: url,
-            onSubmit: function () {
-                return $(this).form('validate');
-            },
-            success: function (result) {
-
-                if (result > 0) {
-                    $.messager.alert('操作结果', '成功');
-                    //关闭添加新闻窗口
-                    $('#dlg').dialog('close');		// close the dialog
-                    //重新加载数据
-                    $('#dg').datagrid('reload');	// reload the data
-                } else {
-                    $.messager.alert('操作结果', '失败');
-                }
-            }
-        });
-    }
-
-    function removeUser() {
-        //获得选中记录 多选
-        var row = $('#dg').datagrid('getSelections');
-        if (row) {
-            $.messager.confirm('确认按钮', '你确定要删除该数据?', function (r) {
-                if (r) {
-
-                    var ids = [];
-                    for (var i = 0; i < row.length; i++) {
-                        ids.push(row[i].id);
-                    }
-                    // alert(ids.toString());
-                    $.ajax({
-                        url: '/goods/CalcinedCoke/deleteBatchByPKs',
-                        dataType: 'json',
-                        data: {'ids': ids},
-                        type: 'POST',
-                        success: function (data) {
-                            if (data > 0) {
-                                $.messager.alert('提示消息', '删除成功');
-                                $('#dg').datagrid('reload');
-                                $('#dg').datagrid('clearSelections');
-                            } else {
-                                $.messager.alert('提示消息', '删除失败');
-                                $('#dg').datagrid('reload');
-                                $('#dg').datagrid('clearSelections');
-                            }
-                        }
-                    });
-                }
-            });
-        }
-    }
-
-    $("#submit_search").click(function () {
-        beforeSearch();
-        $('#dg').datagrid({url: "/goods/CalcinedCoke/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
-    });
-
-    //先判定每个checkbox是否选定,如果选定了的获取其中两个select两个input的value,赋值给原input的value
-    function beforeSearch() {
-        //声明多input条件查询字段id数组
-        var indexArr = ['sulfurCK', 'ashCK', 'volatile_matterCK', 'waterCK', 'densityCK', 'p_resistivityCK', 'vanadiumCK', 'granularityCK','today_priceCK'];
-        for (var i in indexArr) {
-            var box = (document.getElementById(indexArr[i]));
-            if (box.checked) {
-                getValue(box);
-            }
-        }
-    }
-
-    function getValue(checkbox) {
-        var symbolL = document.getElementById(checkbox.name + "SelectL").value;
-        symbolL = (symbolL.length != 0) ? symbolL : "[null]";
-        var inputValueL = document.getElementById(checkbox.name + "ChildL").value;
-        inputValueL = (inputValueL.length != 0) ? inputValueL : "[null]";
-        var symbolR = document.getElementById(checkbox.name + "SelectR").value;
-        symbolR = (symbolR.length != 0) ? symbolR : "[null]";
-        var inputValueR = document.getElementById(checkbox.name + "ChildR").value;
-        inputValueR = (inputValueR.length != 0) ? inputValueR : "[null]";
-
-        checkbox.value = symbolL + ":" + inputValueL + ":" + symbolR + ":" + inputValueR + ":" + checkbox.name;
-        // alert(checkbox.name+","+checkbox.value)
-    }
-
-    // 导出excel按钮
-    $("#export_excel").click(exportExcel);
-
-    // 导出excel
-    function exportExcel() {
-        //获得选中记录 多选
-        var row = $('#dg').datagrid('getSelections');
-        //去除不需要导出的实体字段
-        var deleteKey = ['b_time', 'e_time', 'order', 's_sulfur', 's_ash',
-            's_volatile_matter', 's_water', 's_density', 's_p_resistivity',
-            's_vanadium','s_granularity','s_today_price'];
-        for (var i in row) {
-            for (var j in deleteKey) {
-                delete row[i][deleteKey[j]];
-            }
-        }
-        if (row) {
-            $.messager.confirm('确认按钮', '你确定要导出该数据?', function (r) {
-                if (r) {
-                    downloadExl(row);
-                }
-            })
-        }
-    }
-
-    function downloadExl(data, type) {
-        var keys = Object.keys(data[0]);
-        var firstRow = {};
-        keys.forEach(function (item) {
-            console.log("item:" + item);
-            firstRow[item] = item;
-        });
-        data.unshift(firstRow);
-
-        var content = {};
-
-        //把json格式的数据转换为excel的行列形式
-        var sheetsData = data.map(function (item, rowIndex) {
-            return keys.map(function (key, columnIndex) {
-                return Object.assign({}, {
-                    value: item[key],
-                    position: (columnIndex > 25 ? getCharCol(columnIndex) : String.fromCharCode(65 + columnIndex)) + (rowIndex + 1),
-                });
-            });
-        }).reduce(function (prev, next) {
-            return prev.concat(next);
-        });
-
-        sheetsData.forEach(function (item, index) {
-            // content[item.position] = {v: item.value};
-            if (item.value == 'id') {
-                content[item.position] = {v: '序列号'};
-            } else if (item.value == 'province') {
-                content[item.position] = {v: '省份'};
-            } else if (item.value == 'company') {
-                content[item.position] = {v: '企业'};
-            } else if (item.value == 's_company') {
-                content[item.position] = {v: '简称'};
-            } else if (item.value == 'sulfur') {
-                content[item.position] = {v: '硫含量%'};
-            } else if (item.value == 'ash') {
-                content[item.position] = {v: '灰分%'};
-            } else if (item.value == 'volatile_matter') {
-                content[item.position] = {v: '挥发分%'};
-            } else if (item.value == 'water') {
-                content[item.position] = {v: '水分%'};
-            } else if (item.value == 'density') {
-                content[item.position] = {v: '真密度g/cm³'};
-            } else if (item.value == 'p_resistivity') {
-                content[item.position] = {v: '粉末电阻率µ.Ω.m'};
-            } else if (item.value == 'vanadium') {
-                content[item.position] = {v: '钒含量ppm'};
-            } else if (item.value == 'granularity') {
-                content[item.position] = {v: '粒度mm'};
-            } else if (item.value == 'today_price') {
-                content[item.position] = {v: '今日报价(元)'};
-            } else if (item.value == 'remarks') {
-                content[item.position] = {v: '备注'};
-            } else if (item.value == 'reporter') {
-                content[item.position] = {v: '汇报人'};
-            } else if (item.value == 'create_time') {
-                content[item.position] = {v: '创建时间'};
-            } else if (item.value == 'update_time') {
-                content[item.position] = {v: '更新时间'};
-            } else {
-                content[item.position] = {v: item.value};
-            }
-        });
-
-        //设置区域,比如表格从A1到D10,SheetNames:标题
-        var coordinate = Object.keys(content);
-        var workBook = {
-            SheetNames: ["1"],
-            Sheets: {
-                "1": Object.assign({}, content, {"!ref": coordinate[0] + ":" + coordinate[coordinate.length - 1]}),
-            }
-        };
-
-        //这里的数据是用来定义导出的格式类型
-        var excelData = XLSX.write(workBook, {bookType: "xlsx", bookSST: false, type: "binary"});
-        var blob = new Blob([string2ArrayBuffer(excelData)], {type: ""});
-
-        // filename = "煅后焦";
-        $.messager.prompt("输入框", "请输入保存文件名.", function (filename) {
-            if (filename) {
-                var nowTime = new Date().toLocaleDateString();
-                saveAs(blob, filename + nowTime + ".xlsx"); //文件名
-            }
-        });
-
-    }
-
-    //字符串转字符流
-    function string2ArrayBuffer(s) {
-        var buf = new ArrayBuffer(s.length);
-        var view = new Uint8Array(buf);
-        for (var i = 0; i != s.length; ++i) {
-            view[i] = s.charCodeAt(i) & 0xFF;
-        }
-        return buf;
-    }
-
-    //将指定的自然数转换为26进制表示. 映射关系: [0-25] -> [A-Z]
-    function getCharCol(n) {
-        var temCol = "",
-            s = "",
-            m = 0;
-        while (n > 0) {
-            m = n % 26 + 1;
-            s = String.fromCharCode(m + 64) + s;
-            n = (n - m) / 26;
-        }
-        return s;
-    }
-
-    /*上传excel的窗口打开操作*/
-    function uploadidalogonline() {
-        $('#uploadonlineinfo').window('open').dialog('setTitle', '文件上传');
-    }
-
-    //上传文件
-    $("#uploadBtn").click(uploadonline);
-    function uploadonline() {
-
-        // var add = '/excel/importExcel';
-        var uploadFile = $("#uploadfile")[0].files[0];
-        console.log(uploadFile);
-        var formData = new FormData();
-        formData.append("uploadFile", uploadFile);
-        console.log(formData);
-        // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
-        $.ajax({
-            url: '/excel/importExcel?instance=' + "煅后焦",
-            type: 'POST',
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false, //不设置内容类型
-            processData: false, //不处理数据
-            success: function (data) {
-                // alert(data);
-                if (data > 0) {
-                    $.messager.alert('操作结果', '导入数据成功');
-                    $("#booten").linkbutton('enable');
-                    $('#uploadonlineinfo').dialog('close');
-                    $('#dg').datagrid('reload');
-                } else {
-                    $.messager.alert('操作结果', '导入数据失败');
-                    $('#uploadonlineinfo').dialog('close');
-                }
-            }
-        })
-    }
+</style>
 
 
-</script>
 
-<script type="text/javascript" th:inline="none">
-    /*指标窗口打开操作*/
-    function showIndexSearchFrame() {
-        $('#theIndexSearchFrame').window('open').dialog('setTitle', '指标查询');
-    }
 
-    function checkEachBox() {
-        $("input[type='checkbox']").each(function () {
-            if ($(this).attr('checked') == true) {
-                reas += $(this).val();
-                // testalert();
-            }
-        });
-    }
 
-</script>
+<!--<button onclick="setOrderType(0)">时间正序查看</button>-->
+<!--<button onclick="setOrderType(1)">时间倒序查看</button>-->
 
 </body>
+
+
+<script>
+
+
+    /*声明创建货品类型数组*/
+    var goodsType = ['PetroleumCoke', 'CalcinedCoke', 'MAsphalt', 'Anode'];
+    /*声明创建ECharts对象*/
+    var myChart = echarts.init(document.getElementById("test"));
+
+    myChartDefalut();
+
+    var goodsTypeIndex = null;
+    var selectOrder = 0;
+    var ChartType = 0;
+    var thisChartType = null;
+
+    function initDefaultChartType(){
+        return "line";
+    }
+
+    function setChartType(chartType) {
+        if (chartType === 1 && chartType !== ChartType) {
+            ChartType = chartType;
+            thisChartType = "line"; //曲线图
+            if(goodsTypeIndex == null){
+                alert("请先选择一种货品进行查看.");
+                return;
+            }
+            getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
+
+        }
+        if (chartType === 2 && chartType !== ChartType) {
+            ChartType = chartType;
+            thisChartType = "bar" //柱状图
+            if(goodsTypeIndex == null){
+                alert("请先选择一种货品进行查看.");
+                return;
+            }
+            getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
+        }
+    }
+
+    /*根据传入的货品数组的下标来查询指定下标的货品类型*/
+    function setGoodsType(index) {
+        goodsTypeIndex = index;
+        getAllGoodsByType(myChart, thisChartType, index, null, null, selectOrder);
+        myChartDefalut();
+        // getAllGoodsByType(myChart,index, null, null, selectOrder);
+    }
+
+    function myChartDefalut() {
+        myChart.setOption({
+            legend: {
+                data: []
+            },
+            tooltip: {trigger: 'axis',},
+            dataset: {
+                source: {},
+                dimensions: []
+            },
+            xAxis: [
+                {
+                    type: 'category', gridIndex: 0, axisLabel: {
+                        rotate: 50, interval: 0
+                    }
+                }
+            ],
+            yAxis:
+                [
+                    {type: 'value', gridIndex: 0}
+                ],
+            grid:
+                [
+                    {bottom: '55%'},
+                    {top: '55%'}
+                ],
+            series:
+                []
+        });
+    }
+
+
+    /*设置选取的货品数据时间排序方式,asc,desc*/
+    function setOrderType(order) {
+        getAllGoodsByType(myChart, thisChartType, goodsType[goodsTypeIndex], null, null, order);
+    }
+
+
+    /*默认获取石油焦信息,可按需更改*/
+    // getAllGoodsByType(myChart,goodsType[0],null,null,);
+
+    //除了根据会员等级查询,还应该根据用户点击显示几个月,几年的按钮进行展示(timeInteval)
+    /*myChart:图表对象,goodsType:货品类型,memberLevel:用户等级,timeInterval:时间区间,selectOrder:查询排序*/
+    function getAllGoodsByType(myChart, thisChartType, index, memberLevel, timeInterval, selectOrder) {
+        if(thisChartType==null){
+            thisChartType = initDefaultChartType();
+        }
+
+        // /*获取json数据中的某一个字段*/
+        // /*获取json数据中的某一个字段*/
+        var newJson = null;
+        //获取展示形式如:
+        var newJson2 = null;
+        var newArr = [];
+        // var companys = null;
+        var companys = [];
+        var today_price = null; //今日价格汇总
+        var createTimes = null; //创建时间
+        var allData = null;
+        var option = null;
+        var url = "/goods/" + goodsType[index] + "/" + "selectGoodsByType";
+        // var companys = null;
+        // var url = "/goods/"+goodsType+"/"+"selectAll";
+        myChart.showLoading();
+        $.ajax({
+            // url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
+            url: url, //按需获取goods数据
+            data: {'order': selectOrder},
+            dataType: "json",
+            // contentType:"application/json;charset=UTF-8",
+            type: "post",
+            success: function (data) {
+
+                myChart.hideLoading(); //数据data加载后隐藏loading
+
+                // alert(JSON.stringify(data.petroleumCokes)); OK
+                // petroleumCokesJson = JSON.stringify(data); OK
+                //石油焦json数据
+                // petroleumCokesJson = data; //OK
+                // console.log("JSON.stringify(data):" + JSON.stringify(data));
+                console.log(">>data:" + JSON.stringify(data));
+                allData = data;
+                //获取公司字段,获取公司数组,去重
+                companys = getParamValues("company", data).delDuplicate();
+                // console.log(">>companys:"+companys);
+                // company[0]的所有历史价格
+                // 根据字段获取指定公司的today_price数组
+                price0 = getParamValuesByCname("today_price", data, "company", companys[0]);
+                // console.log("price0:" + price0);
+                //根据公司名查询历史价格 -> (数组)
+                /*newJson:{'华联石化':[2323,5321],'海油石化':[3000,2311],'昌邑石化':[2703,1688]}*/
+                newJson = getJsonResult("today_price", data, "company", companys);
+                // console.log("newJson:" + newJson);
+                today_price = getParamValues("today_price", data); //OK
+                // console.log(today_price); //OK
+                // alert(today_price); //OK
+                createTimes = getParamValues("create_time", data).delDuplicate();
+
+                newJson2 = getJsonResultPro("today_price", data, "company", companys, "createTimes");
+                // console.log("newJson2:" + newJson2);
+
+                //
+                newArr = getArrayResultPro("today_price", data, "company", companys, "createTime", "create_time");
+                // console.log("newArr:" + newArr);
+                var seriesContent = getSeriesContent(companys.length, thisChartType, "row");
+                // console.log("seriesContent:"+JSON.stringify(seriesContent));
+                //获取时间和公司数组填入维度
+                var dimensions = twoArrayToOne(companys, "createTime");
+                // console.log("dimensions:"+dimensions);
+
+                //legendData 展示公司名称数组,在切换其它货品信息时,不能有效地获取companys
+                var legendData = companys.map(String);
+
+
+                option = {
+                    legend: {
+                        data: legendData
+                    },
+                    tooltip: {trigger: 'axis',},
+                    // dataset:{
+                    //     source:
+                    //     newJson2
+                    // },
+                    dataset: {
+                        //Array形式
+                        source: newArr,
+                        dimensions: dimensions
+                        // dimensions: [
+                        //     'createTime',
+                        //     'A公司',
+                        //     'B企业',
+                        //     'C公司',
+                        //     // 'sulfur1',
+                        //     // 'sulfur2',
+                        //     // 'sulfur3',
+                        //     // '2012',
+                        // ]
+
+                    },
+                    xAxis: [
+                        {
+                            type: 'category', gridIndex: 0, axisLabel: {
+                                rotate: 50, interval: 0
+                            }
+                        }
+                        // {gridIndex: 0},
+                        // {
+                        //     type: 'category',
+                        //
+                        //     // data:createTimes,
+                        //     // axisLabel: {
+                        //     //    rotate: 50, interval: 0
+                        //     // }
+                        // },
+                        // {type: 'category', gridIndex: 1}
+                    ],
+                    yAxis:
+                        [
+                            {type: 'value', gridIndex: 0}
+                            // {gridIndex: 0},
+                            //
+                            // {
+                            //     // type:'value',
+                            //     // gridIndex: 0, axisLabel: {
+                            //     //     rotate: 0, interval: 0,
+                            //     //     // formatter: function (value) {
+                            //     //     //     return value + '元'
+                            //     //     // }
+                            //     // }
+                            // },
+                            // {gridIndex: 1}
+                        ],
+                    grid:
+                        [
+                            {bottom: '55%'},
+                            {top: '55%'}
+                        ],
+                    series:
+                    seriesContent
+                };
+                myChart.setOption(option);
+            },
+            error:function(){
+                alert("获取数据失败,请先登录.");
+                window.location.href="/member/login";
+            }
+        });
+
+
+    }
+
+
+    setGoodsType(1);
+
+</script>
+
+
 </html>

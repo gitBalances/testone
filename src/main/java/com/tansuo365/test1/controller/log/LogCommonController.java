@@ -9,6 +9,7 @@ import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.entity.LogUsers;
 import com.tansuo365.test1.service.log.ILogCommonService;
 import com.tansuo365.test1.util.LogUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -25,6 +26,7 @@ import java.util.Map;
 /**
  * 查询日志的公用controller TODO 现在只有搜索,并无其它方法
  */
+@Api(value = "查询日志的公用控制层", description = "日志信息")
 @RestController
 @RequestMapping("/admin/syslog/{logType}")
 public class LogCommonController {
