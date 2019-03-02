@@ -7,13 +7,9 @@ import com.tansuo365.test1.bean.goods.CalcinedCoke;
 import com.tansuo365.test1.bean.goods.MAsphalt;
 import com.tansuo365.test1.bean.goods.PetroleumCoke;
 import com.tansuo365.test1.bean.log.LogEnum;
-import com.tansuo365.test1.bean.log.UserType;
 import com.tansuo365.test1.bean.member.Member;
+import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.entity.Goods;
-import com.tansuo365.test1.mapper.goods.AnodeMapper;
-import com.tansuo365.test1.mapper.goods.CalcinedCokeMapper;
-import com.tansuo365.test1.mapper.goods.MAsphaltMapper;
-import com.tansuo365.test1.mapper.goods.PetroleumCokeMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
 import com.tansuo365.test1.util.GoodsUtils;
 import com.tansuo365.test1.util.LogUtils;
@@ -24,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +35,6 @@ public class GoodsController {
 
     @Autowired
     private GoodsUtils goodsUtils;
-
 
 
     @Autowired
@@ -164,7 +158,8 @@ public class GoodsController {
     @RequestMapping("/selectGoodsByType")
     public List<Goods> selectAll(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
         Member currentMember = (Member) session.getAttribute("currentMember");
-        if (currentMember == null) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentMember == null && currentUser == null) {
             return null;
         } else {
             List<Goods> list = goodsCommonService.getBySelective(goodsUtils.goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
@@ -172,9 +167,6 @@ public class GoodsController {
             return list;
         }
     }
-
-
-
 
 
 }

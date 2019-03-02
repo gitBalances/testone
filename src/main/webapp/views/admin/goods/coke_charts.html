@@ -2,7 +2,7 @@
 <html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>阳极信息管理</title>
+    <title>石油焦信息管理</title>
     <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
     <link href="/css/themes/icon.css" rel="stylesheet"/>
     <link href="/css/xwb_list.css" rel="stylesheet"/>
@@ -23,6 +23,7 @@
     <script src="/js/easyui_html/search-goods-index.js"></script>
     <script src="/js/jquery.ocupload-1.1.2.js"></script>
 
+
 </head>
 <body>
 
@@ -34,116 +35,94 @@
         <table id="sec">
             <tr>
                 <!--列举所有可查询字段-->
-                <!--<td>id：</td>
-                <td><input type="text" name="id" class="easyui-textbox" value=""/></td>-->
                 <td>省份：</td>
                 <td><input type="text" name="province" class="easyui-textbox" value=""/></td>
-                <td>企业名称:</td>
+                <td>公司名称:</td>
                 <td><input type="text" name="company" class="easyui-textbox" value=""/></td>
-                <!--密度及属于区间的数值应该使用>,<进行区间数值选择-->
-                <!--<td>是否开槽:</td>-->
-                <!--<td><input type="text" name="slot" class="easyui-textbox" value=""/></td>-->
-
-                <td>是否开槽:</td>
+                <td>类型:</td>
                 <td>
-                    <select class="easyui-combobox" name="slot" panelHeight="auto"/>
+                    <select class="easyui-combobox" name="coke_type" panelHeight="auto"/>
                     <option value=""></option>
-                    <option value="是">是</option>
-                    <option value="否">否</option>
+                    <option value="海绵焦">海绵焦</option>
+                    <option value="弹丸焦">弹丸焦</option>
                     </select>
                 </td>
-
-                <td>碳块尺寸:</td>
-                <td><input type="text" name="size" class="easyui-textbox" value=""/></td>
-
-
             </tr>
-
             <tr>
-
+                <!--<td>今日报价:</td>-->
+                <!--<td><input type="text" name="today_price" class="easyui-textbox" value=""/></td>-->
                 <td>备注:</td>
                 <td><input type="text" name="remarks" class="easyui-textbox" value=""/></td>
                 <td>汇报人:</td>
                 <td><input type="text" name="reporter" class="easyui-textbox" value=""/></td>
 
             </tr>
+            <tr>
+                <td>品级:</td>
+                <td>
+                    <select class="easyui-combobox" name="grade" panelHeight="auto"/>
+                    <option value=""></option>
+                    <option value="1号">1号</option>
+                    <option value="2A">2A</option>
+                    <option value="2B">2B</option>
+                    <option value="3A">3A</option>
+                    <option value="3B">3B</option>
+                    </select>
+                </td>
+            </tr>
 
             <tr>
                 <td>开始时间:</td>
-                <td><input  name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+                <td><input name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
                 <td>结束时间:</td>
-                <td><input  name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+                <td><input name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
             </tr>
-
-            <div style="margin-bottom:20px" id="s_e_densityDiv">
-                表现密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                           id="e_densityCK" name="s_e_density" label="表现密度g/cm³:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_true_densityDiv">
-                真密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                id="true_densityCK" name="s_true_density" label="真密度g/cm³:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_compressiveDiv">
-                耐压强度MPa<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                               id="compressiveCK" name="s_compressive" label="耐压强度MPa:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_carbonDiv">
-                二氧化碳反应性%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                              id="carbonCK" name="s_carbon" label="二氧化碳反应性%:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_flexuralDiv">
-                抗折强度MPa<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                               id="flexuralCK" name="s_flexural" label="抗折强度MPa:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_roomDiv">
-                室温电阻率uΩ·m<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                              id="roomCK" name="s_room" label="室温电阻率uΩ·m:">
-            </div>
-            <hr>
-            <div style="margin-bottom:20px" id="s_thermalDiv">
-                热膨胀系数<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                id="thermalCK" name="s_thermal" label="热膨胀系数:">
+            <!--<form id="ff" style="margin-bottom:20px">-->
+            <div style="margin-bottom:20px" id="s_sulfurDiv">
+                硫含量%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                           id="sulfurCK" name="s_sulfur" label="硫含量%:">
             </div>
             <hr>
             <div style="margin-bottom:20px" id="s_ashDiv">
-                灰分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                            id="ashCK" name="s_ash" label="灰分%:">
+                灰分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="ashCK"
+                          name="s_ash" value=""
+                          label="灰分%:">
             </div>
             <hr>
-            <!--先改为模糊查询-->
-           <!-- <div style="margin-bottom:20px" id="s_sizeDiv">
-                碳块尺寸<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                          id="sizeCK" name="s_size" label="碳块尺寸:">
-            </div>
-            <hr>-->
-            <div style="margin-bottom:20px" id="s_bowl_sumDiv">
-                碗数<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                         id="bowl_sumCK" name="s_bowl_sum" label="碗数:">
+            <div style="margin-bottom:20px" id="s_volatile_matterDiv">
+                挥发分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                           id="volatile_matterCK"
+                           name="s_volatile_matter" value="" label="挥发分%:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_bowl_distanceDiv">
-                碗距<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                           id="bowl_distanceCK" name="s_bowl_distance" label="碗距:">
+            <div style="margin-bottom:20px" id="s_wdrDiv">
+                扣水率%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                           id="wdrCK" name="s_wdr" value=""
+                           label="扣水率%:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_in_diameterDiv">
-                内径<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                         id="in_diameterCK" name="s_in_diameter" label="内径:">
+            <div style="margin-bottom:20px" id="s_vanadiumDiv">
+                钒含量ppm<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                             id="vanadiumCK" name="s_vanadium" value=""
+                             label="钒含量ppm:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_out_diameterDiv">
-                外径<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                         id="out_diameterCK" name="s_out_diameter" label="外径:">
+            <div style="margin-bottom:20px" id="s_densityDiv">
+                真密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                               id="densityCK" name="s_density" value=""
+                               label="真密度g/cm³:">
+            </div>
+            <hr>
+            <div style="margin-bottom:20px" id="s_coke_contentDiv">
+                粉焦量g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                               id="coke_contentCK" name="s_coke_content"
+                               value="" label="粉焦量g/cm³:">
             </div>
             <hr>
             <div style="margin-bottom:20px" id="s_today_priceDiv">
                 今日报价<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                         id="today_priceCK" name="s_today_price" label="今日报价:">
+                           id="today_priceCK" name="s_today_price"
+                           value="" label="今日报价:">
             </div>
             <hr>
 
@@ -153,8 +132,7 @@
     </form>
 </div>
 
-
-<table id="dg" title="阳极信息">
+<table id="dg" title="石油焦信息">
 
 </table>
 <div id="toolbar">
@@ -162,18 +140,16 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="removeUser()">删除数据</a>
     <a href="javascript:window.location.reload()" iconCls="icon-reload" class="easyui-linkbutton" plain="true">重置数据</a>
-    <a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton" plain="true">批量导入</a>
+    <a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton"
+       plain="true">批量导入</a>
     <a href="javascript:void(0)" id="export_excel" iconCls="icon-save" class="easyui-linkbutton" plain="true">保存数据</a>
     <a id="quality_index_search" onclick="showIndexSearchFrame()" iconCls="icon-search" class="easyui-linkbutton"
        plain="true">条件查询</a>
-    <a id="chart_and_table" onclick="chartAndTable()" iconCls="icon-large-chart" class="easyui-linkbutton"
-       plain="true">切换图表</a>
 </div>
-<!-- 阳极弹出窗口 -->
+<!-- 石油焦弹出窗口 -->
 <div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px"
      closed="true" buttons="#dlg-buttons">
-    <div class="ftitle">阳极信息</div>
-
+    <div class="ftitle">石油焦信息</div>
     <form id="fm" method="post" novalidate>
         <div class="fitem" hidden="hidden">
             <label>主键:</label>
@@ -192,65 +168,39 @@
             <input name="s_company" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
-            <label>表现密度_g/cm³:</label>
-            <input name="e_density" class="easyui-validatebox" required="true">
+            <label>硫含量_%:</label>
+            <input name="sulfur" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
-            <label>真密度_g/cm³:</label>
-            <input name="true_density" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>耐压强度_MPa:</label>
-            <input name="compressive" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>二氧化碳反应性_%:</label>
-            <input name="carbon" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>抗折强度_MPa:</label>
-            <input name="flexural" class="easyui-validatebox" required="true">
-        </div>
-
-        <div class="fitem">
-            <label>室温电阻率_uΩ·m:</label>
-            <input name="room" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>热膨胀系数:</label>
-            <input name="thermal" class="easyui-validatebox" required="true">
-        </div>
-        <div class="fitem">
-            <label>灰分含量_%:</label>
+            <label>灰分_%:</label>
             <input name="ash" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
-            <label>碳块尺寸:</label>
-            <input name="size" class="easyui-validatebox" required="true">
+            <label>挥发分_%:</label>
+            <input name="volatile_matter" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
-            <label>碗数:</label>
-            <input name="bowl_sum" class="easyui-validatebox" required="true">
+            <label>扣水率_%:</label>
+            <input name="wdr" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
-            <label>碗距:</label>
-            <input name="bowl_distance" class="easyui-validatebox" required="true">
+            <label>钒含量_ppm:</label>
+            <input name="vanadium" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
-            <label>内径:</label>
-            <input name="in_diameter" class="easyui-validatebox" required="true">
+            <label>真密度_g/cm³:</label>
+            <input name="density" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
-            <label>外径:</label>
-            <input name="out_diameter" class="easyui-validatebox" required="true">
+            <label>粉焦量_%:</label>
+            <input name="coke_content" class="easyui-validatebox" required="true">
         </div>
         <div class="fitem">
-            <label>是否开槽:</label>
-                <select class="easyui-combobox" name="slot" panelHeight="auto"/>
-                <option value=""></option>
-                <option value="是">是</option>
-                <option value="否">否</option>
-                </select>
+            <label>类型:</label>
+            <select class="easyui-combobox" name="coke_type" panelHeight="auto" required="true">
+                <option value="海绵焦">海绵焦</option>
+                <option value="弹丸焦">弹丸焦</option>
+            </select>
         </div>
         <div class="fitem">
             <label>今日报价:</label>
@@ -264,7 +214,6 @@
             <label>汇报人:</label>
             <input name="reporter" class="easyui-validatebox">
         </div>
-
     </form>
 </div>
 <div id="dlg-buttons">
@@ -278,10 +227,9 @@
 
     <form id="fam" method="post" enctype="multipart/form-data">
 
-        <!--<input class="easyui-filebox" id="onlinefilename" name="onlinefilename" data-options="prompt:'文件上传'"-->
-        <!--style="width:100%" />-->
         <input type="file"
                id="uploadfile" name="uploadfile" style="width:100%"/>
+
     </form>
 
     <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">
@@ -294,7 +242,7 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/goods/Anode/selectSelective',
+        url: '/goods/PetroleumCoke/selectSelective',
         toolbar: '#toolbar',
         pagination: 'true',
         pageSize: 10,
@@ -302,56 +250,52 @@
         rownumbers: 'true',
         fitColumns: 'true',
         loadMsg: '数据加载中请稍后……',
-        fit: 'true',
+        fit: 'true', //datagrid自适应宽高,不设置会导致单页数据条目过多时,无法使用滚轮查看下方数据
+        // striped: 'false',//斑马纹
         // singleSelect: 'true',
         checkbox: 'true',
         idField: 'id',
         collapsible: 'true',
         iconCls: 'icon-save',
-
+        // onCheckAll: 'addcheckItem',
+        // onCheck:'addcheckItem',
+        // onUncheckAll: 'removeAllItem',
+        // onUncheck: 'removeSingleItem',
+        // remoteSort:'true',
         queryParams: form2Json('searchform'),
 
         columns: [[
-
             {field: 'id', align: 'center', title: '数据序列号', hidden: true},
             {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
+            {field: 'grade', title: '品级', width: 30},
             {field: 'province', title: '省份', width: 50},
             {field: 'company', title: '企业名', width: 100},
             {field: 's_company', title: '简称', width: 50},
-            {field: 'e_density', title: '表现密度_g/cm³', width: 50},
-            {field: 'true_density', title: '真密度_g/cm³', width: 50},
-            {field: 'compressive', title: '耐压强度_MPa', width: 50},
-            {field: 'carbon', title: '二氧化碳反应性_%', width: 50},
-            {field: 'flexural', title: '抗折强度_MPa', width: 50},
-            {field: 'room', title: '室温电阻率_uΩ·m', width: 50},
-            {field: 'thermal', title: '热膨胀系数', width: 50},
-            {field: 'ash', title: '灰分含量_%', width: 60},
-            {field: 'size', title: '碳块尺寸', width: 100},
-            {field: 'bowl_sum', title: '碗数', width: 100},
-            {field: 'bowl_distance', title: '碗距', width: 100},
-            {field: 'in_diameter', title: '内径', width: 100},
-            {field: 'out_diameter', title: '外径', width: 100},
-            {field: 'slot', title: '是否开槽', width: 100},
-            {field: 'today_price', title: '当日报价', width: 100},
+            {field: 'sulfur', title: '硫含量_%', width: 50},
+            {field: 'ash', title: '灰分_%', width: 50},
+            {field: 'volatile_matter', title: '挥发分_%', width: 50},
+            {field: 'wdr', title: '扣水率_%', width: 50},
+            {field: 'vanadium', title: '钒含量ppm', width: 50},
+            {field: 'density', title: '真密度g/cm³', width: 50},
+            {field: 'coke_content', title: '粉焦量', width: 50},
+            {field: 'coke_type', title: '类型', width: 60},
+            {field: 'today_price', title: '今日报价', width: 60},
             {field: 'remarks', title: '备注', width: 100},
-            {field: 'reporter', title: '汇报人', width: 100},
-            {field: 'create_time', title: '创建时间', width: 100},
-            {field: 'update_time', title: '更新时间', width: 100}
+            {field: 'reporter', title: '汇报人', width: 90},
+            {field: 'create_time', title: '创建时间', width: 148},
+            {field: 'update_time', title: '更新时间', width: 148}
         ]]
     });
 
     function form2Json(id) {
-
         var arr = $("#" + id).serializeArray();
         var jsonStr = "";
-
         jsonStr += '{';
         for (var i = 0; i < arr.length; i++) {
             jsonStr += '"' + arr[i].name + '":"' + arr[i].value + '",'
         }
         jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
         jsonStr += '}'
-
         var json = JSON.parse(jsonStr);
         return json;
     }
@@ -366,20 +310,20 @@
         //把form表单的内容给清空
         $('#fm').form('clear');
         //给url赋值
-        url = '/goods/Anode/insertSelective';
+        url = '/goods/PetroleumCoke/insertSelective';
     }
 
     function editUser() {
         //获得 选中的行
-        var row = $('#dg').datagrid('getSelected');
-        // 是否选中
-        if (row) {
+        var rowedit = $("#dg").datagrid('getSelected');
+        // // 是否选中
+        if (rowedit) {
             //打开窗口
             $('#dlg').dialog('open').dialog('setTitle', '信息修改');
-            //让from 表单去加载 选中行的数据
-            $('#fm').form('load', row);
+            //让form表单去加载 选中行的数据
+            $('#fm').form('load', rowedit);
             //修改的地址
-            url = '/goods/Anode/updateByPKSelective';
+            url = '/goods/PetroleumCoke/updateByPKSelective';
         }
     }
 
@@ -390,7 +334,6 @@
                 return $(this).form('validate');
             },
             success: function (result) {
-
                 if (result > 0) {
                     $.messager.alert('操作结果', '成功');
                     //关闭添加新闻窗口
@@ -406,19 +349,16 @@
 
     function removeUser() {
         //获得选中记录 多选
-        var row = $('#dg').datagrid('getSelections');
-        console.log("row(s) -> " + JSON.stringify(row));
-        if (row) {
+        var rows = $('#dg').datagrid('getSelections');
+        if (rows) {
             $.messager.confirm('确认按钮', '你确定要删除该数据?', function (r) {
                 if (r) {
-
                     var ids = [];
-                    for (var i = 0; i < row.length; i++) {
-                        ids.push(row[i].id);
+                    for (var i = 0; i < rows.length; i++) {
+                        ids.push(rows[i].id);
                     }
-
                     $.ajax({
-                        url: '/goods/Anode/deleteBatchByPKs',
+                        url: '/goods/PetroleumCoke/deleteBatchByPKs',
                         dataType: 'json',
                         data: {'ids': ids},
                         type: 'POST',
@@ -441,14 +381,13 @@
 
     $("#submit_search").click(function () {
         beforeSearch();
-        $('#dg').datagrid({url: "/goods/Anode/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
+        $('#dg').datagrid({url: "/goods/PetroleumCoke/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
     });
 
     //先判定每个checkbox是否选定,如果选定了的获取其中两个select两个input的value,赋值给原input的value
     function beforeSearch() {
         //声明多input条件查询字段id数组
-        var indexArr = ['e_densityCK', 'true_densityCK', 'compressiveCK', 'carbonCK', 'flexuralCK', 'roomCK', 'thermalCK', 'ashCK',
-            'bowl_sumCK','bowl_distanceCK','in_diameterCK','out_diameterCK','today_priceCK'];
+        var indexArr = ['sulfurCK', 'ashCK', 'volatile_matterCK', 'wdrCK', 'vanadiumCK', 'densityCK', 'coke_contentCK', 'today_priceCK'];
         for (var i in indexArr) {
             var box = (document.getElementById(indexArr[i]));
             if (box.checked) {
@@ -479,10 +418,9 @@
         //获得选中记录 多选
         var row = $('#dg').datagrid('getSelections');
         //去除不需要导出的实体字段
-        var deleteKey = ['b_time', 'e_time', 'order', 's_e_density', 's_true_density',
-            's_compressive', 's_carbon', 's_flexural', 's_room', 's_thermal','s_ash',
-            's_size','s_bowl_sum','s_bowl_distance','s_in_diameter','s_out_diameter',
-            's_slot','s_today_price'];
+        var deleteKey = ['b_time', 'e_time', 'order', 's_sulfur', 's_ash',
+            's_volatile_matter', 's_wdr', 's_vanadium', 's_density', 's_coke_content',
+            's_today_price'];
         for (var i in row) {
             for (var j in deleteKey) {
                 delete row[i][deleteKey[j]];
@@ -524,44 +462,32 @@
             // content[item.position] = {v: item.value};
             if (item.value == 'id') {
                 content[item.position] = {v: '序列号'};
+            } else if (item.value == 'grade') {
+                content[item.position] = {v: '品级'};
             } else if (item.value == 'province') {
                 content[item.position] = {v: '省份'};
             } else if (item.value == 'company') {
                 content[item.position] = {v: '企业'};
             } else if (item.value == 's_company') {
                 content[item.position] = {v: '简称'};
-            } else if (item.value == 'e_density') {
-                content[item.position] = {v: '表现密度g/cm³'};
-            } else if (item.value == 'true_density') {
-                content[item.position] = {v: '真密度g/cm³'};
-            } else if (item.value == 'compressive') {
-                content[item.position] = {v: '耐压强度MPa'};
-            } else if (item.value == 'carbon') {
-                content[item.position] = {v: '二氧化碳反应性%'};
-            } else if (item.value == 'flexural') {
-                content[item.position] = {v: '抗折强度MPa'};
-            } else if (item.value == 'room') {
-                content[item.position] = {v: '室温电阻率µ.Ω.m'};
-            } else if (item.value == 'thermal') {
-                content[item.position] = {v: '热膨胀系数'};
+            } else if (item.value == 'sulfur') {
+                content[item.position] = {v: '硫含量%'};
             } else if (item.value == 'ash') {
                 content[item.position] = {v: '灰分%'};
+            } else if (item.value == 'volatile_matter') {
+                content[item.position] = {v: '挥发分%'};
+            } else if (item.value == 'wdr') {
+                content[item.position] = {v: '扣水率%'};
+            } else if (item.value == 'vanadium') {
+                content[item.position] = {v: '钒含量ppm'};
+            } else if (item.value == 'density') {
+                content[item.position] = {v: '真密度g/cm³'};
+            } else if (item.value == 'coke_content') {
+                content[item.position] = {v: '粉焦量'};
+            } else if (item.value == 'coke_type') {
+                content[item.position] = {v: '类型'};
             } else if (item.value == 'today_price') {
                 content[item.position] = {v: '今日报价(元)'};
-            } else if (item.value == 'size') {
-                content[item.position] = {v: '尺寸(长宽高)'};
-            } else if (item.value == 'bowl_sum') {
-                content[item.position] = {v: '碗数'};
-            } else if (item.value == 'bowl_distance') {
-                content[item.position] = {v: '碗距mm'};
-            } else if (item.value == 'in_diameter') {
-                content[item.position] = {v: '内径mm'};
-            } else if (item.value == 'out_diameter') {
-                content[item.position] = {v: '外径mm'};
-            } else if (item.value == 'slot') {
-                content[item.position] = {v: '是/否开槽'};
-            } else if (item.value == 'today_price') {
-                content[item.position] = {v: '今日价格'};
             } else if (item.value == 'remarks') {
                 content[item.position] = {v: '备注'};
             } else if (item.value == 'reporter') {
@@ -583,7 +509,6 @@
                 "1": Object.assign({}, content, {"!ref": coordinate[0] + ":" + coordinate[coordinate.length - 1]}),
             }
         };
-
 
         //这里的数据是用来定义导出的格式类型
         var excelData = XLSX.write(workBook, {bookType: "xlsx", bookSST: false, type: "binary"});
@@ -622,13 +547,15 @@
         return s;
     }
 
+    //2019-2-27 更改搜索条件样式
+
     /*上传excel的窗口打开操作*/
     function uploadidalogonline() {
         $('#uploadonlineinfo').window('open').dialog('setTitle', '文件上传');
     }
 
     //上传文件
-    $("#uploadBtn").click(uploadonline);
+    $("#uploadBtn").click(uploadonline);//方法在下
     function uploadonline() {
 
         // var add = '/excel/importExcel';
@@ -639,8 +566,9 @@
         console.log(formData);
         // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
         $.ajax({
-            url: '/excel/importExcel?instance=' + "阳极",
+            url: '/excel/importExcel?instance=' + "石油焦",
             type: 'POST',
+            // data: {"uploadFile":formData,"instance":"石油焦"},
             data: formData,
             async: false,
             cache: false,
@@ -665,6 +593,7 @@
 </script>
 
 <script type="text/javascript" th:inline="none">
+
     /*指标窗口打开操作*/
     function showIndexSearchFrame() {
         $('#theIndexSearchFrame').window('open').dialog('setTitle', '指标查询');
@@ -677,11 +606,6 @@
                 // testalert();
             }
         });
-    }
-
-    //图表和表单展示切换
-    function chartAndTable(){
-        window.location.href="/easy/goods/anode_charts";
     }
 
 </script>

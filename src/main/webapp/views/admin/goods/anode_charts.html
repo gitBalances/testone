@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!--正式数据-->
+<html lang="en" style="height: 100%" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" style="height: 100%" >-->
+<!--指定公共引入页面,引入静态资源-->
+<!--<head th:include="admin/data/common/commonjscss">-->
+<head>
+    <meta charset="UTF-8">
+    <title>阳极图表</title>
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/getParam.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
+    <script src="/js/petroleum.js"></script>
+
+
+</head>
+<body>
+<a href="/admin/goods/anode">返回表单</a>
+
+<button onclick="setChartType(1)">曲线图模式</button>
+<button onclick="setChartType(2)">柱状图模式</button>
+<!--test-->
+<div id="test" class="chart"></div>
+
+<style>
+    .chart {
+        width: 100%;
+        height: 600px;
+    }
+</style>
+
+
+
+
+
+<!--<button onclick="setOrderType(0)">时间正序查看</button>-->
+<!--<button onclick="setOrderType(1)">时间倒序查看</button>-->
+
+</body>
+
+
+<script>
+
+
+    /*声明创建货品类型数组*/
+    var goodsType = ['PetroleumCoke', 'CalcinedCoke', 'MAsphalt', 'Anode'];
+    /*声明创建ECharts对象*/
+    var myChart = echarts.init(document.getElementById("test"));
+
+    myChartDefalut();
+
+    var goodsTypeIndex = null;
+    var selectOrder = 0;
+    var ChartType = 0;
+    var thisChartType = null;
+
+    function initDefaultChartType(){
+        return "line";
+    }
+
+    function setChartType(chartType) {
+        if (chartType === 1 && chartType !== ChartType) {
+            ChartType = chartType;
+            thisChartType = "line"; //曲线图
+            if(goodsTypeIndex == null){
+                alert("请先选择一种货品进行查看.");
+                return;
+            }
+            getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
+
+        }
+        if (chartType === 2 && chartType !== ChartType) {
+            ChartType = chartType;
+            thisChartType = "bar" //柱状图
+            if(goodsTypeIndex == null){
+                alert("请先选择一种货品进行查看.");
+                return;
+            }
+            getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
+        }
+    }
+
+    /*根据传入的货品数组的下标来查询指定下标的货品类型*/
+    function setGoodsType(index) {
+        goodsTypeIndex = index;
+        getAllGoodsByType(myChart, thisChartType, index, null, null, selectOrder);
+        myChartDefalut();
+        // getAllGoodsByType(myChart,index, null, null, selectOrder);
+    }
+
+    function myChartDefalut() {
+        myChart.setOption({
+            legend: {
+                data: []
+            },
+            tooltip: {trigger: 'axis',},
+            dataset: {
+                source: {},
+                dimensions: []
+            },
+            xAxis: [
+                {
+                    type: 'category', gridIndex: 0, axisLabel: {
+                        rotate: 50, interval: 0
+                    }
+                }
+            ],
+            yAxis:
+                [
+                    {type: 'value', gridIndex: 0}
+                ],
+            grid:
+                [
+                    {bottom: '55%'},
+                    {top: '55%'}
+                ],
+            series:
+                []
+        });
+    }
+
+
+    /*设置选取的货品数据时间排序方式,asc,desc*/
+    function setOrderType(order) {
+        getAllGoodsByType(myChart, thisChartType, goodsType[goodsTypeIndex], null, null, order);
+    }
+
+
+    /*默认获取石油焦信息,可按需更改*/
+    // getAllGoodsByType(myChart,goodsType[0],null,null,);
+
+    //除了根据会员等级查询,还应该根据用户点击显示几个月,几年的按钮进行展示(timeInteval)
+    /*myChart:图表对象,goodsType:货品类型,memberLevel:用户等级,timeInterval:时间区间,selectOrder:查询排序*/
+    function getAllGoodsByType(myChart, thisChartType, index, memberLevel, timeInterval, selectOrder) {
+        if(thisChartType==null){
+            thisChartType = initDefaultChartType();
+        }
+
+        // /*获取json数据中的某一个字段*/
+        // /*获取json数据中的某一个字段*/
+        var newJson = null;
+        //获取展示形式如:
+        var newJson2 = null;
+        var newArr = [];
+        // var companys = null;
+        var companys = [];
+        var today_price = null; //今日价格汇总
+        var createTimes = null; //创建时间
+        var allData = null;
+        var option = null;
+        var url = "/goods/" + goodsType[index] + "/" + "selectGoodsByType";
+        // var companys = null;
+        // var url = "/goods/"+goodsType+"/"+"selectAll";
+        myChart.showLoading();
+        $.ajax({
+            // url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
+            url: url, //按需获取goods数据
+            data: {'order': selectOrder},
+            dataType: "json",
+            // contentType:"application/json;charset=UTF-8",
+            type: "post",
+            success: function (data) {
+
+                myChart.hideLoading(); //数据data加载后隐藏loading
+
+                // alert(JSON.stringify(data.petroleumCokes)); OK
+                // petroleumCokesJson = JSON.stringify(data); OK
+                //石油焦json数据
+                // petroleumCokesJson = data; //OK
+                // console.log("JSON.stringify(data):" + JSON.stringify(data));
+                console.log(">>data:" + JSON.stringify(data));
+                allData = data;
+                //获取公司字段,获取公司数组,去重
+                companys = getParamValues("company", data).delDuplicate();
+                // console.log(">>companys:"+companys);
+                // company[0]的所有历史价格
+                // 根据字段获取指定公司的today_price数组
+                price0 = getParamValuesByCname("today_price", data, "company", companys[0]);
+                // console.log("price0:" + price0);
+                //根据公司名查询历史价格 -> (数组)
+                /*newJson:{'华联石化':[2323,5321],'海油石化':[3000,2311],'昌邑石化':[2703,1688]}*/
+                newJson = getJsonResult("today_price", data, "company", companys);
+                // console.log("newJson:" + newJson);
+                today_price = getParamValues("today_price", data); //OK
+                // console.log(today_price); //OK
+                // alert(today_price); //OK
+                createTimes = getParamValues("create_time", data).delDuplicate();
+
+                newJson2 = getJsonResultPro("today_price", data, "company", companys, "createTimes");
+                // console.log("newJson2:" + newJson2);
+
+                //
+                newArr = getArrayResultPro("today_price", data, "company", companys, "createTime", "create_time");
+                // console.log("newArr:" + newArr);
+                var seriesContent = getSeriesContent(companys.length, thisChartType, "row");
+                // console.log("seriesContent:"+JSON.stringify(seriesContent));
+                //获取时间和公司数组填入维度
+                var dimensions = twoArrayToOne(companys, "createTime");
+                // console.log("dimensions:"+dimensions);
+
+                //legendData 展示公司名称数组,在切换其它货品信息时,不能有效地获取companys
+                var legendData = companys.map(String);
+
+
+                option = {
+                    legend: {
+                        data: legendData
+                    },
+                    tooltip: {trigger: 'axis',},
+                    // dataset:{
+                    //     source:
+                    //     newJson2
+                    // },
+                    dataset: {
+                        //Array形式
+                        source: newArr,
+                        dimensions: dimensions
+                        // dimensions: [
+                        //     'createTime',
+                        //     'A公司',
+                        //     'B企业',
+                        //     'C公司',
+                        //     // 'sulfur1',
+                        //     // 'sulfur2',
+                        //     // 'sulfur3',
+                        //     // '2012',
+                        // ]
+
+                    },
+                    xAxis: [
+                        {
+                            type: 'category', gridIndex: 0, axisLabel: {
+                                rotate: 50, interval: 0
+                            }
+                        }
+                        // {gridIndex: 0},
+                        // {
+                        //     type: 'category',
+                        //
+                        //     // data:createTimes,
+                        //     // axisLabel: {
+                        //     //    rotate: 50, interval: 0
+                        //     // }
+                        // },
+                        // {type: 'category', gridIndex: 1}
+                    ],
+                    yAxis:
+                        [
+                            {type: 'value', gridIndex: 0}
+                            // {gridIndex: 0},
+                            //
+                            // {
+                            //     // type:'value',
+                            //     // gridIndex: 0, axisLabel: {
+                            //     //     rotate: 0, interval: 0,
+                            //     //     // formatter: function (value) {
+                            //     //     //     return value + '元'
+                            //     //     // }
+                            //     // }
+                            // },
+                            // {gridIndex: 1}
+                        ],
+                    grid:
+                        [
+                            {bottom: '55%'},
+                            {top: '55%'}
+                        ],
+                    series:
+                    seriesContent
+                };
+                myChart.setOption(option);
+            },
+            error:function(){
+                alert("获取数据失败,请先登录.");
+                window.location.href="/member/login";
+            }
+        });
+
+
+    }
+
+
+    setGoodsType(3);
+
+</script>
+
+
+</html>
