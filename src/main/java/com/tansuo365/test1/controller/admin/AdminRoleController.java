@@ -3,6 +3,7 @@ package com.tansuo365.test1.controller.admin;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.util.StringUtil;
+import com.tansuo365.test1.bean.log.LogEnum;
 import com.tansuo365.test1.bean.user.EMenu;
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.RoleMenu;
@@ -10,6 +11,7 @@ import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserRoleService;
+import com.tansuo365.test1.util.LogUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 
@@ -34,6 +37,10 @@ public class AdminRoleController {
     private EMenuService eMenuService;
     @Autowired
     private RoleMenuService roleMenuService;
+    @Autowired
+    private LogUtils logUtils;
+
+    final private String ADMIN_ROLE = "admin_role";
     /**
      * 查询所有角色 静态
      * @return
@@ -42,9 +49,11 @@ public class AdminRoleController {
     @ApiOperation(value="查询所有系统角色", notes="查询所有系统角色listAllRoles")
     @RequestMapping("/listAllRoles")
     @RequiresPermissions(value = {"系统角色管理"})
-    public Map<String,Object> listAll()throws Exception{
+    public Map<String,Object> listAll(HttpSession session)throws Exception{
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("rows", roleService.list());
+        List<Role> list = roleService.list();
+        logUtils.doLog(list,0,LogEnum.SEARCH_ACTION,ADMIN_ROLE,session);
+        resultMap.put("rows", list);
         return resultMap;
     }
 
@@ -53,9 +62,10 @@ public class AdminRoleController {
     @ApiOperation(value="动态查询所有系统角色", notes="动态查询所有系统角色listAllRoleSelective")
     @RequestMapping("/listAllRoleSelective")
     @RequiresPermissions(value = {"系统角色管理"})
-    public Map<String,Object> listAllRoleSelective(Role role)throws Exception{
+    public Map<String,Object> listAllRoleSelective(HttpSession session,Role role)throws Exception{
         Map<String, Object> resultMap = new HashMap<>();
         List<Role> roles = roleService.listSelective(role);
+        logUtils.doLog(roles,0,LogEnum.SEARCH_ACTION,ADMIN_ROLE,session);
         resultMap.put("rows",roles);
         return resultMap;
     }
@@ -64,7 +74,7 @@ public class AdminRoleController {
     @ApiOperation(value="新增或更改角色信息", notes="新增或更改角色信息")
     @RequestMapping("/saveRole")
     @RequiresPermissions(value = {"系统角色管理"})
-    public Map<String,Object> saveRole(Role role) {
+    public Map<String,Object> saveRole(HttpSession session, Role role) {
         Map<String,Object> resultMap = new HashMap<>();
 
         if(role.getId()==null){ //如果role的id为null,再判定role名称是否重复
@@ -84,14 +94,22 @@ public class AdminRoleController {
         int insertCode = 0;
         if(role.getId()!=null){ //不为空,则要进行升级管理员user信息
             updateCode = roleService.update(role);
-            resultMap.put("saveMessage","管理员角色更新成功!");
         }else{ //为空,则说明是要注册新的管理员user
             insertCode = roleService.addSelective(role);
-            resultMap.put("saveMessage","管理员角色添加成功!");
+
         }
         /*如果更新code或者插入code成功状态则success true,否则不是*/
-        if(updateCode==1 || insertCode==1){
+        if(updateCode == 1){
+            resultMap.put("saveMessage","管理员角色更新成功!");
             resultMap.put("success",true);
+            logUtils.doLog(null,updateCode,LogEnum.UPDATE_ACTION,ADMIN_ROLE,session);
+        }
+        if (insertCode==1){
+            resultMap.put("saveMessage","管理员角色添加成功!");
+            resultMap.put("success",true);
+            logUtils.doLog(null,updateCode,LogEnum.ADD_ACTION,ADMIN_ROLE,session);
+        }
+        if(updateCode==1 || insertCode==1){
             return resultMap;
         }else{
             resultMap.put("success",false);
@@ -109,12 +127,13 @@ public class AdminRoleController {
     @ApiOperation(value="删除角色", notes="删除角色根据ID")
     @RequestMapping("/deleteRoleById")
     @RequiresPermissions(value = {"系统角色管理"})
-    public Map<String,Object> deleteRoleById(Long id)throws Exception{
+    public Map<String,Object> deleteRoleById(HttpSession session,Long id)throws Exception{
         Map<String, Object> resultMap = new HashMap<>();
         userRoleService.deleteByRole(id); // 删除用户角色关联信息
         int deleteCode = roleService.delete(id);
         if(deleteCode==1){
             resultMap.put("success",true);
+            logUtils.doLog(null,deleteCode,LogEnum.DELETE_ACTION,ADMIN_ROLE,session);
         }else{
             resultMap.put("success",false);
             resultMap.put("errorInfo","删除失败了");
@@ -205,31 +224,43 @@ public class AdminRoleController {
     @ApiOperation(value="保存角色权限设置", notes="保存角色权限设置根据给定菜单ids,角色id")
     @RequestMapping("/saveMenuSet")
     @RequiresPermissions(value = {"系统角色管理"})
-    public Map<String,Object> saveMenuSet(String menuIds,Integer roleId){
+    public Map<String,Object> saveMenuSet(HttpSession session,String menuIds,Integer roleId){
+
+        System.out.println("inSaveMenuSet,menuIds:"+menuIds);
+        String message = "";
         Map<String,Object> resultMap = new HashMap<>();
         int deleteCode = roleMenuService.deleteByRoleId(roleId);
         if(deleteCode == 1){
             //根据roleId删除roleMenu数据ok
+//            message = "剔除角色权限成功/";
         }
         int insertCode = 0;
         int count = 0;
+
+
         if(StringUtil.isNotEmpty(menuIds)){
             String idsStr[] = menuIds.split(",");
             for(int i=0;i<idsStr.length;i++){
                 RoleMenu roleMenu = new RoleMenu();
+
                 //设置传入的roleid到role_menu表
                 roleMenu.setRole_id(roleId);
                 roleMenu.setMenu_id(Integer.parseInt(idsStr[i]));
                 int code = roleMenuService.saveRoleMenu(roleMenu);
                 insertCode += code;
                 count ++;
+
             }
         }
         if(insertCode==count && insertCode!=0){
             resultMap.put("success",true);
+            message = "保存角色权限成功";
+            resultMap.put("message",message);
+            logUtils.doLog(null,insertCode,LogEnum.ADD_ACTION,ADMIN_ROLE,session);
             return resultMap;
         }else{
             resultMap.put("success",false);
+            resultMap.put("message","保存角色权限设置失败.");
             return resultMap;
         }
     }

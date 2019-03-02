@@ -13,7 +13,7 @@
         <result column="density" jdbcType="DOUBLE" property="density"/>
         <result column="p_resistivity" jdbcType="VARCHAR" property="p_resistivity"/>
         <result column="vanadium" jdbcType="DOUBLE" property="vanadium"/>
-        <result column="granularity" jdbcType="DOUBLE" property="granularity"/>
+        <result column="granularity" jdbcType="VARCHAR" property="granularity"/>
         <result column="today_price" jdbcType="DOUBLE" property="today_price"/>
         <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
@@ -201,7 +201,7 @@
                 and vanadium ${s_vanadium}
             </if>
             <if test="s_granularity != null and s_granularity != '' ">
-                and granularity ${s_granularity}
+                and  ${s_granularity}
             </if>
             <if test="s_today_price != null and s_today_price != '' ">
                 and today_price ${s_today_price}
@@ -252,7 +252,7 @@
     values (#{province,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{s_company,jdbcType=VARCHAR}, 
       #{sulfur,jdbcType=DOUBLE}, #{ash,jdbcType=DOUBLE}, #{volatile_matter,jdbcType=DOUBLE}, 
       #{water,jdbcType=DOUBLE}, #{density,jdbcType=DOUBLE}, #{p_resistivity,jdbcType=VARCHAR}, 
-      #{vanadium,jdbcType=DOUBLE}, #{granularity,jdbcType=DOUBLE}, #{today_price,jdbcType=DOUBLE}, 
+      #{vanadium,jdbcType=DOUBLE}, #{granularity,jdbcType=VARCHAR}, #{today_price,jdbcType=DOUBLE},
       #{remarks,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, 
       #{expand_1,jdbcType=BIT}, #{expand_2,jdbcType=BIT}, #{expand_3,jdbcType=BIT}, #{reporter,jdbcType=VARCHAR}
       )
@@ -272,7 +272,7 @@
             #{list.company,jdbcType=VARCHAR}, #{list.s_company,jdbcType=VARCHAR},
             #{list.sulfur,jdbcType=DOUBLE}, #{list.ash,jdbcType=DOUBLE}, #{list.volatile_matter,jdbcType=DOUBLE},
             #{list.water,jdbcType=DOUBLE}, #{list.density,jdbcType=DOUBLE}, #{list.p_resistivity,jdbcType=VARCHAR},
-            #{list.vanadium,jdbcType=DOUBLE}, #{list.granularity,jdbcType=DOUBLE}, #{list.today_price,jdbcType=DOUBLE},
+            #{list.vanadium,jdbcType=DOUBLE}, #{list.granularity,jdbcType=VARCHAR}, #{list.today_price,jdbcType=DOUBLE},
             #{list.remarks,jdbcType=VARCHAR}, #{list.reporter,jdbcType=VARCHAR}, #{list.create_time,jdbcType=TIMESTAMP},
             #{list.update_time,jdbcType=TIMESTAMP}
             )
@@ -365,7 +365,7 @@
                 #{vanadium,jdbcType=DOUBLE},
             </if>
             <if test="granularity != null and granularity != '' ">
-                #{granularity,jdbcType=DOUBLE},
+                #{granularity,jdbcType=VARCHAR},
             </if>
             <if test="today_price != null and today_price != '' ">
                 #{today_price,jdbcType=DOUBLE},
@@ -429,7 +429,7 @@
                 vanadium = #{record.vanadium,jdbcType=DOUBLE},
             </if>
             <if test="record.granularity != null">
-                granularity = #{record.granularity,jdbcType=DOUBLE},
+                granularity = #{record.granularity,jdbcType=VARCHAR},
             </if>
             <if test="record.today_price != null">
                 today_price = #{record.today_price,jdbcType=DOUBLE},
@@ -473,7 +473,7 @@
         density = #{record.density,jdbcType=DOUBLE},
         p_resistivity = #{record.p_resistivity,jdbcType=VARCHAR},
         vanadium = #{record.vanadium,jdbcType=DOUBLE},
-        granularity = #{record.granularity,jdbcType=DOUBLE},
+        granularity = #{record.granularity,jdbcType=VARCHAR},
         today_price = #{record.today_price,jdbcType=DOUBLE},
         remarks = #{record.remarks,jdbcType=VARCHAR},
         create_time = #{record.create_time,jdbcType=TIMESTAMP},
@@ -521,7 +521,7 @@
                 vanadium = #{vanadium,jdbcType=DOUBLE},
             </if>
             <if test="granularity != null and granularity != '' ">
-                granularity = #{granularity,jdbcType=DOUBLE},
+                granularity = #{granularity,jdbcType=VARCHAR},
             </if>
             <if test="today_price != null and today_price != '' ">
                 today_price = #{today_price,jdbcType=DOUBLE},
@@ -555,7 +555,7 @@
       density = #{density,jdbcType=DOUBLE},
       p_resistivity = #{p_resistivity,jdbcType=VARCHAR},
       vanadium = #{vanadium,jdbcType=DOUBLE},
-      granularity = #{granularity,jdbcType=DOUBLE},
+      granularity = #{granularity,jdbcType=VARCHAR},
       today_price = #{today_price,jdbcType=DOUBLE},
       remarks = #{remarks,jdbcType=VARCHAR},
       create_time = #{create_time,jdbcType=TIMESTAMP},

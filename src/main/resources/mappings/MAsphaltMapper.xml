@@ -6,9 +6,9 @@
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="company" jdbcType="VARCHAR" property="company"/>
         <result column="s_company" jdbcType="VARCHAR" property="s_company"/>
-        <result column="softening_point" jdbcType="DOUBLE" property="softening_point"/>
-        <result column="toluene" jdbcType="DOUBLE" property="toluene"/>
-        <result column="quinoline" jdbcType="DOUBLE" property="quinoline"/>
+        <result column="softening_point" jdbcType="VARCHAR" property="softening_point"/>
+        <result column="toluene" jdbcType="VARCHAR" property="toluene"/>
+        <result column="quinoline" jdbcType="VARCHAR" property="quinoline"/>
         <result column="beta_resin" jdbcType="DOUBLE" property="beta_resin"/>
         <result column="coking_value" jdbcType="DOUBLE" property="coking_value"/>
         <result column="ash" jdbcType="DOUBLE" property="ash"/>
@@ -172,13 +172,13 @@
                 and create_time &lt;= #{e_time}
             </if>
             <if test="s_softening_point != null and s_softening_point != '' ">
-                and softening_point ${s_softening_point}
+                and ${s_softening_point}
             </if>
             <if test="s_toluene != null and s_toluene != '' ">
-                and toluene ${s_toluene}
+                and ${s_toluene}
             </if>
             <if test="s_quinoline != null and s_quinoline != '' ">
-                and quinoline ${s_quinoline}
+                and ${s_quinoline}
             </if>
             <if test="s_beta_resin != null and s_beta_resin != '' ">
                 and beta_resin ${s_beta_resin}
@@ -235,7 +235,7 @@
       update_time, expand_1, expand_2, 
       expand_3, reporter)
     values (#{province,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{s_company,jdbcType=VARCHAR}, 
-      #{softening_point,jdbcType=DOUBLE}, #{toluene,jdbcType=DOUBLE}, #{quinoline,jdbcType=DOUBLE}, 
+      #{softening_point,jdbcType=VARCHAR}, #{toluene,jdbcType=VARCHAR}, #{quinoline,jdbcType=VARCHAR},
       #{beta_resin,jdbcType=DOUBLE}, #{coking_value,jdbcType=DOUBLE}, #{ash,jdbcType=DOUBLE}, 
       #{today_price,jdbcType=DOUBLE}, #{remarks,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, 
       #{update_time,jdbcType=TIMESTAMP}, #{expand_1,jdbcType=BIT}, #{expand_2,jdbcType=BIT}, 
@@ -253,7 +253,8 @@
         values
         <foreach collection="list" item="list" index="index" separator=",">
             (#{list.province,jdbcType=VARCHAR}, #{list.company,jdbcType=VARCHAR}, #{list.s_company,jdbcType=VARCHAR},
-            #{list.softening_point,jdbcType=DOUBLE}, #{list.toluene,jdbcType=DOUBLE}, #{list.quinoline,jdbcType=DOUBLE},
+            #{list.softening_point,jdbcType=VARCHAR}, #{list.toluene,jdbcType=VARCHAR},
+            #{list.quinoline,jdbcType=VARCHAR},
             #{list.beta_resin,jdbcType=DOUBLE}, #{list.coking_value,jdbcType=DOUBLE}, #{list.ash,jdbcType=DOUBLE},
             #{list.today_price,jdbcType=DOUBLE}, #{list.remarks,jdbcType=VARCHAR}, #{list.reporter,jdbcType=VARCHAR},
             #{list.create_time,jdbcType=TIMESTAMP},#{list.update_time,jdbcType=TIMESTAMP}
@@ -320,13 +321,13 @@
                 #{s_company,jdbcType=VARCHAR},
             </if>
             <if test="softening_point != null and softening_point != '' ">
-                #{softening_point,jdbcType=DOUBLE},
+                #{softening_point,jdbcType=VARCHAR},
             </if>
             <if test="toluene != null and toluene != '' ">
-                #{toluene,jdbcType=DOUBLE},
+                #{toluene,jdbcType=VARCHAR},
             </if>
             <if test="quinoline != null and quinoline != '' ">
-                #{quinoline,jdbcType=DOUBLE},
+                #{quinoline,jdbcType=VARCHAR},
             </if>
             <if test="beta_resin != null and beta_resin != '' ">
                 #{beta_resin,jdbcType=DOUBLE},
@@ -380,13 +381,13 @@
                 s_company = #{record.s_company,jdbcType=VARCHAR},
             </if>
             <if test="record.softening_point != null">
-                softening_point = #{record.softening_point,jdbcType=DOUBLE},
+                softening_point = #{record.softening_point,jdbcType=VARCHAR},
             </if>
             <if test="record.toluene != null">
-                toluene = #{record.toluene,jdbcType=DOUBLE},
+                toluene = #{record.toluene,jdbcType=VARCHAR},
             </if>
             <if test="record.quinoline != null">
-                quinoline = #{record.quinoline,jdbcType=DOUBLE},
+                quinoline = #{record.quinoline,jdbcType=VARCHAR},
             </if>
             <if test="record.beta_resin != null">
                 beta_resin = #{record.beta_resin,jdbcType=DOUBLE},
@@ -433,9 +434,9 @@
         province = #{record.province,jdbcType=VARCHAR},
         company = #{record.company,jdbcType=VARCHAR},
         s_company = #{record.s_company,jdbcType=VARCHAR},
-        softening_point = #{record.softening_point,jdbcType=DOUBLE},
-        toluene = #{record.toluene,jdbcType=DOUBLE},
-        quinoline = #{record.quinoline,jdbcType=DOUBLE},
+        softening_point = #{record.softening_point,jdbcType=VARCHAR},
+        toluene = #{record.toluene,jdbcType=VARCHAR},
+        quinoline = #{record.quinoline,jdbcType=VARCHAR},
         beta_resin = #{record.beta_resin,jdbcType=DOUBLE},
         coking_value = #{record.coking_value,jdbcType=DOUBLE},
         ash = #{record.ash,jdbcType=DOUBLE},
@@ -465,13 +466,13 @@
                 s_company = #{s_company,jdbcType=VARCHAR},
             </if>
             <if test="softening_point != null and softening_point != '' ">
-                softening_point = #{softening_point,jdbcType=DOUBLE},
+                softening_point = #{softening_point,jdbcType=VARCHAR},
             </if>
             <if test="toluene != null and toluene != '' ">
-                toluene = #{toluene,jdbcType=DOUBLE},
+                toluene = #{toluene,jdbcType=VARCHAR},
             </if>
             <if test="quinoline != null and quinoline != '' ">
-                quinoline = #{quinoline,jdbcType=DOUBLE},
+                quinoline = #{quinoline,jdbcType=VARCHAR},
             </if>
             <if test="beta_resin != null and beta_resin != '' ">
                 beta_resin = #{beta_resin,jdbcType=DOUBLE},
@@ -507,9 +508,9 @@
     set province = #{province,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR},
       s_company = #{s_company,jdbcType=VARCHAR},
-      softening_point = #{softening_point,jdbcType=DOUBLE},
-      toluene = #{toluene,jdbcType=DOUBLE},
-      quinoline = #{quinoline,jdbcType=DOUBLE},
+      softening_point = #{softening_point,jdbcType=VARCHAR},
+      toluene = #{toluene,jdbcType=VARCHAR},
+      quinoline = #{quinoline,jdbcType=VARCHAR},
       beta_resin = #{beta_resin,jdbcType=DOUBLE},
       coking_value = #{coking_value,jdbcType=DOUBLE},
       ash = #{ash,jdbcType=DOUBLE},

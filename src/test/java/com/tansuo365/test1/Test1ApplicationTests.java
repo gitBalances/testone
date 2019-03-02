@@ -72,5 +72,9 @@ public class Test1ApplicationTests {
 
     }
 
+
+    public void testMenuId(){
+    }
+
 }
 

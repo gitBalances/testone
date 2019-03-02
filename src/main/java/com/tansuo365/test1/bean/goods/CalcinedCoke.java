@@ -44,7 +44,7 @@ public class CalcinedCoke implements Serializable, Goods {
     @ExcelCell(index = 9)
     private Double vanadium;
     @ExcelCell(index = 10)
-    private Double granularity;
+    private String granularity;//粒度改为String VARCHAR
     @ExcelCell(index = 11)
     private Double today_price;
     @ExcelCell(index = 12)

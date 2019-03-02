@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tansuo365.test1.bean.user.EMenu;
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.User;
+import com.tansuo365.test1.service.redis.RedisService;
 import com.tansuo365.test1.service.user.EMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserService;
@@ -30,7 +31,7 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
-@Api(value = "管理员登录控制层",description = "管理员登录,包括获取树形结构菜单")
+@Api(value = "管理员登录控制层", description = "管理员登录,包括获取树形结构菜单")
 @RequestMapping("/admin")
 @Controller
 public class AdminLoginController {
@@ -40,8 +41,10 @@ public class AdminLoginController {
     private RoleService roleService;
     @Autowired
     private EMenuService eMenuService;
+    @Autowired
+    private RedisService redisService;
 
-    @ApiOperation(value="/login登录页", notes="返回/admin下login.html")
+    @ApiOperation(value = "/login登录页", notes = "返回/admin下login.html")
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "/admin/login"; //对应用户登录展示
@@ -54,7 +57,7 @@ public class AdminLoginController {
      * @param
      * @return
      */
-    @ApiOperation(value="登录请求POST", notes="登录请求POST,通过shiro进行鉴权")
+    @ApiOperation(value = "登录请求POST", notes = "登录请求POST,通过shiro进行鉴权")
     @ResponseBody
     @RequestMapping(value = "/loginAdmin", method = RequestMethod.POST)
     public Map<String, Object> login(String username, String password, String rememberMe, HttpSession session) {
@@ -71,9 +74,14 @@ public class AdminLoginController {
             User user = userService.getByName(userName);
 //            Session session = currentUser.getSession();
             session.setAttribute("currentUser", user);
+
+            List<Role> roleList = roleService.listRolesByUserId(user.getId());//最新
+
+            //从缓存中获取查看是否已经有该用户的roleList
             /*通过用户名查询角色list*/
-            List<Role> roleList = roleService.listRolesByUserId(user.getId());
             roleList.remove(null);// TODO 会有null,异常
+            redisService.set(user.getName() + "_roleList", roleList);//redis存储该user有哪些roles
+
 //            for(Role role:roleList){
 //                System.out.println("LoginController.roleName:"+role.getName());
 //            }
@@ -149,16 +157,27 @@ public class AdminLoginController {
      * @param parentId
      * @return
      */
-    @ApiOperation(value="读取系统菜单", notes="[待改善]树形结构,根据roleid按需获取,而不是显示没有权限访问")
-    @Cacheable(value = "allMenu", key = "#session.getAttribute('currentUser').toString()+#session.getAttribute('roleList').toString()", condition = "#parentId !=  '' ")
+    @ApiOperation(value = "读取系统菜单", notes = "[待改善]树形结构,根据roleid按需获取,而不是显示没有权限访问")
+    //使用会员实例+roleList为key,当变动role时,更新allMenu
+//    @Cacheable(value = "allMenu", key = "#session.getAttribute('currentUser').toString()+#session.getAttribute('roleList').toString()", condition = "#parentId !=  '' ")
     @ResponseBody
     @RequestMapping("/loadMenuInfo")
     @RequiresAuthentication
     @RequiresPermissions("系统菜单")
     public String loadMenuInfo(HttpSession session, Integer parentId) {
 //        Role currentRole = (Role)session.getAttribute("currentRole");
-        System.out.println("读取系统菜单,仅对该用户执行一次");
-        List<Role> roleList = (List<Role>) session.getAttribute("roleList");
+        System.out.println("读取系统菜单中");
+//        List<Role> roleList = (List<Role>) session.getAttribute("roleList");
+//        redisService.get("")
+//        User currentUser =(User) session.getAttribute("currentUser");
+        List<Role> roleList =(List<Role>) session.getAttribute("roleList");
+
+
+//        User currentUser = (User) session.getAttribute("currentUser");
+//        String redisRoles = currentUser.getName() + "_roleList";
+//        String currentUserRoles = session.getAttribute("roleList").toString();
+        //查看roleList是否是没有更新,没有更新则走redis,否则执行操作.并将结果放入缓存
+//        redisService.set(redisKey, currentUserRoles);
 
 
         Long[] ids = new Long[roleList.size()];
@@ -175,6 +194,9 @@ public class AdminLoginController {
         Long[] idsNew = new Long[1];
         idsNew[0] = 1L;
         String allMenu = getAllMenuByParentIdAndSingleRoleId(parentId, idsNew[0]).toString();
+
+//        redisService.set(currentUser.getName(),allMenu);//redis保存当前用户及对应的menu菜单
+
         return allMenu;
 //        if (ids.length == 1) {
 //            return getAllMenuByParentIdAndSingleRoleId(parentId, ids[0]).toString();
@@ -190,11 +212,11 @@ public class AdminLoginController {
     }
 
     //根据多个roleid获取EMenu(已去重复EMenu)
-    private JSONArray getAllMenuByParentId(Integer parentId, Long[] ids,int j) { //<<<<<<<<<<
+    private JSONArray getAllMenuByParentId(Integer parentId, Long[] ids, int j) { //<<<<<<<<<<
 
         JSONArray jsonArray = null;
         first:
-        for (int k=j;k<ids.length;j++) { //如2个角色该for循环2次
+        for (int k = j; k < ids.length; j++) { //如2个角色该for循环2次
             //先获取如role5的角色以及对应parentid的emenu
             Long id = ids[k];
 //            System.out.println("forTIme:ID"+id);
@@ -211,7 +233,7 @@ public class AdminLoginController {
                     //-1,10
                     //如果有根节点[0],通过根节点的id即parentid,获取之下的子节点菜单
 //                for(int j=0;j<ids.length;j++){
-                    jsonObject.put("children", getAllMenuByParentId((Integer) jsonObject.get("id"), ids,j));
+                    jsonObject.put("children", getAllMenuByParentId((Integer) jsonObject.get("id"), ids, j));
 //                }
                 }
             }
@@ -241,7 +263,7 @@ public class AdminLoginController {
             jsonObject.put("attributes", attributeObject);
             jsonArray.add(jsonObject);
         }
-        System.out.println("findByParentIdAndRoleIdArr:getEmenuList:jsonArray:"+jsonArray);
+        System.out.println("findByParentIdAndRoleIdArr:getEmenuList:jsonArray:" + jsonArray);
         return jsonArray;
     }
 
@@ -278,8 +300,10 @@ public class AdminLoginController {
     private JSONArray getMenuByParentIdAndSingleRoleId(Integer parentId, Long roleId) {
         List<EMenu> eMenuList = eMenuService.findByParentIdAndSingleRoleId(parentId, roleId);
         JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = null;
+
         for (EMenu eMenu : eMenuList) {
-            JSONObject jsonObject = new JSONObject();
+            jsonObject = new JSONObject();
             jsonObject.put("id", eMenu.getId());//节点id
             jsonObject.put("text", eMenu.getName());//节点名称
             if (eMenu.getState() == 1) {//根节点
@@ -293,7 +317,7 @@ public class AdminLoginController {
             jsonObject.put("attributes", attributeObject);
             jsonArray.add(jsonObject);
         }
-        System.out.println("findByParentIdAndSingleRoleId:getEmenuList:jsonArray:"+jsonArray);
+        System.out.println("findByParentIdAndSingleRoleId:getEmenuList:jsonArray:" + jsonArray);
         return jsonArray;
     }
 

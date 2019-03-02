@@ -89,7 +89,7 @@
   <select id="getBySelective" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from log_user
+    from log_member
     <where>
       <if test="id != null and id != '' ">
         id = #{id}

@@ -142,9 +142,13 @@ public class GoodsUtils {
 
     }
 
+    //煅后焦数据的转换
     private void checkIndexParams1(CalcinedCoke calcinedCoke, String s_sulfur, String s_ash, String s_v_matter,
                                    String s_water, String s_density, String s_p_resistivity, String s_vanadium,
                                    String s_granularity, String s_price) {
+        //区间字段s_granularity
+        //输入最小值,则查最小;输入最大值,则查最大,两边都查,则两边都进行查询
+
         calcinedCoke.setSearchParams(
                 columnTextTranslate(s_sulfur),
                 columnTextTranslate(s_ash),
@@ -153,7 +157,7 @@ public class GoodsUtils {
                 columnTextTranslate(s_density),
                 columnTextTranslate(s_p_resistivity),
                 columnTextTranslate(s_vanadium),
-                columnTextTranslate(s_granularity),
+                columnTextTranslateRegion(s_granularity),//区间
                 columnTextTranslate(s_price)
         );
 
@@ -162,10 +166,12 @@ public class GoodsUtils {
     private void checkIndexParams2(MAsphalt mAsphalt, String s_spoint, String s_toluene,
                                    String s_quinoline, String s_beta_resin, String s_c_value,
                                    String s_ash, String s_price) {
+        //区间字段s_spoint,s_toluene,s_quinoline
+        //输入最小值,则查最小;输入最大值,则查最大,两边都查,则两边都进行查询
         mAsphalt.setSearchParams(
-                columnTextTranslate(s_spoint),
-                columnTextTranslate(s_toluene),
-                columnTextTranslate(s_quinoline),
+                columnTextTranslateRegion(s_spoint),//区间
+                columnTextTranslateRegion(s_toluene),//区间
+                columnTextTranslateRegion(s_quinoline),//区间
                 columnTextTranslate(s_beta_resin),
                 columnTextTranslate(s_c_value),
                 columnTextTranslate(s_ash),
@@ -260,6 +266,55 @@ public class GoodsUtils {
                     return columnText;
                 } else {
                     columnText = mathSymbolLeft + " " + valueLeft + " and " + columnTextArr[4].replace("s_", "") + " " + mathSymbolRight + " " + valueRight;
+                    return columnText;
+                }
+            }
+        }
+        return columnText;
+    }
+
+
+    //区间检索的字段判定
+    private String columnTextTranslateRegion(String columnText) {
+        if (columnText != null && columnText != "") {
+            System.out.println("columnText>>>   " + columnText);
+            String[] columnTextArr = columnText.split(":");
+            System.out.println(columnTextArr.length);
+            //数组[0]是比较符号,[1]是第一个参数,[2]是第二个比较符号,[3]是第二个参数
+            if ("[null]".equals(columnTextArr[1]) && "[null]".equals(columnTextArr[3])) {
+                System.err.println("没有填入任何值");
+                return null;
+            } else if (!"[null]".equals(columnTextArr[0]) && "[null]".equals(columnTextArr[2])) {
+                //只查询一个input (左侧) 情况1
+                String mathSymbolLeft = getMathSymbol(columnTextArr[0].toString());
+                String valueLeft = columnTextArr[1].toString();
+                //如果情况1 value无值,则该字段也设定为null
+                if ("[null]".equals(valueLeft)) {
+                    return null;
+                } else {
+                    System.out.println(mathSymbolLeft + ":" + valueLeft);
+                    columnText = mathSymbolLeft + " " + valueLeft;
+                    return columnText;
+                }
+            } else if ("[null]".equals(columnTextArr[0]) && !"[null]".equals(columnTextArr[2])) {
+                //只查询一个input (右侧,一般不会发生,因为左侧默认不会选null)
+                String mathSymbolRight = getMathSymbol(columnTextArr[2].toString());
+            } else if (!"[null]".equals(columnTextArr[0]) && !"[null]".equals(columnTextArr[2])) {
+                //两个都不为null,即设定了两个查询参数  情况2
+                String mathSymbolLeft = getMathSymbol(columnTextArr[0].toString());
+                String mathSymbolRight = getMathSymbol(columnTextArr[2].toString());
+                String valueLeft = columnTextArr[1].toString();
+                String valueRight = columnTextArr[3].toString();
+                //如果valueL valueR 其中一个为null,则设定对应符号也为null
+                if ("[null]".equals(valueLeft) && !"[null]".equals(valueRight)) {
+                    columnText = "SUBSTRING_INDEX(" + columnTextArr[4].replace("s_", "") + ",'-',-1)" + mathSymbolRight + " " + valueRight;
+                    return columnText;
+                } else if (!"[null]".equals(valueLeft) && "[null]".equals(valueRight)) {
+                    columnText = "SUBSTRING_INDEX(" + columnTextArr[4].replace("s_", "") + ",'-',1)" + mathSymbolLeft + " " + valueLeft;
+                    return columnText;
+                } else {
+                    columnText = "SUBSTRING_INDEX(" + columnTextArr[4].replace("s_", "") + ",'-',1)" + mathSymbolLeft + " " + valueLeft
+                            + " and SUBSTRING_INDEX(" + columnTextArr[4].replace("s_", "") + ",'-',-1) " + mathSymbolRight + " " + valueRight;
                     return columnText;
                 }
             }

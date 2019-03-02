@@ -114,6 +114,7 @@
                 and p_id= #{p_id}
             </if>
         </where>
+        order by id;
     </select>
 
     <!--查询所有EMenu-->

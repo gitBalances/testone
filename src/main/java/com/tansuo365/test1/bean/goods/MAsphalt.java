@@ -30,11 +30,11 @@ public class MAsphalt implements Serializable, Goods {
     @ExcelCell(index = 2)
     private String s_company;
     @ExcelCell(index = 3)
-    private Double softening_point;
+    private String softening_point;
     @ExcelCell(index = 4)
-    private Double toluene;
+    private String toluene;
     @ExcelCell(index = 5)
-    private Double quinoline;
+    private String quinoline;
     @ExcelCell(index = 6)
     private Double beta_resin;
     @ExcelCell(index = 7)

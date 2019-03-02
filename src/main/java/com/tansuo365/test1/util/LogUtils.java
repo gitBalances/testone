@@ -42,6 +42,8 @@ public class LogUtils {
     final private String MEMBER_LOG = "member_log";
     final private String ADMIN_LOG = "admin_log";
 
+    final private String ADMIN_ROLE = "admin_role";
+
     //标注此次查询日志时的日志类型
     private String thisLogInstance = null;
 
@@ -226,6 +228,7 @@ public class LogUtils {
             case ANODE:return "阳极";
             case MEMBER_LOG:return "会员日志";
             case ADMIN_LOG:return "管理员日志";
+            case ADMIN_ROLE:return "管理员角色";
             default:return null;
         }
     }
