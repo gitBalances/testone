@@ -174,6 +174,29 @@
         </foreach>)
     </select>
 
+    <!--根据ParentId和menu_id数组获取不重复的EMenu list集合-->
+    <select id="selectEMenuByParentIdAndEMenuIds"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from e_menu
+        where p_id = #{param1} and
+        id in (select distinct menu_id from role_menu where menu_id in
+        <foreach item="param2" index="index" collection="param2" open="(" separator="," close=")">
+            #{param2}
+        </foreach>)
+    </select>
+
+    <!--根据ParentId和menu_id获取不重复的EMenu list集合 不适用-->
+    <select id="selectEMenuByParentIdAndSingleEMenuId"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from e_menu
+        where p_id = #{param1} and
+        id in
+        (select distinct menu_id from role_menu where menu_id = #{param2})
+    </select>
+
+
     <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.user.EMenuExample">
         delete from e_menu
         <if test="_parameter != null">

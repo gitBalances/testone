@@ -1,14 +1,14 @@
 package com.tansuo365.test1.controller.admin;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.tansuo365.test1.bean.user.EMenu;
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.service.redis.RedisService;
 import com.tansuo365.test1.service.user.EMenuService;
+import com.tansuo365.test1.service.user.RoleMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserService;
+import com.tansuo365.test1.util.EMenuUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -18,7 +18,6 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -26,10 +25,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Api(value = "管理员登录控制层", description = "管理员登录,包括获取树形结构菜单")
 @RequestMapping("/admin")
@@ -40,9 +41,11 @@ public class AdminLoginController {
     @Autowired
     private RoleService roleService;
     @Autowired
+    private RedisService redisService;
+    @Autowired
     private EMenuService eMenuService;
     @Autowired
-    private RedisService redisService;
+    private EMenuUtils eMenuUtils;
 
     @ApiOperation(value = "/login登录页", notes = "返回/admin下login.html")
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -82,9 +85,40 @@ public class AdminLoginController {
             roleList.remove(null);// TODO 会有null,异常
             redisService.set(user.getName() + "_roleList", roleList);//redis存储该user有哪些roles
 
-//            for(Role role:roleList){
-//                System.out.println("LoginController.roleName:"+role.getName());
-//            }
+            Integer[] ids = new Integer[roleList.size()];
+            int i = 0;
+            for (Role role : roleList) {
+                Long roleId = role.getId();
+                ids[i] = Integer.parseInt(roleId.toString());
+                i++;
+            }
+            int e = 0;
+            List<Integer> menuIdListByRoleIds = eMenuService.findMenuIdListByRoleIds(ids);
+            //menuId数组
+            int[] menuIdArr = new int[menuIdListByRoleIds.size()];
+            String menuIdStr = "";
+            for (int menuId : menuIdListByRoleIds) {
+                menuIdArr[e] = menuId;
+                menuIdStr += menuId + ",";
+                e++;
+            }
+            Arrays.sort(menuIdArr);
+            Object allMenuObj = redisService.get(menuIdStr);
+            System.out.println("menuIdStr:" + menuIdStr);
+            if (allMenuObj != null) {
+                redisService.set(menuIdStr, allMenuObj.toString());
+                System.out.println("(String)allMenuObj:" + (String) allMenuObj);
+                session.setAttribute("menuIds", menuIdArr);
+                redisService.set(session.getAttribute("menuIds").toString()+session.getAttribute("currentUser").toString(),allMenuObj.toString());
+            } else {
+                String allMenu = eMenuUtils.getAllEMenuByParentIdAndMenuIds(-1, menuIdArr).toString();
+                System.out.println("login.allMenu:" + allMenu);
+                redisService.set(menuIdStr, allMenu);
+                session.setAttribute("menuIds", menuIdArr);
+                redisService.set(session.getAttribute("menuIds").toString()+session.getAttribute("currentUser").toString(),allMenu);
+            }
+
+
             session.setAttribute("roleList", roleList);
             map.put("roleList", roleList);
             map.put("roleSize", roleList.size());
@@ -160,6 +194,7 @@ public class AdminLoginController {
     @ApiOperation(value = "读取系统菜单", notes = "[待改善]树形结构,根据roleid按需获取,而不是显示没有权限访问")
     //使用会员实例+roleList为key,当变动role时,更新allMenu
 //    @Cacheable(value = "allMenu", key = "#session.getAttribute('currentUser').toString()+#session.getAttribute('roleList').toString()", condition = "#parentId !=  '' ")
+    @Cacheable(value = "allMenu", key = "#session.getAttribute('menuIds').toString()+#session.getAttribute('currentUser').toString()", condition = "#parentId !=  '' ")
     @ResponseBody
     @RequestMapping("/loadMenuInfo")
     @RequiresAuthentication
@@ -167,159 +202,54 @@ public class AdminLoginController {
     public String loadMenuInfo(HttpSession session, Integer parentId) {
 //        Role currentRole = (Role)session.getAttribute("currentRole");
         System.out.println("读取系统菜单中");
-//        List<Role> roleList = (List<Role>) session.getAttribute("roleList");
-//        redisService.get("")
-//        User currentUser =(User) session.getAttribute("currentUser");
-        List<Role> roleList =(List<Role>) session.getAttribute("roleList");
 
-
-//        User currentUser = (User) session.getAttribute("currentUser");
-//        String redisRoles = currentUser.getName() + "_roleList";
-//        String currentUserRoles = session.getAttribute("roleList").toString();
-        //查看roleList是否是没有更新,没有更新则走redis,否则执行操作.并将结果放入缓存
-//        redisService.set(redisKey, currentUserRoles);
-
-
-        Long[] ids = new Long[roleList.size()];
-        int i = 0;
-
-
-        for (Role role : roleList) {
-            Long roleId = role.getId();
-            ids[i] = roleId;
-//            System.out.println("loadMenuID"+ids[i]);
-            i++;
-//            getAllMenuByParentId(parentId, ids,i).toString();
+        String allMenu = "";
+        allMenu = (String) redisService.get(session.getAttribute("menuIds").toString()+session.getAttribute("currentUser").toString());
+        if(allMenu.length()>0){
+            System.out.println("通过redis获取session的menuids+currentUser获取了allMenu");
+            return allMenu;
         }
-        Long[] idsNew = new Long[1];
-        idsNew[0] = 1L;
-        String allMenu = getAllMenuByParentIdAndSingleRoleId(parentId, idsNew[0]).toString();
+        Object menuIdArr = session.getAttribute("menuIds");
+        int[] menuIds = (int[]) menuIdArr;
+        Arrays.sort(menuIds);
 
-//        redisService.set(currentUser.getName(),allMenu);//redis保存当前用户及对应的menu菜单
+        String menuIdStr = "";
+        for (int menuId : menuIds) {
+            menuIdStr += menuId + ",";
+        }
 
-        return allMenu;
-//        if (ids.length == 1) {
-//            return getAllMenuByParentIdAndSingleRoleId(parentId, ids[0]).toString();
-//        }
-//        if (ids.length == 0) {
-//            return null;
-//        } else {
-//            int j = 0;
-//            return getAllMenuByParentId(parentId, ids,j).toString();
-//        }
-//        return allRoleEMenu.toString();
-//        return getAllMenuByParentIdAndSingleRoleId(parentId, 1l).toString().replace(string,"");
-    }
+        if (redisService.get(menuIdStr) != null) {
+            System.out.println("loadMenuInfo获取到了redis中的allMenu数据");
 
-    //根据多个roleid获取EMenu(已去重复EMenu)
-    private JSONArray getAllMenuByParentId(Integer parentId, Long[] ids, int j) { //<<<<<<<<<<
-
-        JSONArray jsonArray = null;
-        first:
-        for (int k = j; k < ids.length; j++) { //如2个角色该for循环2次
-            //先获取如role5的角色以及对应parentid的emenu
-            Long id = ids[k];
-//            System.out.println("forTIme:ID"+id);
-//            jsonArray = this.getMenuByParentIdAndSingleRoleId(parentId, id);
-            jsonArray = this.getMenuByParentId(parentId, ids);
-            second:
-            for (int i = 0; i < jsonArray.size(); i++) {//size为该parentid节点下的含有的,根节点菜单及子菜单的数量
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                if ("open".equals(jsonObject.get("state").toString())) {//叶子节点,无法放children
-                    continue;
-//                    continue second;//继续执行上面for循环获取另一个菜单(根或子)
-//                    break second;
-                } else {
-                    //-1,10
-                    //如果有根节点[0],通过根节点的id即parentid,获取之下的子节点菜单
-//                for(int j=0;j<ids.length;j++){
-                    jsonObject.put("children", getAllMenuByParentId((Integer) jsonObject.get("id"), ids, j));
-//                }
-                }
+                    allMenu = redisService.get(menuIdStr).toString();
+                    return allMenu;
+        } else {
+            System.out.println("loadMenuInfo从redis中获取allMenu数据失败.");
+            Object menuIdArr1 = session.getAttribute("menuIds");
+            int[] menuIds1 = (int[]) menuIdArr1;
+            Arrays.sort(menuIds);
+            String menuIdStr1 = "";
+            for (int menuId : menuIds1) {
+                menuIdStr1 += menuId + ",";
             }
-        }
-//        System.out.println("getAllMenuByParentId(Integer parentId, Long[] ids):" + jsonArray);
-        return jsonArray;
-    }
 
-    //假如先传入-1 pid,ids,那么返回的应该是ids对应的所有的-1下的
-    private JSONArray getMenuByParentId(Integer parentId, Long[] ids) {
-        //获取不重复的EMenuList
-        List<EMenu> eMenuList = eMenuService.findByParentIdAndRoleIdArr(parentId, ids);
-        System.err.println("eMenuList.size:" + eMenuList.size());
-        JSONArray jsonArray = new JSONArray();
-        for (EMenu eMenu : eMenuList) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id", eMenu.getId());//节点id
-            jsonObject.put("text", eMenu.getName());//节点名称
-            if (eMenu.getState() == 1) {//根节点
-                jsonObject.put("state", "closed");
-            } else {//叶子节点
-                jsonObject.put("state", "open");
-            }
-            jsonObject.put("iconCls", eMenu.getIcon());
-            JSONObject attributeObject = new JSONObject();//扩展属性
-            attributeObject.put("url", eMenu.getUrl());//菜单请求地址
-            jsonObject.put("attributes", attributeObject);
-            jsonArray.add(jsonObject);
-        }
-        System.out.println("findByParentIdAndRoleIdArr:getEmenuList:jsonArray:" + jsonArray);
-        return jsonArray;
-    }
-
-
-    /**
-     * 获取所有菜单信息 (单条不适用)
-     *
-     * @param parentId
-     * @param
-     * @return
-     */
-    private JSONArray getAllMenuByParentIdAndSingleRoleId(Integer parentId, Long roleId) {
-        JSONArray jsonArray = this.getMenuByParentIdAndSingleRoleId(parentId, roleId);
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            if ("open".equals(jsonObject.get("state").toString())) {
-                continue;
+            System.out.println("menuIdStr1:" + menuIdStr1);
+            Object allMenuObj = redisService.get(menuIdStr1);
+            if (allMenuObj != null) {
+                System.out.println("(String)allMenuObj:" + allMenuObj.toString());
+                System.out.println("loadMenuInfo获取到了redis中的allMenu数据,第二次成功.");
+                allMenu=  allMenuObj.toString();
+                return allMenu;
             } else {
-                jsonObject.put("children", getAllMenuByParentIdAndSingleRoleId((Integer) jsonObject.get("id"), roleId));
+                System.out.println("loadMenuInfo从redis中获取allMenu数据失败.正式开始走数据库获取.");
+//        String allMenu = eMenuUtils.getAllEMenuByParentIdAndMenuIds(parentId, menuIdArr).toString();
+                allMenu = eMenuUtils.getAllEMenuByParentIdAndMenuIds(parentId, menuIds).toString();
+                System.out.println("loadMenuInfo获取数据库后,allMenu:" + allMenu);
+                redisService.set(menuIdStr1, allMenu);
+                return allMenu;
             }
         }
-//        System.out.println("getAllMenuByParentIdAndSingleRoleId(Integer parentId, Long roleId):" + jsonArray);
-        return jsonArray;
+
     }
-
-
-    /**
-     * 根据父节点和用户角色id查询菜单 (单条不适用)
-     *
-     * @param parentId
-     * @param roleId
-     * @return
-     */
-    private JSONArray getMenuByParentIdAndSingleRoleId(Integer parentId, Long roleId) {
-        List<EMenu> eMenuList = eMenuService.findByParentIdAndSingleRoleId(parentId, roleId);
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = null;
-
-        for (EMenu eMenu : eMenuList) {
-            jsonObject = new JSONObject();
-            jsonObject.put("id", eMenu.getId());//节点id
-            jsonObject.put("text", eMenu.getName());//节点名称
-            if (eMenu.getState() == 1) {//根节点
-                jsonObject.put("state", "closed");
-            } else {//叶子节点
-                jsonObject.put("state", "open");
-            }
-            jsonObject.put("iconCls", eMenu.getIcon());
-            JSONObject attributeObject = new JSONObject();//扩展属性
-            attributeObject.put("url", eMenu.getUrl());//菜单请求地址
-            jsonObject.put("attributes", attributeObject);
-            jsonArray.add(jsonObject);
-        }
-        System.out.println("findByParentIdAndSingleRoleId:getEmenuList:jsonArray:" + jsonArray);
-        return jsonArray;
-    }
-
 
 }

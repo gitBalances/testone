@@ -38,6 +38,11 @@ public interface EMenuService {
     //根据父节点以及角色id集合查询子节点 已去重
     public List<EMenu> findByParentIdAndRoleIdArr(int parentId,Long[] ids);
 
+    //根据parentid和EMenuids数组获取EMenuList
+    public List<EMenu> findByParentIdAndEMenuIds(int parentId,int[] menuIds);
+
+    public List<EMenu> findByParentIdAndSingleEMenuId(int parentId,int menuId);
+
     //根据父节点以及角色id集合查询子节点 已去重
     public List<EMenu> findByParentIdAndSingleRoleId(int parentId,Long roleId);
 

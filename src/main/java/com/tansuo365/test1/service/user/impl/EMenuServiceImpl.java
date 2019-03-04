@@ -79,9 +79,18 @@ public class EMenuServiceImpl implements EMenuService {
     /*通过父节点和角色id数组获取EMenuList,已在SQL中进行了菜单去重*/
     @Override
     public List<EMenu> findByParentIdAndRoleIdArr(int parentId, Long[] ids) {
-        System.err.println("ids.length:" + ids.length);
         List<EMenu> eMenuList = eMenuMapper.selectEMenuByParentIdAndRoleIdArr(parentId, ids);
         return eMenuList;
+    }
+
+    @Override
+    public List<EMenu> findByParentIdAndEMenuIds(int parentId,int[] menuIds) {
+        return eMenuMapper.selectEMenuByParentIdAndEMenuIds(parentId,menuIds);
+    }
+
+    @Override
+    public List<EMenu> findByParentIdAndSingleEMenuId(int parentId, int menuId) {
+        return eMenuMapper.selectEMenuByParentIdAndSingleEMenuId(parentId,menuId);
     }
 
     @Override

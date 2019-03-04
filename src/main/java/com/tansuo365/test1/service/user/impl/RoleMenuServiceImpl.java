@@ -3,6 +3,7 @@ package com.tansuo365.test1.service.user.impl;
 import com.tansuo365.test1.bean.user.RoleMenu;
 import com.tansuo365.test1.mapper.admin.RoleMenuMapper;
 import com.tansuo365.test1.service.user.RoleMenuService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

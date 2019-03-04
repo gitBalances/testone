@@ -35,6 +35,11 @@ public interface EMenuMapper {
     //根据父节点以及角色id集合查询子节点
     List<EMenu> selectEMenuByParentIdAndRoleId(Integer parentId,Long roleId);
 
+    //根据父节点和EMenuIds去查询EMenuList集合
+    List<EMenu> selectEMenuByParentIdAndEMenuIds(Integer parentId,int[] menuIds);
+
+    List<EMenu> selectEMenuByParentIdAndSingleEMenuId(Integer parentId,int menuId);
+
     List<EMenu> selectEMenuByParentIdAndRoleIdArr(Integer parentId,Long[] ids);
 
     int updateByExampleSelective(@Param("record") EMenu record, @Param("example") EMenuExample example);
