@@ -1,5 +1,8 @@
 package com.tansuo365.test1.bean.log;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value="日志枚举类型",description="日志枚举类型")
 public enum LogEnum {
 
     LOGIN_ACTION("登录操作"),

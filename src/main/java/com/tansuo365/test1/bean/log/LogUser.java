@@ -3,6 +3,7 @@ package com.tansuo365.test1.bean.log;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.entity.LogUsers;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 /**
  * 管理员日志
  */
+@ApiModel(value="管理员日志实体",description="管理员日志实体")
 @Data
 @Builder
 @NoArgsConstructor

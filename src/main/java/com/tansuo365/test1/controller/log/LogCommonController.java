@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * 查询日志的公用controller TODO 现在只有搜索,并无其它方法
  */
-@Api(value = "查询日志的公用控制层", description = "日志信息")
+@Api(value = "查询日志的公用控制层",tags = "日志公用控制接口 LogCommonController", description = "日志信息")
 @RestController
 @RequestMapping("/admin/syslog/{logType}")
 public class LogCommonController {

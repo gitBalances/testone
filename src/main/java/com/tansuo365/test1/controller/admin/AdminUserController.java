@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /*管理员控制层*/
-@Api(value = "管理员控制层",description = "管理员设置角色,增删改查")
+@Api(value = "管理员控制层",tags = "管理员控制接口 AdminUserController", description = "管理员设置角色,增删改查")
 @RestController
 @RequestMapping("/admin/user")
 public class AdminUserController {

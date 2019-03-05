@@ -38,7 +38,7 @@ import java.util.List;
  * 用于excel导入的controller
  * {@link #importExcel 导入excel,接收excel导入,文件为uploadFile,接收文件参数String instance标识上传类型}
  */
-@Api(value = "Excel导入控制层",description = "Excel导入控制层,导出使用js插件")
+@Api(value = "Excel导入控制层",tags = "Excel导入控制接口 ExcelController",description = "Excel导入控制层,导出使用js插件")
 @RestController
 @RequestMapping("/excel")
 public class ExcelController {

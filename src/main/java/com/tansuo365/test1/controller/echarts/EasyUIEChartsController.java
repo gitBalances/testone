@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Api(value = "EasyUI中ECharts图表控制层",description = "EasyUI中ECharts图表控制层,只返回给定的货品类型charts")
+@Api(value = "EasyUI中ECharts图表控制层",tags = "EasyUI中ECharts图表控制接口 EasyUIEChartsController",description = "EasyUI中ECharts图表控制层,只返回给定的货品类型charts")
 @Controller
 @RequestMapping("/easy/goods/")
 public class EasyUIEChartsController {

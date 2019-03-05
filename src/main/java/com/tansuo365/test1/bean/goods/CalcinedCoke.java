@@ -3,6 +3,7 @@ package com.tansuo365.test1.bean.goods;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.excel.ExcelCell;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ import java.util.Date;
 /**
  * 煅后焦
  */
+@ApiModel(value="煅后焦实体",description="货品-煅后焦实体")
 @Data
 @Builder
 @NoArgsConstructor

@@ -5,6 +5,8 @@ import com.tansuo365.test1.bean.member.Member;
 import com.tansuo365.test1.service.member.MemberService;
 import com.tansuo365.test1.shiro.realm.MyAuthenticationToken;
 import com.tansuo365.test1.shiro.realm.LoginEnum;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -25,6 +27,7 @@ import java.util.Map;
 /**
  * 会员控制层(前端使用用户)
  */
+@Api(value = "前端会员控制层",tags = "前端会员控制接口 MemberController", description = "包含登录,注册,登出控制.")
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -37,9 +40,10 @@ public class MemberController {
 //    public String login(){
 //        return "/user/login";
 //    }
-    @RequestMapping("index")
-    public String index() {
-        return "/user/index";
+    @ApiOperation(value="会员个人信息", notes="会员个人信息")
+    @RequestMapping("/info")
+    public String info() {
+        return "/member/auth/info";
     }
 
     @RequestMapping("unauthorized")
@@ -47,11 +51,13 @@ public class MemberController {
         return "/user/unauthorized";
     }
 
+    @ApiOperation(value="返回会员登录页", notes="返回会员登录页")
     @RequestMapping(value = "/login")
     public String login() {
         return "/member/login"; //对应用户登录展示
     }
 
+    @ApiOperation(value="会员登录请求处理", notes="会员登录请求处理")
     @ResponseBody
     @RequestMapping("/loginMember")
     public Map<String, Object> login(Member member, HttpSession session) {
@@ -111,6 +117,7 @@ public class MemberController {
 //        }
 //        return "redirect:/member/login";
 //    }
+    @ApiOperation(value="会员注册处理", notes="会员注册请求处理")
     @ResponseBody
     @RequestMapping("/signUp")
     public Map<String, Object> signUp(Member member) {
@@ -135,6 +142,7 @@ public class MemberController {
 //        currentUser = SecurityUtils.getSubject();
 //        currentUser.logout();
 //    }
+    @ApiOperation(value="会员登出", notes="会员登出")
     @ResponseBody
     @RequestMapping("/doLogout")
     public Integer logout(HttpSession session) {

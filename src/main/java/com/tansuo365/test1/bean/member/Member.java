@@ -1,22 +1,25 @@
 package com.tansuo365.test1.bean.member;
 
 import com.tansuo365.test1.entity.MyLoginInstance;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
 /**
  * 会员(前端使用者)
  */
+@ApiModel(value="会员实体",description="会员实体")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member implements MyLoginInstance {
+public class Member implements Serializable,MyLoginInstance {
 
     private Long id;
 

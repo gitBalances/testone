@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "前端页面测试",description = "echarts等前端页面测试")
+@Api(value = "前端页面测试",tags = "前端页面测试接口 DemoController",description = "echarts等前端页面测试")
 @Controller
 public class DemoController {
 

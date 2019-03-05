@@ -1,6 +1,7 @@
 package com.tansuo365.test1.bean.user;
 
 import com.tansuo365.test1.entity.MyLoginInstance;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 /**
  * TODO 待加入生成时间,update时间
  */
+@ApiModel(value="管理员实体",description="管理员实体")
 @Data
 @Builder
 @NoArgsConstructor

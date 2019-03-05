@@ -3,6 +3,7 @@ package com.tansuo365.test1.bean.goods;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.excel.ExcelCell;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
+@ApiModel(value="阳极实体",description="货品-阳极实体")
 @Data
 @Builder
 @NoArgsConstructor

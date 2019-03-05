@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(value = "管理员登录控制层", description = "管理员登录,包括获取树形结构菜单")
+@Api(value = "管理员登录控制层", tags = "管理员登录接口 AdminLoginController", description = "管理员登录,包括获取树形结构菜单")
 @RequestMapping("/admin")
 @Controller
 public class AdminLoginController {
@@ -109,15 +109,14 @@ public class AdminLoginController {
                 redisService.set(menuIdStr, allMenuObj.toString());
                 System.out.println("(String)allMenuObj:" + (String) allMenuObj);
                 session.setAttribute("menuIds", menuIdArr);
-                redisService.set(session.getAttribute("menuIds").toString()+session.getAttribute("currentUser").toString(),allMenuObj.toString());
+                redisService.set(session.getAttribute("menuIds").toString() + session.getAttribute("currentUser").toString(), allMenuObj.toString());
             } else {
                 String allMenu = eMenuUtils.getAllEMenuByParentIdAndMenuIds(-1, menuIdArr).toString();
                 System.out.println("login.allMenu:" + allMenu);
                 redisService.set(menuIdStr, allMenu);
                 session.setAttribute("menuIds", menuIdArr);
-                redisService.set(session.getAttribute("menuIds").toString()+session.getAttribute("currentUser").toString(),allMenu);
+                redisService.set(session.getAttribute("menuIds").toString() + session.getAttribute("currentUser").toString(), allMenu);
             }
-
 
             session.setAttribute("roleList", roleList);
             map.put("roleList", roleList);
@@ -147,7 +146,7 @@ public class AdminLoginController {
 
     }
 
-    //    @CachePut(value = "subject") 即保证方法被调用,又加入缓存
+//    @CachePut(value = "subject") 即保证方法被调用,又加入缓存
 //    @RequestMapping(value = "/login", method = RequestMethod.POST)
 //    public String login(Model model, User user, boolean rememberMe, String loginType) throws AuthenticationException {
 ////        System.err.println("loginType:"+loginType);
@@ -204,8 +203,8 @@ public class AdminLoginController {
         System.out.println("读取系统菜单中");
 
         String allMenu = "";
-        allMenu = (String) redisService.get(session.getAttribute("menuIds").toString()+session.getAttribute("currentUser").toString());
-        if(allMenu.length()>0){
+        allMenu = (String) redisService.get(session.getAttribute("menuIds").toString() + session.getAttribute("currentUser").toString());
+        if (allMenu.length() > 0) {
             System.out.println("通过redis获取session的menuids+currentUser获取了allMenu");
             return allMenu;
         }
@@ -221,8 +220,8 @@ public class AdminLoginController {
         if (redisService.get(menuIdStr) != null) {
             System.out.println("loadMenuInfo获取到了redis中的allMenu数据");
 
-                    allMenu = redisService.get(menuIdStr).toString();
-                    return allMenu;
+            allMenu = redisService.get(menuIdStr).toString();
+            return allMenu;
         } else {
             System.out.println("loadMenuInfo从redis中获取allMenu数据失败.");
             Object menuIdArr1 = session.getAttribute("menuIds");
@@ -238,7 +237,7 @@ public class AdminLoginController {
             if (allMenuObj != null) {
                 System.out.println("(String)allMenuObj:" + allMenuObj.toString());
                 System.out.println("loadMenuInfo获取到了redis中的allMenu数据,第二次成功.");
-                allMenu=  allMenuObj.toString();
+                allMenu = allMenuObj.toString();
                 return allMenu;
             } else {
                 System.out.println("loadMenuInfo从redis中获取allMenu数据失败.正式开始走数据库获取.");

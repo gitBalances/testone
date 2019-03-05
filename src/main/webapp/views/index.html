@@ -53,6 +53,7 @@
 <div th:if="${session.currentMember!=null}" th:object="${session.currentMember}">
     <p>欢迎,<span th:text="*{truename}">游客名称</span></p>
     <p>用户等级:<span th:text="*{member_level}"></span></p>
+    <p>用户等级:<span th:value="*{member_level}"></span></p>
     <a id="logoutBtn"><u>登出</u></a> <br>
 
     <hr>

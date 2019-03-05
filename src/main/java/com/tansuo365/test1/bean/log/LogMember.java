@@ -2,6 +2,7 @@ package com.tansuo365.test1.bean.log;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tansuo365.test1.entity.LogUsers;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import java.util.Date;
 
+@ApiModel(value="会员日志实体",description="会员日志实体")
 @Data
 @Builder
 @NoArgsConstructor

@@ -82,7 +82,7 @@
             <hr>
             <div style="margin-bottom:20px" id="s_densityDiv">
                 真密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                id="densityCK" name="s_density" label="真密度_g/cm³:">
+                               id="densityCK" name="s_density" label="真密度_g/cm³:">
             </div>
             <hr>
             <div style="margin-bottom:20px" id="s_p_resistivityDiv">
@@ -223,44 +223,87 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/goods/CalcinedCoke/selectSelective',
-        toolbar: '#toolbar',
-        pagination: 'true',
-        pageSize: 10,
-        pageList: [5, 10, 15, 20],
-        rownumbers: 'true',
-        fitColumns: 'true',
-        loadMsg: '数据加载中请稍后……',
-        fit: 'true',
-        // singleSelect: 'true',
-        checkbox: 'true',
-        idField: 'id',
-        collapsible: 'true',
-        iconCls: 'icon-save',
-        queryParams: form2Json('searchform'),
+            url: '/goods/CalcinedCoke/selectSelective',
+            toolbar: '#toolbar',
+            pagination: 'true',
+            pageSize: 10,
+            pageList: [5, 10, 15, 20],
+            rownumbers: 'true',
+            fitColumns: 'true',
+            loadMsg: '数据加载中请稍后……',
+            fit: 'true',
+            // singleSelect: 'true',
+            checkbox: 'true',
+            idField: 'id',
+            collapsible: 'true',
+            iconCls: 'icon-save',
+            queryParams: form2Json('searchform'),
 
-        columns: [[
+            //悬停提示tooltip
+            onLoadSuccess: function (data) {
+                $(this).datagrid('tooltip');
+            },
 
-            {field: 'id', align: 'center', title: '数据序列号', hidden: true},
-            {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
-            {field: 'province', title: '省份', width: 50},
-            {field: 'company', title: '企业名', width: 100},
-            {field: 's_company', title: '简称', width: 50},
-            {field: 'sulfur', title: '硫含量_%', width: 50},
-            {field: 'ash', title: '灰分_%', width: 50},
-            {field: 'volatile_matter', title: '挥发分_%', width: 50},
-            {field: 'water', title: '水分_%', width: 50},
-            {field: 'density', title: '真密度_g/cm³', width: 50},
-            {field: 'p_resistivity', title: '粉末电阻率_µ.Ω.m', width: 50},
-            {field: 'vanadium', title: '钒含量_ppm', width: 50},
-            {field: 'granularity', title: '粒度_mm', width: 50},
-            {field: 'today_price', title: '今日报价', width: 60},
-            {field: 'remarks', title: '备注', width: 100},
-            {field: 'reporter', title: '汇报人', width: 100},
-            {field: 'create_time', title: '创建时间', width: 148},
-            {field: 'update_time', title: '更新时间', width: 148}
-        ]]
-    });
+            columns: [[
+
+                {field: 'id', align: 'center', title: '数据序列号', hidden: true},
+                {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
+                {field: 'province', title: '省份', width: 50},
+                {field: 'company', title: '企业名', width: 100},
+                {field: 's_company', title: '简称', width: 50},
+                {field: 'sulfur', title: '硫含量_%', width: 50},
+                {field: 'ash', title: '灰分_%', width: 50},
+                {field: 'volatile_matter', title: '挥发分_%', width: 50},
+                {field: 'water', title: '水分_%', width: 50},
+                {field: 'density', title: '真密度_g/cm³', width: 50},
+                {field: 'p_resistivity', title: '粉末电阻率_µ.Ω.m', width: 50},
+                {field: 'vanadium', title: '钒含量_ppm', width: 50},
+                {field: 'granularity', title: '粒度_mm', width: 50},
+                {field: 'today_price', title: '今日报价', width: 60},
+                {field: 'remarks', title: '备注', width: 100},
+                {field: 'reporter', title: '汇报人', width: 100},
+                {field: 'create_time', title: '创建时间', width: 148},
+                {field: 'update_time', title: '更新时间', width: 148}
+            ]]
+        },
+        //之下为鼠标悬停table上展示单个字段的tooltip
+        $.extend($.fn.datagrid.methods, {
+            tooltip: function (jq, fields) {
+                return jq.each(function () {
+                    var panel = $(this).datagrid('getPanel');
+                    if (fields && typeof fields == 'object' && fields.sort) {
+                        $.each(fields, function () {
+                            var field = this;
+                            bindEvent($('.datagrid-body td[field=' + field + '] .datagrid-cell', panel));
+                        });
+                    } else {
+                        bindEvent($(".datagrid-body .datagrid-cell", panel));
+                    }
+                });
+
+                function bindEvent(jqs) {
+                    jqs.mouseover(function () {
+                        var content = $(this).text();
+                        if (content && content != "") {
+                            $(this).tooltip({
+                                content: content,
+                                trackMouse: true,
+                                deltaX: 15,
+                                deltaY: -5,
+                                onShow: function () {
+                                    $(this).tooltip('tip').css({
+                                        backgroundColor: '#f7f5d1',
+                                        borderColor: 'black'
+                                    });
+                                }
+                            }).tooltip('show');
+                        }
+                    });
+                }
+            }
+        })
+        //tooltip end
+    );
 
     function form2Json(id) {
 
@@ -368,7 +411,7 @@
     //先判定每个checkbox是否选定,如果选定了的获取其中两个select两个input的value,赋值给原input的value
     function beforeSearch() {
         //声明多input条件查询字段id数组
-        var indexArr = ['sulfurCK', 'ashCK', 'volatile_matterCK', 'waterCK', 'densityCK', 'p_resistivityCK', 'vanadiumCK', 'granularityCK','today_priceCK'];
+        var indexArr = ['sulfurCK', 'ashCK', 'volatile_matterCK', 'waterCK', 'densityCK', 'p_resistivityCK', 'vanadiumCK', 'granularityCK', 'today_priceCK'];
         for (var i in indexArr) {
             var box = (document.getElementById(indexArr[i]));
             if (box.checked) {
@@ -401,7 +444,7 @@
         //去除不需要导出的实体字段
         var deleteKey = ['b_time', 'e_time', 'order', 's_sulfur', 's_ash',
             's_volatile_matter', 's_water', 's_density', 's_p_resistivity',
-            's_vanadium','s_granularity','s_today_price'];
+            's_vanadium', 's_granularity', 's_today_price'];
         for (var i in row) {
             for (var j in deleteKey) {
                 delete row[i][deleteKey[j]];
@@ -533,6 +576,7 @@
 
     //上传文件
     $("#uploadBtn").click(uploadonline);
+
     function uploadonline() {
 
         // var add = '/excel/importExcel';
@@ -584,8 +628,8 @@
     }
 
     //图表和表单展示切换
-    function chartAndTable(){
-        window.location.href="/easy/goods/calcined_charts";
+    function chartAndTable() {
+        window.location.href = "/easy/goods/calcined_charts";
     }
 
 </script>

@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(value = "货品信息CRUD公用控制层", description = "货品信息CRUD")
+@Api(value = "货品信息CRUD公用控制层", tags = "货品信息公用控制接口 GoodsController",description = "货品信息CRUD")
 @RestController
 @RequestMapping("/goods/{goodsType}")
 public class GoodsController {
@@ -135,18 +135,22 @@ public class GoodsController {
      * TEST
      *
      * @param goodsType
-     * @param petroleumCoke
-     * @param calcinedCoke
-     * @param mAsphalt
-     * @param anode
+//     * @param petroleumCoke
+//     * @param calcinedCoke
+//     * @param mAsphalt
+//     * @param anode
      * @return
      */
     @RequestMapping(value = "/testselectSelective")
-    public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
+//    public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
+    public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType, @RequestParam String member_level) throws IllegalAccessException, InstantiationException {
+        goodsUtils.goodsTypeJudger(goodsType, null, null, null, null);
         System.out.println("goodsType:" + goodsType);
-        List<Goods> list = goodsCommonService.getBySelective(goodsUtils.goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
-        logUtils.doLog(list, 0, LogEnum.SEARCH_ACTION, goodsType, session);
-        return list;
+        System.out.println("member_level:" + member_level);
+        List<Goods> all = goodsCommonService.getAll();
+//      List<Goods> list = goodsCommonService.getBySelective(goodsUtils.goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
+//    logUtils.doLog(all, 0, LogEnum.SEARCH_ACTION, goodsType, session);
+        return all;
     }
 
     /**

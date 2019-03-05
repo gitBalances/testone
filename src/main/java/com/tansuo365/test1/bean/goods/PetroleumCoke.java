@@ -5,6 +5,7 @@ package com.tansuo365.test1.bean.goods;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.excel.ExcelCell;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ import java.util.Date;
  * 原使用poi的导出(@Excel),改为直接使用js前端进行导出(@ExcelCell)
  * 指定的index如果不指定将按照数据库顺序给出,不影响导出
  */
+@ApiModel(value="石油焦实体",description="货品-石油焦实体")
 @Data
 @Builder
 @NoArgsConstructor

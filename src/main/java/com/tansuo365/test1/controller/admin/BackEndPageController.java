@@ -22,7 +22,7 @@ import java.util.Map;
  * 后端页面控制层 (需权限判定)
  * 1-12 加入easyui页面
  */
-@Api(value = "后端页面控制层",description = "主要作为后端页面的页面跳转控制")
+@Api(value = "后端页面控制层",tags = "后端页面控制接口 BackEndPageController",description = "主要作为后端页面的页面跳转控制")
 @Controller
 @RequestMapping("/admin")
 public class BackEndPageController {
@@ -265,6 +265,12 @@ public class BackEndPageController {
         return "/admin/file";
     }
 
+    @ApiOperation(value="swagger接口文档", notes="swagger接口文档")
+    @RequestMapping("/swagger")
+    @RequiresAuthentication
+    public String swagger(){
+        return "/swagger-ui.html";
+    }
 
 
 

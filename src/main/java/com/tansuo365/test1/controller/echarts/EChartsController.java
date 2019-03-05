@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Api(value = "ECharts图表控制层",description = "ECharts图表控制层,对多种图表的测试处理")
+@Api(value = "ECharts图表控制层",tags = "ECharts图表控制接口 EChartsController",description = "ECharts图表控制层,对多种图表的测试处理")
 @Controller
 @RequestMapping("/data")
 public class EChartsController {

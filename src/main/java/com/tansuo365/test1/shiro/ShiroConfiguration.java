@@ -110,10 +110,11 @@ public class ShiroConfiguration {
 //        ;//后台登出
 ////      单独放入member的配置中  filterChainDefinitionMap.put("/member/doLogout","logout");//前端客户登出
 //        filterChainDefinitionMap.put("/user/**", "url"); //路径/shiro_admin/**全部需要进行权限验证
-        filterChainDefinitionMap.put("/admin/**", "url"); //路径/shiro_admin/**全部需要进行权限验证
+//        filterChainDefinitionMap.put("/admin/**", "url"); //路径/shiro_admin/**全部需要进行权限验证
 //        //其他资源都需要认证  authc 表示需要认证才能进行访问 user表示配置记住我或认证通过可以访问的地址
 //        filterChainDefinitionMap.put("/user/**", "theMember");
-        filterChainDefinitionMap.put("/admin/**", "user");
+        filterChainDefinitionMap.put("/admin/**", "user");  //user表示验证身份通过,保存了rememberMe时也可以通过
+        filterChainDefinitionMap.put("/swagger-ui.html", "authc"); //authc表示验证身份才能通过
 //        shiroFilterFactoryBean.setFilters(customisedFilter);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

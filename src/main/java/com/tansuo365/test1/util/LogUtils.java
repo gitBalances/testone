@@ -72,10 +72,11 @@ public class LogUtils {
         if(currentMember != null){
             user = UserType.MEMBER.toString();
             myLoginInstance = currentMember;
-        }
-        if(currentUser != null){
+        }else if(currentUser != null){
             user = UserType.ADMIN.toString();
             myLoginInstance = currentUser;
+        }else{
+            return;
         }
         //如果是公共日志,则判定字符串user
         if(instance.equals(COMMON_LOG)){

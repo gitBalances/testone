@@ -215,42 +215,85 @@
 <script th:inline="none">
 
     $('#dg').datagrid({
-        url: '/goods/MAsphalt/selectSelective',
-        toolbar: '#toolbar',
-        pagination: 'true',
-        pageSize: 10,
-        pageList: [5, 10, 15, 20],
-        rownumbers: 'true',
-        fitColumns: 'true',
-        loadMsg: '数据加载中请稍后……',
-        fit: 'true',
-        // singleSelect: 'true',
-        checkbox: 'true',
-        idField: 'id',
-        collapsible: 'true',
-        iconCls: 'icon-save',
-        queryParams: form2Json('searchform'),
+            url: '/goods/MAsphalt/selectSelective',
+            toolbar: '#toolbar',
+            pagination: 'true',
+            pageSize: 10,
+            pageList: [5, 10, 15, 20],
+            rownumbers: 'true',
+            fitColumns: 'true',
+            loadMsg: '数据加载中请稍后……',
+            fit: 'true',
+            // singleSelect: 'true',
+            checkbox: 'true',
+            idField: 'id',
+            collapsible: 'true',
+            iconCls: 'icon-save',
+            queryParams: form2Json('searchform'),
 
-        columns: [[
+            //悬停提示tooltip
+            onLoadSuccess: function (data) {
+                $(this).datagrid('tooltip');
+            },
 
-            {field: 'id', align: 'center', title: '数据序列号', hidden: true},
-            {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
-            {field: 'province', title: '省份', width: 50},
-            {field: 'company', title: '企业名', width: 100},
-            {field: 's_company', title: '简称', width: 50},
-            {field: 'softening_point', title: '软化点_℃', width: 50},
-            {field: 'toluene', title: '甲苯不溶物含量_%', width: 50},
-            {field: 'quinoline', title: '喹啉不溶物含量_%', width: 50},
-            {field: 'beta_resin', title: 'β树脂含量_%', width: 50},
-            {field: 'coking_value', title: '结焦值_%', width: 50},
-            {field: 'ash', title: '灰分_%', width: 50},
-            {field: 'today_price', title: '今日报价', width: 100},
-            {field: 'remarks', title: '备注', width: 100},
-            {field: 'reporter', title: '汇报人', width: 100},
-            {field: 'create_time', title: '创建时间', width: 100},
-            {field: 'update_time', title: '更新时间', width: 100}
-        ]]
-    });
+            columns: [[
+
+                {field: 'id', align: 'center', title: '数据序列号', hidden: true},
+                {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
+                {field: 'province', title: '省份', width: 50},
+                {field: 'company', title: '企业名', width: 100},
+                {field: 's_company', title: '简称', width: 50},
+                {field: 'softening_point', title: '软化点_℃', width: 50},
+                {field: 'toluene', title: '甲苯不溶物含量_%', width: 50},
+                {field: 'quinoline', title: '喹啉不溶物含量_%', width: 50},
+                {field: 'beta_resin', title: 'β树脂含量_%', width: 50},
+                {field: 'coking_value', title: '结焦值_%', width: 50},
+                {field: 'ash', title: '灰分_%', width: 50},
+                {field: 'today_price', title: '今日报价', width: 100},
+                {field: 'remarks', title: '备注', width: 100},
+                {field: 'reporter', title: '汇报人', width: 100},
+                {field: 'create_time', title: '创建时间', width: 100},
+                {field: 'update_time', title: '更新时间', width: 100}
+            ]]
+        },
+        //之下为鼠标悬停table上展示单个字段的tooltip
+        $.extend($.fn.datagrid.methods, {
+            tooltip: function (jq, fields) {
+                return jq.each(function () {
+                    var panel = $(this).datagrid('getPanel');
+                    if (fields && typeof fields == 'object' && fields.sort) {
+                        $.each(fields, function () {
+                            var field = this;
+                            bindEvent($('.datagrid-body td[field=' + field + '] .datagrid-cell', panel));
+                        });
+                    } else {
+                        bindEvent($(".datagrid-body .datagrid-cell", panel));
+                    }
+                });
+
+                function bindEvent(jqs) {
+                    jqs.mouseover(function () {
+                        var content = $(this).text();
+                        if (content && content != "") {
+                            $(this).tooltip({
+                                content: content,
+                                trackMouse: true,
+                                deltaX: 15,
+                                deltaY: -5,
+                                onShow: function () {
+                                    $(this).tooltip('tip').css({
+                                        backgroundColor: '#f7f5d1',
+                                        borderColor: 'black'
+                                    });
+                                }
+                            }).tooltip('show');
+                        }
+                    });
+                }
+            }
+        })
+        //tooltip end
+    );
 
     function form2Json(id) {
 
@@ -520,6 +563,7 @@
 
     //上传文件
     $("#uploadBtn").click(uploadonline);
+
     function uploadonline() {
 
         // var add = '/excel/importExcel';
@@ -572,8 +616,8 @@
     }
 
     //图表和表单展示切换
-    function chartAndTable(){
-        window.location.href="/easy/goods/asphalt_charts";
+    function chartAndTable() {
+        window.location.href = "/easy/goods/asphalt_charts";
     }
 
 </script>

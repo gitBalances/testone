@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(value = "权限菜单控制层",description = "权限菜单控制层,作为权限菜单的操作.")
+@Api(value = "权限菜单控制层",tags = "权限菜单控制接口 EMenuController", description = "权限菜单控制层,作为权限菜单的操作.")
 @RestController
 @RequestMapping("/admin/menu")
 public class EMenuController {

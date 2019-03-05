@@ -27,7 +27,7 @@ import java.util.*;
 
 
 /*管理员角色控制层*/
-@Api(value = "管理员角色控制层", description = "管理员角色控制层,配置系统角色")
+@Api(value = "管理员角色控制层",  tags = "管理员角色接口 AdminRoleController", description = "管理员角色控制层,配置系统角色")
 @RestController
 @RequestMapping("/admin/role")
 public class AdminRoleController {
@@ -196,7 +196,8 @@ public class AdminRoleController {
      */
     @ApiOperation(value = "保存角色权限设置", notes = "保存角色权限设置根据给定菜单ids,角色id")
 //    @CachePut(value = "menuIds", key = "''+#+',roleId'+#roleId", condition = "#menuIds != '' ") //即保证方法被调用,又加入缓存
-    @CachePut(value = "roleMenuStr", key = "#session.getAttribute('currentUser').toString()+#session.getAttribute('roleList').toString()", condition = "#parentId !=  '' ")
+//    @CachePut(value = "roleMenuStr", key = "#session.getAttribute('currentUser').toString()+#session.getAttribute('roleList').toString()", condition = "#parentId !=  '' ")
+    @CachePut(value = "roleMenuStr", key = "#menuIds+#roleId", condition = "#parentId !=  '' ")
     @RequestMapping("/saveMenuSet")
     @RequiresPermissions(value = {"系统角色管理"})
     public Map<String, Object> saveMenuSet(HttpSession session, String menuIds, Integer roleId) {
