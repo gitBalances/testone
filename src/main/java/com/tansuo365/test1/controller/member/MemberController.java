@@ -5,6 +5,7 @@ import com.tansuo365.test1.bean.member.Member;
 import com.tansuo365.test1.service.member.MemberService;
 import com.tansuo365.test1.shiro.realm.MyAuthenticationToken;
 import com.tansuo365.test1.shiro.realm.LoginEnum;
+import com.tansuo365.test1.util.PasswordEncrypt;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -27,7 +28,7 @@ import java.util.Map;
 /**
  * 会员控制层(前端使用用户)
  */
-@Api(value = "前端会员控制层",tags = "前端会员控制接口 MemberController", description = "包含登录,注册,登出控制.")
+@Api(value = "前端会员控制层", tags = "前端会员控制接口 MemberController", description = "包含登录,注册,登出控制.")
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -40,7 +41,7 @@ public class MemberController {
 //    public String login(){
 //        return "/user/login";
 //    }
-    @ApiOperation(value="会员个人信息", notes="会员个人信息")
+    @ApiOperation(value = "会员个人信息", notes = "会员个人信息")
     @RequestMapping("/info")
     public String info() {
         return "/member/auth/info";
@@ -51,32 +52,37 @@ public class MemberController {
         return "/user/unauthorized";
     }
 
-    @ApiOperation(value="返回会员登录页", notes="返回会员登录页")
+    @ApiOperation(value = "返回会员登录页", notes = "返回会员登录页")
     @RequestMapping(value = "/login")
     public String login() {
         return "/member/login"; //对应用户登录展示
     }
 
-    @ApiOperation(value="会员登录请求处理", notes="会员登录请求处理")
+    @ApiOperation(value = "会员登录请求处理", notes = "会员登录请求处理")
     @ResponseBody
     @RequestMapping("/loginMember")
     public Map<String, Object> login(Member member, HttpSession session) {
         Map<String, Object> resultMap = new HashMap<>();
         if (member.getUsername() != null && member.getPassword() != null) {
             if (member.getUsername().length() != 0 && member.getPassword().length() != 0) {
-                List<Member> currentMember = memberService.getMemberSelective(member);
-                if (currentMember.size() == 1) {
-                    session.setAttribute("currentMember", currentMember.get(0));
+                String plainPassword = member.getPassword();
+
+                Member currentMember = memberService.getMemberByName(member.getUsername());
+
+                boolean b = PasswordEncrypt.passwordComparison(currentMember, plainPassword);
+                if (b) {
+                    session.setAttribute("currentMember", currentMember);
                     resultMap.put("success", true);
                     resultMap.put("message", "登录成功!");
-                } else {
+                } else {//密码比对错误,密码填写错误
                     resultMap.put("success", false);
                     resultMap.put("message", "登录失败!用户名或密码错误!");
                 }
+
             }
         } else {
             resultMap.put("success", false);
-            resultMap.put("message", "登录失败!用户名或密码错误!");
+            resultMap.put("message", "登录失败!请填写用户名或密码!");//一般不会发生,使用前端正则校验
         }
         return resultMap;
     }
@@ -117,7 +123,7 @@ public class MemberController {
 //        }
 //        return "redirect:/member/login";
 //    }
-    @ApiOperation(value="会员注册处理", notes="会员注册请求处理")
+    @ApiOperation(value = "会员注册处理", notes = "会员注册请求处理")
     @ResponseBody
     @RequestMapping("/signUp")
     public Map<String, Object> signUp(Member member) {
@@ -127,6 +133,7 @@ public class MemberController {
             resultMap.put("success", false);
             resultMap.put("message", "用户名已存在!");
         } else {
+            PasswordEncrypt.encryptPWD(member);//对密码加密,并设置salt
             int code = memberService.addNewMember(member);
             if (code == 1) {
                 resultMap.put("success", true);
@@ -142,7 +149,7 @@ public class MemberController {
 //        currentUser = SecurityUtils.getSubject();
 //        currentUser.logout();
 //    }
-    @ApiOperation(value="会员登出", notes="会员登出")
+    @ApiOperation(value = "会员登出", notes = "会员登出")
     @ResponseBody
     @RequestMapping("/doLogout")
     public Integer logout(HttpSession session) {

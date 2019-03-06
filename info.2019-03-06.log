@@ -1,0 +1,457 @@
+Starting Test1Application on UnDead with PID 1404 (started by SeeClanUkyo in D:\新建文件夹\test1)
+No active profile set, falling back to default profiles: default
+Multiple Spring Data modules found, entering strict repository configuration mode!
+Bootstrapping Spring Data repositories in DEFAULT mode.
+Finished Spring Data repository scanning in 45ms. Found 0 repository interfaces.
+@Bean method PropertiesConfig.properties is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
+Bean 'shiroConfiguration' of type [com.tansuo365.test1.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$25253463] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$bb194368] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userMapper' of type [com.sun.proxy.$Proxy66] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleMapper' of type [com.sun.proxy.$Proxy67] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleServiceImpl' of type [com.tansuo365.test1.service.user.impl.UserRoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userServiceImpl' of type [com.tansuo365.test1.service.user.impl.UserServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleMapper' of type [com.sun.proxy.$Proxy69] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleServiceImpl' of type [com.tansuo365.test1.service.user.impl.RoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuMapper' of type [com.sun.proxy.$Proxy70] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuServiceImpl' of type [com.tansuo365.test1.service.user.impl.EMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'getDatabaseRealm' of type [com.tansuo365.test1.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'rememberMeCookie' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'redisConfig' of type [com.tansuo365.test1.config.RedisConfig$$EnhancerBySpringCGLIB$$101d4c52] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$8844f238] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Tomcat initialized with port(s): 80 (http)
+Initializing ProtocolHandler ["http-nio-80"]
+Starting service [Tomcat]
+Starting Servlet Engine: Apache Tomcat/9.0.13
+The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_191\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;F:\Xshell6\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;F:\Oracle\app\oracle\product\10.2.0\server\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;F:\kranalyzer;"F:\apache-tomcat-8.5.30\lib;F:\apache-tomcat-8.5.30\bin";F:\apache-maven-3.5.4\bin;F:\apache-maven-3.5.4\bin;F:\spring-2.0.1.RELEASE\bin;F:\commons-logging-1.2;F:\nodejs\;C:\Program Files (x86)\Calibre2\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;F:\postgreSQL\pg10\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;F:\mysql\mysql-5.7.21-winx64\bin;F:\SVNtool\bin;F:\spring-2.0.4.RELEASE\bin;F:\gradle-4.10.1\bin;C:\Program Files\Java\jre1.8.0_191\bin;C:\Program Files\Java\jdk1.8.0_191\bin;F:\TortoiseSVN\bin;F:\redis\;F:\Git\cmd;F:\Go\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;F:\texlive\2018\bin\win32;C:\Users\SeeClanUkyo\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\SeeClanUkyo\AppData\Local\Programs\Python\Python36\;C:\Users\SeeClanUkyo\AppData\Local\Microsoft\WindowsApps;F:\Nmap;C:\Users\SeeClanUkyo\AppData\Roaming\npm;C:\Users\SeeClanUkyo\AppData\Local\GitHubDesktop\bin;F:\MiKTeX\miktex\bin\x64\;D:\go\workspace\bin;F:\Microsoft VS Code Insiders\bin;.]
+At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+Initializing Spring embedded WebApplicationContext
+Root WebApplicationContext: initialization completed in 5052 ms
+Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+Initializing ExecutorService 'applicationTaskExecutor'
+[THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+Adding welcome page template: index
+Context refreshed
+Found 1 custom documentation plugin(s)
+Scanning for api listing references
+Generating unique operation named: saveRoleUsingGET_1
+Generating unique operation named: saveRoleUsingHEAD_1
+Generating unique operation named: saveRoleUsingPOST_1
+Generating unique operation named: saveRoleUsingPUT_1
+Generating unique operation named: saveRoleUsingPATCH_1
+Generating unique operation named: saveRoleUsingDELETE_1
+Generating unique operation named: saveRoleUsingOPTIONS_1
+Generating unique operation named: saveRoleUsingTRACE_1
+Generating unique operation named: regUsingGET_1
+Generating unique operation named: regUsingHEAD_1
+Generating unique operation named: regUsingPOST_1
+Generating unique operation named: regUsingPUT_1
+Generating unique operation named: regUsingPATCH_1
+Generating unique operation named: regUsingDELETE_1
+Generating unique operation named: regUsingOPTIONS_1
+Generating unique operation named: regUsingTRACE_1
+Generating unique operation named: echarts0UsingGET_1
+Generating unique operation named: echarts0UsingHEAD_1
+Generating unique operation named: echarts0UsingPOST_1
+Generating unique operation named: echarts0UsingPUT_1
+Generating unique operation named: echarts0UsingPATCH_1
+Generating unique operation named: echarts0UsingDELETE_1
+Generating unique operation named: echarts0UsingOPTIONS_1
+Generating unique operation named: echarts0UsingTRACE_1
+Generating unique operation named: listEMenuUsingGET_1
+Generating unique operation named: listEMenuUsingHEAD_1
+Generating unique operation named: listEMenuUsingPOST_1
+Generating unique operation named: listEMenuUsingPUT_1
+Generating unique operation named: listEMenuUsingPATCH_1
+Generating unique operation named: listEMenuUsingDELETE_1
+Generating unique operation named: listEMenuUsingOPTIONS_1
+Generating unique operation named: listEMenuUsingTRACE_1
+Generating unique operation named: loginUsingGET_1
+Generating unique operation named: loginUsingPOST_1
+Generating unique operation named: loginUsingGET_2
+Generating unique operation named: loginUsingHEAD_1
+Generating unique operation named: loginUsingPOST_2
+Generating unique operation named: loginUsingPUT_1
+Generating unique operation named: loginUsingPATCH_1
+Generating unique operation named: loginUsingDELETE_1
+Generating unique operation named: loginUsingOPTIONS_1
+Generating unique operation named: loginUsingTRACE_1
+Generating unique operation named: indexUsingGET_1
+Generating unique operation named: indexUsingHEAD_1
+Generating unique operation named: indexUsingPOST_1
+Generating unique operation named: indexUsingPUT_1
+Generating unique operation named: indexUsingPATCH_1
+Generating unique operation named: indexUsingDELETE_1
+Generating unique operation named: indexUsingOPTIONS_1
+Generating unique operation named: indexUsingTRACE_1
+Starting ProtocolHandler ["http-nio-80"]
+Using a shared selector for servlet write/read
+Tomcat started on port(s): 80 (http) with context path ''
+Started Test1Application in 8.855 seconds (JVM running for 17.91)
+Initializing Spring DispatcherServlet 'dispatcherServlet'
+Initializing Servlet 'dispatcherServlet'
+Completed initialization in 8 ms
+HikariPool-1 - Starting...
+HikariPool-1 - Start completed.
+Starting Test1Application on UnDead with PID 17836 (started by SeeClanUkyo in D:\新建文件夹\test1)
+No active profile set, falling back to default profiles: default
+Multiple Spring Data modules found, entering strict repository configuration mode!
+Bootstrapping Spring Data repositories in DEFAULT mode.
+Finished Spring Data repository scanning in 51ms. Found 0 repository interfaces.
+@Bean method PropertiesConfig.properties is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
+Bean 'shiroConfiguration' of type [com.tansuo365.test1.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$41a812ba] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$d79c21bf] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userMapper' of type [com.sun.proxy.$Proxy66] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleMapper' of type [com.sun.proxy.$Proxy67] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleServiceImpl' of type [com.tansuo365.test1.service.user.impl.UserRoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userServiceImpl' of type [com.tansuo365.test1.service.user.impl.UserServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleMapper' of type [com.sun.proxy.$Proxy69] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleServiceImpl' of type [com.tansuo365.test1.service.user.impl.RoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuMapper' of type [com.sun.proxy.$Proxy70] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuServiceImpl' of type [com.tansuo365.test1.service.user.impl.EMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'getDatabaseRealm' of type [com.tansuo365.test1.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'rememberMeCookie' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'redisConfig' of type [com.tansuo365.test1.config.RedisConfig$$EnhancerBySpringCGLIB$$2ca02aa9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a4c7d08f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Tomcat initialized with port(s): 80 (http)
+Initializing ProtocolHandler ["http-nio-80"]
+Starting service [Tomcat]
+Starting Servlet Engine: Apache Tomcat/9.0.13
+The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_191\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;F:\Xshell6\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;F:\Oracle\app\oracle\product\10.2.0\server\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;F:\kranalyzer;"F:\apache-tomcat-8.5.30\lib;F:\apache-tomcat-8.5.30\bin";F:\apache-maven-3.5.4\bin;F:\apache-maven-3.5.4\bin;F:\spring-2.0.1.RELEASE\bin;F:\commons-logging-1.2;F:\nodejs\;C:\Program Files (x86)\Calibre2\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;F:\postgreSQL\pg10\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;F:\mysql\mysql-5.7.21-winx64\bin;F:\SVNtool\bin;F:\spring-2.0.4.RELEASE\bin;F:\gradle-4.10.1\bin;C:\Program Files\Java\jre1.8.0_191\bin;C:\Program Files\Java\jdk1.8.0_191\bin;F:\TortoiseSVN\bin;F:\redis\;F:\Git\cmd;F:\Go\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;F:\texlive\2018\bin\win32;C:\Users\SeeClanUkyo\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\SeeClanUkyo\AppData\Local\Programs\Python\Python36\;C:\Users\SeeClanUkyo\AppData\Local\Microsoft\WindowsApps;F:\Nmap;C:\Users\SeeClanUkyo\AppData\Roaming\npm;C:\Users\SeeClanUkyo\AppData\Local\GitHubDesktop\bin;F:\MiKTeX\miktex\bin\x64\;D:\go\workspace\bin;F:\Microsoft VS Code Insiders\bin;.]
+At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+Initializing Spring embedded WebApplicationContext
+Root WebApplicationContext: initialization completed in 8239 ms
+Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+Initializing ExecutorService 'applicationTaskExecutor'
+[THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+Adding welcome page template: index
+Context refreshed
+Found 1 custom documentation plugin(s)
+Scanning for api listing references
+Generating unique operation named: saveRoleUsingGET_1
+Generating unique operation named: saveRoleUsingHEAD_1
+Generating unique operation named: saveRoleUsingPOST_1
+Generating unique operation named: saveRoleUsingPUT_1
+Generating unique operation named: saveRoleUsingPATCH_1
+Generating unique operation named: saveRoleUsingDELETE_1
+Generating unique operation named: saveRoleUsingOPTIONS_1
+Generating unique operation named: saveRoleUsingTRACE_1
+Generating unique operation named: regUsingGET_1
+Generating unique operation named: regUsingHEAD_1
+Generating unique operation named: regUsingPOST_1
+Generating unique operation named: regUsingPUT_1
+Generating unique operation named: regUsingPATCH_1
+Generating unique operation named: regUsingDELETE_1
+Generating unique operation named: regUsingOPTIONS_1
+Generating unique operation named: regUsingTRACE_1
+Generating unique operation named: echarts0UsingGET_1
+Generating unique operation named: echarts0UsingHEAD_1
+Generating unique operation named: echarts0UsingPOST_1
+Generating unique operation named: echarts0UsingPUT_1
+Generating unique operation named: echarts0UsingPATCH_1
+Generating unique operation named: echarts0UsingDELETE_1
+Generating unique operation named: echarts0UsingOPTIONS_1
+Generating unique operation named: echarts0UsingTRACE_1
+Generating unique operation named: listEMenuUsingGET_1
+Generating unique operation named: listEMenuUsingHEAD_1
+Generating unique operation named: listEMenuUsingPOST_1
+Generating unique operation named: listEMenuUsingPUT_1
+Generating unique operation named: listEMenuUsingPATCH_1
+Generating unique operation named: listEMenuUsingDELETE_1
+Generating unique operation named: listEMenuUsingOPTIONS_1
+Generating unique operation named: listEMenuUsingTRACE_1
+Generating unique operation named: loginUsingGET_1
+Generating unique operation named: loginUsingPOST_1
+Generating unique operation named: loginUsingGET_2
+Generating unique operation named: loginUsingHEAD_1
+Generating unique operation named: loginUsingPOST_2
+Generating unique operation named: loginUsingPUT_1
+Generating unique operation named: loginUsingPATCH_1
+Generating unique operation named: loginUsingDELETE_1
+Generating unique operation named: loginUsingOPTIONS_1
+Generating unique operation named: loginUsingTRACE_1
+Generating unique operation named: indexUsingGET_1
+Generating unique operation named: indexUsingHEAD_1
+Generating unique operation named: indexUsingPOST_1
+Generating unique operation named: indexUsingPUT_1
+Generating unique operation named: indexUsingPATCH_1
+Generating unique operation named: indexUsingDELETE_1
+Generating unique operation named: indexUsingOPTIONS_1
+Generating unique operation named: indexUsingTRACE_1
+Starting ProtocolHandler ["http-nio-80"]
+Using a shared selector for servlet write/read
+Tomcat started on port(s): 80 (http) with context path ''
+Started Test1Application in 12.037 seconds (JVM running for 13.697)
+Initializing Spring DispatcherServlet 'dispatcherServlet'
+Initializing Servlet 'dispatcherServlet'
+Completed initialization in 19 ms
+HikariPool-1 - Starting...
+HikariPool-1 - Start completed.
+Starting Test1Application on UnDead with PID 15280 (started by SeeClanUkyo in D:\新建文件夹\test1)
+No active profile set, falling back to default profiles: default
+Multiple Spring Data modules found, entering strict repository configuration mode!
+Bootstrapping Spring Data repositories in DEFAULT mode.
+Finished Spring Data repository scanning in 32ms. Found 0 repository interfaces.
+@Bean method PropertiesConfig.properties is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
+Bean 'shiroConfiguration' of type [com.tansuo365.test1.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$b18ad215] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$477ee11a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userMapper' of type [com.sun.proxy.$Proxy66] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleMapper' of type [com.sun.proxy.$Proxy67] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleServiceImpl' of type [com.tansuo365.test1.service.user.impl.UserRoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userServiceImpl' of type [com.tansuo365.test1.service.user.impl.UserServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleMapper' of type [com.sun.proxy.$Proxy69] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleServiceImpl' of type [com.tansuo365.test1.service.user.impl.RoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuMapper' of type [com.sun.proxy.$Proxy70] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuServiceImpl' of type [com.tansuo365.test1.service.user.impl.EMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'getDatabaseRealm' of type [com.tansuo365.test1.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'rememberMeCookie' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'redisConfig' of type [com.tansuo365.test1.config.RedisConfig$$EnhancerBySpringCGLIB$$9c82ea04] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$14aa8fea] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Tomcat initialized with port(s): 80 (http)
+Initializing ProtocolHandler ["http-nio-80"]
+Starting service [Tomcat]
+Starting Servlet Engine: Apache Tomcat/9.0.13
+The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_191\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;F:\Xshell6\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;F:\Oracle\app\oracle\product\10.2.0\server\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;F:\kranalyzer;"F:\apache-tomcat-8.5.30\lib;F:\apache-tomcat-8.5.30\bin";F:\apache-maven-3.5.4\bin;F:\apache-maven-3.5.4\bin;F:\spring-2.0.1.RELEASE\bin;F:\commons-logging-1.2;F:\nodejs\;C:\Program Files (x86)\Calibre2\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;F:\postgreSQL\pg10\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;F:\mysql\mysql-5.7.21-winx64\bin;F:\SVNtool\bin;F:\spring-2.0.4.RELEASE\bin;F:\gradle-4.10.1\bin;C:\Program Files\Java\jre1.8.0_191\bin;C:\Program Files\Java\jdk1.8.0_191\bin;F:\TortoiseSVN\bin;F:\redis\;F:\Git\cmd;F:\Go\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;F:\texlive\2018\bin\win32;C:\Users\SeeClanUkyo\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\SeeClanUkyo\AppData\Local\Programs\Python\Python36\;C:\Users\SeeClanUkyo\AppData\Local\Microsoft\WindowsApps;F:\Nmap;C:\Users\SeeClanUkyo\AppData\Roaming\npm;C:\Users\SeeClanUkyo\AppData\Local\GitHubDesktop\bin;F:\MiKTeX\miktex\bin\x64\;D:\go\workspace\bin;F:\Microsoft VS Code Insiders\bin;.]
+At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+Initializing Spring embedded WebApplicationContext
+Root WebApplicationContext: initialization completed in 2961 ms
+Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+Initializing ExecutorService 'applicationTaskExecutor'
+[THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+Adding welcome page template: index
+Context refreshed
+Found 1 custom documentation plugin(s)
+Scanning for api listing references
+Generating unique operation named: saveRoleUsingGET_1
+Generating unique operation named: saveRoleUsingHEAD_1
+Generating unique operation named: saveRoleUsingPOST_1
+Generating unique operation named: saveRoleUsingPUT_1
+Generating unique operation named: saveRoleUsingPATCH_1
+Generating unique operation named: saveRoleUsingDELETE_1
+Generating unique operation named: saveRoleUsingOPTIONS_1
+Generating unique operation named: saveRoleUsingTRACE_1
+Generating unique operation named: regUsingGET_1
+Generating unique operation named: regUsingHEAD_1
+Generating unique operation named: regUsingPOST_1
+Generating unique operation named: regUsingPUT_1
+Generating unique operation named: regUsingPATCH_1
+Generating unique operation named: regUsingDELETE_1
+Generating unique operation named: regUsingOPTIONS_1
+Generating unique operation named: regUsingTRACE_1
+Generating unique operation named: echarts0UsingGET_1
+Generating unique operation named: echarts0UsingHEAD_1
+Generating unique operation named: echarts0UsingPOST_1
+Generating unique operation named: echarts0UsingPUT_1
+Generating unique operation named: echarts0UsingPATCH_1
+Generating unique operation named: echarts0UsingDELETE_1
+Generating unique operation named: echarts0UsingOPTIONS_1
+Generating unique operation named: echarts0UsingTRACE_1
+Generating unique operation named: listEMenuUsingGET_1
+Generating unique operation named: listEMenuUsingHEAD_1
+Generating unique operation named: listEMenuUsingPOST_1
+Generating unique operation named: listEMenuUsingPUT_1
+Generating unique operation named: listEMenuUsingPATCH_1
+Generating unique operation named: listEMenuUsingDELETE_1
+Generating unique operation named: listEMenuUsingOPTIONS_1
+Generating unique operation named: listEMenuUsingTRACE_1
+Generating unique operation named: loginUsingGET_1
+Generating unique operation named: loginUsingPOST_1
+Generating unique operation named: loginUsingGET_2
+Generating unique operation named: loginUsingHEAD_1
+Generating unique operation named: loginUsingPOST_2
+Generating unique operation named: loginUsingPUT_1
+Generating unique operation named: loginUsingPATCH_1
+Generating unique operation named: loginUsingDELETE_1
+Generating unique operation named: loginUsingOPTIONS_1
+Generating unique operation named: loginUsingTRACE_1
+Generating unique operation named: indexUsingGET_1
+Generating unique operation named: indexUsingHEAD_1
+Generating unique operation named: indexUsingPOST_1
+Generating unique operation named: indexUsingPUT_1
+Generating unique operation named: indexUsingPATCH_1
+Generating unique operation named: indexUsingDELETE_1
+Generating unique operation named: indexUsingOPTIONS_1
+Generating unique operation named: indexUsingTRACE_1
+Starting ProtocolHandler ["http-nio-80"]
+Using a shared selector for servlet write/read
+Tomcat started on port(s): 80 (http) with context path ''
+Started Test1Application in 6.577 seconds (JVM running for 7.481)
+Initializing Spring DispatcherServlet 'dispatcherServlet'
+Initializing Servlet 'dispatcherServlet'
+Completed initialization in 13 ms
+HikariPool-1 - Starting...
+HikariPool-1 - Start completed.
+Starting Test1Application on UnDead with PID 9400 (started by SeeClanUkyo in D:\新建文件夹\test1)
+No active profile set, falling back to default profiles: default
+Multiple Spring Data modules found, entering strict repository configuration mode!
+Bootstrapping Spring Data repositories in DEFAULT mode.
+Finished Spring Data repository scanning in 70ms. Found 0 repository interfaces.
+@Bean method PropertiesConfig.properties is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
+Bean 'shiroConfiguration' of type [com.tansuo365.test1.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$fa9cf55b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$90910460] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userMapper' of type [com.sun.proxy.$Proxy66] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleMapper' of type [com.sun.proxy.$Proxy67] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userRoleServiceImpl' of type [com.tansuo365.test1.service.user.impl.UserRoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'userServiceImpl' of type [com.tansuo365.test1.service.user.impl.UserServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleMapper' of type [com.sun.proxy.$Proxy69] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'roleServiceImpl' of type [com.tansuo365.test1.service.user.impl.RoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuMapper' of type [com.sun.proxy.$Proxy70] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'EMenuServiceImpl' of type [com.tansuo365.test1.service.user.impl.EMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'getDatabaseRealm' of type [com.tansuo365.test1.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'rememberMeCookie' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'redisConfig' of type [com.tansuo365.test1.config.RedisConfig$$EnhancerBySpringCGLIB$$e5950d4a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$5dbcb330] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Tomcat initialized with port(s): 80 (http)
+Initializing ProtocolHandler ["http-nio-80"]
+Starting service [Tomcat]
+Starting Servlet Engine: Apache Tomcat/9.0.13
+The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_191\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;F:\Xshell6\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;F:\Oracle\app\oracle\product\10.2.0\server\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;F:\kranalyzer;"F:\apache-tomcat-8.5.30\lib;F:\apache-tomcat-8.5.30\bin";F:\apache-maven-3.5.4\bin;F:\apache-maven-3.5.4\bin;F:\spring-2.0.1.RELEASE\bin;F:\commons-logging-1.2;F:\nodejs\;C:\Program Files (x86)\Calibre2\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;F:\postgreSQL\pg10\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;F:\mysql\mysql-5.7.21-winx64\bin;F:\SVNtool\bin;F:\spring-2.0.4.RELEASE\bin;F:\gradle-4.10.1\bin;C:\Program Files\Java\jre1.8.0_191\bin;C:\Program Files\Java\jdk1.8.0_191\bin;F:\TortoiseSVN\bin;F:\redis\;F:\Git\cmd;F:\Go\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;F:\texlive\2018\bin\win32;C:\Users\SeeClanUkyo\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\SeeClanUkyo\AppData\Local\Programs\Python\Python36\;C:\Users\SeeClanUkyo\AppData\Local\Microsoft\WindowsApps;F:\Nmap;C:\Users\SeeClanUkyo\AppData\Roaming\npm;C:\Users\SeeClanUkyo\AppData\Local\GitHubDesktop\bin;F:\MiKTeX\miktex\bin\x64\;D:\go\workspace\bin;F:\Microsoft VS Code Insiders\bin;.]
+At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+Initializing Spring embedded WebApplicationContext
+Root WebApplicationContext: initialization completed in 4401 ms
+Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+Initializing ExecutorService 'applicationTaskExecutor'
+[THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+Adding welcome page template: index
+Context refreshed
+Found 1 custom documentation plugin(s)
+Scanning for api listing references
+Generating unique operation named: saveRoleUsingGET_1
+Generating unique operation named: saveRoleUsingHEAD_1
+Generating unique operation named: saveRoleUsingPOST_1
+Generating unique operation named: saveRoleUsingPUT_1
+Generating unique operation named: saveRoleUsingPATCH_1
+Generating unique operation named: saveRoleUsingDELETE_1
+Generating unique operation named: saveRoleUsingOPTIONS_1
+Generating unique operation named: saveRoleUsingTRACE_1
+Generating unique operation named: regUsingGET_1
+Generating unique operation named: regUsingHEAD_1
+Generating unique operation named: regUsingPOST_1
+Generating unique operation named: regUsingPUT_1
+Generating unique operation named: regUsingPATCH_1
+Generating unique operation named: regUsingDELETE_1
+Generating unique operation named: regUsingOPTIONS_1
+Generating unique operation named: regUsingTRACE_1
+Generating unique operation named: echarts0UsingGET_1
+Generating unique operation named: echarts0UsingHEAD_1
+Generating unique operation named: echarts0UsingPOST_1
+Generating unique operation named: echarts0UsingPUT_1
+Generating unique operation named: echarts0UsingPATCH_1
+Generating unique operation named: echarts0UsingDELETE_1
+Generating unique operation named: echarts0UsingOPTIONS_1
+Generating unique operation named: echarts0UsingTRACE_1
+Generating unique operation named: listEMenuUsingGET_1
+Generating unique operation named: listEMenuUsingHEAD_1
+Generating unique operation named: listEMenuUsingPOST_1
+Generating unique operation named: listEMenuUsingPUT_1
+Generating unique operation named: listEMenuUsingPATCH_1
+Generating unique operation named: listEMenuUsingDELETE_1
+Generating unique operation named: listEMenuUsingOPTIONS_1
+Generating unique operation named: listEMenuUsingTRACE_1
+Generating unique operation named: loginUsingGET_1
+Generating unique operation named: loginUsingPOST_1
+Generating unique operation named: loginUsingGET_2
+Generating unique operation named: loginUsingHEAD_1
+Generating unique operation named: loginUsingPOST_2
+Generating unique operation named: loginUsingPUT_1
+Generating unique operation named: loginUsingPATCH_1
+Generating unique operation named: loginUsingDELETE_1
+Generating unique operation named: loginUsingOPTIONS_1
+Generating unique operation named: loginUsingTRACE_1
+Generating unique operation named: indexUsingGET_1
+Generating unique operation named: indexUsingHEAD_1
+Generating unique operation named: indexUsingPOST_1
+Generating unique operation named: indexUsingPUT_1
+Generating unique operation named: indexUsingPATCH_1
+Generating unique operation named: indexUsingDELETE_1
+Generating unique operation named: indexUsingOPTIONS_1
+Generating unique operation named: indexUsingTRACE_1
+Starting ProtocolHandler ["http-nio-80"]
+Using a shared selector for servlet write/read
+Tomcat started on port(s): 80 (http) with context path ''
+Started Test1Application in 8.413 seconds (JVM running for 10.283)
+Initializing Spring DispatcherServlet 'dispatcherServlet'
+Initializing Servlet 'dispatcherServlet'
+Completed initialization in 13 ms
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+HikariPool-1 - Starting...
+HikariPool-1 - Start completed.
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]
+Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'member_level' is not present]

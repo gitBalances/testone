@@ -13,14 +13,18 @@ import java.util.Map;
 //登录实例密码加密
 public class PasswordEncrypt {
 
+    private static String algorithmName = "md5";
+
+    private static int algorithmTimes = 2;
+
     /*通过传入实例加密实例的密码*/
     public static void encryptPWD(MyLoginInstance instance) {
         // 如果在修改的时候没有设置密码，就表示不改动密码
         if (instance.getInstancePassword().length() != 0) {
             String salt = new SecureRandomNumberGenerator().nextBytes().toString();
-            int times = 2;
-            String algorithmName = "md5"; //md5轻易不可逆
-            String encodedPassword = new SimpleHash(algorithmName, instance.getInstancePassword(), salt, times).toString();
+//            int times = 2;
+//            String algorithmName = "md5"; //md5轻易不可逆
+            String encodedPassword = new SimpleHash(algorithmName, instance.getInstancePassword(), salt, algorithmTimes).toString();
             instance.setInstanceSalt(salt);
             instance.setInstancePassword(encodedPassword);
         } else {
@@ -48,6 +52,23 @@ public class PasswordEncrypt {
         return resultMap;
     }
 
+    /**
+     * 传入登录实例及普通密码,与数据库中该登录实例的加密密码是否一致.(通过注册时的salt)
+     * @param instance
+     * @param plainPassword
+     * @return
+     */
+    public static boolean passwordComparison(MyLoginInstance instance,String plainPassword){
+        String instanceSalt = instance.getInstanceSalt();
+        String instancePassword = instance.getInstancePassword();
+        String encryptPWD = new SimpleHash(algorithmName,plainPassword,instanceSalt,algorithmTimes).toString();
+        if(instancePassword.equals(encryptPWD)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /*二次加密*/
     public static String encryptPwd(String pwd) {
         // AES算法实现：
@@ -57,7 +78,6 @@ public class PasswordEncrypt {
         Key key = aesCipherService.generateNewKey();
         //加密
         String encrptText = aesCipherService.encrypt(pwd.getBytes(), key.getEncoded()).toHex();
-
         //解密
 //        String text2 = new String(aesCipherService.decrypt(Hex.decode(encrptText), key.getEncoded()).getBytes());
 
