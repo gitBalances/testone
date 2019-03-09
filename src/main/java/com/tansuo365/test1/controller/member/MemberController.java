@@ -1,7 +1,10 @@
 package com.tansuo365.test1.controller.member;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tansuo365.test1.bean.member.Member;
+import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.service.member.MemberService;
 import com.tansuo365.test1.shiro.realm.MyAuthenticationToken;
 import com.tansuo365.test1.shiro.realm.LoginEnum;
@@ -14,10 +17,13 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -70,6 +76,7 @@ public class MemberController {
                 Member currentMember = memberService.getMemberByName(member.getUsername());
 
                 boolean b = PasswordEncrypt.passwordComparison(currentMember, plainPassword);
+
                 if (b) {
                     session.setAttribute("currentMember", currentMember);
                     resultMap.put("success", true);
@@ -80,10 +87,12 @@ public class MemberController {
                 }
 
             }
-        } else {
+        }else{
+            System.out.println("没有填写用户名和密码并提交到了后台");
             resultMap.put("success", false);
             resultMap.put("message", "登录失败!请填写用户名或密码!");//一般不会发生,使用前端正则校验
         }
+
         return resultMap;
     }
 
@@ -123,21 +132,34 @@ public class MemberController {
 //        }
 //        return "redirect:/member/login";
 //    }
+
+    /*邀请码 测试码*/
+    @Value("solomo888yosh28yb281j")
+    private String activationCode;
+
     @ApiOperation(value = "会员注册处理", notes = "会员注册请求处理")
     @ResponseBody
     @RequestMapping("/signUp")
     public Map<String, Object> signUp(Member member) {
+        System.out.println("this activationCode : "+activationCode);
         Map<String, Object> resultMap = new HashMap<>();
+        if(!member.getActivation().equals(activationCode)){
+            resultMap.put("success", false);
+            resultMap.put("message", "邀请码填写错误!");
+            return resultMap;
+        }
         Member testUser = memberService.getMemberByName(member.getUsername());
         if (testUser != null) {
             resultMap.put("success", false);
             resultMap.put("message", "用户名已存在!");
+            return resultMap;
         } else {
             PasswordEncrypt.encryptPWD(member);//对密码加密,并设置salt
             int code = memberService.addNewMember(member);
             if (code == 1) {
                 resultMap.put("success", true);
                 resultMap.put("message", "注册成功!");
+                return resultMap;
             }
         }
         return resultMap;
@@ -160,6 +182,83 @@ public class MemberController {
             return 0;
         }
         return 1;
+    }
+
+
+    /*=============会员easyui界面调用方法==============*/
+
+    /**
+     * 动态选择
+     * @param session
+     * @param member
+     * @param page
+     * @param rows
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/selectSelective")
+    public Map<String, Object> listAllMemberSelective(HttpSession session,Member member,Integer page, Integer rows){
+        Map<String, Object> map = new HashMap<String, Object>();
+        PageHelper.startPage(page, rows);
+        List<Member> memberList = memberService.getMemberSelective(member);
+        PageInfo<Member> pageInfo = new PageInfo<Member>(memberList);
+        map.put("rows", pageInfo.getList());
+        map.put("total", pageInfo.getTotal());
+        return map;
+    }
+
+    /**
+     * 动态插入
+     * @param session
+     * @param member
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/insertSelective")
+    public Integer insertSelective(HttpSession session,Member member){
+        boolean b = PasswordEncrypt.encryptPWD(member);//加密密码,加入salt
+        if(b){
+            return memberService.addNewMember(member);
+        }else{
+            return 0;
+        }
+    }
+
+    /**
+     * 动态更新
+     * @param session
+     * @param member
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/updateByPKSelective")
+    public Integer updateByPKSelective(HttpSession session, Member member){
+        return memberService.updateMemberSelective(member);
+    }
+
+
+    /**
+     * 删除
+     * @param session
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/delByPK")
+    public Integer delByPK(HttpSession session,Long id){
+        return memberService.delMemberById(id);
+    }
+
+    /**
+     * 批量删除
+     * @param session
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/deleteBatchByPKs")
+    public Integer deleteBatchByPKs(HttpSession session,@RequestParam(value = "ids[]") Long[] ids){
+        return memberService.delBatchByPKArr(ids);
     }
 
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public class BackEndPageController {
     @RequestMapping("/member/members")
     @RequiresPermissions(value = {"会员信息管理"})
     public String members(){
-        return "/admin/member/members";
+        return "admin/member/members";
     }
 
     //会员等级, 角色 配置
@@ -269,7 +270,14 @@ public class BackEndPageController {
     @RequestMapping("/swagger")
     @RequiresAuthentication
     public String swagger(){
-        return "/swagger-ui.html";
+        return "/admin/auth/swagger";
+    }
+
+    @ApiOperation(value="druid数据库监控", notes="druid数据库监控")
+    @RequestMapping("/druid")
+    @RequiresAuthentication
+    public String druid(){
+        return "/admin/auth/druid";
     }
 
 

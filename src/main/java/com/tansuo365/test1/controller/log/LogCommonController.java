@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,7 @@ public class LogCommonController {
     @ApiOperation(value="分页查询日志信息", notes="分页查询日志信息listLogSelectiveByPage")
     @RequestMapping("/listLogSelectiveByPage")
     @RequiresPermissions(value={"系统日志","会员日志"},logical = Logical.OR)
-    public Map<String, Object> getLogSelectiveByPage(HttpSession session, @PathVariable String logType, LogUser logUser, LogMember logMember,Integer page, Integer rows){
+    public Map<String, Object> getLogSelectiveByPage(HttpSession session, @PathVariable String logType, LogUser logUser, LogMember logMember, Integer page, Integer rows){
         Map<String, Object> map = new HashMap<String, Object>();
         PageHelper.startPage(page, rows);
         List<LogUsers> list = logCommonService.getLogSelective(logUtils.logTypeJudger(logType,logUser,logMember));

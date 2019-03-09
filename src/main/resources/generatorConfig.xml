@@ -18,7 +18,7 @@
                         connectionURL="jdbc:mysql://localhost:3306/tansuodb" userId="root"
                         password="zhangqi1112sql"/>
 
-        <javaModelGenerator targetPackage="com.tansuo365.test1.bean"
+        <javaModelGenerator targetPackage="com.tansuo365.test1.entity"
                             targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
@@ -35,7 +35,7 @@
         </javaClientGenerator>
 
         <!--生成对应表及类名-->
-        <table tableName="log_member" domainObjectName="LogMember"  enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableInsert="true" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+        <table tableName="task_sim_job" domainObjectName="TaskSimJob"  enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableInsert="true" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="my.isgen.usekeys" value="true"/>
             <property name="useActualColumnNames" value="true"/>
             <generatedKey column="id" sqlStatement="JDBC"/>

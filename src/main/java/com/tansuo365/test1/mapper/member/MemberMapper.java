@@ -13,6 +13,8 @@ public interface MemberMapper {
 
     int deleteByPrimaryKey(Long id);
 
+    int deleteBatchByPKArr(Long[] ids);
+
     int insert(Member record);
 
     int insertSelective(Member member);

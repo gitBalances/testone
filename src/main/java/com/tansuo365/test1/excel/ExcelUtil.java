@@ -1,5 +1,6 @@
 package com.tansuo365.test1.excel;
 
+import lombok.Data;
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.ComparatorUtils;
@@ -10,6 +11,8 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,10 +29,12 @@ import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
  * @author sargeras.wang
  * @version 1.0, Created at 2013年9月14日
  */
+@PropertySource(value="classpath:excel.properties")
 public class ExcelUtil {
 
     private static Logger LG = LoggerFactory.getLogger(ExcelUtil.class);
 
+    @Value("${excel.date.pattern}")
     private static String datePattern;
 
     /**
@@ -140,7 +145,6 @@ public class ExcelUtil {
                         double numericValue = cell.getNumericCellValue();
                         TimeZone zone = TimeZone.getTimeZone("GMT");
                         Date javaDate = DateUtil.getJavaDate(numericValue, zone);
-                        System.out.println("javaDate:"+javaDate);
                         cellValue = javaDate;
                     }
                     else
@@ -312,7 +316,7 @@ public class ExcelUtil {
         //时间格式默认"yyyy-MM-dd"
         if (isBlank(pattern)){
 //            pattern = "yyyy-MM-dd";
-            pattern = "yyyy-MM-dd HH:mm:ss";
+            pattern = datePattern;
         }
         // 产生表格标题行
         HSSFRow row = sheet.createRow(0);

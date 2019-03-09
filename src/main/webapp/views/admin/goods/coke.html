@@ -234,11 +234,16 @@
 
     </form>
 
+    <br>
+
     <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">
         <button id="uploadBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
                 style="width:80px">上传
         </button>
     </div>
+    <br>
+    <p style="text-align: center"><a href="http://po136b50f.bkt.clouddn.com/shiyoujiao.xlsx">下载石油焦excel模板</a></p>
+
 </div>
 
 <script th:inline="none">
@@ -611,7 +616,7 @@
         console.log(formData);
         // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
         $.ajax({
-            url: '/excel/importExcel?instance=' + "石油焦",
+            url: '/excel/importExcel?instance=' + "PetroleumCoke",
             type: 'POST',
             // data: {"uploadFile":formData,"instance":"石油焦"},
             data: formData,

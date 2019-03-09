@@ -11,6 +11,8 @@ import com.tansuo365.test1.entity.MyLoginInstance;
 import com.tansuo365.test1.mapper.log.LogMemberMapper;
 import com.tansuo365.test1.mapper.log.LogUserMapper;
 import com.tansuo365.test1.service.log.ILogCommonService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -64,19 +66,22 @@ public class LogUtils {
     public void doLog(List list, int code, Enum<LogEnum> actionType, String instance, HttpSession session) {
         //执行日志记录,通过session判定操作日志的是member还是admin(user)
         //获取当前登录用户实例
-        Member currentMember = (Member)session.getAttribute("currentMember");
-        User currentUser = (User) session.getAttribute("currentUser");
+        Session session1 = SecurityUtils.getSubject().getSession();
+        User currentUser = (User) session1.getAttribute("currentUser");
         MyLoginInstance myLoginInstance = null;
         String user = null;
 
-        if(currentMember != null){
-            user = UserType.MEMBER.toString();
-            myLoginInstance = currentMember;
-        }else if(currentUser != null){
+        //如果使用者即可以查看后台又可以查看前端时,当查询数据时,先指定为admin后端查看
+        if(currentUser != null) {
             user = UserType.ADMIN.toString();
             myLoginInstance = currentUser;
         }else{
-            return;
+            Member currentMember = (Member) session.getAttribute("currentMember");
+//        User currentUser = (User) session.getAttribute("currentUser");
+            if (currentMember != null) {
+                user = UserType.MEMBER.toString();
+                myLoginInstance = currentUser;
+            }
         }
         //如果是公共日志,则判定字符串user
         if(instance.equals(COMMON_LOG)){
@@ -152,34 +157,34 @@ public class LogUtils {
             this.whenOtherCase = "搜索"+instance+"信息异常。数量"+code;
         }
         if (actionType.equals(LogEnum.ADD_ACTION.toString())){
-            this.whenCodeOne = "添加"+instance+"信息成功。";
-            this.whenCodeZero = "添加"+instance+"信息失败。";
+            this.whenCodeOne = "添加"+instance+"信息成功。数量:"+code;
+            this.whenCodeZero = "添加"+instance+"信息失败。数量:"+code;
             this.whenCodeMany = "添加"+instance+"信息成功。数量:"+code;
-            this.whenOtherCase = "添加"+instance+"信息异常。";
+            this.whenOtherCase = "添加"+instance+"信息异常。数量:"+code;
         }
         if (actionType.equals(LogEnum.UPDATE_ACTION.toString())){
-            this.whenCodeOne = "更新"+instance+"信息成功。";
-            this.whenCodeZero = "更新"+instance+"信息失败。";
+            this.whenCodeOne = "更新"+instance+"信息成功。数量:"+code;
+            this.whenCodeZero = "更新"+instance+"信息失败。数量:"+code;
             this.whenCodeMany = "更新"+instance+"信息成功。数量:"+code;
-            this.whenOtherCase = "更新"+instance+"信息异常。";
+            this.whenOtherCase = "更新"+instance+"信息异常。数量:"+code;
         }
         if (actionType.equals(LogEnum.DELETE_ACTION.toString())){
-            this.whenCodeOne = "删除"+instance+"信息成功。";
-            this.whenCodeZero = "删除"+instance+"信息失败。";
+            this.whenCodeOne = "删除"+instance+"信息成功。数量:"+code;
+            this.whenCodeZero = "删除"+instance+"信息失败。数量:"+code;
             this.whenCodeMany = "删除"+instance+"信息成功。数量:"+code;
-            this.whenOtherCase = "删除"+instance+"信息异常。";
+            this.whenOtherCase = "删除"+instance+"信息异常。数量:"+code;
         }
         if (actionType.equals(LogEnum.LOGIN_ACTION.toString())){
-            this.whenCodeOne = user+"登录成功。";
-            this.whenCodeZero = user+"登录失败。";
+            this.whenCodeOne = user+"登录成功。数量:"+code;
+            this.whenCodeZero = user+"登录失败。数量:"+code;
             this.whenCodeMany = user+"登录成功。数量:"+code;
-            this.whenOtherCase = user+"登录异常。";
+            this.whenOtherCase = user+"登录异常。数量:"+code;
         }
         if (actionType.equals(LogEnum.LOGOUT_ACTION.toString())){
-            this.whenCodeOne = user+"登出成功。";
-            this.whenCodeZero = user+"登出失败。";
+            this.whenCodeOne = user+"登出成功。数量:"+code;
+            this.whenCodeZero = user+"登出失败。数量:"+code;
             this.whenCodeMany = user+"登出成功。数量:"+code;
-            this.whenOtherCase = user+"登出异常。";
+            this.whenOtherCase = user+"登出异常。数量:"+code;
         }
         if(user.equals(UserType.MEMBER.toString())){
             logCommonService.setLogTypeMapper(logMemberMapper);

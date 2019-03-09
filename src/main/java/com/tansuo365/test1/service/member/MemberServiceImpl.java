@@ -47,6 +47,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Integer delBatchByPKArr(Long[] ids) {
+        return memberMapper.deleteBatchByPKArr(ids);
+    }
+
+    @Override
     public Integer updateMemberSelective(Member member) {
         if(member.getPassword().length()!=0){
             Map<String, Object> encryptMap = this.updatePasswordBySalt(member.getPassword());

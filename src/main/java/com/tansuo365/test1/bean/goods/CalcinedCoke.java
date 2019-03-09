@@ -42,7 +42,7 @@ public class CalcinedCoke implements Serializable, Goods {
     @ExcelCell(index = 7)
     private Double density;
     @ExcelCell(index = 8)
-    private String p_resistivity;
+    private Double p_resistivity;
     @ExcelCell(index = 9)
     private Double vanadium;
     @ExcelCell(index = 10)

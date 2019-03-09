@@ -18,7 +18,7 @@ public class PasswordEncrypt {
     private static int algorithmTimes = 2;
 
     /*通过传入实例加密实例的密码*/
-    public static void encryptPWD(MyLoginInstance instance) {
+    public static boolean encryptPWD(MyLoginInstance instance) {
         // 如果在修改的时候没有设置密码，就表示不改动密码
         if (instance.getInstancePassword().length() != 0) {
             String salt = new SecureRandomNumberGenerator().nextBytes().toString();
@@ -27,8 +27,10 @@ public class PasswordEncrypt {
             String encodedPassword = new SimpleHash(algorithmName, instance.getInstancePassword(), salt, algorithmTimes).toString();
             instance.setInstanceSalt(salt);
             instance.setInstancePassword(encodedPassword);
+            return true;
         } else {
             instance.setInstancePassword(null);
+            return false;
         }
     }
 

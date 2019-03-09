@@ -1,5 +1,6 @@
 package com.tansuo365.test1.bean.member;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tansuo365.test1.entity.MyLoginInstance;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -41,13 +43,28 @@ public class Member implements Serializable,MyLoginInstance {
 
     private Short member_level;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date create_time;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date update_time;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastlogin_time;
 
     private String salt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Transient
+    private String b_time; //起始时间 搜索用到
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Transient
+    private String e_time; //结束时间 搜索用到
+    @Transient
+    private String activation;
+
+    /*扩展字段*/
 
     private Byte expand_2;
 
@@ -55,9 +72,13 @@ public class Member implements Serializable,MyLoginInstance {
 
     private Byte expand_4;
 
+    /*扩展字段*/
+
+    //返回实例id,再shiro中使用,这里返回null 弃用
     @Override
     public Integer getInstanceId() {
-        return Math.toIntExact(id);
+//        return Math.toIntExact(id);
+        return null;
     }
 
     @Override

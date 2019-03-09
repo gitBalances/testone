@@ -19,6 +19,8 @@ public interface MemberService {
 
     Integer getMemberLevelById(Long id);
 
+    Integer delBatchByPKArr(Long[] ids);
+
     Integer updateMemberSelective(Member member);
 
     Map<String, Object> updatePasswordBySalt(String password);

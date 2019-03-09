@@ -19,7 +19,10 @@ import com.tansuo365.test1.util.LogUtils;
 import com.tansuo365.test1.util.PetroleumCokeGradeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +41,8 @@ import java.util.List;
  * 用于excel导入的controller
  * {@link #importExcel 导入excel,接收excel导入,文件为uploadFile,接收文件参数String instance标识上传类型}
  */
+
+@PropertySource(value="classpath:excel.properties")
 @Api(value = "Excel导入控制层",tags = "Excel导入控制接口 ExcelController",description = "Excel导入控制层,导出使用js插件")
 @RestController
 @RequestMapping("/excel")
@@ -49,6 +54,8 @@ public class ExcelController {
     private LogUtils logUtils;
     @Autowired
     private GoodsUtils goodsUtils;
+    @Value("${excel.date.pattern}")
+    private String datePattern;
 
     @Resource
     private PetroleumCokeMapper petroleumCokeMapper;
@@ -95,10 +102,11 @@ public class ExcelController {
         //通过前端instance实例类型进行Class和Mapper类型的设置
         instanceJudge(instance);
         //获取货品泛型集合
-        Collection<Goods> goodsCollection = ExcelUtil.importExcel(getC(), in, "yyyy-MM-dd HH:mm:ss", log, 0);
+        System.out.println("datePattern:"+datePattern);
+        Collection<Goods> goodsCollection = ExcelUtil.importExcel(getC(), in, datePattern, log, 0);
         list = (List) goodsCollection;
 
-
+//        System.out.println("excelController: list.size():"+list.size());
         if(instance.equals("石油焦")){
             //如果是石油焦,则获取每个实例元组,通过sulfur字段改变grade字段值(品级)
             List<Goods> newList = null;
@@ -111,9 +119,11 @@ public class ExcelController {
                 newList.add(newGoodsAfterSetGrade);
             }
             code = goodsCommonService.insertBatchList(newList);
+            logUtils.doLog(list,code,LogEnum.ADD_ACTION,instance,session);
         }else{
             //如果不是石油焦就直接批量插入数据
           code = goodsCommonService.insertBatchList(list);
+          logUtils.doLog(list,code,LogEnum.ADD_ACTION,instance,session);
         }
 
         System.out.println(">>>list in excelcontro : "+list);
@@ -125,19 +135,19 @@ public class ExcelController {
 
     //判定前端导入instance类型
     private void instanceJudge(String instance) {
-        if ("石油焦".equals(instance)) {
+        if ("PetroleumCoke".equals(instance)) {
             goodsCommonService.setGoodsTypeMapper(petroleumCokeMapper);
             setC(PetroleumCoke.class);
         }
-        if ("煅后焦".equals(instance)) {
+        if ("CalcinedCoke".equals(instance)) {
             goodsCommonService.setGoodsTypeMapper(calcinedCokeMapper);
             setC(CalcinedCoke.class);
         }
-        if ("改质沥青".equals(instance)) {
+        if ("MAsphalt".equals(instance)) {
             goodsCommonService.setGoodsTypeMapper(mAsphaltMapper);
             setC(MAsphalt.class);
         }
-        if ("阳极".equals(instance)) {
+        if ("Anode".equals(instance)) {
             goodsCommonService.setGoodsTypeMapper(anodeMapper);
             setC(Anode.class);
         }

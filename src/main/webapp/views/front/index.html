@@ -21,6 +21,7 @@
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/slicebox.css" rel="stylesheet" type="text/css">
     <link href="css/style_bigf.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/se.css" rel="stylesheet" type="text/css" media="all"/>
     <!-- font-awesome-icons -->
     <link href="css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome-icons -->
@@ -135,7 +136,7 @@
                             <input type="text" name="username" placeholder="用户名" required="">
                             <input type="password" name="password" placeholder="密码" required="">
                             <div class="tp">
-                                <input id="loginBtn" type="button" value="登录">
+                                <input id="loginBtn" class="buttonBtn" type="button" value="登录">
                             </div>
                         </form>
 
@@ -189,15 +190,17 @@
                     <h3 class="agileinfo_sign">注册</h3>
                     <div class="login-form">
                         <form action="#" method="post">
-                            <input type="text" id="username" name="username" placeholder="用户名" required="">
-                            <input type="password" name="password" id="password1" placeholder="密码" required="">
-                            <input type="password" name="password" id="password2" placeholder="确认密码" required="">
+                            <input type="text" id="username" name="username" placeholder="用户名" required="true">
+                            <input type="password" name="password" id="password1" placeholder="密码" required="true">
+                            <input type="password" name="password" id="password2" placeholder="确认密码" required="true">
+                            <input type="password" name="activation" id="activation" placeholder="公司内部测试码"
+                                   required="true">
                             <!-- <input type="password" name="password" id="password2" placeholder="Confirm Password" required="">-->
                             <input type="radio" value="1" name="memberType"/>
                             个人用户 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="radio" value="2" name="memberType"/>
                             公司用户
-                            <input type="button" id="signUpBtn" value="注册">
+                            <input type="button" class="buttonBtn" id="signUpBtn" value="注册">
                         </form>
                     </div>
                     <p><a href="#"> By clicking register, I agree to your terms</a></p>
@@ -207,32 +210,44 @@
 
                     $("#signUpBtn").click(signUpAjax);
 
-                    function signUpAjax(){
+                    function signUpAjax() {
                         let pwd1 = $("#password1").val();
                         let pwd2 = $("#password2").val();
                         let username = $("#username").val();
                         var memberType = $('input[name="memberType"]:checked').val();
-                        $("")
-                        if(pwd1 !== pwd2){
+                        let activationCode = $("#activation").val();
+
+
+                        if (pwd1 !== pwd2) {
                             alert("两次密码输入不一致,请重新填写.");
+
                             $("#password1").val("");
                             $("#password2").val("");
                             $("#password1").focus();
-
-                        }else{
+                            return;
+                        }
+                        if (memberType == null) {
+                            alert("会员类型没有选择.");
+                            return;
+                        } else {
                             $.ajax({
-                                url:"/member/signUp",
-                                type:"post",
-                                data:{"username":username,"password":pwd1,"member_type":memberType},
-                                dataType:"json",
-                                success:function(data){
-                                    if(data.success){
-                                        alert(data.message+"请登录!");
+                                url: "/member/signUp",
+                                type: "post",
+                                data: {
+                                    "username": username,
+                                    "password": pwd1,
+                                    "member_type": memberType,
+                                    "activation": activationCode
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data.success) {
+                                        alert(data.message + "请登录!");
                                         //todo 关闭注册页
-                                        window.location.href="/";
-                                    }else{
+                                        window.location.href = "/";
+                                    } else {
                                         //用户名重复判定
-                                        alert(data.message+"请选择其它用户名.")
+                                        alert(data.message);
                                     }
                                 }
                             })
@@ -240,10 +255,7 @@
                     }
 
 
-
-
                 </script>
-
 
 
             </div>
@@ -1263,24 +1275,24 @@
             },
             error: function () {
                 myChart.hideLoading(); //TODO 设定用户没登录的模板图表 , 数据data加载后隐藏loading
-               var optionExample = {
+                var optionExample = {
                     legend: {
-                        data: ['石化a示例','石化b示例','石化c示例']
+                        data: ['石化a示例', '石化b示例', '石化c示例']
                     },
                     tooltip: {trigger: 'axis',},
                     // dataset:{
                     //     source:
                     //     newJson2
                     // },
-                   dataset: {
-                       // 提供一份数据。
-                       source: [
-                           ['product', '2015', '2016', '2017'],
-                           ['Matcha Latte', 43.3, 85.8, 93.7],
-                           ['Milk Tea', 83.1, 73.4, 55.1],
-                           ['Cheese Cocoa', 86.4, 65.2, 82.5],
-                           ['Walnut Brownie', 72.4, 53.9, 39.1]
-                       ]
+                    dataset: {
+                        // 提供一份数据。
+                        source: [
+                            ['product', '2015', '2016', '2017'],
+                            ['Matcha Latte', 43.3, 85.8, 93.7],
+                            ['Milk Tea', 83.1, 73.4, 55.1],
+                            ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                            ['Walnut Brownie', 72.4, 53.9, 39.1]
+                        ]
 
                     },
                     xAxis: [
@@ -1322,11 +1334,11 @@
                             {top: '55%'}
                         ],
                     series:
-                    [
-                        {type: 'line'},
-                        {type: 'line'},
-                        {type: 'line'}
-                    ]
+                        [
+                            {type: 'line'},
+                            {type: 'line'},
+                            {type: 'line'}
+                        ]
                 };
                 myChart.setOption(optionExample);
             }

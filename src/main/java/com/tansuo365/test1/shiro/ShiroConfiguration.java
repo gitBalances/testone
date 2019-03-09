@@ -115,6 +115,9 @@ public class ShiroConfiguration {
 //        filterChainDefinitionMap.put("/user/**", "theMember");
         filterChainDefinitionMap.put("/admin/**", "user");  //user表示验证身份通过,保存了rememberMe时也可以通过
         filterChainDefinitionMap.put("/swagger-ui.html", "authc"); //authc表示验证身份才能通过
+        filterChainDefinitionMap.put("/druid/login.html", "authc"); //authc表示验证身份才能通过
+        filterChainDefinitionMap.put("/druid/index.html", "authc"); //authc表示验证身份才能通过
+
 //        shiroFilterFactoryBean.setFilters(customisedFilter);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

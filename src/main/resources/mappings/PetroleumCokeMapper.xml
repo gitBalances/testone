@@ -85,7 +85,7 @@
     </sql>
     <sql id="Base_Column_List">
     id, province, company, s_company, sulfur, ash, volatile_matter, wdr, vanadium, coke_type, 
-    today_price, remarks, grade, /*expand_2, expand_3,*/ reporter,create_time, update_time, density,
+    today_price, remarks, grade, reporter,create_time, update_time, density,
     coke_content
   </sql>
     <select id="selectByExample" parameterType="com.tansuo365.test1.bean.goods.PetroleumCokeExample"

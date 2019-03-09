@@ -18,6 +18,7 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -69,6 +70,7 @@ public class AdminLoginController {
 
         System.out.println("rememberMe>>>>:" + rememberMe);
 
+        Session session1 = SecurityUtils.getSubject().getSession();
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
@@ -77,6 +79,7 @@ public class AdminLoginController {
             User user = userService.getByName(userName);
 //            Session session = currentUser.getSession();
             session.setAttribute("currentUser", user);
+            session1.setAttribute("currentUser", user);
 
             List<Role> roleList = roleService.listRolesByUserId(user.getId());//最新
 

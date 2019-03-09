@@ -181,6 +181,17 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
+
+    <!--批量删除-->
+    <delete id="deleteBatchByPKArr" parameterType="java.lang.String">
+        delete from member_tbl
+        where id in
+        <foreach item="ids" index="index" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <!--固态插入-->
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.member.Member"
             useGeneratedKeys="true">
     insert into member_tbl (username, password, company, 

@@ -11,7 +11,7 @@
         <result column="volatile_matter" jdbcType="DOUBLE" property="volatile_matter"/>
         <result column="water" jdbcType="DOUBLE" property="water"/>
         <result column="density" jdbcType="DOUBLE" property="density"/>
-        <result column="p_resistivity" jdbcType="VARCHAR" property="p_resistivity"/>
+        <result column="p_resistivity" jdbcType="DOUBLE" property="p_resistivity"/>
         <result column="vanadium" jdbcType="DOUBLE" property="vanadium"/>
         <result column="granularity" jdbcType="VARCHAR" property="granularity"/>
         <result column="today_price" jdbcType="DOUBLE" property="today_price"/>
@@ -251,7 +251,7 @@
       )
     values (#{province,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{s_company,jdbcType=VARCHAR}, 
       #{sulfur,jdbcType=DOUBLE}, #{ash,jdbcType=DOUBLE}, #{volatile_matter,jdbcType=DOUBLE}, 
-      #{water,jdbcType=DOUBLE}, #{density,jdbcType=DOUBLE}, #{p_resistivity,jdbcType=VARCHAR}, 
+      #{water,jdbcType=DOUBLE}, #{density,jdbcType=DOUBLE}, #{p_resistivity,jdbcType=DOUBLE},
       #{vanadium,jdbcType=DOUBLE}, #{granularity,jdbcType=VARCHAR}, #{today_price,jdbcType=DOUBLE},
       #{remarks,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, 
       #{expand_1,jdbcType=BIT}, #{expand_2,jdbcType=BIT}, #{expand_3,jdbcType=BIT}, #{reporter,jdbcType=VARCHAR}
@@ -271,7 +271,7 @@
             (#{list.province,jdbcType=VARCHAR},
             #{list.company,jdbcType=VARCHAR}, #{list.s_company,jdbcType=VARCHAR},
             #{list.sulfur,jdbcType=DOUBLE}, #{list.ash,jdbcType=DOUBLE}, #{list.volatile_matter,jdbcType=DOUBLE},
-            #{list.water,jdbcType=DOUBLE}, #{list.density,jdbcType=DOUBLE}, #{list.p_resistivity,jdbcType=VARCHAR},
+            #{list.water,jdbcType=DOUBLE}, #{list.density,jdbcType=DOUBLE}, #{list.p_resistivity,jdbcType=DOUBLE},
             #{list.vanadium,jdbcType=DOUBLE}, #{list.granularity,jdbcType=VARCHAR}, #{list.today_price,jdbcType=DOUBLE},
             #{list.remarks,jdbcType=VARCHAR}, #{list.reporter,jdbcType=VARCHAR}, #{list.create_time,jdbcType=TIMESTAMP},
             #{list.update_time,jdbcType=TIMESTAMP}
@@ -359,7 +359,7 @@
                 #{density,jdbcType=DOUBLE},
             </if>
             <if test="p_resistivity != null and p_resistivity != '' ">
-                #{p_resistivity,jdbcType=VARCHAR},
+                #{p_resistivity,jdbcType=DOUBLE},
             </if>
             <if test="vanadium != null and vanadium != '' ">
                 #{vanadium,jdbcType=DOUBLE},
@@ -423,7 +423,7 @@
                 density = #{record.density,jdbcType=DOUBLE},
             </if>
             <if test="record.p_resistivity != null">
-                p_resistivity = #{record.p_resistivity,jdbcType=VARCHAR},
+                p_resistivity = #{record.p_resistivity,jdbcType=DOUBLE},
             </if>
             <if test="record.vanadium != null">
                 vanadium = #{record.vanadium,jdbcType=DOUBLE},
@@ -471,7 +471,7 @@
         volatile_matter = #{record.volatile_matter,jdbcType=DOUBLE},
         water = #{record.water,jdbcType=DOUBLE},
         density = #{record.density,jdbcType=DOUBLE},
-        p_resistivity = #{record.p_resistivity,jdbcType=VARCHAR},
+        p_resistivity = #{record.p_resistivity,jdbcType=DOUBLE},
         vanadium = #{record.vanadium,jdbcType=DOUBLE},
         granularity = #{record.granularity,jdbcType=VARCHAR},
         today_price = #{record.today_price,jdbcType=DOUBLE},
@@ -515,7 +515,7 @@
                 density = #{density,jdbcType=DOUBLE},
             </if>
             <if test="p_resistivity != null and p_resistivity !='' ">
-                p_resistivity = #{p_resistivity,jdbcType=VARCHAR},
+                p_resistivity = #{p_resistivity,jdbcType=DOUBLE},
             </if>
             <if test="vanadium != null and vanadium != '' ">
                 vanadium = #{vanadium,jdbcType=DOUBLE},
@@ -553,7 +553,7 @@
       volatile_matter = #{volatile_matter,jdbcType=DOUBLE},
       water = #{water,jdbcType=DOUBLE},
       density = #{density,jdbcType=DOUBLE},
-      p_resistivity = #{p_resistivity,jdbcType=VARCHAR},
+      p_resistivity = #{p_resistivity,jdbcType=DOUBLE},
       vanadium = #{vanadium,jdbcType=DOUBLE},
       granularity = #{granularity,jdbcType=VARCHAR},
       today_price = #{today_price,jdbcType=DOUBLE},
