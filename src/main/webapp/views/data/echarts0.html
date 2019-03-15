@@ -139,7 +139,7 @@ echarts0
     function getAllGoodsByType(myChart, thisChartType, index, memberLevel, timeInterval, selectOrder) {
         if(thisChartType==null){
             thisChartType = initDefaultChartType();
-        }
+    }
 
         // /*获取json数据中的某一个字段*/
         // /*获取json数据中的某一个字段*/
@@ -153,7 +153,7 @@ echarts0
         var createTimes = null; //创建时间
         var allData = null;
         var option = null;
-        var url = "/goods/" + this.goodsType[index] + "/" + "selectGoodsByType";
+        var url = "/goods/" + this.goodsType[index] + "/" + "testselectSelective";
         // var companys = null;
         // var url = "/goods/"+goodsType+"/"+"selectAll";
         myChart.showLoading();
@@ -275,10 +275,10 @@ echarts0
                 };
                 myChart.setOption(option);
             },
-            error:function(){
-                alert("获取数据失败,请先登录.");
-                window.location.href="/member/login";
-            }
+            // error:function(){
+            //     alert("获取数据失败,请先登录.");
+            //     window.location.href="/member/login";
+            // }
         });
 
 

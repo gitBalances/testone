@@ -24,4 +24,16 @@ public class EChartsController {
         model.addAttribute("myChartsContainerId","test");
         return "/data/echarts0";
     }
+
+    @ApiOperation(value="chinaMap", notes="[地图分布]/data/chinaMap")
+    @RequestMapping("/chinaMap")
+    public String echarts1(){
+        return "data/chinaMap";
+    }
+
+    @ApiOperation(value="echarts2", notes="[曲线图]/data/echarts2")
+    @RequestMapping("/echarts2")
+    public String echarts2(){
+        return "/data/echarts2";
+    }
 }

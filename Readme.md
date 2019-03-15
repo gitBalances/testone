@@ -89,6 +89,9 @@
 - 3. 已经加入了admin登录后的对menu的redis存储.key为user+userRoleList
 - 4. 
 
+##### 2019-3-11
+- 1. 项目前端页面暂时未完善,先做solomo信息库,在jee_solomo项目.
+
 
 
 

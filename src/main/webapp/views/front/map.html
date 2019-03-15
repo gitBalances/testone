@@ -24,6 +24,10 @@
     <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
           rel="stylesheet">
     <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
+    <script src="/js/china.js"></script>
+
+
 </head>
 
 <body>
@@ -188,17 +192,18 @@
 <div class="agileits_map">
     <div class="container">
         <h3 class="tittle_agile_w3">Find Us</h3>
-        <div class="heading-underline">
-            <div class="h-u1"></div>
-            <div class="h-u2"></div>
-            <div class="h-u3"></div>
-            <div class="clearfix"></div>
-        </div>
+        <!--<div class="heading-underline">-->
+            <!--<div class="h-u1"></div>-->
+            <!--<div class="h-u2"></div>-->
+            <!--<div class="h-u3"></div>-->
+            <!--<div class="clearfix"></div>-->
+        <!--</div>-->
+        <div id="main" class="col-md-6" style="height: 600px" ></div>
     </div>
-    <div class="w3_services_grids">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387142.84010033106!2d-74.25819252532891!3d40.70583163828471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sin!4v1475140387172"
-                style="border:0"></iframe>
-    </div>
+    <!--<div class="w3_services_grids">-->
+        <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387142.84010033106!2d-74.25819252532891!3d40.70583163828471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sin!4v1475140387172"-->
+                <!--style="border:0"></iframe>-->
+    <!--</div>-->
 </div>
 <div class="services">
     <div class="container">
@@ -407,4 +412,78 @@
     </script>
     <!-- //here ends scrolling icon -->
 </body>
+<script>
+    var mydata = [
+        {name: '北京',value: '100' },{name: '天津',value: randomData() },
+        {name: '上海',value: randomData() },{name: '重庆',value: randomData() },
+        {name: '河北',value: randomData() },{name: '河南',value: randomData() },
+        {name: '云南',value: randomData() },{name: '辽宁',value: randomData() },
+        {name: '黑龙江',value: randomData() },{name: '湖南',value: randomData() },
+        {name: '安徽',value: randomData() },{name: '山东',value: randomData() },
+        {name: '新疆',value: randomData() },{name: '江苏',value: randomData() },
+        {name: '浙江',value: randomData() },{name: '江西',value: randomData() },
+        {name: '湖北',value: randomData() },{name: '广西',value: randomData() },
+        {name: '甘肃',value: randomData() },{name: '山西',value: randomData() },
+        {name: '内蒙古',value: randomData() },{name: '陕西',value: randomData() },
+        {name: '吉林',value: randomData() },{name: '福建',value: randomData() },
+        {name: '贵州',value: randomData() },{name: '广东',value: randomData() },
+        {name: '青海',value: randomData() },{name: '西藏',value: randomData() },
+        {name: '四川',value: randomData() },{name: '宁夏',value: randomData() },
+        {name: '海南',value: randomData() },{name: '台湾',value: randomData() },
+        {name: '香港',value: randomData() },{name: '澳门',value: randomData() },
+        {name: '南海诸岛',value: randomData() }
+    ];
+
+    function randomData() {
+        return Math.round(Math.random()*500);
+    }
+
+
+    var optionMap = {
+        backgroundColor: '#FFFFFF',
+        title: {
+            text: '全国地图大数据',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item'
+        },
+
+        //左侧小导航图标
+        visualMap: {
+            show : true,
+            x: 'left',
+            y: 'center',
+            splitList: [
+                {start: 500, end:600},{start: 400, end: 500},
+                {start: 300, end: 400},{start: 200, end: 300},
+                {start: 100, end: 200},{start: 0, end: 100},
+            ],
+            color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea']
+        },
+
+        //配置属性
+        series: [{
+            name: '数据',
+            type: 'map',
+            mapType: 'china',
+            roam: true,
+            label: {
+                normal: {
+                    show: true  //省份名称
+                },
+                emphasis: {
+                    show: false
+                }
+            },
+            data:mydata  //数据
+        }]
+    };
+    //初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    //使用制定的配置项和数据显示图表
+    myChart.setOption(optionMap);
+</script>
 </html>
