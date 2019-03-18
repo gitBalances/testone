@@ -11,10 +11,9 @@ import java.util.List;
 
 @Configuration
 public class PropertiesConfig {
+
     @Bean
     public PropertyPlaceholderConfigurer properties(){
-
-
         final PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
         ppc.setIgnoreResourceNotFound(true);
         final List<Resource> resourceLst = new ArrayList<Resource>();

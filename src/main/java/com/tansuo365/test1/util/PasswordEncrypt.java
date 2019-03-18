@@ -1,24 +1,31 @@
 package com.tansuo365.test1.util;
 
 import com.tansuo365.test1.entity.MyLoginInstance;
+import lombok.Data;
 import org.apache.shiro.codec.Hex;
 import org.apache.shiro.crypto.AesCipherService;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 
 //登录实例密码加密
+@PropertySource(value="classpath:encrypt.properties")
+@Component
 public class PasswordEncrypt {
 
-    private static String algorithmName = "md5";
-
-    private static int algorithmTimes = 2;
+    @Value("${algorithm.name}")
+    private String algorithmName;
+    @Value("${algorithm.times}")
+    private int algorithmTimes;
 
     /*通过传入实例加密实例的密码*/
-    public static boolean encryptPWD(MyLoginInstance instance) {
+    public boolean encryptPWD(MyLoginInstance instance) {
         // 如果在修改的时候没有设置密码，就表示不改动密码
         if (instance.getInstancePassword().length() != 0) {
             String salt = new SecureRandomNumberGenerator().nextBytes().toString();
@@ -37,15 +44,14 @@ public class PasswordEncrypt {
     /**
      *
      * @param password 传入密码
-     * @param times 加密次数
      * @return
      */
-    public static Map<String, Object> encryptPWDBySalt(String password,int times) {
+    public Map<String, Object> encryptPWDBySalt(String password) {
         Map resultMap = null;
         if (password.length() != 0) {
             String salt = new SecureRandomNumberGenerator().nextBytes().toString();
-            String algorithmName = "md5"; //md5轻易不可逆
-            String encodedPassword = new SimpleHash(algorithmName, password, salt, times).toString();
+//            String algorithmName = "md5"; //md5轻易不可逆
+            String encodedPassword = new SimpleHash(algorithmName, password, salt, algorithmTimes).toString();
             resultMap = new HashMap();
             resultMap.put("encryptPWD",encodedPassword);
             resultMap.put("salt",salt);
@@ -60,7 +66,7 @@ public class PasswordEncrypt {
      * @param plainPassword
      * @return
      */
-    public static boolean passwordComparison(MyLoginInstance instance,String plainPassword){
+    public boolean passwordComparison(MyLoginInstance instance,String plainPassword){
         String instanceSalt = instance.getInstanceSalt();
         String instancePassword = instance.getInstancePassword();
         String encryptPWD = new SimpleHash(algorithmName,plainPassword,instanceSalt,algorithmTimes).toString();
@@ -72,7 +78,7 @@ public class PasswordEncrypt {
     }
 
     /*二次加密*/
-    public static String encryptPwd(String pwd) {
+    public String encryptPwd(String pwd) {
         // AES算法实现：
         AesCipherService aesCipherService = new AesCipherService();
         aesCipherService.setKeySize(128); //设置key长度

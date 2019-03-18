@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	@Autowired
 	private UserRoleService userRoleService;
+	@Autowired
+	private PasswordEncrypt passwordEncrypt;
 
 	@Override
 	public String getPassword(String name) {
@@ -45,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Integer add(User u) {
 		//加密
-		PasswordEncrypt.encryptPWD(u);
+		passwordEncrypt.encryptPWD(u);
 		return userMapper.insert(u);
 
 	}
@@ -65,7 +67,7 @@ public class UserServiceImpl implements UserService {
 	//更新用户
 	@Override
 	public Integer update(User u) {
-		PasswordEncrypt.encryptPWD(u);
+		passwordEncrypt.encryptPWD(u);
 		return userMapper.updateByPrimaryKeySelective(u);
 	}
 

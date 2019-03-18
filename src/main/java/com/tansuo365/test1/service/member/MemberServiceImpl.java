@@ -13,6 +13,9 @@ import java.util.Map;
 @Service
 public class MemberServiceImpl implements MemberService {
 
+    @Autowired
+    private PasswordEncrypt passwordEncrypt;
+
     @Resource
     private MemberMapper memberMapper;
 
@@ -63,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Map<String, Object> updatePasswordBySalt(String password){
-        Map<String, Object> resultMap = PasswordEncrypt.encryptPWDBySalt(password, 2);
+        Map<String, Object> resultMap = passwordEncrypt.encryptPWDBySalt(password); //通过encrypt.properties设定了加密次数
         if(resultMap!=null){
             password =(String) resultMap.get("encryptPWD");
             String salt = (String)resultMap.get("salt");

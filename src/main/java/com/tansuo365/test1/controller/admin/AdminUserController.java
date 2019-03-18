@@ -37,9 +37,10 @@ public class AdminUserController {
     private UserRoleService userRoleService;
     @Resource
     private UserMapper userMapper;
+    @Autowired
+    private PasswordEncrypt passwordEncrypt;
 
-
-    /**
+   /**
      * 查询用户信息
      *
      * @return
@@ -182,7 +183,7 @@ public class AdminUserController {
     @RequestMapping("/getPrimevalPWD")
     @RequiresPermissions(value = {"后台用户管理"})
     public String getPrimevalPWD(@RequestParam("pwd") String pwd) {
-        return PasswordEncrypt.encryptPwd(pwd);
+        return passwordEncrypt.encryptPwd(pwd);
     }
 
     /**

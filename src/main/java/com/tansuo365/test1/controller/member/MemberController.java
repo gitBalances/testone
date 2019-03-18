@@ -34,10 +34,14 @@ import java.util.Map;
 /**
  * 会员控制层(前端使用用户)
  */
+@PropertySource(value="classpath:member.properties")
 @Api(value = "前端会员控制层", tags = "前端会员控制接口 MemberController", description = "包含登录,注册,登出控制.")
 @Controller
 @RequestMapping("/member")
 public class MemberController {
+
+    @Autowired
+    private PasswordEncrypt passwordEncrypt;
 
     @Autowired
     private MemberService memberService;
@@ -64,7 +68,13 @@ public class MemberController {
         return "/member/login"; //对应用户登录展示
     }
 
-    @ApiOperation(value = "会员登录请求处理", notes = "会员登录请求处理")
+    /**
+     * 使用非shiro登录
+     * @param member
+     * @param session
+     * @return
+     */
+    @ApiOperation(value = "会员登录请求处理", notes = "会员登录请求处理,非shiro")
     @ResponseBody
     @RequestMapping("/loginMember")
     public Map<String, Object> login(Member member, HttpSession session) {
@@ -75,7 +85,7 @@ public class MemberController {
 
                 Member currentMember = memberService.getMemberByName(member.getUsername());
 
-                boolean b = PasswordEncrypt.passwordComparison(currentMember, plainPassword);
+                boolean b = passwordEncrypt.passwordComparison(currentMember, plainPassword);
 
                 if (b) {
                     session.setAttribute("currentMember", currentMember);
@@ -88,7 +98,7 @@ public class MemberController {
 
             }
         }else{
-            System.out.println("没有填写用户名和密码并提交到了后台");
+            System.err.println("没有填写用户名和密码并提交到了后台");
             resultMap.put("success", false);
             resultMap.put("message", "登录失败!请填写用户名或密码!");//一般不会发生,使用前端正则校验
         }
@@ -96,6 +106,9 @@ public class MemberController {
         return resultMap;
     }
 
+    /**
+     * 使用shiro登录
+     */
     //    @CachePut(value = "subject") 即保证方法被调用,又加入缓存
 //    @RequestMapping(value = "/loginMember")
 //    public String login(HttpSession session, Model model, Member member, boolean rememberMe, String loginType) throws AuthenticationException {
@@ -134,9 +147,14 @@ public class MemberController {
 //    }
 
     /*邀请码 测试码*/
-    @Value("solomo888yosh28yb281j")
+    @Value("${member.activation}")
     private String activationCode;
 
+    /**
+     * 会员注册
+     * @param member
+     * @return
+     */
     @ApiOperation(value = "会员注册处理", notes = "会员注册请求处理")
     @ResponseBody
     @RequestMapping("/signUp")
@@ -154,7 +172,7 @@ public class MemberController {
             resultMap.put("message", "用户名已存在!");
             return resultMap;
         } else {
-            PasswordEncrypt.encryptPWD(member);//对密码加密,并设置salt
+            passwordEncrypt.encryptPWD(member);//对密码加密,并设置salt
             int code = memberService.addNewMember(member);
             if (code == 1) {
                 resultMap.put("success", true);
@@ -216,7 +234,7 @@ public class MemberController {
     @ResponseBody
     @RequestMapping("/insertSelective")
     public Integer insertSelective(HttpSession session,Member member){
-        boolean b = PasswordEncrypt.encryptPWD(member);//加密密码,加入salt
+        boolean b = passwordEncrypt.encryptPWD(member);//加密密码,加入salt
         if(b){
             return memberService.addNewMember(member);
         }else{

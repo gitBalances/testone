@@ -11,6 +11,7 @@ import com.tansuo365.test1.mapper.goods.MAsphaltMapper;
 import com.tansuo365.test1.mapper.goods.PetroleumCokeMapper;
 import com.tansuo365.test1.service.goods.GoodsCommonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
