@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.tansuo365.test1.mapper.db.TablesMapper">
+
+    <resultMap id="BaseResultMap" type="com.tansuo365.test1.entity.TablesEntity">
+    <result column="Tables_in_tansuodb" jdbcType="VARCHAR" property="tableName"/>
+    </resultMap>
+
+	    <select id="getTablesInDB"  parameterType="string" resultMap="BaseResultMap">
+	        <if test="dbName != null and dbName != '' ">
+            show tables in ${dbName}
+            </if>
+	    </select>
+
+
+
+	</mapper>
+

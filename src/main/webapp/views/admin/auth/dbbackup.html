@@ -1,11 +1,604 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>数据库管理</title>
+    <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/themes/icon.css" rel="stylesheet"/>
+    <link href="/css/xwb_list.css" rel="stylesheet"/>
+    <link href="/css/themes/color.css" rel="stylesheet"/>
+    <link href="/css/wm.css" rel="stylesheet"/>
+    <link href="/css/demoe.css" rel="stylesheet"/>
+    <!--<script src="/script/jquery.min.js"></script>-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="/script/jquery.easyui.min.js"></script>
+    <!--<script src="/js/jquery17.easyui.min.js"></script>-->
+    <script src="/script/easyui-lang-zh_CN.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/jquery.serializejson.js"></script>
+    <!--<script src="/js/xlsx.core.min.js"></script>-->
+
+    <script src="/js/easyui_html/search-goods-index.js"></script>
+    <script src="/js/jquery.ocupload-1.1.2.js"></script>
+
+
 </head>
 <body>
-数据库备份
+
+<!-- 条件查询 -->
+<!--指标查询frame窗-->
+<div id="theIndexSearchFrame" class="easyui-window" style="width:800px;height:550px;padding:10px 40px"
+     closed="true">
+    <form id="searchform" method="post">
+        <table id="sec">
+            <tr>
+                <!--列举所有可查询字段-->
+                <td>用户名：</td>
+                <td><input type="text" name="username" class="easyui-textbox" value=""/></td>
+                <td>密码:</td>
+                <td><input type="text" name="password" class="easyui-textbox" value=""/></td>
+                <td>公司名:</td>
+                <td><input type="text" name="company" class="easyui-textbox" value=""/></td>
+
+            </tr>
+            <tr>
+                <!--<td>今日报价:</td>-->
+                <!--<td><input type="text" name="today_price" class="easyui-textbox" value=""/></td>-->
+                <td>实名:</td>
+                <td><input type="text" name="truename" class="easyui-textbox" value=""/></td>
+                <td>电话:</td>
+                <td><input type="text" name="phone" class="easyui-textbox" value=""/></td>
+
+            </tr>
+            <tr>
+                <td>性别:</td>
+                <td>
+                    <select class="easyui-combobox" name="sex" panelHeight="auto"/>
+                    <option value="0"> </option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                    </select>
+                </td>
+            </tr>
+
+            <td>邮箱:</td>
+            <td><input type="text" name="email" class="easyui-textbox" value=""/></td>
+            <td>会员类型:</td>
+            <td>
+                <select class="easyui-combobox" name="member_type" panelHeight="auto"/>
+                <option value="0"> </option>
+                <option value="1">个人</option>
+                <option value="2">企业</option>
+                </select>
+            </td>
+
+            <td>会员等级:</td>
+            <td><input type="text" name="member_level" class="easyui-textbox" value=""/></td>
+
+            <!--查看创建时间的开始结束-->
+            <tr>
+                <td>开始时间:</td>
+                <td><input name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+                <td>结束时间:</td>
+                <td><input name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+            </tr>
+
+            <hr>
+
+        </table>
+        <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
+           style="width:70px">查询</a>
+    </form>
+</div>
+
+<table id="dg" title="数据库表信息">
+
+</table>
+<div id="toolbar">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="dbbackup()">备份选中数据表</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="backupAllTables()">一键备份全部表</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="changePath()">更改备份目录</a>
+    <!--<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>-->
+    <!--<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="removeUser()">删除数据</a>-->
+    <!--<a href="javascript:window.location.reload()" iconCls="icon-reload" class="easyui-linkbutton" plain="true">重置数据</a>-->
+    <!--<a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton"-->
+       <!--plain="true">批量导入</a>-->
+    <!--<a href="javascript:void(0)" id="export_excel" iconCls="icon-save" class="easyui-linkbutton" plain="true">保存数据</a>-->
+    <!--<a id="quality_index_search" onclick="showIndexSearchFrame()" iconCls="icon-search" class="easyui-linkbutton"-->
+       <!--plain="true">条件查询</a>-->
+    <!--<a id="chart_and_table" onclick="chartAndTable()" iconCls="icon-large-chart" class="easyui-linkbutton"-->
+       <!--plain="true">切换图表</a>-->
+</div>
+<!-- 会员弹出窗口 -->
+<div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px"
+     closed="true" buttons="#dlg-buttons">
+    <div class="ftitle">会员信息</div>
+    <form id="fm" method="post" novalidate>
+        <div class="fitem" hidden="hidden">
+            <label>主键:</label>
+            <input name="id" class="easyui-validatebox">
+        </div>
+        <div class="fitem">
+            <label>用户名:</label>
+            <input name="username" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>密码:</label>
+            <input name="password" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>企业名:</label>
+            <input name="company" class="easyui-validatebox" required="">
+        </div>
+        <div class="fitem">
+            <label>真实姓名:</label>
+            <input name="truename" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>电话:</label>
+            <input name="phone" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>性别:</label>
+            <td>
+                <select class="easyui-combobox" name="sex" panelHeight="auto"/>
+                <option value="0">不选</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+                </select>
+            </td>
+        </div>
+        <div class="fitem">
+            <label>邮件:</label>
+            <input name="email" class="easyui-validatebox" required="">
+        </div>
+        <div class="fitem">
+            <label>会员类型:</label>
+            <td>
+                <select class="easyui-combobox" name="member_type" panelHeight="auto"/>
+                <option value="1">个人</option>
+                <option value="2">企业</option>
+                </select>
+            </td>
+        </div>
+        <div class="fitem">
+            <label>会员等级:</label>
+            <input name="member_level" class="easyui-validatebox" required="true">
+        </div>
+    </form>
+</div>
+<div id="dlg-buttons">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
+       onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+</div>
+
+<!--上传excel的弹出窗-->
+<div id="uploadonlineinfo" class="easyui-window" style="width:380px;padding:10px 40px" closed="true">
+
+    <form id="fam" method="post" enctype="multipart/form-data">
+
+        <input type="file"
+               id="uploadfile" name="uploadfile" style="width:100%"/>
+
+    </form>
+
+    <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">
+        <button id="uploadBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
+                style="width:80px">上传
+        </button>
+    </div>
+</div>
+
+<script th:inline="none">
+
+    $('#dg').datagrid({
+            url: '/admin/db/getTables?dbName=tansuodb',
+            toolbar: '#toolbar',
+            // pagination: 'true',
+            // pageSize: 10,
+            // pageList: [5, 10, 15, 20],
+            rownumbers: 'true',
+            fitColumns: 'true',
+            loadMsg: '数据加载中请稍后……',
+            fit: 'true', //datagrid自适应宽高,不设置会导致单页数据条目过多时,无法使用滚轮查看下方数据
+            // striped: 'false',//斑马纹
+            // singleSelect: 'true',
+            checkbox: 'true',
+            idField: 'tableName',
+            collapsible: 'true',
+            iconCls: 'icon-save',
+            // onCheckAll: 'addcheckItem',
+            // onCheck:'addcheckItem',
+            // onUncheckAll: 'removeAllItem',
+            // onUncheck: 'removeSingleItem',
+            // remoteSort:'true',
+            // queryParams: form2Json('searchform'),
+
+            //悬停提示tooltip
+            onLoadSuccess: function (data) {
+                $(this).datagrid('tooltip');
+            },
+
+            columns: [[
+                {field: 'id', align: 'center', title: '数据序列号', hidden: true},
+                {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
+                {field: 'tableName', title: '表名', width: 30},
+                {field: 'backUpName', title: '备份数据', width: 30},
+                {field: 'tableValue', title: '表简介', width: 50},
+                // {field: 'company', title: '企业名', width: 100},
+                // {field: 'truename', title: '真实姓名', width: 50},
+                // {field: 'phone', title: '手机号码', width: 50},
+                // {field: 'sex', title: '性别', width: 50},
+                // {field: 'email', title: '邮箱', width: 50},
+                // {field: 'member_type', title: '会员类型', width: 50},
+                // {field: 'member_level', title: '会员等级', width: 50},
+                // {field: 'create_time', title: '注册时间', width: 50},
+                // {field: 'update_time', title: '更新时间', width: 50},
+                // {field: 'lastlogin_time', title: '最后登录时间', width: 60}
+            ]]
+        },
+        //之下为鼠标悬停table上展示单个字段的tooltip
+        $.extend($.fn.datagrid.methods, {
+            tooltip: function (jq, fields) {
+                return jq.each(function () {
+                    var panel = $(this).datagrid('getPanel');
+                    if (fields && typeof fields == 'object' && fields.sort) {
+                        $.each(fields, function () {
+                            var field = this;
+                            bindEvent($('.datagrid-body td[field=' + field + '] .datagrid-cell', panel));
+                        });
+                    } else {
+                        bindEvent($(".datagrid-body .datagrid-cell", panel));
+                    }
+                });
+
+                function bindEvent(jqs) {
+                    jqs.mouseover(function () {
+                        var content = $(this).text();
+                        if (content && content != "") {
+                            $(this).tooltip({
+                                content: content,
+                                trackMouse: true,
+                                deltaX: 15,
+                                deltaY: -5,
+                                onShow: function () {
+                                    $(this).tooltip('tip').css({
+                                        backgroundColor: '#f7f5d1',
+                                        borderColor: 'black'
+                                    });
+                                }
+                            }).tooltip('show');
+                        }
+                    });
+                }
+            }
+        })
+        //tooltip end
+    );
+
+    function form2Json(id) {
+        var arr = $("#" + id).serializeArray();
+        var jsonStr = "";
+        jsonStr += '{';
+        for (var i = 0; i < arr.length; i++) {
+            jsonStr += '"' + arr[i].name + '":"' + arr[i].value + '",'
+        }
+        jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
+        jsonStr += '}'
+        var json = JSON.parse(jsonStr);
+        return json;
+    }
+</script>
+
+<script type="text/javascript">
+    var url;
+
+    function newUser() {
+        //打开添加新闻 窗口
+        $('#dlg').dialog('open').dialog('setTitle', '插入数据');
+        //把form表单的内容给清空
+        $('#fm').form('clear');
+        //给url赋值
+        url = '/member/insertSelective';
+    }
+
+    function editUser() {
+        //获得 选中的行
+        var rowedit = $("#dg").datagrid('getSelected');
+        // // 是否选中
+        if (rowedit) {
+            //打开窗口
+            $('#dlg').dialog('open').dialog('setTitle', '信息修改');
+            //让form表单去加载 选中行的数据
+            $('#fm').form('load', rowedit);
+            //修改的地址
+            url = '/member/updateByPKSelective';
+        }
+    }
+
+
+    /*备份数据库所有表,数据库配置在dbbackup.properties中*/
+    function backupAllTables(){
+        $.ajax({
+            url: '/admin/db/backupAllTables',
+            // dataType: 'json',
+            // data: {'names': names},
+            type: 'POST',
+            success: function (data) {
+                if (data > 0) {
+                    $.messager.alert('提示消息', '备份成功');
+                    $('#dg').datagrid('reload');
+                    $('#dg').datagrid('clearSelections');
+                } else {
+                    $.messager.alert('提示消息', '备份失败');
+                    $('#dg').datagrid('reload');
+                    $('#dg').datagrid('clearSelections');
+                }
+            }
+        });
+    }
+
+    /*选中备份*/
+    function dbbackup() {
+        //获得选中记录 多选
+        var rows = $('#dg').datagrid('getSelections');
+        if (rows) {
+            $.messager.confirm('确认按钮', '你确定要备份该数据?', function (r) {
+                if (r) {
+                    var names = [];
+                    for (var i = 0; i < rows.length; i++) {
+                        names.push(rows[i].tableName);
+                    }
+                    $.ajax({
+                        url: '/admin/db/backup',
+                        dataType: 'json',
+                        data: {'names': names},
+                        type: 'POST',
+                        success: function (data) {
+                            if (data > 0) {
+                                $.messager.alert('提示消息', '备份成功');
+                                $('#dg').datagrid('reload');
+                                $('#dg').datagrid('clearSelections');
+                            } else {
+                                $.messager.alert('提示消息', '备份失败');
+                                $('#dg').datagrid('reload');
+                                $('#dg').datagrid('clearSelections');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    $("#submit_search").click(function () {
+        // beforeSearch();
+        $('#dg').datagrid({url: "/member/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
+    });
+
+    //先判定每个checkbox是否选定,如果选定了的获取其中两个select两个input的value,赋值给原input的value
+    //只用于goods,暂时在member中不通用
+    function beforeSearch() {
+        //声明多input条件查询字段id数组
+        var indexArr = ['sulfurCK', 'ashCK', 'volatile_matterCK', 'wdrCK', 'vanadiumCK', 'densityCK', 'coke_contentCK', 'today_priceCK'];
+        for (var i in indexArr) {
+            var box = (document.getElementById(indexArr[i]));
+            if (box.checked) {
+                getValue(box);
+            }
+        }
+    }
+
+    function getValue(checkbox) {
+        var symbolL = document.getElementById(checkbox.name + "SelectL").value;
+        symbolL = (symbolL.length != 0) ? symbolL : "[null]";
+        var inputValueL = document.getElementById(checkbox.name + "ChildL").value;
+        inputValueL = (inputValueL.length != 0) ? inputValueL : "[null]";
+        var symbolR = document.getElementById(checkbox.name + "SelectR").value;
+        symbolR = (symbolR.length != 0) ? symbolR : "[null]";
+        var inputValueR = document.getElementById(checkbox.name + "ChildR").value;
+        inputValueR = (inputValueR.length != 0) ? inputValueR : "[null]";
+
+        checkbox.value = symbolL + ":" + inputValueL + ":" + symbolR + ":" + inputValueR + ":" + checkbox.name;
+        // alert(checkbox.name+","+checkbox.value)
+    }
+
+    // 导出excel按钮
+    $("#export_excel").click(exportExcel);
+
+    // 导出excel
+    function exportExcel() {
+        //获得选中记录 多选
+        var row = $('#dg').datagrid('getSelections');
+        //去除不需要导出的实体字段
+        var deleteKey = ['b_time', 'e_time', 'expand_2', 'expand_3', 'expand_4','salt',
+            'instanceName','instanceSalt','instanceId','instancePassword'];
+        for (var i in row) {
+            for (var j in deleteKey) {
+                delete row[i][deleteKey[j]];
+            }
+        }
+        if (row) {
+            $.messager.confirm('确认按钮', '你确定要导出该数据?', function (r) {
+                if (r) {
+                    downloadExl(row);
+                }
+            })
+        }
+    }
+
+    function downloadExl(data, type) {
+        var keys = Object.keys(data[0]);
+        var firstRow = {};
+        keys.forEach(function (item) {
+            console.log("item:" + item);
+            firstRow[item] = item;
+        });
+        data.unshift(firstRow);
+
+        var content = {};
+
+        //把json格式的数据转换为excel的行列形式
+        var sheetsData = data.map(function (item, rowIndex) {
+            return keys.map(function (key, columnIndex) {
+                return Object.assign({}, {
+                    value: item[key],
+                    position: (columnIndex > 25 ? getCharCol(columnIndex) : String.fromCharCode(65 + columnIndex)) + (rowIndex + 1),
+                });
+            });
+        }).reduce(function (prev, next) {
+            return prev.concat(next);
+        });
+
+        sheetsData.forEach(function (item, index) {
+            // content[item.position] = {v: item.value};
+            if (item.value == 'id') {
+                content[item.position] = {v: '序列号'};
+            } else if (item.value == 'username') {
+                content[item.position] = {v: '会员登录名'};
+            } else if (item.value == 'password') {
+                content[item.position] = {v: '密码'};
+            } else if (item.value == 'company') {
+                content[item.position] = {v: '公司名'};
+            } else if (item.value == 'truename') {
+                content[item.position] = {v: '真实姓名'};
+            } else if (item.value == 'phone') {
+                content[item.position] = {v: '电话'};
+            } else if (item.value == 'sex') {
+                content[item.position] = {v: '性别'};
+            } else if (item.value == 'email') {
+                content[item.position] = {v: '邮箱'};
+            } else if (item.value == 'member_type') {
+                content[item.position] = {v: '会员类型'};
+            } else if (item.value == 'member_level') {
+                content[item.position] = {v: '会员级别'};
+            } else if (item.value == 'create_time') {
+                content[item.position] = {v: '创建时间'};
+            } else if (item.value == 'update_time') {
+                content[item.position] = {v: '更新时间'};
+            } else if (item.value == 'lastlogin_time') {
+                content[item.position] = {v: '最近登录时间'};
+            } else {
+                content[item.position] = {v: item.value};
+            }
+        });
+
+        //设置区域,比如表格从A1到D10,SheetNames:标题
+        var coordinate = Object.keys(content);
+        var workBook = {
+            SheetNames: ["1"],
+            Sheets: {
+                "1": Object.assign({}, content, {"!ref": coordinate[0] + ":" + coordinate[coordinate.length - 1]}),
+            }
+        };
+
+        //这里的数据是用来定义导出的格式类型
+        var excelData = XLSX.write(workBook, {bookType: "xlsx", bookSST: false, type: "binary"});
+        var blob = new Blob([string2ArrayBuffer(excelData)], {type: ""});
+
+        // filename = "石油焦";
+        $.messager.prompt("输入框", "请输入保存文件名.", function (filename) {
+            if (filename) {
+                var nowTime = new Date().toLocaleDateString();
+                saveAs(blob, filename + nowTime + ".xlsx"); //文件名
+            }
+        });
+
+    }
+
+    //字符串转字符流
+    function string2ArrayBuffer(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) {
+            view[i] = s.charCodeAt(i) & 0xFF;
+        }
+        return buf;
+    }
+
+    //将指定的自然数转换为26进制表示. 映射关系: [0-25] -> [A-Z]
+    function getCharCol(n) {
+        var temCol = "",
+            s = "",
+            m = 0;
+        while (n > 0) {
+            m = n % 26 + 1;
+            s = String.fromCharCode(m + 64) + s;
+            n = (n - m) / 26;
+        }
+        return s;
+    }
+
+    //2019-2-27 更改搜索条件样式
+
+    /*上传excel的窗口打开操作*/
+    function uploadidalogonline() {
+        $('#uploadonlineinfo').window('open').dialog('setTitle', '文件上传');
+    }
+
+    //上传文件
+    $("#uploadBtn").click(uploadonline);//方法在下
+    function uploadonline() {
+
+        // var add = '/excel/importExcel';
+        var uploadFile = $("#uploadfile")[0].files[0];
+        console.log(uploadFile);
+        var formData = new FormData();
+        formData.append("uploadFile", uploadFile);
+        console.log(formData);
+        // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
+        $.ajax({
+            url: '/excel/importExcel?instance=' + "会员",
+            type: 'POST',
+            // data: {"uploadFile":formData,"instance":"石油焦"},
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false, //不设置内容类型
+            processData: false, //不处理数据
+            success: function (data) {
+                // alert(data);
+                if (data > 0) {
+                    $.messager.alert('操作结果', '导入数据成功');
+                    $("#booten").linkbutton('enable');
+                    $('#uploadonlineinfo').dialog('close');
+                    $('#dg').datagrid('reload');
+                } else {
+                    $.messager.alert('操作结果', '导入数据失败');
+                    $('#uploadonlineinfo').dialog('close');
+                }
+            }
+        })
+    }
+
+
+</script>
+
+<script type="text/javascript" th:inline="none">
+
+    /*指标窗口打开操作*/
+    function showIndexSearchFrame() {
+        $('#theIndexSearchFrame').window('open').dialog('setTitle', '指标查询');
+    }
+
+    function checkEachBox() {
+        $("input[type='checkbox']").each(function () {
+            if ($(this).attr('checked') == true) {
+                reas += $(this).val();
+                // testalert();
+            }
+        });
+    }
+
+    //图表和表单展示切换
+    function chartAndTable() {
+        window.location.href = "/easy/users/member_charts";
+    }
+
+</script>
 
 </body>
 </html>

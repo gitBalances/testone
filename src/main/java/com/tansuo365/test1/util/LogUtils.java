@@ -46,6 +46,8 @@ public class LogUtils {
 
     final private String ADMIN_ROLE = "admin_role";
 
+    final private String DB_TABlES = "DBTables";
+
     //标注此次查询日志时的日志类型
     private String thisLogInstance = null;
 
@@ -186,6 +188,12 @@ public class LogUtils {
             this.whenCodeMany = user+"登出成功。数量:"+code;
             this.whenOtherCase = user+"登出异常。数量:"+code;
         }
+        if(actionType.equals(LogEnum.BACKUP_ACTION.toString())){
+            this.whenCodeOne = user+"备份数据库表成功。数量:"+code;
+            this.whenCodeZero = user+"备份数据库表失败。数量:"+code;
+            this.whenCodeMany = user+"备份数据库表成功。数量:"+code;
+            this.whenOtherCase = user+"备份数据库表异常。数量:"+code;
+        }
         if(user.equals(UserType.MEMBER.toString())){
             logCommonService.setLogTypeMapper(logMemberMapper);
             return new LogMember();
@@ -235,6 +243,7 @@ public class LogUtils {
             case MEMBER_LOG:return "会员日志";
             case ADMIN_LOG:return "管理员日志";
             case ADMIN_ROLE:return "管理员角色";
+            case DB_TABlES:return "数据库表";
             default:return null;
         }
     }

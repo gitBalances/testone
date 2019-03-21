@@ -10,7 +10,9 @@ public enum LogEnum {
     SEARCH_ACTION("查询操作"),
     UPDATE_ACTION("更新操作"),
     ADD_ACTION("添加操作"),
-    DELETE_ACTION("删除操作");
+    DELETE_ACTION("删除操作"),
+
+    BACKUP_ACTION("备份操作");
 
     private String type;
 
