@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--指定公共引入页面,引入静态资源-->
+<head th:include="front/common/common">
+<!--<head>-->
+    <!--<title>首页</title>-->
+    <!--&lt;!&ndash; custom-theme &ndash;&gt;-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>-->
+    <!--<meta name="keywords" content=""/>-->
+    <!--<script type="application/x-javascript">-->
+        <!--addEventListener("load", function () {-->
+            <!--setTimeout(hideURLbar, 0);-->
+        <!--}, false);-->
 
-<head>
-    <title>首页</title>
-    <!-- custom-theme -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content=""/>
-    <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
+        <!--function hideURLbar() {-->
+            <!--window.scrollTo(0, 1);-->
+        <!--}-->
+    <!--</script>-->
     <!-- //custom-theme -->
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
-    <link href="css/slicebox.css" rel="stylesheet" type="text/css">
-    <link href="css/style_bigf.css" rel="stylesheet" type="text/css" media="all"/>
-    <link href="css/se.css" rel="stylesheet" type="text/css" media="all"/>
-    <!-- font-awesome-icons -->
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <!-- //font-awesome-icons -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-          rel='stylesheet' type='text/css'>
-    <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
-          rel="stylesheet">
-    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <script src="/js/getParam.js"></script>
-    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
-    <script src="/js/jquery.serializejson.js"></script>
-    <style>
-        .chart {
-            width: 100%;
-            height: 100%;
-            left: 20px;
-            position: absolute;
-        }
-    </style>
+    <!--<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>-->
+    <!--<link href="css/slicebox.css" rel="stylesheet" type="text/css">-->
+    <!--<link href="css/style_bigf.css" rel="stylesheet" type="text/css" media="all"/>-->
+    <!--<link href="css/se.css" rel="stylesheet" type="text/css" media="all"/>-->
+    <!--&lt;!&ndash; font-awesome-icons &ndash;&gt;-->
+    <!--<link href="css/font-awesome.css" rel="stylesheet">-->
+    <!--&lt;!&ndash; //font-awesome-icons &ndash;&gt;-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'-->
+          <!--rel='stylesheet' type='text/css'>-->
+    <!--<link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"-->
+          <!--rel="stylesheet">-->
+    <!--<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>-->
+    <!--<script src="/js/getParam.js"></script>-->
+    <!--<script src="/js/echarts.min.js"></script>-->
+    <!--<script src="/js/jquery.serializejson.js"></script>-->
+    <!--<style>-->
+        <!--.chart {-->
+            <!--width: 100%;-->
+            <!--height: 120%;-->
+            <!--left: 20px;-->
+            <!--position: absolute;-->
+        <!--}-->
+    <!--</style>-->
 
 
 </head>
@@ -80,20 +81,20 @@
             </div>
         </ul>
 
-        <script th:inline="none">
-            /*会员登出*/
-            $("#logoutBtn").click(doLogout);
+        <!--<script th:inline="none">-->
+            <!--/*会员登出*/-->
+            <!--$("#logoutBtn").click(doLogout);-->
 
-            function doLogout() {
-                $.ajax({
-                    url: "/member/doLogout",
-                    type: "post",
-                    success: function (data) {
-                        window.location.reload();
-                    }
-                })
-            }
-        </script>
+            <!--function doLogout() {-->
+                <!--$.ajax({-->
+                    <!--url: "/member/doLogout",-->
+                    <!--type: "post",-->
+                    <!--success: function (data) {-->
+                        <!--window.location.reload();-->
+                    <!--}-->
+                <!--})-->
+            <!--}-->
+        <!--</script>-->
 
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -328,7 +329,7 @@
             <p>Lorem ipsum dolor sit amet, Lorem ipsum Lorem ipsum.Integer varius est vitae iaculis suscipit. Integer
                 sed rutrum lectus.</p>
         </div>
-        <div class="col-md-6 agileits_banner_bottom_left" style="height: 500px;">
+        <div class="col-md-12 agileits_banner_bottom_left" style="height:500px;">
             <!--echarts 按钮-->
             <div class="col-md-3">
                 <button class="btn btn-success" onclick="setGoodsType(0)">查看石油焦</button>
@@ -345,8 +346,8 @@
 
             <hr>
 
-            <button class="btn btn-info" onclick="setChartType(1)">曲线图模式</button>
-            <button class="btn btn-info" onclick="setChartType(2)">柱状图模式</button>
+            <!--<button class="btn btn-info" onclick="setChartType(1)">曲线图模式</button>-->
+            <!--<button class="btn btn-info" onclick="setChartType(2)">柱状图模式</button>-->
             <br>
             <hr>
             <!--图表-->
@@ -1171,7 +1172,7 @@
                 //石油焦json数据
                 // petroleumCokesJson = data; //OK
                 // console.log("JSON.stringify(data):" + JSON.stringify(data));
-                console.log(">>data:" + JSON.stringify(data));
+                // console.log(">>data:" + JSON.stringify(data));
                 allData = data;
                 //获取公司字段,获取公司数组,去重
                 companys = getParamValues("company", data).delDuplicate();
@@ -1214,6 +1215,25 @@
                     //     source:
                     //     newJson2
                     // },
+                    toolbox: { //切换曲线/柱状图
+                        feature: {
+                            dataView: {show: false, readOnly: false}, //文本数据,关闭
+                            magicType: {show: true, type: ['line', 'bar']}, //展示类型切换
+                            restore: {show: true},
+                            saveAsImage: {show: true},
+                            dataZoom: { //区域缩放
+                                yAxisIndex: false
+                            }
+                        }
+                    },
+                    dataZoom: { //时间轴拖动
+                        show: true,
+                        realtime: true,
+                        y: 360,
+                        height: 20,
+                        start: 0,
+                        end: 1000
+                    },
                     dataset: {
                         //Array形式
                         source: newArr,

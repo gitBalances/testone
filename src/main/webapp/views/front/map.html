@@ -1,31 +1,34 @@
 <!DOCTYPE html>
-<html lang="zxx">
-<head>
-    <title>产业地图</title>
-    <!-- custom-theme -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content=""/>
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--指定公共引入页面,引入静态资源-->
+<head th:include="front/common/common">
+<!--<head>-->
+    <!--<title>产业地图</title>-->
+    <!--&lt;!&ndash; custom-theme &ndash;&gt;-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>-->
+    <!--<meta name="keywords" content=""/>-->
+    <!--<script type="application/x-javascript"> addEventListener("load", function () {-->
+        <!--setTimeout(hideURLbar, 0);-->
+    <!--}, false);-->
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
-    <!-- //custom-theme -->
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
-    <link href="css/style_bigf.css" rel="stylesheet" type="text/css" media="all"/>
-    <!-- font-awesome-icons -->
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <!-- //font-awesome-icons -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-          rel='stylesheet' type='text/css'>
-    <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
-          rel="stylesheet">
-    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
-    <script src="/js/china.js"></script>
+    <!--function hideURLbar() {-->
+        <!--window.scrollTo(0, 1);-->
+    <!--} </script>-->
+    <!--&lt;!&ndash; //custom-theme &ndash;&gt;-->
+    <!--<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>-->
+    <!--<link href="css/style_bigf.css" rel="stylesheet" type="text/css" media="all"/>-->
+    <!--&lt;!&ndash; font-awesome-icons &ndash;&gt;-->
+    <!--<link href="css/font-awesome.css" rel="stylesheet">-->
+    <!--&lt;!&ndash; //font-awesome-icons &ndash;&gt;-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'-->
+          <!--rel='stylesheet' type='text/css'>-->
+    <!--<link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"-->
+          <!--rel="stylesheet">-->
+    <!--<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>-->
+    <!--<script src="/js/echarts.min.js"></script>-->
+    <!--<script src="/js/china.js"></script>-->
 
 
 </head>
