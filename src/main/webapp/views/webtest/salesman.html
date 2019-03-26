@@ -2,8 +2,7 @@
 <html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>阳极信息管理</title>
+    <title>业务员信息管理</title>
     <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
     <link href="/css/themes/icon.css" rel="stylesheet"/>
     <link href="/css/xwb_list.css" rel="stylesheet"/>
@@ -23,6 +22,20 @@
 
     <script src="/js/easyui_html/search-goods-index.js"></script>
     <script src="/js/jquery.ocupload-1.1.2.js"></script>
+
+    <!--BootStrap的样式文件-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <!--<script src="https://code.jquery.com/jquery.js"></script>-->
+
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 
 </head>
 <body>
@@ -154,10 +167,10 @@
     </form>
 </div>
 
-
 <table id="dg" title="阳极信息">
-
 </table>
+
+
 <div id="toolbar">
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增数据</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>

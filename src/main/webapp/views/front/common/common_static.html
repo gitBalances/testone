@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--本页为公用js,css,包括会员退出ajax请求-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--<title>thymeleaf公共资源</title>-->
+    <!--/*@thymesVar id="title" type="com"*/-->
+    <title th:text="${title}"></title>
+    <!-- custom-theme -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //custom-theme -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link th:href="@{/css/slicebox.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style_bigf.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link th:href="@{/css/se.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link th:href="@{/css/blog.css}" rel="stylesheet" type="text/css" media="all"/>
+    <!-- font-awesome-icons -->
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+    <!-- //font-awesome-icons -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+          rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Raleway:100i,200,200i,300,400,500,500i,600,700,700i,800,800i"
+          rel="stylesheet">
+    <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{/js/getParam.js}"></script>
+    <script th:src="@{/js/echarts.min.js}"></script>
+    <script th:src="@{/js/jquery.serializejson.js}"></script>
+    <script th:src="@{/js/china.js}"></script>
+    <style>
+        .chart {
+            width: 100%;
+            height: 120%;
+            left: 20px;
+            position: absolute;
+        }
+    </style>
+
+    <!--登录,注册,登出 ajax-->
+    <script th:inline="javascript">
+        window.onload = function () {
+
+            /*会员登录*/
+            $("#loginBtn").click(loginAjax);
+            function loginAjax() {
+                console.log("test login ajax");
+                var loginData = $("#loginForm").serializeJSON();
+                $.ajax({
+                    url: "/member/loginMember",
+                    type: "post",
+                    dataType: "json",
+                    data: loginData,
+                    success: function (data) {
+                        if (data.success) {
+                            alert(data.message);
+                            window.location.href = "/";
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                })
+            }
+
+            /*会员注册*/
+            $("#signUpBtn").click(signUpAjax);
+            function signUpAjax() {
+                let pwd1 = $("#password1").val();
+                let pwd2 = $("#password2").val();
+                let username = $("#username").val();
+                var memberType = $('input[name="memberType"]:checked').val();
+                let activationCode = $("#activation").val();
+                if (pwd1 !== pwd2) {
+                    alert("两次密码输入不一致,请重新填写.");
+                    $("#password1").val("");
+                    $("#password2").val("");
+                    $("#password1").focus();
+                    return;
+                }
+                if (memberType == null) {
+                    alert("会员类型没有选择.");
+                    return;
+                } else {
+                    $.ajax({
+                        url: "/member/signUp",
+                        type: "post",
+                        data: {
+                            "username": username,
+                            "password": pwd1,
+                            "member_type": memberType,
+                            "activation": activationCode
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.success) {
+                                alert(data.message + "请登录!");
+                                //todo 关闭注册页
+                                window.location.href = "/";
+                            } else {
+                                //用户名重复判定
+                                alert(data.message);
+                            }
+                        }
+                    })
+                }
+
+            }
+
+            /*会员登出*/
+            $("#logoutBtn").click(doLogout);
+            function doLogout() {
+                $.ajax({
+                    url: "/member/doLogout",
+                    type: "post",
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                })
+            }
+        }
+
+    </script>
+
+
+</head>
+<body>
+
+
+</body>
+</html>

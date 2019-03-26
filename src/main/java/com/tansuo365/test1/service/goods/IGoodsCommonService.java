@@ -37,6 +37,9 @@ public interface IGoodsCommonService {
     //选择全部
     public List<Goods> getAll();
 
+    //根据会员等级获取数据量
+    public List<Goods> getAllByLevel(Integer member_level);
+
     //选择全部根据货品实例(针对ECharts使用)
     public List<Goods> getGoodsByType(Goods goods);
 

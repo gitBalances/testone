@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- 公有的登录,注册弹出页面 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>common_login_signup</title>
+</head>
+<body>
+
+<!--之下为登录和注册的弹出框-->
+<div th:fragment="login_signup_">
+<!-- 登录的弹出框 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <div class="signin-form profile">
+                    <h3 class="agileinfo_sign">登录</h3>
+                    <div class="login-form">
+                        <form action="#" method="post" id="loginForm">
+                            <input type="text" name="username" placeholder="用户名" required="">
+                            <input type="password" name="password" placeholder="密码" required="">
+                            <div class="tp">
+                                <input id="loginBtn" class="buttonBtn" type="button" value="登录">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="login-social-grids">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        </ul>
+                    </div> -->
+                    <p><a href="#" data-toggle="modal" data-target="#myModal3"> 是否注册新用户?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //登录的弹出框结束 -->
+<!-- 注册的弹出框 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="signin-form profile">
+                    <h3 class="agileinfo_sign">注册</h3>
+                    <div class="login-form">
+                        <form action="#" method="post">
+                            <input type="text" id="username" name="username" placeholder="用户名" required="true">
+                            <input type="password" name="password" id="password1" placeholder="密码" required="true">
+                            <input type="password" name="password" id="password2" placeholder="确认密码" required="true">
+                            <input type="password" name="activation" id="activation" placeholder="公司内部测试码"
+                                   required="true">
+                            <!-- <input type="password" name="password" id="password2" placeholder="Confirm Password" required="">-->
+                            <input type="radio" value="1" name="memberType"/>
+                            个人用户 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" value="2" name="memberType"/>
+                            公司用户
+                            <input type="button" class="buttonBtn" id="signUpBtn" value="注册">
+                        </form>
+                    </div>
+                    <p><a href="#"> By clicking register, I agree to your terms</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//注册的弹出框结束-->
+</div>
+
+
+
+
+</body>
+</html>

@@ -32,6 +32,9 @@ public interface IGoodsCommonMapper {
     //选取全部 new
     List<Goods> selectAll();
 
+    //根据用户等级获取数据量
+    List<Goods> getAllByMemberLevel(Integer member_level);
+
     //根据货品类型选择全部
     List<Goods> selectAllByTypeForECharts(Goods goods);
 

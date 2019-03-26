@@ -118,6 +118,14 @@
         from petroleum_coke_tbl
     </select>
 
+
+    <!--根据用户等级获取数据量-->
+    <select id="getAllByMemberLevel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from petroleum_coke_tbl
+    </select>
+
     <!--动态查询-->
     <select id="selectGoodsSelective" parameterType="com.tansuo365.test1.bean.goods.PetroleumCoke"
             resultMap="BaseResultMap">

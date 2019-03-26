@@ -7,6 +7,7 @@ import com.tansuo365.test1.bean.log.LogEnum;
 import com.tansuo365.test1.entity.Goods;
 import com.tansuo365.test1.entity.TablesEntity;
 import com.tansuo365.test1.service.db.IDBService;
+import com.tansuo365.test1.util.FileUtils;
 import com.tansuo365.test1.util.LogUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +35,8 @@ public class DBController {
     private IDBService dbService;
     @Autowired
     private LogUtils logUtils;
+    @Autowired
+    private FileUtils fileUtils;
 
     @Value("${db.type}")
     private String dbType;
@@ -73,6 +77,8 @@ public class DBController {
      */
     @RequestMapping("/backup")
     public Integer dbBackUp(HttpSession session, @RequestParam(value = "names[]") String[] names) throws IllegalAccessException, InstantiationException {
+        System.out.println("dbBackUpPath:"+dbBackUpPath);
+        dbBackUpPath = fileUtils.dbBackUpPathCreate(dbBackUpPath);
         int count = 0;
         try {
             for (int i = 0; i < names.length; i++) {
@@ -82,11 +88,13 @@ public class DBController {
             }
             if (count == names.length) {
                 logUtils.doLog(null,count,LogEnum.BACKUP_ACTION,instance,session);
+                //备份成功
                 return 1;
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+            //备份失败
             return 0;
         }
         return 0;

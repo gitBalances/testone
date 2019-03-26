@@ -57,6 +57,11 @@ public class GoodsCommonService implements IGoodsCommonService{
     }
 
     @Override
+    public List<Goods> getAllByLevel(Integer member_level) {
+        return goodsCommonMapper.getAllByMemberLevel(member_level);
+    }
+
+    @Override
     public List<Goods> getGoodsByType(Goods goods) {
         return goodsCommonMapper.selectAllByTypeForECharts(goods);
     }
