@@ -1,44 +1,71 @@
+#fm {
+  margin: 0;
+  padding: 10px 30px;
+}
 
-    	#fm{
-			margin:0;
-			padding:10px 30px;
-		}
-		.ftitle{
-			font-size:14px;
-			font-weight:bold;
-			color:#666;
-			padding:5px 0;
-			margin-bottom:10px;
-			border-bottom:1px solid #ccc;
-		}
-		.fitem{
-			margin-bottom:5px;
-		}
-		.fitem label{
-			display:inline-block;
-			width:80px;
-		}
-    	
-        body {
-            font-size: 12px;
-            overflow-y: hidden;
-        }
+.ftitle {
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  padding: 5px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
 
-        input {
-            width: 100px;
-        }
+.fitem {
+  margin-bottom: 5px;
+}
 
-        select {
-            width: 104px;
-        }
+.fitem label {
+  display: inline-block;
+  width: 80px;
+}
 
-        #sec {
-            /*border:1px solid #0094ff;*/
-            width: 600px;
-        }
+body {
+  font-size: 12px;
+  overflow-y: hidden;
+}
 
-            #sec td {
-                width: 100px;
-                height: 20px;
-                text-align: right;
-            }
+input {
+  width: 100px;
+}
+
+select {
+  width: 104px;
+}
+
+#sec {
+  /*border:1px solid #0094ff;*/
+  width: 700px;
+}
+
+#sec td {
+  /* width: 100px; */
+  height: 20px;
+  /* text-align: right; */
+}
+
+/* 条件查询弹出模块 */
+.list-category {
+  line-height: 20px;
+}
+
+.list-category > select{
+  margin-right: 10px;
+  height: 21px;
+}
+
+.list-category > input{
+  margin-right: 10px;
+}
+
+.listspan-category {
+  width: 110px;
+  display: inline-block;
+  text-align: right;
+}
+
+.btn-query {
+  width: 80px;
+  margin: 20px 275px;
+}

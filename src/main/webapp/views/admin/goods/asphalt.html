@@ -1,434 +1,486 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>改质沥青信息管理</title>
-    <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
-    <link href="/css/themes/icon.css" rel="stylesheet"/>
-    <link href="/css/xwb_list.css" rel="stylesheet"/>
-    <link href="/css/themes/color.css" rel="stylesheet"/>
-    <link href="/css/wm.css" rel="stylesheet"/>
-    <!--<script src="/script/jquery.min.js"></script>-->
-    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="/script/jquery.easyui.min.js"></script>
-    <script src="/script/easyui-lang-zh_CN.js"></script>
-    <script src="/js/FileSaver.min.js"></script>
-    <script src="/js/xlsx.full.min.js"></script>
-    <script src="/js/jquery.serializejson.js"></script>
-    <!--<script src="/js/xlsx.core.min.js"></script>-->
+<!--指定公共引入页面,引入静态资源-->
 
-    <script src="/js/easyui_html/search-goods-index.js"></script>
-    <script src="/js/jquery.ocupload-1.1.2.js"></script>
-
-
+<head th:include="admin/goods/common/common_static">
 </head>
+
 <body>
 
-<!-- 条件查询 -->
-<!--指标查询frame窗-->
-<div id="theIndexSearchFrame" class="easyui-window" style="width:800px;height:550px;padding:10px 40px"
-     closed="true">
+  <!-- 公有淡入加载 -->
+  <div th:fragment="loading_" id='Loading' style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background-color:#DDDDDB;text-align:center;padding-top: 20%;">
+    <h1>
+      <font color="#15428B">加载中···</font>
+    </h1>
+  </div>
+
+  <!-- 条件查询 -->
+  <!--指标查询frame窗-->
+  <div id="theIndexSearchFrame" class="easyui-window" style="width:800px;height:550px;padding:10px 40px" closed="true">
     <form id="searchform" method="post">
-        <table id="sec">
-            <tr>
-                <!--列举所有可查询字段-->
-                <td>省份：</td>
-                <td><input type="text" name="province" class="easyui-textbox" value=""/></td>
-                <td>公司名称:</td>
-                <td><input type="text" name="company" class="easyui-textbox" value=""/></td>
-
-                <td>备注:</td>
-                <td><input type="text" name="remarks" class="easyui-textbox" value=""/></td>
-                <!--TODO 汇报人及备注应该使用模糊查询,其它字段的模糊查询-->
-                <td>汇报人:</td>
-                <td><input type="text" name="reporter" class="easyui-textbox" value=""/></td>
-            </tr>
+      <table id="sec">
+        <tr>
+          <!--列举所有可查询字段-->
+          <td>省份：</td>
+          <td><input type="text" name="province" class="easyui-textbox" value="" /></td>
+          <td>公司名称:</td>
+          <td><input type="text" name="company" class="easyui-textbox" value="" /></td>
+          <td>备注:</td>
+          <td><input type="text" name="remarks" class="easyui-textbox" value="" /></td>
+          <!--TODO 汇报人及备注应该使用模糊查询,其它字段的模糊查询-->
+        </tr>
 
 
-            <tr>
-                <td>开始时间:</td>
-                <td><input name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
-                <td>结束时间:</td>
-                <td><input name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
-            </tr>
+        <tr>
+          <td>汇报人:</td>
+          <td><input type="text" name="reporter" class="easyui-textbox" value="" /></td>
+          <td>开始时间:</td>
+          <td><input name="b_time" class="easyui-datetimebox" editable=false style="width: 150px" /></td>
+          <td>结束时间:</td>
+          <td><input name="e_time" class="easyui-datetimebox" editable=false style="width: 150px" /></td>
+        </tr>
 
-            </tr>
-            <tr>
+        </tr>
+        <tr>
 
-                <div style="margin-bottom:20px" id="s_softening_pointDiv">
-                    软化点℃<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                               id="softening_pointCK" name="s_softening_point" label="软化点℃:">
-                </div>
-                <hr>
-                <div style="margin-bottom:20px" id="s_tolueneDiv">
-                    甲苯不溶物含量%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                   id="tolueneCK" name="s_toluene" label="甲苯不溶物含量%:">
-                </div>
-                <hr>
-                <div style="margin-bottom:20px" id="s_quinolineDiv">
-                    喹啉不溶物含量%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                   id="quinolineCK" name="s_quinoline" label="喹啉不溶物含量%:">
-                </div>
-                <hr>
-                <div style="margin-bottom:20px" id="s_beta_resinDiv">
-                    β树脂含量%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                 id="beta_resinCK" name="s_beta_resin" label="β树脂含量%:">
-                </div>
-                <hr>
-                <div style="margin-bottom:20px" id="s_coking_valueDiv">
-                    结焦值%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                               id="coking_valueCK" name="s_coking_value" label="结焦值%:">
-                </div>
-                <hr>
-                <div style="margin-bottom:20px" id="s_ashDiv">
-                    灰分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                              id="ashCK" name="s_ash" label="灰分%:">
-                </div>
-                <hr>
-                <div style="margin-bottom:20px" id="s_today_priceDiv">
-                    今日报价<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                               id="today_priceCK" name="s_today_price" label="今日报价:">
-                </div>
-                <hr>
+          <div style="margin-bottom:20px" id="s_softening_pointDiv">
+            <span class="listspan-category">软化点℃</span>
+            <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="softening_pointCK" name="s_softening_point" label="软化点℃:">
+          </div>
+          <hr>
+          <div style="margin-bottom:20px" id="s_tolueneDiv">
+            <span class="listspan-category">甲苯不溶物含量%</span>
+            <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="tolueneCK" name="s_toluene" label="甲苯不溶物含量%:">
+          </div>
+          <hr>
+          <div style="margin-bottom:20px" id="s_quinolineDiv">
+            <span class="listspan-category">喹啉不溶物含量%</span>
+            <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="quinolineCK" name="s_quinoline" label="喹啉不溶物含量%:">
+          </div>
+          <hr>
+          <div style="margin-bottom:20px" id="s_beta_resinDiv">
+            <span class="listspan-category">β树脂含量%</span>
+            <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="beta_resinCK" name="s_beta_resin" label="β树脂含量%:">
+          </div>
+          <hr>
+          <div style="margin-bottom:20px" id="s_coking_valueDiv">
+            <span class="listspan-category">结焦值%</span>
+            <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="coking_valueCK" name="s_coking_value" label="结焦值%:">
+          </div>
+          <hr>
+          <div style="margin-bottom:20px" id="s_ashDiv">
+            <span class="listspan-category">灰分%</span>
+            <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="ashCK" name="s_ash" label="灰分%:">
+          </div>
+          <hr>
+          <div style="margin-bottom:20px" id="s_today_priceDiv">
+            <span class="listspan-category">今日报价</span>
+            <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="today_priceCK" name="s_today_price" label="今日报价:">
+          </div>
+          <hr>
 
-        </table>
-        <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
-           style="width:70px">查询</a>
+      </table>
+      <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1 btn-query" style="width:70px">查询</a>
     </form>
-</div>
+  </div>
 
-<table id="dg" title="沥青信息">
+  <table id="dg" title="沥青信息">
 
-</table>
-<div id="toolbar">
+  </table>
+  <div id="toolbar">
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增数据</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="removeUser()">删除数据</a>
     <a href="javascript:window.location.reload()" iconCls="icon-reload" class="easyui-linkbutton" plain="true">重置数据</a>
-    <a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton"
-       plain="true">批量导入</a>
+    <a id="uploadExcel" onclick="uploadidalogonline()" iconCls="icon-large-smartart" class="easyui-linkbutton" plain="true">批量导入</a>
     <a href="javascript:void(0)" id="export_excel" iconCls="icon-save" class="easyui-linkbutton" plain="true">保存数据</a>
-    <a id="quality_index_search" onclick="showIndexSearchFrame()" iconCls="icon-search" class="easyui-linkbutton"
-       plain="true">条件查询</a>
-    <a id="chart_and_table" onclick="chartAndTable()" iconCls="icon-large-chart" class="easyui-linkbutton"
-       plain="true">切换图表</a>
-</div>
-<!-- 石油焦弹出窗口 -->
-<div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px"
-     closed="true" buttons="#dlg-buttons">
+    <a id="quality_index_search" onclick="showIndexSearchFrame()" iconCls="icon-search" class="easyui-linkbutton" plain="true">条件查询</a>
+    <a id="chart_and_table" onclick="chartAndTable()" iconCls="icon-large-chart" class="easyui-linkbutton" plain="true">切换图表</a>
+  </div>
+  <!-- 石油焦弹出窗口 -->
+  <div id="dlg" class="easyui-dialog" style="width:800px;height:580px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
     <div class="ftitle">沥青信息</div>
 
     <form id="fm" method="post" novalidate>
-        <div class="fitem" hidden="hidden">
-            <label>主键:</label>
-            <input name="id" class="easyui-validatebox">
-        </div>
+      <div class="fitem" hidden="hidden">
+        <label>主键:</label>
+        <input name="id" class="easyui-validatebox">
+      </div>
 
-        <div class="fitem">
-            <label>省份:</label>
-            <input name="province" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>省份:</label>
+        <input name="province" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>企业名称:</label>
-            <input name="company" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>企业名称:</label>
+        <input name="company" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>简称:</label>
-            <input name="s_company" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>简称:</label>
+        <input name="s_company" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>软化点_℃:</label>
-            <input name="softening_point" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>软化点_℃:</label>
+        <input name="softening_point" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>甲苯不溶物含量_%:</label>
-            <input name="toluene" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>甲苯不溶物含量_%:</label>
+        <input name="toluene" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>喹啉不溶物含量_%:</label>
-            <input name="quinoline" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>喹啉不溶物含量_%:</label>
+        <input name="quinoline" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>β树脂含量_%:</label>
-            <input name="beta_resin" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>β树脂含量_%:</label>
+        <input name="beta_resin" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>结焦值_%:</label>
-            <input name="coking_value" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>结焦值_%:</label>
+        <input name="coking_value" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>灰分_%:</label>
-            <input name="ash" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>灰分_%:</label>
+        <input name="ash" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>今日报价:</label>
-            <input name="today_price" class="easyui-validatebox" required="true">
-        </div>
+      <div class="fitem">
+        <label>今日报价:</label>
+        <input name="today_price" class="easyui-validatebox" required="true">
+      </div>
 
-        <div class="fitem">
-            <label>备注:</label>
-            <input name="remarks" class="easyui-validatebox">
-        </div>
+      <div class="fitem">
+        <label>备注:</label>
+        <input name="remarks" class="easyui-validatebox">
+      </div>
 
-        <div class="fitem">
-            <label>汇报人:</label>
-            <input name="reporter" class="easyui-validatebox">
-        </div>
+      <div class="fitem">
+        <label>汇报人:</label>
+        <input name="reporter" class="easyui-validatebox">
+      </div>
 
 
     </form>
-</div>
-<div id="dlg-buttons">
+  </div>
+  <div id="dlg-buttons">
     <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel"
-       onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
-</div>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+  </div>
 
-<!--上传excel的弹出窗-->
-<div id="uploadonlineinfo" class="easyui-window" style="width:380px;padding:10px 40px" closed="true">
+  <!--上传excel的弹出窗-->
+  <div id="uploadonlineinfo" class="easyui-window" style="width:380px;padding:10px 40px" closed="true">
 
     <form id="fam" method="post" enctype="multipart/form-data">
 
-        <!--<input class="easyui-filebox" id="onlinefilename" name="onlinefilename" data-options="prompt:'文件上传'"-->
-        <!--style="width:100%" />-->
-        <input type="file"
-               id="uploadfile" name="uploadfile" style="width:100%"/>
+      <!--<input class="easyui-filebox" id="onlinefilename" name="onlinefilename" data-options="prompt:'文件上传'"-->
+      <!--style="width:100%" />-->
+      <input type="file" id="uploadfile" name="uploadfile" style="width:100%" />
     </form>
 
     <br>
 
     <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">
-        <button id="uploadBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'"
-                style="width:80px">上传
-        </button>
+      <button id="uploadBtn" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:80px">上传
+      </button>
     </div>
     <br>
     <p style="text-align: center"><a href="http://po136b50f.bkt.clouddn.com/liqing.xlsx">下载沥青excel模板</a></p>
 
 
-</div>
+  </div>
 
-<script th:inline="none">
-
+  <script th:inline="none">
     $('#dg').datagrid({
-            url: '/goods/MAsphalt/selectSelective',
-            toolbar: '#toolbar',
-            pagination: 'true',
-            pageSize: 10,
-            pageList: [5, 10, 15, 20],
-            rownumbers: 'true',
-            fitColumns: 'true',
-            loadMsg: '数据加载中请稍后……',
-            fit: 'true',
-            // singleSelect: 'true',
-            checkbox: 'true',
-            idField: 'id',
-            collapsible: 'true',
-            iconCls: 'icon-save',
-            queryParams: form2Json('searchform'),
+        url: '/goods/MAsphalt/selectSelective',
+        toolbar: '#toolbar',
+        pagination: 'true',
+        pageSize: 10,
+        pageList: [5, 10, 15, 20],
+        rownumbers: 'true',
+        fitColumns: 'true',
+        loadMsg: '数据加载中请稍后……',
+        fit: 'true',
+        // singleSelect: 'true',
+        checkbox: 'true',
+        idField: 'id',
+        collapsible: 'true',
+        iconCls: 'icon-save',
+        queryParams: form2Json('searchform'),
 
-            //悬停提示tooltip
-            onLoadSuccess: function (data) {
-                $(this).datagrid('tooltip');
-            },
-
-            columns: [[
-
-                {field: 'id', align: 'center', title: '数据序列号', hidden: true},
-                {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
-                {field: 'province', title: '省份', width: 50},
-                {field: 'company', title: '企业名', width: 100},
-                {field: 's_company', title: '简称', width: 50},
-                {field: 'softening_point', title: '软化点_℃', width: 50},
-                {field: 'toluene', title: '甲苯不溶物含量_%', width: 50},
-                {field: 'quinoline', title: '喹啉不溶物含量_%', width: 50},
-                {field: 'beta_resin', title: 'β树脂含量_%', width: 50},
-                {field: 'coking_value', title: '结焦值_%', width: 50},
-                {field: 'ash', title: '灰分_%', width: 50},
-                {field: 'today_price', title: '今日报价', width: 100},
-                {field: 'remarks', title: '备注', width: 100},
-                {field: 'reporter', title: '汇报人', width: 100},
-                {field: 'create_time', title: '创建时间', width: 100},
-                {field: 'update_time', title: '更新时间', width: 100}
-            ]]
+        //悬停提示tooltip
+        onLoadSuccess: function(data) {
+          $(this).datagrid('tooltip');
         },
-        //之下为鼠标悬停table上展示单个字段的tooltip
-        $.extend($.fn.datagrid.methods, {
-            tooltip: function (jq, fields) {
-                return jq.each(function () {
-                    var panel = $(this).datagrid('getPanel');
-                    if (fields && typeof fields == 'object' && fields.sort) {
-                        $.each(fields, function () {
-                            var field = this;
-                            bindEvent($('.datagrid-body td[field=' + field + '] .datagrid-cell', panel));
-                        });
-                    } else {
-                        bindEvent($(".datagrid-body .datagrid-cell", panel));
-                    }
-                });
 
-                function bindEvent(jqs) {
-                    jqs.mouseover(function () {
-                        var content = $(this).text();
-                        if (content && content != "") {
-                            $(this).tooltip({
-                                content: content,
-                                trackMouse: true,
-                                deltaX: 15,
-                                deltaY: -5,
-                                onShow: function () {
-                                    $(this).tooltip('tip').css({
-                                        backgroundColor: '#f7f5d1',
-                                        borderColor: 'black'
-                                    });
-                                }
-                            }).tooltip('show');
-                        }
-                    });
-                }
+        columns: [
+          [
+
+            {
+              field: 'id',
+              align: 'center',
+              title: '数据序列号',
+              hidden: true
+            },
+            {
+              field: 'ukyo',
+              align: 'center',
+              width: 30,
+              checkbox: 'true'
+            },
+            {
+              field: 'province',
+              title: '省份',
+              width: 50
+            },
+            {
+              field: 'company',
+              title: '企业名',
+              width: 100
+            },
+            {
+              field: 's_company',
+              title: '简称',
+              width: 50
+            },
+            {
+              field: 'softening_point',
+              title: '软化点_℃',
+              width: 50
+            },
+            {
+              field: 'toluene',
+              title: '甲苯不溶物含量_%',
+              width: 50
+            },
+            {
+              field: 'quinoline',
+              title: '喹啉不溶物含量_%',
+              width: 50
+            },
+            {
+              field: 'beta_resin',
+              title: 'β树脂含量_%',
+              width: 50
+            },
+            {
+              field: 'coking_value',
+              title: '结焦值_%',
+              width: 50
+            },
+            {
+              field: 'ash',
+              title: '灰分_%',
+              width: 50
+            },
+            {
+              field: 'today_price',
+              title: '今日报价',
+              width: 100
+            },
+            {
+              field: 'remarks',
+              title: '备注',
+              width: 100
+            },
+            {
+              field: 'reporter',
+              title: '汇报人',
+              width: 100
+            },
+            {
+              field: 'create_time',
+              title: '创建时间',
+              width: 100
+            },
+            {
+              field: 'update_time',
+              title: '更新时间',
+              width: 100
             }
-        })
-        //tooltip end
+          ]
+        ]
+      },
+      //之下为鼠标悬停table上展示单个字段的tooltip
+      $.extend($.fn.datagrid.methods, {
+        tooltip: function(jq, fields) {
+          return jq.each(function() {
+            var panel = $(this).datagrid('getPanel');
+            if (fields && typeof fields == 'object' && fields.sort) {
+              $.each(fields, function() {
+                var field = this;
+                bindEvent($('.datagrid-body td[field=' + field + '] .datagrid-cell', panel));
+              });
+            } else {
+              bindEvent($(".datagrid-body .datagrid-cell", panel));
+            }
+          });
+
+          function bindEvent(jqs) {
+            jqs.mouseover(function() {
+              var content = $(this).text();
+              if (content && content != "") {
+                $(this).tooltip({
+                  content: content,
+                  trackMouse: true,
+                  deltaX: 15,
+                  deltaY: -5,
+                  onShow: function() {
+                    $(this).tooltip('tip').css({
+                      backgroundColor: '#f7f5d1',
+                      borderColor: 'black'
+                    });
+                  }
+                }).tooltip('show');
+              }
+            });
+          }
+        }
+      })
+      //tooltip end
     );
 
     function form2Json(id) {
 
-        var arr = $("#" + id).serializeArray();
-        var jsonStr = "";
+      var arr = $("#" + id).serializeArray();
+      var jsonStr = "";
 
-        jsonStr += '{';
-        for (var i = 0; i < arr.length; i++) {
-            jsonStr += '"' + arr[i].name + '":"' + arr[i].value + '",'
-        }
-        jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
-        jsonStr += '}'
+      jsonStr += '{';
+      for (var i = 0; i < arr.length; i++) {
+        jsonStr += '"' + arr[i].name + '":"' + arr[i].value + '",'
+      }
+      jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
+      jsonStr += '}'
 
-        var json = JSON.parse(jsonStr);
-        return json;
+      var json = JSON.parse(jsonStr);
+      return json;
     }
-</script>
+  </script>
 
-<script type="text/javascript">
+  <script type="text/javascript">
     var url;
 
     function newUser() {
-        //打开添加新闻 窗口
-        $('#dlg').dialog('open').dialog('setTitle', '插入数据');
-        //把form表单的内容给清空
-        $('#fm').form('clear');
-        //给url赋值
-        url = '/goods/MAsphalt/insertSelective';
+      //打开添加新闻 窗口
+      $('#dlg').dialog('open').dialog('setTitle', '插入数据');
+      //把form表单的内容给清空
+      $('#fm').form('clear');
+      //给url赋值
+      url = '/goods/MAsphalt/insertSelective';
     }
 
     function editUser() {
-        //获得 选中的行
-        var row = $('#dg').datagrid('getSelected');
-        // 是否选中
-        if (row) {
-            //打开窗口
-            $('#dlg').dialog('open').dialog('setTitle', '信息修改');
-            //让from 表单去加载 选中行的数据
-            $('#fm').form('load', row);
-            //修改的地址
-            url = '/goods/MAsphalt/updateByPKSelective';
-        }
+      //获得 选中的行
+      var row = $('#dg').datagrid('getSelected');
+      // 是否选中
+      if (row) {
+        //打开窗口
+        $('#dlg').dialog('open').dialog('setTitle', '信息修改');
+        //让from 表单去加载 选中行的数据
+        $('#fm').form('load', row);
+        //修改的地址
+        url = '/goods/MAsphalt/updateByPKSelective';
+      }
     }
 
     function saveUser() {
-        $('#fm').form('submit', {
-            url: url,
-            onSubmit: function () {
-                return $(this).form('validate');
-            },
-            success: function (result) {
+      $('#fm').form('submit', {
+        url: url,
+        onSubmit: function() {
+          return $(this).form('validate');
+        },
+        success: function(result) {
 
-                if (result > 0) {
-                    $.messager.alert('操作结果', '成功');
-                    //关闭添加新闻窗口
-                    $('#dlg').dialog('close');		// close the dialog
-                    //重新加载数据
-                    $('#dg').datagrid('reload');	// reload the data
-                } else {
-                    $.messager.alert('操作结果', '失败');
-                }
-            }
-        });
+          if (result > 0) {
+            $.messager.alert('操作结果', '成功');
+            //关闭添加新闻窗口
+            $('#dlg').dialog('close'); // close the dialog
+            //重新加载数据
+            $('#dg').datagrid('reload'); // reload the data
+          } else {
+            $.messager.alert('操作结果', '失败');
+          }
+        }
+      });
     }
 
     function removeUser() {
-        //获得选中记录 多选
-        var row = $('#dg').datagrid('getSelections');
-        console.log("row(s) -> " + JSON.stringify(row));
-        if (row) {
-            $.messager.confirm('确认按钮', '你确定要删除该数据?', function (r) {
-                if (r) {
+      //获得选中记录 多选
+      var row = $('#dg').datagrid('getSelections');
+      console.log("row(s) -> " + JSON.stringify(row));
+      if (row) {
+        $.messager.confirm('确认按钮', '你确定要删除该数据?', function(r) {
+          if (r) {
 
-                    var ids = [];
-                    for (var i = 0; i < row.length; i++) {
-                        ids.push(row[i].id);
-                    }
+            var ids = [];
+            for (var i = 0; i < row.length; i++) {
+              ids.push(row[i].id);
+            }
 
-                    $.ajax({
-                        url: '/goods/MAsphalt/deleteBatchByPKs',
-                        dataType: 'json',
-                        data: {'ids': ids},
-                        type: 'POST',
-                        success: function (data) {
-                            if (data > 0) {
-                                $.messager.alert('提示消息', '删除成功');
-                                $('#dg').datagrid('reload');
-                                $('#dg').datagrid('clearSelections');
-                            } else {
-                                $.messager.alert('提示消息', '删除失败');
-                                $('#dg').datagrid('reload');
-                                $('#dg').datagrid('clearSelections');
-                            }
-                        }
-                    });
+            $.ajax({
+              url: '/goods/MAsphalt/deleteBatchByPKs',
+              dataType: 'json',
+              data: {
+                'ids': ids
+              },
+              type: 'POST',
+              success: function(data) {
+                if (data > 0) {
+                  $.messager.alert('提示消息', '删除成功');
+                  $('#dg').datagrid('reload');
+                  $('#dg').datagrid('clearSelections');
+                } else {
+                  $.messager.alert('提示消息', '删除失败');
+                  $('#dg').datagrid('reload');
+                  $('#dg').datagrid('clearSelections');
                 }
+              }
             });
-        }
+          }
+        });
+      }
     }
 
-    $("#submit_search").click(function () {
-        beforeSearch();
-        $('#dg').datagrid({url: "/goods/MAsphalt/selectSelective", queryParams: form2Json("searchform")});   //点击搜索
+    $("#submit_search").click(function() {
+      beforeSearch();
+      $('#dg').datagrid({
+        url: "/goods/MAsphalt/selectSelective",
+        queryParams: form2Json("searchform")
+      }); //点击搜索
     });
 
     //先判定每个checkbox是否选定,如果选定了的获取其中两个select两个input的value,赋值给原input的value
     function beforeSearch() {
-        //声明多input条件查询字段id数组
-        var indexArr = ['softening_pointCK', 'tolueneCK', 'quinolineCK', 'beta_resinCK', 'coking_valueCK', 'ashCK', 'today_priceCK'];
-        for (var i in indexArr) {
-            var box = (document.getElementById(indexArr[i]));
-            if (box.checked) {
-                getValue(box);
-            }
+      //声明多input条件查询字段id数组
+      var indexArr = ['softening_pointCK', 'tolueneCK', 'quinolineCK', 'beta_resinCK', 'coking_valueCK', 'ashCK', 'today_priceCK'];
+      for (var i in indexArr) {
+        var box = (document.getElementById(indexArr[i]));
+        if (box.checked) {
+          getValue(box);
         }
+      }
     }
 
     function getValue(checkbox) {
-        var symbolL = document.getElementById(checkbox.name + "SelectL").value;
-        symbolL = (symbolL.length != 0) ? symbolL : "[null]";
-        var inputValueL = document.getElementById(checkbox.name + "ChildL").value;
-        inputValueL = (inputValueL.length != 0) ? inputValueL : "[null]";
-        var symbolR = document.getElementById(checkbox.name + "SelectR").value;
-        symbolR = (symbolR.length != 0) ? symbolR : "[null]";
-        var inputValueR = document.getElementById(checkbox.name + "ChildR").value;
-        inputValueR = (inputValueR.length != 0) ? inputValueR : "[null]";
+      var symbolL = document.getElementById(checkbox.name + "SelectL").value;
+      symbolL = (symbolL.length != 0) ? symbolL : "[null]";
+      var inputValueL = document.getElementById(checkbox.name + "ChildL").value;
+      inputValueL = (inputValueL.length != 0) ? inputValueL : "[null]";
+      var symbolR = document.getElementById(checkbox.name + "SelectR").value;
+      symbolR = (symbolR.length != 0) ? symbolR : "[null]";
+      var inputValueR = document.getElementById(checkbox.name + "ChildR").value;
+      inputValueR = (inputValueR.length != 0) ? inputValueR : "[null]";
 
-        checkbox.value = symbolL + ":" + inputValueL + ":" + symbolR + ":" + inputValueR + ":" + checkbox.name;
-        // alert(checkbox.name+","+checkbox.value)
+      checkbox.value = symbolL + ":" + inputValueL + ":" + symbolR + ":" + inputValueR + ":" + checkbox.name;
+      // alert(checkbox.name+","+checkbox.value)
     }
 
     // 导出excel按钮
@@ -436,135 +488,176 @@
 
     // 导出excel
     function exportExcel() {
-        //获得选中记录 多选
-        var row = $('#dg').datagrid('getSelections');
-        //去除不需要导出的实体字段
-        var deleteKey = ['b_time', 'e_time', 'order', 's_softening_point', 's_toluene',
-            's_quinoline', 's_beta_resin', 's_coking_value', 's_ash', 's_today_price'];
-        for (var i in row) {
-            for (var j in deleteKey) {
-                delete row[i][deleteKey[j]];
-            }
+      //获得选中记录 多选
+      var row = $('#dg').datagrid('getSelections');
+      //去除不需要导出的实体字段
+      var deleteKey = ['b_time', 'e_time', 'order', 's_softening_point', 's_toluene',
+        's_quinoline', 's_beta_resin', 's_coking_value', 's_ash', 's_today_price'
+      ];
+      for (var i in row) {
+        for (var j in deleteKey) {
+          delete row[i][deleteKey[j]];
         }
-        if (row) {
-            $.messager.confirm('确认按钮', '你确定要导出该数据?', function (r) {
-                if (r) {
-                    downloadExl(row);
-                }
-            })
-        }
+      }
+      if (row) {
+        $.messager.confirm('确认按钮', '你确定要导出该数据?', function(r) {
+          if (r) {
+            downloadExl(row);
+          }
+        })
+      }
     }
 
     function downloadExl(data, type) {
-        var keys = Object.keys(data[0]);
-        var firstRow = {};
-        keys.forEach(function (item) {
-            console.log("item:" + item);
-            firstRow[item] = item;
+      var keys = Object.keys(data[0]);
+      var firstRow = {};
+      keys.forEach(function(item) {
+        console.log("item:" + item);
+        firstRow[item] = item;
+      });
+      data.unshift(firstRow);
+
+      var content = {};
+
+      //把json格式的数据转换为excel的行列形式
+      var sheetsData = data.map(function(item, rowIndex) {
+        return keys.map(function(key, columnIndex) {
+          return Object.assign({}, {
+            value: item[key],
+            position: (columnIndex > 25 ? getCharCol(columnIndex) : String.fromCharCode(65 + columnIndex)) + (rowIndex + 1),
+          });
         });
-        data.unshift(firstRow);
+      }).reduce(function(prev, next) {
+        return prev.concat(next);
+      });
 
-        var content = {};
+      sheetsData.forEach(function(item, index) {
+        // content[item.position] = {v: item.value};
+        if (item.value == 'id') {
+          content[item.position] = {
+            v: '序列号'
+          };
+        } else if (item.value == 'province') {
+          content[item.position] = {
+            v: '省份'
+          };
+        } else if (item.value == 'company') {
+          content[item.position] = {
+            v: '企业'
+          };
+        } else if (item.value == 's_company') {
+          content[item.position] = {
+            v: '简称'
+          };
+        } else if (item.value == 'softening_point') {
+          content[item.position] = {
+            v: '软化点℃'
+          };
+        } else if (item.value == 'toluene') {
+          content[item.position] = {
+            v: '甲苯不溶物含量%'
+          };
+        } else if (item.value == 'quinoline') {
+          content[item.position] = {
+            v: '喹啉不溶物含量%'
+          };
+        } else if (item.value == 'beta_resin') {
+          content[item.position] = {
+            v: 'β树脂含量%'
+          };
+        } else if (item.value == 'coking_value') {
+          content[item.position] = {
+            v: '结焦值%'
+          };
+        } else if (item.value == 'ash') {
+          content[item.position] = {
+            v: '灰分%'
+          };
+        } else if (item.value == 'today_price') {
+          content[item.position] = {
+            v: '今日报价(元)'
+          };
+        } else if (item.value == 'remarks') {
+          content[item.position] = {
+            v: '备注'
+          };
+        } else if (item.value == 'reporter') {
+          content[item.position] = {
+            v: '汇报人'
+          };
+        } else if (item.value == 'create_time') {
+          content[item.position] = {
+            v: '创建时间'
+          };
+        } else if (item.value == 'update_time') {
+          content[item.position] = {
+            v: '更新时间'
+          };
+        } else {
+          content[item.position] = {
+            v: item.value
+          };
+        }
+      });
 
-        //把json格式的数据转换为excel的行列形式
-        var sheetsData = data.map(function (item, rowIndex) {
-            return keys.map(function (key, columnIndex) {
-                return Object.assign({}, {
-                    value: item[key],
-                    position: (columnIndex > 25 ? getCharCol(columnIndex) : String.fromCharCode(65 + columnIndex)) + (rowIndex + 1),
-                });
-            });
-        }).reduce(function (prev, next) {
-            return prev.concat(next);
-        });
-
-        sheetsData.forEach(function (item, index) {
-            // content[item.position] = {v: item.value};
-            if (item.value == 'id') {
-                content[item.position] = {v: '序列号'};
-            } else if (item.value == 'province') {
-                content[item.position] = {v: '省份'};
-            } else if (item.value == 'company') {
-                content[item.position] = {v: '企业'};
-            } else if (item.value == 's_company') {
-                content[item.position] = {v: '简称'};
-            } else if (item.value == 'softening_point') {
-                content[item.position] = {v: '软化点℃'};
-            } else if (item.value == 'toluene') {
-                content[item.position] = {v: '甲苯不溶物含量%'};
-            } else if (item.value == 'quinoline') {
-                content[item.position] = {v: '喹啉不溶物含量%'};
-            } else if (item.value == 'beta_resin') {
-                content[item.position] = {v: 'β树脂含量%'};
-            } else if (item.value == 'coking_value') {
-                content[item.position] = {v: '结焦值%'};
-            } else if (item.value == 'ash') {
-                content[item.position] = {v: '灰分%'};
-            } else if (item.value == 'today_price') {
-                content[item.position] = {v: '今日报价(元)'};
-            } else if (item.value == 'remarks') {
-                content[item.position] = {v: '备注'};
-            } else if (item.value == 'reporter') {
-                content[item.position] = {v: '汇报人'};
-            } else if (item.value == 'create_time') {
-                content[item.position] = {v: '创建时间'};
-            } else if (item.value == 'update_time') {
-                content[item.position] = {v: '更新时间'};
-            } else {
-                content[item.position] = {v: item.value};
-            }
-        });
-
-        //设置区域,比如表格从A1到D10,SheetNames:标题
-        var coordinate = Object.keys(content);
-        var workBook = {
-            SheetNames: ["1"],
-            Sheets: {
-                "1": Object.assign({}, content, {"!ref": coordinate[0] + ":" + coordinate[coordinate.length - 1]}),
-            }
-        };
+      //设置区域,比如表格从A1到D10,SheetNames:标题
+      var coordinate = Object.keys(content);
+      var workBook = {
+        SheetNames: ["1"],
+        Sheets: {
+          "1": Object.assign({}, content, {
+            "!ref": coordinate[0] + ":" + coordinate[coordinate.length - 1]
+          }),
+        }
+      };
 
 
-        //这里的数据是用来定义导出的格式类型
-        var excelData = XLSX.write(workBook, {bookType: "xlsx", bookSST: false, type: "binary"});
-        var blob = new Blob([string2ArrayBuffer(excelData)], {type: ""});
+      //这里的数据是用来定义导出的格式类型
+      var excelData = XLSX.write(workBook, {
+        bookType: "xlsx",
+        bookSST: false,
+        type: "binary"
+      });
+      var blob = new Blob([string2ArrayBuffer(excelData)], {
+        type: ""
+      });
 
-        // filename = "石油焦";
-        $.messager.prompt("输入框", "请输入保存文件名.", function (filename) {
-            if (filename) {
-                var nowTime = new Date().toLocaleDateString();
-                saveAs(blob, filename + nowTime + ".xlsx"); //文件名
-            }
-        });
+      // filename = "石油焦";
+      $.messager.prompt("输入框", "请输入保存文件名.", function(filename) {
+        if (filename) {
+          var nowTime = new Date().toLocaleDateString();
+          saveAs(blob, filename + nowTime + ".xlsx"); //文件名
+        }
+      });
 
     }
 
     //字符串转字符流
     function string2ArrayBuffer(s) {
-        var buf = new ArrayBuffer(s.length);
-        var view = new Uint8Array(buf);
-        for (var i = 0; i != s.length; ++i) {
-            view[i] = s.charCodeAt(i) & 0xFF;
-        }
-        return buf;
+      var buf = new ArrayBuffer(s.length);
+      var view = new Uint8Array(buf);
+      for (var i = 0; i != s.length; ++i) {
+        view[i] = s.charCodeAt(i) & 0xFF;
+      }
+      return buf;
     }
 
     //将指定的自然数转换为26进制表示. 映射关系: [0-25] -> [A-Z]
     function getCharCol(n) {
-        var temCol = "",
-            s = "",
-            m = 0;
-        while (n > 0) {
-            m = n % 26 + 1;
-            s = String.fromCharCode(m + 64) + s;
-            n = (n - m) / 26;
-        }
-        return s;
+      var temCol = "",
+        s = "",
+        m = 0;
+      while (n > 0) {
+        m = n % 26 + 1;
+        s = String.fromCharCode(m + 64) + s;
+        n = (n - m) / 26;
+      }
+      return s;
     }
 
     /*上传excel的窗口打开操作*/
     function uploadidalogonline() {
-        $('#uploadonlineinfo').window('open').dialog('setTitle', '文件上传');
+      $('#uploadonlineinfo').window('open').dialog('setTitle', '文件上传');
     }
 
     //上传文件
@@ -572,61 +665,58 @@
 
     function uploadonline() {
 
-        // var add = '/excel/importExcel';
-        var uploadFile = $("#uploadfile")[0].files[0];
-        console.log(uploadFile);
-        var formData = new FormData();
-        formData.append("uploadFile", uploadFile);
-        console.log(formData);
-        // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
-        $.ajax({
-            url: '/excel/importExcel?instance=' + "MAsphalt",
-            type: 'POST',
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false, //不设置内容类型
-            processData: false, //不处理数据
-            success: function (data) {
-                // alert(data);
-                if (data > 0) {
-                    $.messager.alert('操作结果', '导入数据成功');
-                    $("#booten").linkbutton('enable');
-                    $('#uploadonlineinfo').dialog('close');
-                    $('#dg').datagrid('reload');
-                } else {
-                    $.messager.alert('操作结果', '导入数据失败');
-                    $('#uploadonlineinfo').dialog('close');
-                }
-            }
-        })
+      // var add = '/excel/importExcel';
+      var uploadFile = $("#uploadfile")[0].files[0];
+      console.log(uploadFile);
+      var formData = new FormData();
+      formData.append("uploadFile", uploadFile);
+      console.log(formData);
+      // if ("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != "") {
+      $.ajax({
+        url: '/excel/importExcel?instance=' + "MAsphalt",
+        type: 'POST',
+        data: formData,
+        async: false,
+        cache: false,
+        contentType: false, //不设置内容类型
+        processData: false, //不处理数据
+        success: function(data) {
+          // alert(data);
+          if (data > 0) {
+            $.messager.alert('操作结果', '导入数据成功');
+            $("#booten").linkbutton('enable');
+            $('#uploadonlineinfo').dialog('close');
+            $('#dg').datagrid('reload');
+          } else {
+            $.messager.alert('操作结果', '导入数据失败');
+            $('#uploadonlineinfo').dialog('close');
+          }
+        }
+      })
     }
+  </script>
 
-
-</script>
-
-<script type="text/javascript" th:inline="none">
-
+  <script type="text/javascript" th:inline="none">
     /*指标窗口打开操作*/
     function showIndexSearchFrame() {
-        $('#theIndexSearchFrame').window('open').dialog('setTitle', '指标查询');
+      $('#theIndexSearchFrame').window('open').dialog('setTitle', '指标查询');
     }
 
     function checkEachBox() {
-        $("input[type='checkbox']").each(function () {
-            if ($(this).attr('checked') == true) {
-                reas += $(this).val();
-                // testalert();
-            }
-        });
+      $("input[type='checkbox']").each(function() {
+        if ($(this).attr('checked') == true) {
+          reas += $(this).val();
+          // testalert();
+        }
+      });
     }
 
     //图表和表单展示切换
     function chartAndTable() {
-        window.location.href = "/easy/goods/asphalt_charts";
+      window.location.href = "/easy/goods/asphalt_charts";
     }
-
-</script>
+  </script>
 
 </body>
+
 </html>

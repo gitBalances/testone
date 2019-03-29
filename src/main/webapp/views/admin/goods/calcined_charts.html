@@ -8,19 +8,26 @@
     <meta charset="UTF-8">
     <title>煅后焦图表</title>
 
-
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/getParam.js"></script>
     <script src="/js/echarts.min.js"></script>
     <script src="/js/petroleum.js"></script>
-
+    <script src="/js/bootstrap.min.js"></script>
 
 </head>
 <body>
-<a href="/admin/goods/calcined">返回表单</a>
+<!-- <a href="/admin/goods/calcined">返回表单</a>
 
 <button onclick="setChartType(1)">曲线图模式</button>
-<button onclick="setChartType(2)">柱状图模式</button>
+<button onclick="setChartType(2)">柱状图模式</button> -->
+
+<a class="btn btn-info" href="/admin/goods/calcined" role="button">返回表单</a>
+
+<button class="btn btn-info" onclick="setChartType(1)">曲线图模式</button>
+<button class="btn btn-info" onclick="setChartType(2)">柱状图模式</button>
+
+
 <!--test-->
 <div id="test" class="chart"></div>
 

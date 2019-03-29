@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--本页为公用js,css,包括会员退出ajax请求-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--/*@thymesVar id="title" type="com.tansuo365"*/-->
+    <title th:text="${title}"></title>
+    <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/themes/icon.css" rel="stylesheet"/>
+    <!--<link href="/css/xwb_list.css" rel="stylesheet"/>-->
+    <link href="/css/themes/color.css" rel="stylesheet"/>
+    <link href="/css/wm.css" rel="stylesheet"/>
+    <link href="/css/demoe.css" rel="stylesheet"/>
+    <!--<script src="/script/jquery.min.js"></script>-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="/script/jquery.easyui.min.js"></script>
+    <!--<script src="/js/jquery17.easyui.min.js"></script>-->
+    <script src="/script/easyui-lang-zh_CN.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/jquery.serializejson.js"></script>
+    <!--<script src="/js/xlsx.core.min.js"></script>-->
+
+    <script src="/js/easyui_html/search-goods-index.js"></script>
+    <script src="/js/jquery.ocupload-1.1.2.js"></script>
+
+
+    <script>
+        function closes() {
+            $("#Loading").fadeOut("normal", function() {
+                $(this).remove();
+            });
+        }
+        var pc;
+        $.parser.onComplete = function() {
+            if (pc) clearTimeout(pc);
+            pc = setTimeout(closes, 1000);
+        }
+    </script>
+
+</head>
+<body>
+
+
+</body>
+</html>

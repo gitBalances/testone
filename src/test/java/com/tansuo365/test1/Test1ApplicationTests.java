@@ -72,16 +72,30 @@ public class Test1ApplicationTests {
 
     }
 
-
     public void testMenuId(){
     }
-
-
-
 
     @Test
     public void testDruid(){
 
     }
+
+
+    @Test
+    public void testUnicode(){
+        String proA = "山东";
+        String proB = "新疆";
+        String proA_ = "东山";
+        String proC = "山西";
+
+        System.out.println("山东:"+proA.hashCode());
+        System.out.println("东山:"+proA_.hashCode());
+        System.out.println("新疆:"+proB.hashCode());
+
+        System.out.println("山西:"+proC.hashCode());
+    }
+
+
+
 }
 

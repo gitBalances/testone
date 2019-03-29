@@ -11,6 +11,7 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -58,7 +59,8 @@ public class BackEndPageController {
     @ApiOperation(value="石油焦", notes="石油焦信息")
     @RequestMapping("/goods/coke")
     @RequiresPermissions(value = {"石油焦信息"})
-    public String coke(){
+    public String coke(Model model){
+        model.addAttribute("title","石油焦信息");
         return "/admin/goods/coke";
     }
 
@@ -66,7 +68,8 @@ public class BackEndPageController {
     @ApiOperation(value="煅后焦", notes="煅后焦信息")
     @RequestMapping("/goods/calcined")
     @RequiresPermissions(value = {"煅后焦信息"})
-    public String calcined(){
+    public String calcined(Model model){
+        model.addAttribute("title","煅后焦信息");
         return "/admin/goods/calcined";
     }
 
@@ -74,7 +77,8 @@ public class BackEndPageController {
     @ApiOperation(value="沥青", notes="改质沥青信息")
     @RequestMapping("/goods/asphalt")
     @RequiresPermissions(value = {"改质沥青信息"})
-    public String asphalt(){
+    public String asphalt(Model model){
+        model.addAttribute("title","改质沥青信息");
         return "/admin/goods/asphalt";
     }
 
@@ -82,7 +86,8 @@ public class BackEndPageController {
     @ApiOperation(value="阳极", notes="阳极信息")
     @RequestMapping("/goods/anode")
     @RequiresPermissions(value = {"阳极信息"})
-    public String anode(){
+    public String anode(Model model){
+        model.addAttribute("title","阳极信息");
         return "/admin/goods/anode";
     }
 

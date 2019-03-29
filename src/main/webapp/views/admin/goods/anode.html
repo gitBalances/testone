@@ -1,159 +1,140 @@
 ﻿<!DOCTYPE html>
 <html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>阳极信息管理</title>
-    <link href="/css/themes/default/easyui.css" type="text/css" rel="stylesheet"/>
-    <link href="/css/themes/icon.css" rel="stylesheet"/>
-    <link href="/css/xwb_list.css" rel="stylesheet"/>
-    <link href="/css/themes/color.css" rel="stylesheet"/>
-    <link href="/css/wm.css" rel="stylesheet"/>
-    <link href="/css/demoe.css" rel="stylesheet"/>
-    <!--<script src="/script/jquery.min.js"></script>-->
-    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="/script/jquery.easyui.min.js"></script>
-    <!--<script src="/js/jquery17.easyui.min.js"></script>-->
-    <script src="/script/easyui-lang-zh_CN.js"></script>
-    <script src="/js/FileSaver.min.js"></script>
-    <script src="/js/xlsx.full.min.js"></script>
-    <script src="/js/jquery.serializejson.js"></script>
-    <!--<script src="/js/xlsx.core.min.js"></script>-->
-
-    <script src="/js/easyui_html/search-goods-index.js"></script>
-    <script src="/js/jquery.ocupload-1.1.2.js"></script>
-
+<!--指定公共引入页面,引入静态资源-->
+<head th:include="admin/goods/common/common_static">
 </head>
+
 <body>
+
+<!-- 公有淡入加载 -->
+<div th:fragment="loading_" id='Loading' style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background-color:#DDDDDB;text-align:center;padding-top: 20%;">
+    <h1>
+        <font color="#15428B">加载中···</font>
+    </h1>
+</div>
 
 <!-- 条件查询 -->
 <!--指标查询frame窗-->
-<div id="theIndexSearchFrame" class="easyui-window" style="width:800px;height:550px;padding:10px 40px"
-     closed="true">
+<div id="theIndexSearchFrame" class="easyui-window" style="width:800px;height:550px;padding:10px 40px" closed="true">
     <form id="searchform" method="post">
         <table id="sec">
             <tr>
                 <!--列举所有可查询字段-->
                 <!--<td>id：</td>
-                <td><input type="text" name="id" class="easyui-textbox" value=""/></td>-->
+                      <td><input type="text" name="id" class="easyui-textbox" value=""/></td>-->
                 <td>省份：</td>
-                <td><input type="text" name="province" class="easyui-textbox" value=""/></td>
+                <td><input type="text" name="province" class="easyui-textbox" value="" /></td>
                 <td>企业名称:</td>
-                <td><input type="text" name="company" class="easyui-textbox" value=""/></td>
+                <td><input type="text" name="company" class="easyui-textbox" value="" /></td>
                 <!--密度及属于区间的数值应该使用>,<进行区间数值选择-->
                 <!--<td>是否开槽:</td>-->
                 <!--<td><input type="text" name="slot" class="easyui-textbox" value=""/></td>-->
 
                 <td>是否开槽:</td>
                 <td>
-                    <select class="easyui-combobox" name="slot" panelHeight="auto"/>
+                    <select class="easyui-combobox" name="slot" panelHeight="auto" />
                     <option value=""></option>
                     <option value="是">是</option>
                     <option value="否">否</option>
                     </select>
                 </td>
 
-                <td>碳块尺寸:</td>
-                <td><input type="text" name="size" class="easyui-textbox" value=""/></td>
-
-
             </tr>
 
             <tr>
 
                 <td>备注:</td>
-                <td><input type="text" name="remarks" class="easyui-textbox" value=""/></td>
+                <td><input type="text" name="remarks" class="easyui-textbox" value="" /></td>
                 <td>汇报人:</td>
-                <td><input type="text" name="reporter" class="easyui-textbox" value=""/></td>
+                <td><input type="text" name="reporter" class="easyui-textbox" value="" /></td>
+                <td>碳块尺寸:</td>
+                <td><input type="text" name="size" class="easyui-textbox" value="" /></td>
 
             </tr>
 
             <tr>
                 <td>开始时间:</td>
-                <td><input name="b_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+                <td><input name="b_time" class="easyui-datetimebox" editable=false style="width: 150px" /></td>
                 <td>结束时间:</td>
-                <td><input name="e_time" class="easyui-datetimebox" editable=false style="width: 150px"/></td>
+                <td><input name="e_time" class="easyui-datetimebox" editable=false style="width: 150px" /></td>
             </tr>
 
-            <div style="margin-bottom:20px" id="s_e_densityDiv">
-                表现密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                id="e_densityCK" name="s_e_density" label="表现密度g/cm³:">
+            <div id="s_e_densityDiv" class="list-category">
+                <span class="listspan-category">表现密度g/cm³:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="e_densityCK" name="s_e_density" label="表现密度g/cm³:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_true_densityDiv">
-                真密度g/cm³<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                               id="true_densityCK" name="s_true_density" label="真密度g/cm³:">
+            <div id="s_true_densityDiv" class="list-category">
+                <span class="listspan-category">真密度g/cm³:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="true_densityCK" name="s_true_density" label="真密度g/cm³:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_compressiveDiv">
-                耐压强度MPa<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                              id="compressiveCK" name="s_compressive" label="耐压强度MPa:">
+            <div id="s_compressiveDiv" class="list-category">
+                <span class="listspan-category">耐压强度MPa:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="compressiveCK" name="s_compressive" label="耐压强度MPa:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_carbonDiv">
-                二氧化碳反应性%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                               id="carbonCK" name="s_carbon" label="二氧化碳反应性%:">
+            <div id="s_carbonDiv" class="list-category">
+                <span class="listspan-category">二氧化碳反应性%:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="carbonCK" name="s_carbon" label="二氧化碳反应性%:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_flexuralDiv">
-                抗折强度MPa<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                              id="flexuralCK" name="s_flexural" label="抗折强度MPa:">
+            <div id="s_flexuralDiv" class="list-category">
+                <span class="listspan-category">抗折强度MPa:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="flexuralCK" name="s_flexural" label="抗折强度MPa:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_roomDiv">
-                室温电阻率uΩ·m<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                                id="roomCK" name="s_room" label="室温电阻率uΩ·m:">
+            <div id="s_roomDiv" class="list-category">
+                <span class="listspan-category">室温电阻率uΩ·m:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="roomCK" name="s_room" label="室温电阻率uΩ·m:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_thermalDiv">
-                热膨胀系数<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                            id="thermalCK" name="s_thermal" label="热膨胀系数:">
+            <div id="s_thermalDiv" class="list-category">
+                <span class="listspan-category">热膨胀系数:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="thermalCK" name="s_thermal" label="热膨胀系数:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_ashDiv">
-                灰分%<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                          id="ashCK" name="s_ash" label="灰分%:">
+            <div id="s_ashDiv" class="list-category">
+                <span class="listspan-category">灰分%:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="ashCK" name="s_ash" label="灰分%:">
             </div>
             <hr>
             <!--先改为模糊查询-->
             <!-- <div style="margin-bottom:20px" id="s_sizeDiv">
-                 碳块尺寸<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                           id="sizeCK" name="s_size" label="碳块尺寸:">
-             </div>
-             <hr>-->
-            <div style="margin-bottom:20px" id="s_bowl_sumDiv">
-                碗数<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                         id="bowl_sumCK" name="s_bowl_sum" label="碗数:">
+                     碳块尺寸<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
+                               id="sizeCK" name="s_size" label="碳块尺寸:">
+                 </div>
+                 <hr>-->
+            <div id="s_bowl_sumDiv" class="list-category">
+                <span class="listspan-category">碗数:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="bowl_sumCK" name="s_bowl_sum" label="碗数:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_bowl_distanceDiv">
-                碗距<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                         id="bowl_distanceCK" name="s_bowl_distance" label="碗距:">
+            <div id="s_bowl_distanceDiv" class="list-category">
+                <span class="listspan-category">碗距:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="bowl_distanceCK" name="s_bowl_distance" label="碗距:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_in_diameterDiv">
-                内径<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                         id="in_diameterCK" name="s_in_diameter" label="内径:">
+            <div id="s_in_diameterDiv" class="list-category">
+                <span class="listspan-category">内径:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="in_diameterCK" name="s_in_diameter" label="内径:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_out_diameterDiv">
-                外径<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                         id="out_diameterCK" name="s_out_diameter" label="外径:">
+            <div id="s_out_diameterDiv" class="list-category">
+                <span class="listspan-category">外径:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="out_diameterCK" name="s_out_diameter" label="外径:">
             </div>
             <hr>
-            <div style="margin-bottom:20px" id="s_today_priceDiv">
-                今日报价<input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox"
-                           id="today_priceCK" name="s_today_price" label="今日报价:">
+            <div id="s_today_priceDiv" class="list-category">
+                <span class="listspan-category">今日报价:</span>
+                <input onclick="checkboxOnClick(this)" type="checkbox" class="easyui-checkbox" id="today_priceCK" name="s_today_price" label="今日报价:">
             </div>
             <hr>
 
         </table>
-        <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1"
-           style="width:70px">查询</a>
+        <a href="javascript:void(0)" id="submit_search" class="easyui-linkbutton c1 btn-query">查询</a>
     </form>
 </div>
-
 
 <table id="dg" title="阳极信息">
 
