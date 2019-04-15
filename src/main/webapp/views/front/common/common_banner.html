@@ -6,32 +6,63 @@
     <meta charset="UTF-8">
     <title>banner</title>
 </head>
+
+
 <body>
+
+<!--新增登陆后展示个人信息样式-->
+<style>
+
+    .index_users p {
+        float: left;
+        margin: 0 0 0 0.5em;
+    }
+
+    .index_content {
+        float: left;
+    }
+
+
+    .outUser {
+        margin-left: 10px;
+    }
+
+</style>
 
 <!-- 公有banner,包括导航 -->
 <div th:fragment="banner_">
     <div class="agileits_w3layouts_banner_nav">
         <nav class="navbar navbar-default">
             <div class="navbar-header navbar-left">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <h1><a class="navbar-brand" href="/"><i class="fa fa-crosshairs" aria-hidden="true"></i> 索罗门平台</a></h1>
+                <h1><a class="navbar-brand" href="/"><img src="images/logo.jpg" alt="logo" class="img-responsive" width="100%" height="100%"></a></h1>
 
             </div>
 
             <ul class="agile_forms">
                 <!--/*@thymesVar id="currentMember" type="com.tansuo365.test1.bean.member.Member"*/-->
-                <div th:if="${session.currentMember!=null}" th:object="${session.currentMember}">
+
+                <!--                此处新增class-->
+                <div th:if="${session.currentMember!=null}" th:object="${session.currentMember}" class="index_users">
                     <!--<p>欢迎,<span th:text="*{truename}">游客名称</span></p>-->
-                    <p>欢迎,<span th:text="*{username}">游客名称</span></p>
-                    <p>用户等级:<span th:text="*{member_level}"></span></p>
-                    <input id="memberLevel" th:value="*{member_level}" hidden="hidden"></input>
-                    <a id="logoutBtn"><u>登出</u></a> <br>
+
+                    <!--                    个人中心注释原有样式-->
+                    <!--                    <p>欢迎,<span th:text="*{username}">游客名称</span></p>-->
+                    <!--                    <p>用户等级:<span th:text="*{member_level}"></span></p>-->
+
+                    <!--                    个人中心新样式-->
+                    <div style="float: left;">
+                        <span th:text="*{username}" style="margin-right: 5px">名称</span>
+                        <span>等级:<span>vip</span><span th:text="*{member_level}">0</span></span>
+                    </div>
+                        <input id="memberLevel" th:value="*{member_level}" hidden="hidden"></input>
+
+                    <a id="logoutBtn" style="margin-left: 10px"><u>登出</u></a> <br>
                 </div>
 
                 <div th:if="${session.currentMember==null}">
@@ -49,15 +80,19 @@
                         <li><a href="/materials" class="hvr-underline-from-center">大宗原料</a></li>
                         <li><a href="/quotation" class="hvr-underline-from-center">行情</a></li>
                         <li><a href="/information" class="hvr-underline-from-center">资讯</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown">历史数据 <b
-                                    class="fa fa-caret-down"></b></a>
-                            <ul class="dropdown-menu agile_short_dropdown">
-                                <li><a href="/f_year">2018上半年</a></li>
-                                <li><a href="/s_year">2018下半年</a></li>
-                            </ul>
-                        </li>
+
+                        <!--                        注释历史数据-->
+                        <!--                        <li class="dropdown">-->
+                        <!--                            <a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown">历史数据 <b-->
+                        <!--                                    class="fa fa-caret-down"></b></a>-->
+                        <!--                            <ul class="dropdown-menu agile_short_dropdown">-->
+                        <!--                                <li><a href="/f_year">2018上半年</a></li>-->
+                        <!--                                <li><a href="/s_year">2018下半年</a></li>-->
+                        <!--                            </ul>-->
+                        <!--                        </li>-->
                         <li><a href="/map" class="hvr-underline-from-center">产业地图</a></li>
+                        <li><a href="/aboutUs" class="hvr-underline-from-center">关于我们</a></li>
+
                     </ul>
                 </nav>
 
@@ -67,10 +102,7 @@
     </div>
 
 
-
-
 </div>
-
 
 
 </body>

@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--指定公共引入页面,引入静态资源-->
+<head th:include="front/common/common_static">
+
+	<style>
+		@media (min-width: 992px) {
+			.container-fluid{
+				margin: 0 100px;
+			}
+		}
+	</style>
+
+</head>
+
+<body>
+
+<!--引入公有banner导航-->
+<div th:include="front/common/common_banner::banner_"></div>
+<!--引入公有的登录注册弹出框-->
+<div th:include="front/common/common_login_signup::login_signup_"></div>
+
+	<!-- banner -->
+	<div class="agile_inner_banner_info">
+		<h2>发展历程</h2>
+		<p>发展历程</p>
+	</div>
+
+	<!-- 发展历程 -->
+	<div class="wrap-report">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="timeline timeline-line-dotted">
+						<span class="timeline-label">
+							<span class="label label-primary">1998年</span>
+						</span>
+						<div class="timeline-item">
+							<div class="timeline-point timeline-point-success">
+								<i class="fa fa-money"></i>
+							</div>
+							<div class="timeline-event">
+								<!-- <div class="timeline-heading">
+									<h4>建中国际集团前身创立</h4>
+								</div> -->
+								<div class="timeline-body">
+									<p>建中国际集团前身创立</p>
+								</div>
+								<!-- <div class="timeline-footer">
+									<p class="text-right">1998年</p>
+								</div> -->
+							</div>
+						</div>
+						<span class="timeline-label">
+							<span class="label label-primary">1999年</span>
+						</span>
+						<div class="timeline-item">
+							<div class="timeline-point timeline-point-success">
+								<i class="fa fa-money"></i>
+							</div>
+							<div class="timeline-event">
+								<!-- <div class="timeline-heading">
+									<h4>标题</h4>
+								</div> -->
+								<div class="timeline-body">
+									<p>公司进入碳素领域，拓展大宗原料贸易业务</p>
+								</div>
+								<!-- <div class="timeline-footer">
+									<p class="text-right">1999</p>
+								</div> -->
+							</div>
+						</div>
+						<span class="timeline-label">
+							<span class="label label-primary">2005年</span>
+						</span>
+						<div class="timeline-item">
+							<div class="timeline-point timeline-point-success">
+								<i class="fa fa-money"></i>
+							</div>
+							<div class="timeline-event">
+								<!-- <div class="timeline-heading">
+									<h4>标题</h4>
+								</div> -->
+								<div class="timeline-body">
+									<p>成立集团公司，实施集团化经营战略</p>
+								</div>
+								<!-- <div class="timeline-footer">
+									<p class="text-right">2005</p>
+								</div> -->
+							</div>
+						</div>
+						<span class="timeline-label">
+							<span class="label label-primary">2015年</span>
+						</span>
+						<div class="timeline-item">
+							<div class="timeline-point timeline-point-success">
+								<i class="fa fa-money"></i>
+							</div>
+							<div class="timeline-event">
+								<!-- <div class="timeline-heading">
+									<h4>标题</h4>
+								</div> -->
+								<div class="timeline-body">
+									<p>1月，成立纵维科技，集团开始涉足智能科技领域</p>
+									<p>7月，成立昊昭网络，集团开始尝试向“互联网+”转型</p>
+								</div>
+								<!-- <div class="timeline-footer">
+									<p class="text-right">2015</p>
+								</div> -->
+							</div>
+						</div>
+
+						<span class="timeline-label">
+							<span class="label label-primary">2016年</span>
+						</span>
+						<div class="timeline-item">
+							<div class="timeline-point timeline-point-success">
+								<i class="fa fa-money"></i>
+							</div>
+							<div class="timeline-event">
+								<!-- <div class="timeline-heading">
+									<h4>标题</h4>
+								</div> -->
+								<div class="timeline-body">
+									<p>集团成立中商碳素研究院</p>
+								</div>
+								<!-- <div class="timeline-footer">
+									<p class="text-right">2016</p>
+								</div> -->
+							</div>
+						</div>
+
+						<span class="timeline-label">
+							<a href="#" class="btn btn-default" title="More...">
+								<i class="fa fa-fw fa-history"></i>
+							</a>
+						</span>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+<!-- footer -->
+<div class="footer">
+	<div class="container">
+		<div class="w3_agile_footer_grids">
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>Latest Tweets</h3>
+				<ul class="agile_footer_grid_list">
+					<li><i class="fa fa-twitter" aria-hidden="true"></i>Nam libero tempore, cum soluta nobis est
+						eligendi optio cumque nihil
+						impedit. <span>1 day ago</span></li>
+					<li><i class="fa fa-twitter" aria-hidden="true"></i>Itaque earum rerum hic tenetur a sapiente
+						delectus <a href="mailto:info@mail.com">info@mail.com</a> cumque nihil impedit.
+						<span>2 days ago</span></li>
+				</ul>
+			</div>
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>Navigation</h3>
+				<ul class="agileits_w3layouts_footer_grid_list">
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/">首页</a></li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/materials">大宗原料</a></li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/quotation">行情</a></li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/map">产业地图</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>2019年公司计划</h3>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f1.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f2.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f4.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f3.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f1.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f2.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="w3ls_address_mail_footer_grids">
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
+				</div>
+				<p>3481 Melrose Place, Beverly Hills, <span>New York City 90210.</span></p>
+			</div>
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-phone" aria-hidden="true"></i>
+				</div>
+				<p>+(0086)021-59830697 <span>+(0086)021-59830697</span></p>
+			</div>
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-envelope-o" aria-hidden="true"></i>
+				</div>
+				<p><a href="mailto:info@example.com">zs@chinacarbon-al.com</a>
+					<span><a href="mailto:info@example.com">zs@chinacarbon-al.com</a></span></p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<!-- //footer -->
+
+<script src="js/bootstrap.js"></script>
+</body>
+
+</html>

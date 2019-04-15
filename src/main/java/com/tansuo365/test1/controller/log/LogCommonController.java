@@ -53,6 +53,4 @@ public class LogCommonController {
         return map;
     }
 
-
-
 }

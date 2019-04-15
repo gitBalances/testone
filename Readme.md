@@ -99,6 +99,6 @@
 ##### 2019-3-25
 - 1. 整体动态文章的中英文转换?有相关接口么?
 
-
-
+##### 2019-4-11
+- 1. 加入自定义404配置类ErrorConfigurar : https://blog.csdn.net/trusause/article/details/84299886
 

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--指定公共引入页面,引入静态资源-->
+<head th:include="front/common/common_static">
+</head>
+
+<body>
+
+<!--引入公有banner导航-->
+<div th:include="front/common/common_banner::banner_"></div>
+<!--引入公有的登录注册弹出框-->
+<div th:include="front/common/common_login_signup::login_signup_"></div>
+
+	<!-- banner -->
+	<div class="agile_inner_banner_info">
+		<h2>材料</h2>
+		<p>业内行情及时更新</p>
+	</div>
+	<!-- 选择分类名称 -->
+	<div class="wrap-fenL">
+		<div class="container">
+			<!-- 大类目tab切换 -->
+			<ul class="tab-fenL">
+				<li class="active-fenL">企业出厂价</li>
+				<li>国内市场价</li>
+				<li>国际出厂价</li>
+				<li>基准价</li>
+			</ul>
+
+			<div class="main-fenL">
+				<!-- 分类详细1 -->
+				<div class="cont-fenL">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th scope="row">选择品种:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">品种1</li>
+											<li>品种2</li>
+											<li>品种3</li>
+											<li>品种4</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">规格:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">规格</li>
+											<li>规格</li>
+											<li>规格</li>
+											<li>规格</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">销售公司:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">公司</li>
+											<li>公司</li>
+											<li>公司</li>
+											<li>公司</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">区域:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">区域</li>
+											<li>区域</li>
+											<li>区域</li>
+											<li>区域</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">价格类型:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">类型</li>
+											<li>类型</li>
+											<li>类型</li>
+											<li>类型</li>
+										</ul>
+									</td>
+								</tr>
+<!--								<tr>-->
+<!--									<th scope="row">选择时间:</th>-->
+<!--									<td><input class="easyui-datetimebox" style="width:30%"></td>-->
+<!--								</tr>-->
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- 分类详细2 -->
+				<div class="cont-fenL">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th scope="row">选择品种:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li>品种1</li>
+											<li class="active-fenL">品种2</li>
+											<li>品种3</li>
+											<li>品种4</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">规格:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">规格</li>
+											<li>规格</li>
+											<li>规格</li>
+											<li>规格</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">销售公司:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">公司</li>
+											<li>公司</li>
+											<li>公司</li>
+											<li>公司</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">区域:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">区域</li>
+											<li>区域</li>
+											<li>区域</li>
+											<li>区域</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">价格类型:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">类型</li>
+											<li>类型</li>
+											<li>类型</li>
+											<li>类型</li>
+										</ul>
+									</td>
+								</tr>
+<!--								<tr>-->
+<!--									<th scope="row">选择时间:</th>-->
+<!--									<td><input class="easyui-datetimebox" style="width:30%"></td>-->
+<!--								</tr>-->
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- 分类详细3 -->
+				<div class="cont-fenL">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th scope="row">选择品种:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li>品种1</li>
+											<li>品种2</li>
+											<li class="active-fenL">品种3</li>
+											<li>品种4</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">规格:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">规格</li>
+											<li>规格</li>
+											<li>规格</li>
+											<li>规格</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">销售公司:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">公司</li>
+											<li>公司</li>
+											<li>公司</li>
+											<li>公司</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">区域:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">区域</li>
+											<li>区域</li>
+											<li>区域</li>
+											<li>区域</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">价格类型:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">类型</li>
+											<li>类型</li>
+											<li>类型</li>
+											<li>类型</li>
+										</ul>
+									</td>
+								</tr>
+<!--								<tr>-->
+<!--									<th scope="row">选择时间:</th>-->
+<!--									<td><input class="easyui-datetimebox" style="width:30%"></td>-->
+<!--								</tr>-->
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- 分类详细4 -->
+				<div class="cont-fenL">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th scope="row">选择品种:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li>品种1</li>
+											<li>品种2</li>
+											<li>品种3</li>
+											<li class="active-fenL">品种4</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">规格:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">规格</li>
+											<li>规格</li>
+											<li>规格</li>
+											<li>规格</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">销售公司:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">公司</li>
+											<li>公司</li>
+											<li>公司</li>
+											<li>公司</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">区域:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">区域</li>
+											<li>区域</li>
+											<li>区域</li>
+											<li>区域</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">价格类型:</th>
+									<td>
+										<ul class="contlist-fenL">
+											<li class="active-fenL">类型</li>
+											<li>类型</li>
+											<li>类型</li>
+											<li>类型</li>
+										</ul>
+									</td>
+								</tr>
+<!--								<tr>-->
+<!--									<th scope="row">选择时间:</th>-->
+<!--									<td><input class="easyui-datetimebox" style="width:30%"></td>-->
+<!--								</tr>-->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<!-- 东北地区 -->
+	<div class="wrap-market">
+		<div class="container">
+			<div class="market-title">
+				<h2>·东北地区</h2>
+				<!-- 切换按钮 -->
+<!--				<div class="market-btn">-->
+<!--					<button type="button" class="btn btn-default active">每日报价</button>-->
+<!--					<button type="button" class="btn btn-default">周均价格</button>-->
+<!--					<button type="button" class="btn btn-default">月均价格</button>-->
+<!--					<button type="button" class="btn btn-default">年均价格</button>-->
+<!--				</div>-->
+			</div>
+			<!-- 表格 -->
+			<div class="main-market-table">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>生产企业</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>单位</th>
+								<th>备注</th>
+								<th>数据</th>
+								<th>详细数据</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 华北地区 -->
+	<div class="wrap-market">
+		<div class="container">
+			<div class="market-title">
+				<h2>·华北地区</h2>
+				<!-- 切换按钮 -->
+<!--				<div class="market-btn">-->
+<!--					<button type="button" class="btn btn-default active">每日报价</button>-->
+<!--					<button type="button" class="btn btn-default">周均价格</button>-->
+<!--					<button type="button" class="btn btn-default">月均价格</button>-->
+<!--					<button type="button" class="btn btn-default">年均价格</button>-->
+<!--				</div>-->
+			</div>
+			<!-- 表格 -->
+			<div class="main-market-table">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>生产企业</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>单位</th>
+								<th>备注</th>
+								<th>数据</th>
+								<th>详细数据</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 华南地区 -->
+	<div class="wrap-market">
+		<div class="container">
+			<div class="market-title">
+				<h2>·华南地区</h2>
+				<!-- 切换按钮 -->
+<!--				<div class="market-btn">-->
+<!--					<button type="button" class="btn btn-default active">每日报价</button>-->
+<!--					<button type="button" class="btn btn-default">周均价格</button>-->
+<!--					<button type="button" class="btn btn-default">月均价格</button>-->
+<!--					<button type="button" class="btn btn-default">年均价格</button>-->
+<!--				</div>-->
+			</div>
+			<!-- 表格 -->
+			<div class="main-market-table">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>生产企业</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>单位</th>
+								<th>备注</th>
+								<th>数据</th>
+								<th>详细数据</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="/market_listmore">掌握更多</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 华东地区 -->
+	<div class="wrap-market">
+		<div class="container">
+			<div class="market-title">
+				<h2>·华东地区</h2>
+				<!-- 切换按钮 -->
+<!--				<div class="market-btn">-->
+<!--					<button type="button" class="btn btn-default active">每日报价</button>-->
+<!--					<button type="button" class="btn btn-default">周均价格</button>-->
+<!--					<button type="button" class="btn btn-default">月均价格</button>-->
+<!--					<button type="button" class="btn btn-default">年均价格</button>-->
+<!--				</div>-->
+			</div>
+			<!-- 表格 -->
+			<div class="main-market-table">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>生产企业</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>单位</th>
+								<th>备注</th>
+								<th>数据</th>
+								<th>详细数据</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="market_listmore">掌握更多</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 西南地区 -->
+	<div class="wrap-market">
+		<div class="container">
+			<div class="market-title">
+				<h2>·西南地区</h2>
+				<!-- 切换按钮 -->
+<!--				<div class="market-btn">-->
+<!--					<button type="button" class="btn btn-default active">每日报价</button>-->
+<!--					<button type="button" class="btn btn-default">周均价格</button>-->
+<!--					<button type="button" class="btn btn-default">月均价格</button>-->
+<!--					<button type="button" class="btn btn-default">年均价格</button>-->
+<!--				</div>-->
+			</div>
+			<!-- 表格 -->
+			<div class="main-market-table">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>生产企业</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>时间</th>
+								<th>单位</th>
+								<th>备注</th>
+								<th>数据</th>
+								<th>详细数据</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="market_listmore">掌握更多</a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">名称</th>
+								<td>企业</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>时间</td>
+								<td>单位</td>
+								<td>备注</td>
+								<td>
+									<a href="#">
+										<img src="images/market-tub.png" alt="" width="25vh">
+									</a>
+								</td>
+								<td>
+									<a href="market_listmore">掌握更多</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!--底部-->
+<!-- footer -->
+<div class="footer">
+	<div class="container">
+		<div class="w3_agile_footer_grids">
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>Latest Tweets</h3>
+				<ul class="agile_footer_grid_list">
+					<li><i class="fa fa-twitter" aria-hidden="true"></i>Nam libero tempore, cum soluta nobis est
+						eligendi optio cumque nihil
+						impedit. <span>1 day ago</span></li>
+					<li><i class="fa fa-twitter" aria-hidden="true"></i>Itaque earum rerum hic tenetur a sapiente
+						delectus <a href="mailto:info@mail.com">info@mail.com</a> cumque nihil impedit.
+						<span>2 days ago</span></li>
+				</ul>
+			</div>
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>Navigation</h3>
+				<ul class="agileits_w3layouts_footer_grid_list">
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/">首页</a></li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/materials">大宗原料</a></li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/quotation">行情</a></li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/map">产业地图</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>2019年公司计划</h3>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f1.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f2.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f4.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f3.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f1.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f2.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="w3ls_address_mail_footer_grids">
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
+				</div>
+				<p>3481 Melrose Place, Beverly Hills, <span>New York City 90210.</span></p>
+			</div>
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-phone" aria-hidden="true"></i>
+				</div>
+				<p>+(0086)021-59830697 <span>+(0086)021-59830697</span></p>
+			</div>
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-envelope-o" aria-hidden="true"></i>
+				</div>
+				<p><a href="mailto:info@example.com">zs@chinacarbon-al.com</a>
+					<span><a href="mailto:info@example.com">zs@chinacarbon-al.com</a></span></p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<!-- //footer -->
+
+<script src="js/bootstrap.js"></script>
+
+	<script type="text/javascript">
+		$(".cont-fenL").eq(0).show();
+		$(".tab-fenL li").click(function() {
+			$(this).addClass("active-fenL").siblings().removeClass("active-fenL");
+			let iv_idnex = $(this).index();
+			$(".cont-fenL").eq(iv_idnex).show().siblings().hide();
+		})
+	</script>
+
+</body>
+
+</html>

@@ -267,6 +267,72 @@ nav.paging1{
     background-color:#00a98f;
     border-color:#00a98f;
 }
+
+/*新增样式*/
+/* 专家智库 */
+.wrap-zhiku-box{
+	margin-top: 15px;
+}
+
+.mar-top8{
+	margin-top: 8px;
+}
+
+.zhuanJ-content{
+	padding: 10px;
+	box-shadow: 0 0 3px #5E5E5E;
+	overflow: hidden;
+	position: relative;
+}
+
+.zhuanJ-content .L-zhuanJimg{
+	margin: 5px;
+	float: left;
+	width: 30%;
+}
+
+.zhuanJ-content .zhuanJ-name{
+	float: left;
+	width: 50%;
+}
+
+.zhuanJ-content .zhuanJ-name >h3{
+	float: left;
+	padding: 10px 0;
+}
+
+.zhuanJ-content .zhuanJ-name >p{
+	float: left;
+	padding: 12px 0 0 15px;
+	font-size: 16px;
+	color: #a9a7a5;
+	height:30px;
+}
+
+.zhuanJ-content .btn-zhuanJgz{
+	position: absolute;
+	top: 12px;
+	right: 12px;
+}
+
+.zhuanJ-content .zhuanJ-JianJ{
+	width: 57%;
+	position: absolute;
+	left: 34%;
+	bottom: 20%;
+}
+
+.zhuanJ-content .zhuanJ-JianJ .zhuanJ-nameP{
+	height: 100%;
+}
+
+.single-line{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/*新增样式结束*/
+
 /*-- //event --*/
 /*-- start-responsive-design --*/
 @media (max-width:1080px){

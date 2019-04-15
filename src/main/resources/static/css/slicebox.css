@@ -9,6 +9,7 @@
 }
 .wrapper {
     position: relative;
+	overflow: hidden;
 }
 .sb-slider li {
 	margin: 0;
@@ -126,8 +127,8 @@
     height: 42px;
     background: rgba(33, 33, 33, 0.62) url(../images/nav.png) no-repeat top left;
     position: absolute;
-    top: 50%;
-    left: 2px;
+    top: 55px;
+    left: 32px;
     text-indent: -9000px;
     cursor: pointer;
     margin-top: 94px;
@@ -138,7 +139,8 @@
 
 .nav-arrows a:first-child{
 	left: auto;
-	right: 2px;
+	right: 32px;
+	top: 55px;
 	background-position: top right;
 }
 

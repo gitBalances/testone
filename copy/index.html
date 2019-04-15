@@ -5,23 +5,6 @@
 <head th:include="front/common/common_static">
 </head>
 
-<!--图表新增样式修改ma-->
-<style>
-    .btu-biao {
-        text-align: center;
-        margin: 0 50px;
-    }
-
-    .btu-biao > button {
-        margin-top: 10px;
-    }
-
-    .chart {
-        width: 100%;
-        height: 100%;
-    }
-</style>
-
 <body>
 
 <!--引入公有banner导航-->
@@ -38,25 +21,25 @@
 
         <ul id="sb-slider" class="sb-slider">
             <li>
-                <a href="#"><img src="images/banner1-1.jpg" alt="image1" class="img-responsive" width="100%" height="100%"/></a>
+                <a href="#"><img src="images/banner1.jpg" alt="image1"/></a>
                 <div class="sb-description">
                     <h3>平台界面</h3>
                 </div>
             </li>
             <li>
-                <a href="#"><img src="images/banner2-2.jpg" alt="image2" class="img-responsive" width="100%" height="100%"/></a>
+                <a href="#"><img src="images/banner2.jpg" alt="image2"/></a>
                 <div class="sb-description">
                     <h3>平台期货</h3>
                 </div>
             </li>
             <li>
-                <a href="#"><img src="images/banner3-3.jpg" alt="image1" class="img-responsive" width="100%" height="100%"/></a>
+                <a href="#"><img src="images/banner3.jpg" alt="image1"/></a>
                 <div class="sb-description">
                     <h3>货场近况</h3>
                 </div>
             </li>
             <li>
-                <a href="#"><img src="images/banner4-4.jpg" alt="image1" class="img-responsive" width="100%" height="100%"/></a>
+                <a href="#"><img src="images/banner4.jpg" alt="image1"/></a>
                 <div class="sb-description">
                     <h3>收益视图</h3>
                 </div>
@@ -71,21 +54,17 @@
             <a href="#">Previous</a>
         </div>
 
-<!--        <div id="nav-dots" class="nav-dots">-->
-<!--            <span class="nav-dot-current"></span>-->
-<!--            <span></span>-->
-<!--            <span></span>-->
-<!--            <span></span>-->
+        <div id="nav-dots" class="nav-dots">
+            <span class="nav-dot-current"></span>
+            <span></span>
+            <span></span>
+            <span></span>
 
-<!--        </div>-->
+        </div>
     </div>
     <!-- /wrapper -->
 </div>
 <!-- banner-bottom -->
-
-
-<!--新图表-->
-
 <div class="banner-bottom">
     <div class="container">
         <div class="mid_agile_bannner_top_info">
@@ -96,21 +75,30 @@
                 <div class="h-u3"></div>
                 <div class="clearfix"></div>
             </div>
-            <p>Lorem ipsum dolor sit amet, Lorem ipsum Lorem ipsum.Integer varius est vitae iaculis suscipit.
-                Integer
+            <p>Lorem ipsum dolor sit amet, Lorem ipsum Lorem ipsum.Integer varius est vitae iaculis suscipit. Integer
                 sed rutrum lectus.</p>
         </div>
-
-        <div class="agileits_banner_bottom_left btu-biao" style="height: 450px">
+        <div class="col-md-12 agileits_banner_bottom_left" style="height:500px;">
             <!--echarts 按钮-->
-            <div style="padding-bottom: 30px">
-            <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(0)">查看石油焦</button>
-            <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(1)">查看煅后焦</button>
-            <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(2)">查看改质沥青</button>
-            <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(3)">查看阳极</button>
+            <div class="col-md-3">
+                <button class="btn btn-success" onclick="setGoodsType(0)">查看石油焦</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-success" onclick="setGoodsType(1)">查看煅后焦</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-success" onclick="setGoodsType(2)">查看改质沥青</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-success" onclick="setGoodsType(3)">查看阳极</button>
             </div>
 
+            <hr>
 
+            <!--<button class="btn btn-info" onclick="setChartType(1)">曲线图模式</button>-->
+            <!--<button class="btn btn-info" onclick="setChartType(2)">柱状图模式</button>-->
+            <br>
+            <hr>
             <!--图表-->
             <div id="test" class="chart"></div>
 
@@ -127,7 +115,6 @@
     </div>
 </div>
 <!-- //banner-bottom -->
-<!--新图标结束-->
 
 <!-- banner-bottom-icons -->
 <div class="banner-bottom-icons">
@@ -143,7 +130,8 @@
     <div class="col-md-6 w3_banner_bottom_icons_left">
         <div class="w3_agile_banner_bottom">
             <h5 class="grow">低谷数值图示</h5>
-            <a href="#" class="hvr-rectangle-out"><img src="images/banner2.jpg" alt=" " class="img-responsive hvr-radial-in"/></a>
+            <a href="#" class="hvr-rectangle-out"><img src="images/banner2.jpg" alt=" "
+                                                       class="img-responsive hvr-radial-in"/></a>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -617,14 +605,14 @@
                 <div class="wthree_footer_grid_left">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                 </div>
-                <p>+(0086)021-59830697 <span>+(0086)021-59830697</span></p>
+                <p>+(000) 123 4565 32 <span>+(010) 123 4565 35</span></p>
             </div>
             <div class="col-md-4 w3ls_footer_grid_left">
                 <div class="wthree_footer_grid_left">
                     <i class="fa fa-envelope-o" aria-hidden="true"></i>
                 </div>
-                <p><a href="mailto:info@example.com">zs@chinacarbon-al.com</a>
-                    <span><a href="mailto:info@example.com">zs@chinacarbon-al.com</a></span></p>
+                <p><a href="mailto:info@example.com">info@example1.com</a>
+                    <span><a href="mailto:info@example.com">info@example2.com</a></span></p>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -806,9 +794,6 @@
 </body>
 
 
-
-
-<!--原有图表js-->
 <script>
     /*声明创建货品类型数组*/
     var goodsType = ['PetroleumCoke', 'CalcinedCoke', 'MAsphalt', 'Anode'];
@@ -826,56 +811,42 @@
         return "line";
     }
 
-    // function setChartType(chartType) {
-    //     if (chartType === 1 && chartType !== ChartType) {
-    //         ChartType = chartType;
-    //         thisChartType = "line"; //曲线图
-    //         if (goodsTypeIndex == null) {
-    //             alert("请先选择一种货品进行查看.");
-    //             return;
-    //         }
-    //         getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
-    //
-    //     }
-    //     if (chartType === 2 && chartType !== ChartType) {
-    //         ChartType = chartType;
-    //         thisChartType = "bar" //柱状图
-    //         if (goodsTypeIndex == null) {
-    //             alert("请先选择一种货品进行查看.");
-    //             return;
-    //         }
-    //         getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
-    //     }
-    // }
+    function setChartType(chartType) {
+        if (chartType === 1 && chartType !== ChartType) {
+            ChartType = chartType;
+            thisChartType = "line"; //曲线图
+            if (goodsTypeIndex == null) {
+                alert("请先选择一种货品进行查看.");
+                return;
+            }
+            getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
+
+        }
+        if (chartType === 2 && chartType !== ChartType) {
+            ChartType = chartType;
+            thisChartType = "bar" //柱状图
+            if (goodsTypeIndex == null) {
+                alert("请先选择一种货品进行查看.");
+                return;
+            }
+            getAllGoodsByType(myChart, thisChartType, goodsTypeIndex, null, null, selectOrder);
+        }
+    }
 
     /*根据传入的货品数组的下标来查询指定下标的货品类型*/
-
-    //默认调用下标0的货品数组下标 在底部默认开启调用
     function setGoodsType(index) {
         goodsTypeIndex = index;
-        var memberLevel = $("#memberLevel").val();
-            if(memberLevel > -1){
-                getAllGoodsByType(myChart, thisChartType, index, $("#memberLevel").val(), null, selectOrder)
-            }
-
+        getAllGoodsByType(myChart, thisChartType, index, null, null, selectOrder);
         myChartDefalut();
-
         // getAllGoodsByType(myChart,index, null, null, selectOrder);
     }
 
-    //初始化图表 -> 默认数据
     function myChartDefalut() {
         myChart.setOption({
-            legend:{data: []},
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'cross',
-                    label: {
-                        backgroundColor: '#283b56'
-                    }
-                }
+            legend: {
+                data: []
             },
+            tooltip: {trigger: 'axis',},
             dataset: {
                 source: {},
                 dimensions: []
@@ -891,29 +862,25 @@
                 [
                     {type: 'value', gridIndex: 0}
                 ],
-            grid:[
-                {bottom: '50%'},
-                {top: '50%'}
-
-            ],
-            series: [{
-                name: '总交易',
-                data: [1200, 932, 800, 1000, 1290, 1330, 1320],
-                type: 'line'
-            }]
-
+            grid:
+                [
+                    {bottom: '55%'},
+                    {top: '55%'}
+                ],
+            series:
+                []
         });
     }
 
 
     /*设置选取的货品数据时间排序方式,asc,desc*/
-    // function setOrderType(order) {
-    //     getAllGoodsByType(myChart, thisChartType, goodsType[goodsTypeIndex], null, null, order);
-    // }
+    function setOrderType(order) {
+        getAllGoodsByType(myChart, thisChartType, goodsType[goodsTypeIndex], null, null, order);
+    }
 
 
     /*默认获取石油焦信息,可按需更改*/
-    // getAllGoodsByType(myChart,thisChartType,0,1,null,null,);
+    // getAllGoodsByType(myChart,goodsType[0],null,null,);
 
     //除了根据会员等级查询,还应该根据用户点击显示几个月,几年的按钮进行展示(timeInteval)
     /*myChart:图表对象,goodsType:货品类型,memberLevel:用户等级,timeInterval:时间区间,selectOrder:查询排序*/
@@ -921,7 +888,6 @@
         if (thisChartType == null) {
             thisChartType = initDefaultChartType();
         }
-
 
         // /*获取json数据中的某一个字段*/
         // /*获取json数据中的某一个字段*/
@@ -936,21 +902,18 @@
         var allData = null;
         var option = null;
         var url = "/goods/" + this.goodsType[index] + "/" + "testselectSelective";
-        // alert("memberLevel:"+memberLevel);
         // var companys = null;
         // var url = "/goods/"+goodsType+"/"+"selectAll";
         myChart.showLoading();
         $.ajax({
             // url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
             url: url, //按需获取goods数据
-            data: {'order': selectOrder, "member_level":memberLevel},
+            data: {'order': selectOrder, "member_level": $("#memberLevel").val()},
             dataType: "json",
             // contentType:"application/json;charset=UTF-8",
             type: "post",
             success: function (data) {
-
                 myChart.hideLoading(); //数据data加载后隐藏loading
-
                 // alert(JSON.stringify(data.petroleumCokes)); OK
                 // petroleumCokesJson = JSON.stringify(data); OK
                 //石油焦json数据
@@ -989,33 +952,17 @@
                 //legendData 展示公司名称数组,在切换其它货品信息时,不能有效地获取companys
                 var legendData = companys.map(String);
 
-                // alert("legendData:"+JSON.stringify(legendData));
-                // alert("newArr:"+JSON.stringify(newArr));
-                // alert("dimensions:"+JSON.stringify(dimensions));
-                // alert("seriesContent:"+JSON.stringify(seriesContent));
 
                 option = {
                     legend: {
-                        data: legendData,
-                        y:'0px',
+                        data: legendData
                     },
-
                     tooltip: {trigger: 'axis',},
                     // dataset:{
                     //     source:
                     //     newJson2
                     // },
                     toolbox: { //切换曲线/柱状图
-
-                        show : true,
-
-                        color : ['#1e90ff','#22bb22','#4b0082','#d2691e'],
-                        backgroundColor: 'rgba(0,0,0,0)', // 工具箱背景颜色
-                        borderColor: '#ccc',       // 工具箱边框颜色
-                        borderWidth: 0,            // 工具箱边框线宽，单位px，默认为0（无边框）
-                        padding: 5,                // 工具箱内边距，单位px，默认各方向内边距为5，
-                        showTitle: true,
-
                         feature: {
                             dataView: {show: false, readOnly: false}, //文本数据,关闭
                             magicType: {show: true, type: ['line', 'bar']}, //展示类型切换
@@ -1023,19 +970,8 @@
                             saveAsImage: {show: true},
                             dataZoom: { //区域缩放
                                 yAxisIndex: false
-                            },
-
-                        },
-                        y:'20%',
-                        // iconStyle:{
-                        //     normal:{
-                        //         borderColor:'#1e90ff',
-                        //
-                        //     }
-                        // },
-
-
-
+                            }
+                        }
                     },
                     dataZoom: { //时间轴拖动
                         show: true,
@@ -1049,6 +985,17 @@
                         //Array形式
                         source: newArr,
                         dimensions: dimensions
+                        // dimensions: [
+                        //     'createTime',
+                        //     'A公司',
+                        //     'B企业',
+                        //     'C公司',
+                        //     // 'sulfur1',
+                        //     // 'sulfur2',
+                        //     // 'sulfur3',
+                        //     // '2012',
+                        // ]
+
                     },
                     xAxis: [
                         {
@@ -1056,6 +1003,16 @@
                                 rotate: 50, interval: 0
                             }
                         }
+                        // {gridIndex: 0},
+                        // {
+                        //     type: 'category',
+                        //
+                        //     // data:createTimes,
+                        //     // axisLabel: {
+                        //     //    rotate: 50, interval: 0
+                        //     // }
+                        // },
+                        // {type: 'category', gridIndex: 1}
                     ],
                     yAxis:
                         [
@@ -1075,90 +1032,83 @@
                         ],
                     grid:
                         [
-                            // {bottom: '55%'},
-                            // {top: '55%'}
-                            {
-                                y:'30%',
-                                y2:'40%',
-                            }
+                            {bottom: '55%'},
+                            {top: '55%'}
                         ],
                     series:
                     seriesContent
                 };
                 myChart.setOption(option);
-                window.onresize = myChart.resize;
             },
-            // error: function () {
-            //
-            //     alert("error");
-            //     myChart.hideLoading(); //TODO 设定用户没登录的模板图表 , 数据data加载后隐藏loading
-            //     var optionExample = {
-            //         legend: {
-            //             data: ['石化a示例', '石化b示例', '石化c示例']
-            //         },
-            //         tooltip: {trigger: 'axis',},
-            //         // dataset:{
-            //         //     source:
-            //         //     newJson2
-            //         // },
-            //         dataset: {
-            //             // 提供一份数据。
-            //             source: [
-            //                 ['product', '2015', '2016', '2017'],
-            //                 ['Matcha Latte', 43.3, 85.8, 93.7],
-            //                 ['Milk Tea', 83.1, 73.4, 55.1],
-            //                 ['Cheese Cocoa', 86.4, 65.2, 82.5],
-            //                 ['Walnut Brownie', 72.4, 53.9, 39.1]
-            //             ]
-            //
-            //         },
-            //         xAxis: [
-            //             {
-            //                 type: 'category', gridIndex: 0, axisLabel: {
-            //                     rotate: 50, interval: 0
-            //                 }
-            //             }
-            //             // {gridIndex: 0},
-            //             // {
-            //             //     type: 'category',
-            //             //
-            //             //     // data:createTimes,
-            //             //     // axisLabel: {
-            //             //     //    rotate: 50, interval: 0
-            //             //     // }
-            //             // },
-            //             // {type: 'category', gridIndex: 1}
-            //         ],
-            //         yAxis:
-            //             [
-            //                 {type: 'value', gridIndex: 0}
-            //                 // {gridIndex: 0},
-            //                 //
-            //                 // {
-            //                 //     // type:'value',
-            //                 //     // gridIndex: 0, axisLabel: {
-            //                 //     //     rotate: 0, interval: 0,
-            //                 //     //     // formatter: function (value) {
-            //                 //     //     //     return value + '元'
-            //                 //     //     // }
-            //                 //     // }
-            //                 // },
-            //                 // {gridIndex: 1}
-            //             ],
-            //         grid:
-            //             [
-            //                 {bottom: '55%'},
-            //                 {top: '55%'}
-            //             ],
-            //         series:
-            //             [
-            //                 {type: 'line'},
-            //                 {type: 'line'},
-            //                 {type: 'line'}
-            //             ]
-            //     };
-            //     myChart.setOption(optionExample);
-            // }
+            error: function () {
+                myChart.hideLoading(); //TODO 设定用户没登录的模板图表 , 数据data加载后隐藏loading
+                var optionExample = {
+                    legend: {
+                        data: ['石化a示例', '石化b示例', '石化c示例']
+                    },
+                    tooltip: {trigger: 'axis',},
+                    // dataset:{
+                    //     source:
+                    //     newJson2
+                    // },
+                    dataset: {
+                        // 提供一份数据。
+                        source: [
+                            ['product', '2015', '2016', '2017'],
+                            ['Matcha Latte', 43.3, 85.8, 93.7],
+                            ['Milk Tea', 83.1, 73.4, 55.1],
+                            ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                            ['Walnut Brownie', 72.4, 53.9, 39.1]
+                        ]
+
+                    },
+                    xAxis: [
+                        {
+                            type: 'category', gridIndex: 0, axisLabel: {
+                                rotate: 50, interval: 0
+                            }
+                        }
+                        // {gridIndex: 0},
+                        // {
+                        //     type: 'category',
+                        //
+                        //     // data:createTimes,
+                        //     // axisLabel: {
+                        //     //    rotate: 50, interval: 0
+                        //     // }
+                        // },
+                        // {type: 'category', gridIndex: 1}
+                    ],
+                    yAxis:
+                        [
+                            {type: 'value', gridIndex: 0}
+                            // {gridIndex: 0},
+                            //
+                            // {
+                            //     // type:'value',
+                            //     // gridIndex: 0, axisLabel: {
+                            //     //     rotate: 0, interval: 0,
+                            //     //     // formatter: function (value) {
+                            //     //     //     return value + '元'
+                            //     //     // }
+                            //     // }
+                            // },
+                            // {gridIndex: 1}
+                        ],
+                    grid:
+                        [
+                            {bottom: '55%'},
+                            {top: '55%'}
+                        ],
+                    series:
+                        [
+                            {type: 'line'},
+                            {type: 'line'},
+                            {type: 'line'}
+                        ]
+                };
+                myChart.setOption(optionExample);
+            }
         });
 
 

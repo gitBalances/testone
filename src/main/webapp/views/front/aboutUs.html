@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--指定公共引入页面,引入静态资源-->
+<head th:include="front/common/common_static">
+</head>
+
+<style media="screen">
+	@media (max-width: 375px) {
+		.w3ls_team_grid:nth-child(2) {
+			margin: 0px !important;
+		}
+	}
+</style>
+
+<body>
+
+<!--引入公有banner导航-->
+<div th:include="front/common/common_banner::banner_"></div>
+<!--引入公有的登录注册弹出框-->
+<div th:include="front/common/common_login_signup::login_signup_"></div>
+
+	<!-- banner -->
+	<div class="agile_inner_banner_info">
+		<h2>关于我们</h2>
+		<p>About Us</p>
+	</div>
+	<!-- banner结束 -->
+
+	<!-- 公司简介 -->
+	<div class="wrap-intro">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-6 col-sm-12 main-intro">
+					<p>建中国际集团前身创立于1998年，注册于香港，是一家多元化、跨区域的综合性集团公司。在二十多年的发展历程中，建中人弘扬传承“家”文化，始终秉承开拓、实干、创新、拼搏的精神一路前行。集团业务涉及大宗原材料生产、贸易、物流、智能科技、互联网、教育、文化旅游、劳动安全防护、绿色生态农林、金融等多个业务领域。</p>
+					<p>公司旗下设有32家分子公司及办事处，遍布北京、上海、江苏、山东、辽宁、山西、陕西、河南、内蒙古、宁夏、青海、新疆、云南、广西等各省市地区。</p>
+					<p>公司始终遵循“以服务为根本，以市场为导向”的企业宗旨，面对日益激烈的市场竞争，公司沿着“一带一路”方向迈向海外市场，随着公司多元化、国际化发展，各版块联动推进，公司将一如既往的坚持建中品牌理念与企业品格，不断从实践总结经验，锐意进取，与社会各界通力合作，共谋企业发展，回馈社会、造福员工。</p>
+				</div>
+
+				<div class="col-md-6 col-sm-12">
+					<img src="/about_files/about-1.png" alt="" class="img-responsive">
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- 主营业务 -->
+	<!-- <div class="wrap-business">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-xs-4 L-business">
+					<div class="">
+
+					</div>
+				</div>
+
+				<div class="col-md-4 col-xs-4 M-business">
+					<img src="images/wenhua-1.png" alt="" class="img-responsive">
+				</div>
+
+				<div class="col-md-4 col-xs-4 R-business">
+
+				</div>
+			</div>
+
+		</div>
+	</div> -->
+
+	<!-- 团队介绍 -->
+	<div class="services">
+		<div class="container">
+			<h3 class="tittle_agile_w3">我们的团队</h3>
+			<div class="heading-underline">
+				<div class="h-u1"></div>
+				<div class="h-u2"></div>
+				<div class="h-u3"></div>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="row w3_services_grids">
+
+				<div class="col-xs-6 col-md-2 w3ls_team_grid">
+					<div class="w3ls_team_grid1 hover15">
+						<figure>
+							<img src="/about_files/shenjianlin-1.png" alt=" " class="img-responsive img-circle">
+						</figure>
+					</div>
+					<h4>沈建林</h4>
+					<p>董事长/总裁</p>
+				</div>
+
+				<div class="col-xs-6 col-md-2 w3ls_team_grid">
+					<div class="w3ls_team_grid1 hover15">
+						<figure>
+							<img src="/about_files/jiangyujing-1.jpg" alt=" " class="img-responsive img-circle">
+						</figure>
+					</div>
+					<h4>姜玉敬</h4>
+					<p>副董事长兼院长|首席专家</p>
+				</div>
+
+				<div class="col-xs-6 col-md-2 w3ls_team_grid">
+					<div class="w3ls_team_grid1 hover15">
+						<figure>
+							<img src="/about_files/duhaiyan-1.png" alt=" " class="img-responsive img-circle">
+						</figure>
+					</div>
+					<h4>杜海燕</h4>
+					<p>副总裁</p>
+				</div>
+
+				<div class="col-xs-6 col-md-2 w3ls_team_grid">
+					<div class="w3ls_team_grid1 hover15">
+						<figure>
+							<img src="/about_files/shenjianhua-1.png" alt=" " class="img-responsive img-circle">
+						</figure>
+					</div>
+					<h4>沈建华</h4>
+					<p>西北区域总经理</p>
+				</div>
+
+				<div class="col-xs-6 col-md-2 w3ls_team_grid">
+					<div class="w3ls_team_grid1 hover15">
+						<figure>
+							<img src="/about_files/chenxiaonan-1.png" alt=" " class="img-responsive img-circle">
+						</figure>
+					</div>
+					<h4>陈晓楠</h4>
+					<p>华北/华南区域总经理</p>
+				</div>
+				<div class="col-xs-6 col-md-2 w3ls_team_grid">
+					<div class="w3ls_team_grid1 hover15">
+						<figure>
+							<img src="/about_files/xiehaibing-1.png" alt=" " class="img-responsive img-circle">
+						</figure>
+						<!-- <div class="w3ls_team_grid1_pos">
+							<ul class="social-icons">
+								<li><a href="./materials#" class="icon icon-border pinterest"></a></li>
+								<li><a href="./materials#" class="icon icon-border twitter"></a></li>
+								<li><a href="./materials#" class="icon icon-border instagram"></a></li>
+							</ul>
+						</div> -->
+					</div>
+					<h4>谢海兵</h4>
+					<p>华东区域总经理</p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+
+<!-- footer -->
+<div class="footer">
+	<div class="container">
+		<div class="w3_agile_footer_grids">
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>Latest Tweets</h3>
+				<ul class="agile_footer_grid_list">
+					<li><i class="fa fa-twitter" aria-hidden="true"></i>Nam libero tempore, cum soluta nobis est
+						eligendi optio
+						cumque nihil impedit. <span>1 day ago</span></li>
+					<li><i class="fa fa-twitter" aria-hidden="true"></i>Itaque earum rerum hic tenetur a sapiente
+						delectus <a href="mailto:info@mail.com">zs@chinacarbon-al.com</a>
+						cumque nihil impedit. <span>2 days ago</span></li>
+				</ul>
+			</div>
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>Navigation</h3>
+				<ul class="agileits_w3layouts_footer_grid_list">
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/">首页</a></li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/materials">大宗原料</a>
+					</li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/quotation">行情</a></li>
+					<li><i class="fa fa-angle-double-right" aria-hidden="true"></i><a href="/map">产业地图</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4 w3_agile_footer_grid">
+				<h3>Instagram Posts</h3>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f1.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f2.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f4.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f3.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f1.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="w3_agileits_footer_grid_left">
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						<img src="images/f2.jpg" alt=" " class="img-responsive"/>
+					</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="w3ls_address_mail_footer_grids">
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
+				</div>
+				<p>北京<span>通州</span></p>
+			</div>
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-phone" aria-hidden="true"></i>
+				</div>
+				<p>+(0086)021-59830697<span>+(0086)021-59830697</span></p>
+			</div>
+			<div class="col-md-4 w3ls_footer_grid_left">
+				<div class="wthree_footer_grid_left">
+					<i class="fa fa-envelope-o" aria-hidden="true"></i>
+				</div>
+				<p><a href="zs@chinacarbon-al.com">zs@chinacarbon-al.com</a>
+					<span><a href="zs@chinacarbon-al.com">zs@chinacarbon-al.com</a></span></p>
+			</div>
+			<div class="clearfix"></div>
+			<!-- </div>
+            <div class="agileinfo_copyright">
+                <p>Copyright &copy; 2017.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+            </div> -->
+		</div></div>
+</div></div>
+<!-- //footer -->
+
+<script src="js/bootstrap.js"></script>
+</body>
+
+</html>
