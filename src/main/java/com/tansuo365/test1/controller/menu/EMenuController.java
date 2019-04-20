@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +29,7 @@ public class EMenuController {
      * @throws Exception
      */
     @ApiOperation(value = "查询所有权限菜单", notes = "查询所有权限菜单listAllEMenu")
-    @RequestMapping("/listAllEMenu")
+    @PostMapping("/listAllEMenu")
     @RequiresPermissions("路径配置")
     public Map<String, Object> listEMenu() throws Exception {
         System.out.println("第一次走数据库");
@@ -45,7 +46,7 @@ public class EMenuController {
      * @throws Exception
      */
     @ApiOperation(value = "动态查询所有权限菜单", notes = "动态查询所有权限菜单listAllEMenuSelective")
-    @RequestMapping("/listAllEMenuSelective")
+    @PostMapping("/listAllEMenuSelective")
     @RequiresPermissions("路径配置")
     public Map<String, Object> listEMenu(EMenu eMenu) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
@@ -62,9 +63,9 @@ public class EMenuController {
      * @throws Exception
      */
     @ApiOperation(value = "删除权限菜单", notes = "删除权限菜单deleteEMenuById")
-    @RequestMapping("/deleteEMenuById")
+    @PostMapping("/deleteEMenuById")
     @RequiresPermissions("路径配置")
-    public Map<String, Object> deleteEMenuById(int id) throws Exception {
+    public Map<String, Object> deleteEMenuById(Integer id) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
         int deleteCode = eMenuService.delete(id);
         if (deleteCode == 1) {
@@ -83,7 +84,7 @@ public class EMenuController {
      * @return
      */
     @ApiOperation(value = "保存(添加)权限菜单", notes = "保存权限菜单saveMenu")
-    @RequestMapping("/saveMenu")
+    @PostMapping("/saveMenu")
     @RequiresPermissions("路径配置")
     public Map<String, Object> saveMenu(EMenu eMenu) {
         //eMenu含有id录入,因为menu的id不是自动生成而是手动给与
@@ -96,9 +97,7 @@ public class EMenuController {
             resultMap.put("success", false);
             resultMap.put("errorInfo", "菜单添加失败!");
         }
-
         return resultMap;
-
     }
 
     /**
@@ -108,7 +107,7 @@ public class EMenuController {
      * @return
      */
     @ApiOperation(value = "更新权限菜单", notes = "更新菜单信息updateMenu")
-    @RequestMapping("/updateMenu")
+    @PostMapping("/updateMenu")
     @RequiresPermissions("路径配置")
     public Map<String, Object> updateMenu(EMenu eMenu) {
         //eMenu含有id录入,因为menu的id不是自动生成而是手动给与
@@ -121,9 +120,7 @@ public class EMenuController {
             resultMap.put("success", false);
             resultMap.put("errorInfo", "菜单更新失败!");
         }
-
         return resultMap;
-
     }
 
 }

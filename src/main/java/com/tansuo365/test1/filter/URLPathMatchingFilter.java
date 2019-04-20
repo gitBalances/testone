@@ -51,7 +51,6 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
                     break;
                 }
             }
-
             if (hasPermission) {
                 return true;
             } else {

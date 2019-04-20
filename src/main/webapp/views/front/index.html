@@ -29,34 +29,35 @@
 <!--引入公有的登录注册弹出框-->
 <div th:include="front/common/common_login_signup::login_signup_"></div>
 
-
-
-
 <div class="banner">
 
     <div class="wrapper">
 
         <ul id="sb-slider" class="sb-slider">
             <li>
-                <a href="#"><img src="images/banner1-1.jpg" alt="image1" class="img-responsive" width="100%" height="100%"/></a>
+                <a href="#"><img src="images/banner1-1.jpg" alt="image1" class="img-responsive" width="100%"
+                                 height="100%"/></a>
                 <div class="sb-description">
                     <h3>平台界面</h3>
                 </div>
             </li>
             <li>
-                <a href="#"><img src="images/banner2-2.jpg" alt="image2" class="img-responsive" width="100%" height="100%"/></a>
+                <a href="#"><img src="images/banner2-2.jpg" alt="image2" class="img-responsive" width="100%"
+                                 height="100%"/></a>
                 <div class="sb-description">
                     <h3>平台期货</h3>
                 </div>
             </li>
             <li>
-                <a href="#"><img src="images/banner3-3.jpg" alt="image1" class="img-responsive" width="100%" height="100%"/></a>
+                <a href="#"><img src="images/banner3-3.jpg" alt="image1" class="img-responsive" width="100%"
+                                 height="100%"/></a>
                 <div class="sb-description">
                     <h3>货场近况</h3>
                 </div>
             </li>
             <li>
-                <a href="#"><img src="images/banner4-4.jpg" alt="image1" class="img-responsive" width="100%" height="100%"/></a>
+                <a href="#"><img src="images/banner4-4.jpg" alt="image1" class="img-responsive" width="100%"
+                                 height="100%"/></a>
                 <div class="sb-description">
                     <h3>收益视图</h3>
                 </div>
@@ -71,13 +72,13 @@
             <a href="#">Previous</a>
         </div>
 
-<!--        <div id="nav-dots" class="nav-dots">-->
-<!--            <span class="nav-dot-current"></span>-->
-<!--            <span></span>-->
-<!--            <span></span>-->
-<!--            <span></span>-->
+        <!--        <div id="nav-dots" class="nav-dots">-->
+        <!--            <span class="nav-dot-current"></span>-->
+        <!--            <span></span>-->
+        <!--            <span></span>-->
+        <!--            <span></span>-->
 
-<!--        </div>-->
+        <!--        </div>-->
     </div>
     <!-- /wrapper -->
 </div>
@@ -104,10 +105,10 @@
         <div class="agileits_banner_bottom_left btu-biao" style="height: 450px">
             <!--echarts 按钮-->
             <div style="padding-bottom: 30px">
-            <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(0)">查看石油焦</button>
-            <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(1)">查看煅后焦</button>
-            <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(2)">查看改质沥青</button>
-            <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(3)">查看阳极</button>
+                <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(0)">查看石油焦</button>
+                <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(1)">查看煅后焦</button>
+                <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(2)">查看改质沥青</button>
+                <button class="btn btn-success" style="margin-top: 10px;" onclick="setGoodsType(3)">查看阳极</button>
             </div>
 
 
@@ -143,7 +144,8 @@
     <div class="col-md-6 w3_banner_bottom_icons_left">
         <div class="w3_agile_banner_bottom">
             <h5 class="grow">低谷数值图示</h5>
-            <a href="#" class="hvr-rectangle-out"><img src="images/banner2.jpg" alt=" " class="img-responsive hvr-radial-in"/></a>
+            <a href="#" class="hvr-rectangle-out"><img src="images/banner2.jpg" alt=" "
+                                                       class="img-responsive hvr-radial-in"/></a>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -680,18 +682,12 @@
                         return false;
 
                     });
-
                     $navArrows.children(':last').on('click', function () {
-
                         slicebox.previous();
                         return false;
-
                     });
-
                     $nav.each(function (i) {
-
                         $(this).on('click', function (event) {
-
                             var $dot = $(this);
 
                             if (!slicebox.isActive()) {
@@ -700,7 +696,6 @@
                                 $dot.addClass('nav-dot-current');
 
                             }
-
                             slicebox.jump(i + 1);
                             return false;
 
@@ -806,8 +801,6 @@
 </body>
 
 
-
-
 <!--原有图表js-->
 <script>
     /*声明创建货品类型数组*/
@@ -854,11 +847,13 @@
     function setGoodsType(index) {
         goodsTypeIndex = index;
         var memberLevel = $("#memberLevel").val();
-            if(memberLevel > -1){
-                getAllGoodsByType(myChart, thisChartType, index, $("#memberLevel").val(), null, selectOrder)
-            }
+        if (memberLevel > -1) {
+            getAllGoodsByType(myChart, thisChartType, index, $("#memberLevel").val(), null, selectOrder)
+            myChartDefalutLoaded();
+        } else {
+            myChartDefalut();
+        }
 
-        myChartDefalut();
 
         // getAllGoodsByType(myChart,index, null, null, selectOrder);
     }
@@ -866,7 +861,7 @@
     //初始化图表 -> 默认数据
     function myChartDefalut() {
         myChart.setOption({
-            legend:{data: []},
+            legend: {data: []},
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -891,7 +886,7 @@
                 [
                     {type: 'value', gridIndex: 0}
                 ],
-            grid:[
+            grid: [
                 {bottom: '50%'},
                 {top: '50%'}
 
@@ -899,6 +894,49 @@
             series: [{
                 name: '总交易',
                 data: [1200, 932, 800, 1000, 1290, 1330, 1320],
+                // data: [],
+                type: 'line'
+            }]
+
+        });
+    }
+
+    //初始化图表 -> 默认数据 在切换时使用
+    function myChartDefalutLoaded() {
+        myChart.setOption({
+            legend: {data: []},
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#283b56'
+                    }
+                }
+            },
+            dataset: {
+                source: {},
+                dimensions: []
+            },
+            xAxis: [
+                {
+                    type: 'category', gridIndex: 0, axisLabel: {
+                        rotate: 50, interval: 0
+                    }
+                }
+            ],
+            yAxis:
+                [
+                    {type: 'value', gridIndex: 0}
+                ],
+            grid: [
+                {bottom: '50%'},
+                {top: '50%'}
+
+            ],
+            series: [{
+                name: '总交易',
+                data: [],
                 type: 'line'
             }]
 
@@ -943,7 +981,7 @@
         $.ajax({
             // url: "/petroleumCoke/selectAll", //获取所有石油焦数据list
             url: url, //按需获取goods数据
-            data: {'order': selectOrder, "member_level":memberLevel},
+            data: {'order': selectOrder, "member_level": memberLevel},
             dataType: "json",
             // contentType:"application/json;charset=UTF-8",
             type: "post",
@@ -997,7 +1035,7 @@
                 option = {
                     legend: {
                         data: legendData,
-                        y:'0px',
+                        y: '0px',
                     },
 
                     tooltip: {trigger: 'axis',},
@@ -1007,9 +1045,9 @@
                     // },
                     toolbox: { //切换曲线/柱状图
 
-                        show : true,
+                        show: true,
 
-                        color : ['#1e90ff','#22bb22','#4b0082','#d2691e'],
+                        color: ['#1e90ff', '#22bb22', '#4b0082', '#d2691e'],
                         backgroundColor: 'rgba(0,0,0,0)', // 工具箱背景颜色
                         borderColor: '#ccc',       // 工具箱边框颜色
                         borderWidth: 0,            // 工具箱边框线宽，单位px，默认为0（无边框）
@@ -1026,14 +1064,13 @@
                             },
 
                         },
-                        y:'20%',
+                        y: '20%',
                         // iconStyle:{
                         //     normal:{
                         //         borderColor:'#1e90ff',
                         //
                         //     }
                         // },
-
 
 
                     },
@@ -1078,8 +1115,8 @@
                             // {bottom: '55%'},
                             // {top: '55%'}
                             {
-                                y:'30%',
-                                y2:'40%',
+                                y: '30%',
+                                y2: '40%',
                             }
                         ],
                     series:

@@ -16,6 +16,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +40,7 @@ public class LogCommonController {
     private ILogCommonService logCommonService;
 
     @ApiOperation(value="分页查询日志信息", notes="分页查询日志信息listLogSelectiveByPage")
-    @RequestMapping("/listLogSelectiveByPage")
+    @PostMapping("/listLogSelectiveByPage")
     @RequiresPermissions(value={"系统日志","会员日志"},logical = Logical.OR)
     public Map<String, Object> getLogSelectiveByPage(HttpSession session, @PathVariable String logType, LogUser logUser, LogMember logMember, Integer page, Integer rows){
         Map<String, Object> map = new HashMap<String, Object>();

@@ -15,10 +15,7 @@ import com.tansuo365.test1.util.GoodsUtils;
 import com.tansuo365.test1.util.LogUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -53,7 +50,7 @@ public class GoodsController {
      * @param rows
      * @return
      */
-    @RequestMapping("/selectSelective")
+    @PostMapping("/selectSelective")
     public Map<String, Object> selectSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode, Integer page, Integer rows) throws IllegalAccessException, InstantiationException {
         Map<String, Object> map = new HashMap<String, Object>();
         PageHelper.startPage(page, rows);
@@ -76,7 +73,7 @@ public class GoodsController {
      * @param anode
      * @return
      */
-    @RequestMapping("/insertSelective")
+    @PostMapping("/insertSelective")
     public Integer insertSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
         int code = goodsCommonService.addBySelective(goodsUtils.goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
         logUtils.doLog(null, code, LogEnum.SEARCH_ACTION, goodsType, session);
@@ -94,7 +91,7 @@ public class GoodsController {
      * @param anode
      * @return
      */
-    @RequestMapping("updateByPKSelective")
+    @PostMapping("updateByPKSelective")
     public Integer updateByPKSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
         int code = goodsCommonService.updateBySelective(goodsUtils.goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
         logUtils.doLog(null, code, LogEnum.SEARCH_ACTION, goodsType, session);
@@ -108,7 +105,7 @@ public class GoodsController {
      * @param id
      * @return
      */
-    @RequestMapping("/deleteByPK")
+    @PostMapping("/deleteByPK")
     public Integer delByPK(HttpSession session, @PathVariable String goodsType, Long id) throws IllegalAccessException, InstantiationException {
         goodsUtils.goodsTypeJudger(goodsType, null, null, null, null);
         int code = goodsCommonService.delete(id);
@@ -123,7 +120,7 @@ public class GoodsController {
      * @param ids
      * @return
      */
-    @RequestMapping("/deleteBatchByPKs")
+    @PostMapping("/deleteBatchByPKs")
     public Integer delBatch(HttpSession session, @PathVariable String goodsType, @RequestParam(value = "ids[]") Long[] ids) throws IllegalAccessException, InstantiationException {
         goodsUtils.goodsTypeJudger(goodsType, null, null, null, null);
         int code = goodsCommonService.deleteBatchByPKs(ids);
@@ -141,7 +138,7 @@ public class GoodsController {
 //     * @param anode
      * @return
      */
-    @RequestMapping(value = "/testselectSelective")
+    @PostMapping(value = "/testselectSelective")
 //    public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
     public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType,@RequestParam(value = "member_level") Integer member_level) throws IllegalAccessException, InstantiationException {
         goodsUtils.goodsTypeJudger(goodsType, null, null, null, null);
@@ -159,7 +156,7 @@ public class GoodsController {
      * @param goodsType
      * @return
      */
-    @RequestMapping("/selectGoodsByType")
+    @PostMapping("/selectGoodsByType")
     public List<Goods> selectAll(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
         Member currentMember = (Member) session.getAttribute("currentMember");
         User currentUser = (User) session.getAttribute("currentUser");

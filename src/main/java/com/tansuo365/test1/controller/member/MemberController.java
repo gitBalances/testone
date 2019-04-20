@@ -21,10 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -36,7 +33,7 @@ import java.util.Map;
  */
 @PropertySource(value="classpath:member.properties")
 @Api(value = "前端会员控制层", tags = "前端会员控制接口 MemberController", description = "包含登录,注册,登出控制.")
-@Controller
+@RestController
 @RequestMapping("/member")
 public class MemberController {
 
@@ -51,22 +48,7 @@ public class MemberController {
 //    public String login(){
 //        return "/user/login";
 //    }
-    @ApiOperation(value = "会员个人信息", notes = "会员个人信息")
-    @RequestMapping("/info")
-    public String info() {
-        return "/member/auth/info";
-    }
 
-    @RequestMapping("unauthorized")
-    public String unauthorized() {
-        return "/user/unauthorized";
-    }
-
-    @ApiOperation(value = "返回会员登录页", notes = "返回会员登录页")
-    @RequestMapping(value = "/login")
-    public String login() {
-        return "/member/login"; //对应用户登录展示
-    }
 
     /**
      * 使用非shiro登录
@@ -75,8 +57,7 @@ public class MemberController {
      * @return
      */
     @ApiOperation(value = "会员登录请求处理", notes = "会员登录请求处理,非shiro")
-    @ResponseBody
-    @RequestMapping("/loginMember")
+    @PostMapping("/loginMember")
     public Map<String, Object> login(Member member, HttpSession session) {
         Map<String, Object> resultMap = new HashMap<>();
         if (member.getUsername() != null && member.getPassword() != null) {
@@ -102,7 +83,6 @@ public class MemberController {
             resultMap.put("success", false);
             resultMap.put("message", "登录失败!请填写用户名或密码!");//一般不会发生,使用前端正则校验
         }
-
         return resultMap;
     }
 
@@ -156,8 +136,7 @@ public class MemberController {
      * @return
      */
     @ApiOperation(value = "会员注册处理", notes = "会员注册请求处理")
-    @ResponseBody
-    @RequestMapping("/signUp")
+    @PostMapping("/signUp")
     public Map<String, Object> signUp(Member member) {
         System.out.println("this activationCode : "+activationCode);
         Map<String, Object> resultMap = new HashMap<>();
@@ -190,8 +169,7 @@ public class MemberController {
 //        currentUser.logout();
 //    }
     @ApiOperation(value = "会员登出", notes = "会员登出")
-    @ResponseBody
-    @RequestMapping("/doLogout")
+    @PostMapping("/doLogout")
     public Integer logout(HttpSession session) {
         try {
             session.removeAttribute("currentMember");
@@ -213,8 +191,7 @@ public class MemberController {
      * @param rows
      * @return
      */
-    @ResponseBody
-    @RequestMapping("/selectSelective")
+    @PostMapping("/selectSelective")
     public Map<String, Object> listAllMemberSelective(HttpSession session,Member member,Integer page, Integer rows){
         Map<String, Object> map = new HashMap<String, Object>();
         PageHelper.startPage(page, rows);
@@ -231,8 +208,7 @@ public class MemberController {
      * @param member
      * @return
      */
-    @ResponseBody
-    @RequestMapping("/insertSelective")
+    @PostMapping("/insertSelective")
     public Integer insertSelective(HttpSession session,Member member){
         boolean b = passwordEncrypt.encryptPWD(member);//加密密码,加入salt
         if(b){
@@ -248,8 +224,7 @@ public class MemberController {
      * @param member
      * @return
      */
-    @ResponseBody
-    @RequestMapping("/updateByPKSelective")
+    @PostMapping("/updateByPKSelective")
     public Integer updateByPKSelective(HttpSession session, Member member){
         return memberService.updateMemberSelective(member);
     }
@@ -261,8 +236,7 @@ public class MemberController {
      * @param id
      * @return
      */
-    @ResponseBody
-    @RequestMapping("/delByPK")
+    @PostMapping("/delByPK")
     public Integer delByPK(HttpSession session,Long id){
         return memberService.delMemberById(id);
     }
@@ -273,11 +247,9 @@ public class MemberController {
      * @param ids
      * @return
      */
-    @ResponseBody
-    @RequestMapping("/deleteBatchByPKs")
+    @PostMapping("/deleteBatchByPKs")
     public Integer deleteBatchByPKs(HttpSession session,@RequestParam(value = "ids[]") Long[] ids){
         return memberService.delBatchByPKArr(ids);
     }
-
 
 }

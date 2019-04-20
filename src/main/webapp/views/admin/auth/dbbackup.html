@@ -98,8 +98,10 @@
 </table>
 <div id="toolbar">
     <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="dbbackup()">备份选中数据表</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="backupAllTables()">一键备份全部表</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="changePath()">更改备份目录</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="dbRestoreSelect()">选中数据库表还原</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="backupAllThisDB()">一键备份整库</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="dbRestoreAll()">整库还原</a>
+    <!--<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="changePath()">更改备份目录</a>-->
     <!--<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改数据</a>-->
     <!--<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="removeUser()">删除数据</a>-->
     <!--<a href="javascript:window.location.reload()" iconCls="icon-reload" class="easyui-linkbutton" plain="true">重置数据</a>-->
@@ -227,17 +229,9 @@
                 {field: 'ukyo', align: 'center', width: 30, checkbox: 'true'},
                 {field: 'tableName', title: '表名', width: 30},
                 {field: 'backUpName', title: '备份数据', width: 30},
-                {field: 'tableValue', title: '表简介', width: 50},
+                {field: 'tableBrief', title: '表简介', width: 50},
                 // {field: 'company', title: '企业名', width: 100},
-                // {field: 'truename', title: '真实姓名', width: 50},
-                // {field: 'phone', title: '手机号码', width: 50},
-                // {field: 'sex', title: '性别', width: 50},
-                // {field: 'email', title: '邮箱', width: 50},
-                // {field: 'member_type', title: '会员类型', width: 50},
-                // {field: 'member_level', title: '会员等级', width: 50},
-                // {field: 'create_time', title: '注册时间', width: 50},
-                // {field: 'update_time', title: '更新时间', width: 50},
-                // {field: 'lastlogin_time', title: '最后登录时间', width: 60}
+
             ]]
         },
         //之下为鼠标悬停table上展示单个字段的tooltip
@@ -321,9 +315,9 @@
 
 
     /*备份数据库所有表,数据库配置在dbbackup.properties中*/
-    function backupAllTables(){
+    function backupAllThisDB(){
         $.ajax({
-            url: '/admin/db/backupAllTables',
+            url: '/admin/db/backupAll',
             // dataType: 'json',
             // data: {'names': names},
             type: 'POST',
@@ -372,6 +366,49 @@
                 }
             });
         }
+    }
+
+    /*还原整库*/
+    function dbRestoreAll(){
+        $.ajax({
+            url: '/admin/db/dbRestoreAll',
+            // dataType: 'json',
+            // data: {'names': names},
+            type: 'POST',
+            success: function (data) {
+                if (data > 0) {
+                    $.messager.alert('提示消息', '还原成功');
+                    $('#dg').datagrid('reload');
+                    $('#dg').datagrid('clearSelections');
+                } else {
+                    $.messager.alert('提示消息', '还原失败');
+                    $('#dg').datagrid('reload');
+                    $('#dg').datagrid('clearSelections');
+                }
+            }
+        });
+    }
+
+    /*还原整库*/
+    function dbRestoreSelect(){
+        alert("dbRestoreSelect")
+        $.ajax({
+            url: '/admin/db/dbRestoreSelect',
+            // dataType: 'json',
+            // data: {'names': names},
+            type: 'POST',
+            success: function (data) {
+                if (data > 0) {
+                    $.messager.alert('提示消息', '还原成功');
+                    $('#dg').datagrid('reload');
+                    $('#dg').datagrid('clearSelections');
+                } else {
+                    $.messager.alert('提示消息', '还原失败');
+                    $('#dg').datagrid('reload');
+                    $('#dg').datagrid('clearSelections');
+                }
+            }
+        });
     }
 
     $("#submit_search").click(function () {

@@ -1,11 +1,9 @@
 package com.tansuo365.test1.controller.admin;
 
-import com.alibaba.fastjson.JSONArray;
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.service.redis.RedisService;
 import com.tansuo365.test1.service.user.EMenuService;
-import com.tansuo365.test1.service.user.RoleMenuService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserService;
 import com.tansuo365.test1.util.EMenuUtils;
@@ -22,10 +20,10 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
@@ -35,7 +33,7 @@ import java.util.Map;
 
 @Api(value = "管理员登录控制层", tags = "管理员登录接口 AdminLoginController", description = "管理员登录,包括获取树形结构菜单")
 @RequestMapping("/admin")
-@Controller
+@RestController
 public class AdminLoginController {
     @Autowired
     private UserService userService;
@@ -48,12 +46,11 @@ public class AdminLoginController {
     @Autowired
     private EMenuUtils eMenuUtils;
 
-    @ApiOperation(value = "/login登录页", notes = "返回/admin下login.html")
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "/admin/login"; //对应用户登录展示
-    }
-
+//    @ApiOperation(value = "/login登录页", notes = "返回/admin下login.html")
+//    @GetMapping(value = "/login")
+//    public String login() {
+//        return "/admin/login"; //对应用户登录展示
+//    }
 
     /**
      * 用户登录请求
@@ -63,7 +60,7 @@ public class AdminLoginController {
      */
     @ApiOperation(value = "登录请求POST", notes = "登录请求POST,通过shiro进行鉴权")
     @ResponseBody
-    @RequestMapping(value = "/loginAdmin", method = RequestMethod.POST)
+    @PostMapping(value = "/loginAdmin")
     public Map<String, Object> login(String username, String password, String rememberMe, HttpSession session) {
 
         Map<String, Object> map = new HashMap<String, Object>();
@@ -198,7 +195,7 @@ public class AdminLoginController {
 //    @Cacheable(value = "allMenu", key = "#session.getAttribute('currentUser').toString()+#session.getAttribute('roleList').toString()", condition = "#parentId !=  '' ")
     @Cacheable(value = "allMenu", key = "#session.getAttribute('menuIds').toString()+#session.getAttribute('currentUser').toString()", condition = "#parentId !=  '' ")
     @ResponseBody
-    @RequestMapping("/loadMenuInfo")
+    @PostMapping("/loadMenuInfo")
     @RequiresAuthentication
     @RequiresPermissions("系统菜单")
     public String loadMenuInfo(HttpSession session, Integer parentId) {
@@ -253,5 +250,6 @@ public class AdminLoginController {
         }
 
     }
+
 
 }

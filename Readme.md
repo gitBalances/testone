@@ -102,3 +102,5 @@
 ##### 2019-4-11
 - 1. 加入自定义404配置类ErrorConfigurar : https://blog.csdn.net/trusause/article/details/84299886
 
+##### 2019-4-15
+- 1. 

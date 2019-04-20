@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,7 +79,7 @@ public class ExcelController {
     }
 
     @ApiOperation(value="导入Excel", notes="导入Excel")
-    @RequestMapping("/importExcel")
+    @PostMapping("/importExcel")
     public Integer importExcel(@RequestParam(value = "uploadFile") MultipartFile uploadFile,
                                @RequestParam(value = "instance") String instance, Model model, HttpSession session) {
         InputStream in = null;

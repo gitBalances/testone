@@ -9,6 +9,7 @@
     <script type="text/javascript" th:src="@{/jquery-easyui-1.3.3/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/jquery-easyui-1.3.3/jquery.easyui.min.js}"></script>
     <script type="text/javascript" th:src="@{/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script src="/js/jquery.serializejson.js"></script>
     <script type="text/javascript" th:inline="none">
 
         var url;
@@ -17,6 +18,7 @@
         function formatEdit(val, row) {
             return "<a href=\"javascript:openRoleChooseDialog('" + row.roles + "'," + row.id + ")\"><img style='margin-top: 4px' src='/static/images/edit.gif' /></a>";
         }
+
         //尺寸点击事件功能
         function openRoleChooseDialog(roles, userId) {
             var rolesArr = roles.split(",");
@@ -82,10 +84,13 @@
             });
         }
 
+        var dialogType = 0;
+
 
         function openUserAddDialog() {
             $("#dlg").dialog("open").dialog("setTitle", "添加路径信息");
             //@AdminAuthController saveMenu(EMenu eMenu)
+            dialogType = 1;
             url = "/admin/menu/saveMenu";
         }
 
@@ -96,6 +101,7 @@
                 return;
             }
             var row = selectedRows[0];
+            dialogType = 2;
             $("#dlg").dialog("open").dialog("setTitle", "修改路径信息");
             $("#fm").form("load", row);
             $("#name").attr("readonly", "readonly")
@@ -103,16 +109,17 @@
             url = "/admin/menu/updateMenu?id=" + row.id;
         }
 
+
         function saveUser() {
-            $("#fm").form("submit", {
+            $.ajax({
                 url: url,
-                onSubmit: function () {
-                    return $(this).form("validate");
-                },
+                data: $("#fm").serializeJSON(),
+                dataType: 'json',
+                type: 'post',
                 success: function (result) {
-                    var result = eval('(' + result + ')');
+                    //var result = eval('(' + result + ')');
                     if (result.success) {
-                        $.messager.alert("系统提示", result.saveMessage );
+                        $.messager.alert("系统提示", result.saveMessage);
                         resetValue();
                         $("#dlg").dialog("close");
                         $("#dg").datagrid("reload");
@@ -120,8 +127,29 @@
                         $.messager.alert("系统提示", result.errorInfo);
                     }
                 }
-            });
+            })
         }
+
+
+        // function saveUser() {
+        //     $("#fm").form("submit", {
+        //         url: url,
+        //         onSubmit: function () {
+        //             return $(this).form("validate");
+        //         },
+        //         success: function (result) {
+        //             var result = eval('(' + result + ')');
+        //             if (result.success) {
+        //                 $.messager.alert("系统提示", result.saveMessage );
+        //                 resetValue();
+        //                 $("#dlg").dialog("close");
+        //                 $("#dg").datagrid("reload");
+        //             } else {
+        //                 $.messager.alert("系统提示", result.errorInfo);
+        //             }
+        //         }
+        //     });
+        // }
 
 
         function resetValue() {
@@ -142,7 +170,6 @@
                 "name": $("#s_name").val()
             });
         }
-
 
 
         $(function () {
@@ -188,9 +215,9 @@
         <a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">删除</a>
     </div>
     <!--<div>-->
-        <!--&nbsp;主键：&nbsp;<input type="text" id="s_id" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>-->
-        <!--&nbsp;用户名：&nbsp;<input type="text" id="s_name" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>-->
-        <!--<a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>-->
+    <!--&nbsp;主键：&nbsp;<input type="text" id="s_id" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>-->
+    <!--&nbsp;用户名：&nbsp;<input type="text" id="s_name" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>-->
+    <!--<a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>-->
     <!--</div>-->
 </div>
 
@@ -226,10 +253,10 @@
             </tr>
 
             <!--<tr>-->
-                <!--<td valign="top">备注：</td>-->
-                <!--<td>-->
-                    <!--<textarea rows="5" cols="40" id="remarks" name="remarks"></textarea>-->
-                <!--</td>-->
+            <!--<td valign="top">备注：</td>-->
+            <!--<td>-->
+            <!--<textarea rows="5" cols="40" id="remarks" name="remarks"></textarea>-->
+            <!--</td>-->
             <!--</tr>-->
         </table>
     </form>

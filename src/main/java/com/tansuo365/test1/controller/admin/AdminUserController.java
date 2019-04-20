@@ -47,7 +47,7 @@ public class AdminUserController {
      * @throws Exception
      */
     @ApiOperation(value="查询所有管理员", notes="查询所有管理员listAllUser")
-    @RequestMapping("/listAllUser")
+    @PostMapping("/listAllUser")
     @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> list() throws Exception {
         //TODO
@@ -93,7 +93,7 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation(value="保存管理员角色设置", notes="保存管理员角色设置saveRoleSet")
-    @RequestMapping("/saveRoleSet")
+    @PostMapping("/saveRoleSet")
     @RequiresPermissions(value = {"后台用户管理","路径配置"},logical = Logical.OR) //有其中一个权限即可
     public Map<String, Object> saveRoleSet(String roleIds, Long userId) {
         Map<String, Object> resultMap = new HashMap<>();
@@ -124,7 +124,7 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation(value="添加或修改管理员信息", notes="添加或修改管理员信息saveUser")
-    @RequestMapping("/saveUser")
+    @PostMapping("/saveUser")
     @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> saveUser(User user) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
@@ -162,7 +162,7 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation(value="删除管理员信息", notes="删除管理员信息根据ID")
-    @RequestMapping("/deleteUserById")
+    @PostMapping("/deleteUserById")
     @RequiresPermissions(value = {"后台用户管理"})
     public Map<String, Object> deleteUserById(Long id) {
         Map<String, Object> resultMap = new HashMap<>();
@@ -180,7 +180,7 @@ public class AdminUserController {
 
     //展示出来的password 通过AES加密
 //    @ApiOperation(value="删除管理员信息", notes="删除管理员信息根据ID")
-    @RequestMapping("/getPrimevalPWD")
+    @PostMapping("/getPrimevalPWD")
     @RequiresPermissions(value = {"后台用户管理"})
     public String getPrimevalPWD(@RequestParam("pwd") String pwd) {
         return passwordEncrypt.encryptPwd(pwd);
@@ -195,8 +195,7 @@ public class AdminUserController {
      * @throws Exception
      */
     @ApiOperation(value="保存角色信息", notes="保存角色信息saveRole")
-    @ResponseBody
-    @RequestMapping("/saveRole")
+    @PostMapping("/saveRole")
     @RequiresAuthentication
     public Map<String, Object> saveRole(Long roleId, HttpSession session) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();

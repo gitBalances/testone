@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Transient;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -12,5 +14,7 @@ import lombok.NoArgsConstructor;
 public class TablesEntity {
 
     private String tableName;
+    @Transient
+    private String tableBrief;
 
 }

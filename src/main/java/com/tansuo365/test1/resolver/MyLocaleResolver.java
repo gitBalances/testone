@@ -11,7 +11,6 @@ import java.util.Locale;
  * 可以在连接上携带区域信息 (国际化,中英文切换解析器)
  */
 public class MyLocaleResolver implements LocaleResolver {
-
     /**
      * 解析区域信息
      * @param request
