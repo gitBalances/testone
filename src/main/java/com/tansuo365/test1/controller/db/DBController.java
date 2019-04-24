@@ -71,7 +71,7 @@ public class DBController {
 //
         List<TablesEntity> tablesEntities = tablesBriefUtils.settingBriefByAllList(list);
         logUtils.doLog(list, 0, LogEnum.SEARCH_ACTION, instance, session);
-        map.put("rows",tablesEntities);
+        map.put("rows", tablesEntities);
         map.put("total", list.size());
         return map;
     }
@@ -130,27 +130,20 @@ public class DBController {
     }
 
     /**
-     * 数据库整库还原 ok
+     * 数据库整库还原 TODO
      *
      * @param session //     * @param names
      * @return
      */
     @PostMapping("/dbRestoreAll")
-//    public Integer dbRestore(HttpSession session, @RequestParam(value = "names[]") String[] names){
-    public Integer dbRestoreAll(HttpSession session) {
-        int count = 0;
-        try {
-            String backUpFile = dbBackUpPath + "/" + "tansuodb-20190420095949.sql";
-            Process process = Runtime.getRuntime().exec("cmd /c mysql -h" + dbAddress + " -u" + dbUsername + " -p" + dbPassword + " " + dbName + " < " + backUpFile);
-            count++;
+    public Integer dbRestore(HttpSession session, @RequestParam(value = "name") String name) {
+//    public Integer dbRestoreAll(HttpSession session) {
 
-//            for (int i = 0; i < names.length; i++) {
-//                String backUpFile = dbBackUpPath + "/" + names[i];
-//                Process process = Runtime.getRuntime().exec("cmd /c mysql -h"+dbAddress + " -u" + dbUsername + " -p" + dbPassword + " " + dbName + " < " + backUpFile);
-//                count++;
-//            }
-//            if (count == names.length) {
-            logUtils.doLog(null, count, LogEnum.BACKUP_ACTION, instance, session);
+        try {
+            String backUpFile = dbBackUpPath + "/" + name + ".sql";
+            Process process = Runtime.getRuntime().exec("cmd /c mysql -h" + dbAddress + " -u" + dbUsername + " -p" + dbPassword + " " + dbName + " < " + backUpFile);
+
+            logUtils.doLog(null, 1, LogEnum.BACKUP_ACTION, instance, session);
             return 1;
 //            }
 
@@ -162,7 +155,7 @@ public class DBController {
     }
 
     /**
-     * 数据库整库还原 ok
+     * 数据库选择还原
      *
      * @param session //     * @param names
      * @return
@@ -174,13 +167,16 @@ public class DBController {
         try {
             String name = "user";
 //            for (int i = 0; i < names.length; i++) {
-                String backUpFile = dbBackUpPath + "/" + "user-20190420113807.sql";
-                Process process = Runtime.getRuntime().exec("cmd /c mysql -h" + dbAddress + " -u" + dbUsername + " -p" + dbPassword + " " + dbName + " --table " + name + " < " + backUpFile);
-                count++;
+            String backUpFile = dbBackUpPath + "/" + "user-20190420113807.sql";
+            Process process = Runtime.getRuntime().exec("cmd /c mysql -h" + dbAddress + " -u" + dbUsername + " -p" + dbPassword);
+            Process process1 = Runtime.getRuntime().exec("cmd /c use " + dbName);
+            Process process11 = Runtime.getRuntime().exec("cmd /c drop table " + name);
+            Process process2 = Runtime.getRuntime().exec("cmd /c source " + backUpFile);
+            count++;
 //            }
 //            if (count == names.length) {
-                logUtils.doLog(null, count, LogEnum.BACKUP_ACTION, instance, session);
-                return 1;
+            logUtils.doLog(null, count, LogEnum.BACKUP_ACTION, instance, session);
+            return 1;
 //            }
         } catch (IOException e) {
             e.printStackTrace();

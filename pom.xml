@@ -22,7 +22,14 @@
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
-         <!--quartz-->
+
+        <!--actuator-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--quartz-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>

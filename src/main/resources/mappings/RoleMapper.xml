@@ -6,54 +6,20 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="desc_" jdbcType="VARCHAR" property="desc_"/>
     </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
-            </foreach>
-        </where>
-    </sql>
+
     <sql id="Base_Column_List">
     id, name, desc_
   </sql>
-    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.user.RoleExample" resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        'false' as QUERYID,
-        <include refid="Base_Column_List"/>
+
+    <!--<select id="selectRoleByUser" resultMap="BaseResultMap">-->
+        <!--select <include refid="Base_Column_List"/>-->
+        <!--from-->
+    <!--</select>-->
+    <select id="selectRoleList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
         from role
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
     </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -110,12 +76,6 @@
     delete from user_role where uid = #{param1}
   </delete>
 
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.Role"
-            useGeneratedKeys="true">
-    insert into role (name, desc_)
-    values (#{name,jdbcType=VARCHAR}, #{desc_,jdbcType=VARCHAR})
-  </insert>
-
     <!--动态插入role-->
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.Role"
             useGeneratedKeys="true">
@@ -152,11 +112,4 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-
-    <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.user.Role">
-    update role
-    set name = #{name,jdbcType=VARCHAR},
-      desc_ = #{desc_,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
 </mapper>

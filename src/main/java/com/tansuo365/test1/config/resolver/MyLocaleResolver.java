@@ -1,4 +1,4 @@
-package com.tansuo365.test1.resolver;
+package com.tansuo365.test1.config.resolver;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;

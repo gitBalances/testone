@@ -9,6 +9,9 @@ import org.springframework.core.io.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * unused
+ */
 @Configuration
 public class PropertiesConfig {
 

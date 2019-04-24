@@ -1,7 +1,6 @@
 package com.tansuo365.test1.service.user.impl;
 
 import com.tansuo365.test1.bean.user.User;
-import com.tansuo365.test1.bean.user.UserExample;
 import com.tansuo365.test1.mapper.admin.UserMapper;
 import com.tansuo365.test1.service.user.UserRoleService;
 import com.tansuo365.test1.service.user.UserService;
@@ -25,22 +24,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String getPassword(String name) {
-		User user = getByName(name);
-		if (null == user) {
-            return null;
-        }
-		return user.getPassword();
+		return userMapper.getPasswordByUserName(name);
+	}
+	@Override
+	public User getUserByName(String name) {
+		return userMapper.getUserByName(name);
 	}
 
 	@Override
-	public User getByName(String name) {
-		UserExample example = new UserExample();
-		example.createCriteria().andNameEqualTo(name);
-		List<User> users = userMapper.selectByExample(example);
-		if (users.isEmpty()) {
-            return null;
-        }
-		return users.get(0);
+	public List<User> list(User user) {
+		return userMapper.getUserList(user);
 	}
 
 	//添加用户
@@ -48,12 +41,11 @@ public class UserServiceImpl implements UserService {
 	public Integer add(User u) {
 		//加密
 		passwordEncrypt.encryptPWD(u);
-		return userMapper.insert(u);
+		return userMapper.insertSelective(u);
 
 	}
-
 	@Override
-	public Integer delete(Long id) {
+	public Integer delete(Integer id) {
 		int deleteUserCode = userMapper.deleteByPrimaryKey(id);
 		int deleteUserRoleCode = userRoleService.deleteByUser(id);
 		/*如果两者为2,则证明都删除正确了,否则不是.*/
@@ -72,15 +64,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User get(Long id) {
+	public User get(Integer id) {
 		return userMapper.selectByPrimaryKey(id);
-	}
-
-	@Override
-	public List<User> list() {
-		UserExample example = new UserExample();
-		example.setOrderByClause("id desc");
-		return userMapper.selectByExample(example);
 	}
 
 	@Override

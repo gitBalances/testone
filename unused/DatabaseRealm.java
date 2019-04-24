@@ -1,4 +1,4 @@
-package com.tansuo365.test1.unused;//package com.tansuo365.test1.shiro.realm;
+package com.tansuo365.test1.unused;//package com.tansuo365.test1.config.shiro.realm;
 //
 //import com.tansuo365.test1.bean.user.User;
 //import com.tansuo365.test1.service.user.PermissionService;

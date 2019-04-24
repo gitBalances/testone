@@ -9,85 +9,10 @@
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="p_id" jdbcType="INTEGER" property="p_id"/>
     </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
-            </foreach>
-        </where>
-    </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
-            </foreach>
-        </where>
-    </sql>
+
     <sql id="Base_Column_List">
     id, icon, name, state, url, p_id
   </sql>
-    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.user.EMenuExample" resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        'true' as QUERYID,
-        <include refid="Base_Column_List"/>
-        from e_menu
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-    </select>
-
 
     <!--动态查询EMenu-->
     <select id="selectEMenuSelective" parameterType="com.tansuo365.test1.bean.user.EMenu" resultMap="BaseResultMap">
@@ -196,14 +121,6 @@
         (select distinct menu_id from role_menu where menu_id = #{param2})
     </select>
 
-
-    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.user.EMenuExample">
-        delete from e_menu
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </delete>
-
    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
       delete from e_menu
       where id = #{id,jdbcType=INTEGER}
@@ -262,52 +179,6 @@
             </if>
         </trim>
     </insert>
-
-
-    <select id="countByExample" parameterType="com.tansuo365.test1.bean.user.EMenuExample" resultType="java.lang.Long">
-        select count(*) from e_menu
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </select>
-    <update id="updateByExampleSelective" parameterType="map">
-        update e_menu
-        <set>
-            <if test="record.id != null">
-                id = #{record.id,jdbcType=INTEGER},
-            </if>
-            <if test="record.icon != null">
-                icon = #{record.icon,jdbcType=VARCHAR},
-            </if>
-            <if test="record.name != null">
-                name = #{record.name,jdbcType=VARCHAR},
-            </if>
-            <if test="record.state != null">
-                state = #{record.state,jdbcType=INTEGER},
-            </if>
-            <if test="record.url != null">
-                url = #{record.url,jdbcType=VARCHAR},
-            </if>
-            <if test="record.p_id != null">
-                p_id = #{record.p_id,jdbcType=INTEGER},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByExample" parameterType="map">
-        update e_menu
-        set id = #{record.id,jdbcType=INTEGER},
-        icon = #{record.icon,jdbcType=VARCHAR},
-        name = #{record.name,jdbcType=VARCHAR},
-        state = #{record.state,jdbcType=INTEGER},
-        url = #{record.url,jdbcType=VARCHAR},
-        p_id = #{record.p_id,jdbcType=INTEGER}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
 
     <!--动态更新EMenu-->
     <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.user.EMenu">

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.bean.user.UserRole;
-import com.tansuo365.test1.bean.user.UserRoleExample;
 import com.tansuo365.test1.mapper.admin.UserRoleMapper;
 import com.tansuo365.test1.service.user.UserRoleService;
 import org.springframework.stereotype.Service;
@@ -21,32 +20,45 @@ public class UserRoleServiceImpl implements UserRoleService {
 	@Override
 	public void setRoles(User user, long[] roleIds) {
 		// 删除当前用户所有的角色
-		UserRoleExample example = new UserRoleExample();
-		example.createCriteria().andUidEqualTo(Long.parseLong(user.getId().toString()));
-		List<UserRole> urs = userRoleMapper.selectByExample(example);
-		for (UserRole userRole : urs) {
+		List<UserRole> userRoles = userRoleMapper.selectByUserId(user.getId());
+		for (UserRole userRole : userRoles) {
             userRoleMapper.deleteByPrimaryKey(userRole.getId());
         }
-
 		// 设置新的角色关系
 		if (null != roleIds) {
             for (long rid : roleIds) {
                 UserRole userRole = new UserRole();
                 userRole.setRid(rid);
                 userRole.setUid(Long.parseLong(user.getId().toString()));
-                userRoleMapper.insert(userRole);
+                userRoleMapper.insertSelective(userRole);
             }
         }
 	}
 
 	@Override
-	public Integer deleteByUser(long userId) {
-		UserRoleExample example = new UserRoleExample();
-		example.createCriteria().andUidEqualTo(userId);
-		List<UserRole> urs = userRoleMapper.selectByExample(example);
+	public void setRolesById(Integer userId, Integer[] roleIds) {
+		// 删除当前用户所有的角色
+		List<UserRole> userRoles = userRoleMapper.selectByUserId(userId);
+		for (UserRole userRole : userRoles) {
+			userRoleMapper.deleteByPrimaryKey(userRole.getId());
+		}
+		// 设置新的角色关系
+		if (null != roleIds) {
+			for (long rid : roleIds) {
+				UserRole userRole = new UserRole();
+				userRole.setRid(rid);
+				userRole.setUid(Integer.toUnsignedLong(userId));
+				userRoleMapper.insertSelective(userRole);
+			}
+		}
+	}
+
+	@Override
+	public Integer deleteByUser(Integer userId) {
+		List<UserRole> userRoles = userRoleMapper.selectByUserId(userId);
 		int count = 0;
 		int deleteSum = 0;
-		for (UserRole userRole : urs) {
+		for (UserRole userRole : userRoles) {
 			int i = userRoleMapper.deleteByPrimaryKey(userRole.getId());
 			count++;
 			deleteSum += i;
@@ -60,13 +72,11 @@ public class UserRoleServiceImpl implements UserRoleService {
 	}
 
 	@Override
-	public Integer deleteByRole(long roleId) {
-		UserRoleExample example = new UserRoleExample();
-		example.createCriteria().andRidEqualTo(roleId);
-		List<UserRole> urs = userRoleMapper.selectByExample(example);
+	public Integer deleteByRole(Integer roleId) {
+		List<UserRole> userRoles = userRoleMapper.selectByRoleId(roleId);
 		int deleteCode = 0;
 		int count = 0;
-		for (UserRole userRole : urs) {
+		for (UserRole userRole : userRoles) {
 			int i = userRoleMapper.deleteByPrimaryKey(userRole.getId());
 			deleteCode += i;
 			count ++;
@@ -76,6 +86,11 @@ public class UserRoleServiceImpl implements UserRoleService {
 		}else{
 			return 0;
 		}
+	}
+
+	@Override
+	public List<UserRole> getUserRoleByUser(User user) {
+		return userRoleMapper.selectByUserId(user.getId());
 	}
 
 }

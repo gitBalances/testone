@@ -18,4 +18,5 @@ public interface MyLoginInstance {
     void setInstancePassword(String password);
 
     void setInstanceSalt(String salt);
+
 }

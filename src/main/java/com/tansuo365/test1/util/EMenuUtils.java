@@ -18,12 +18,10 @@ import java.util.List;
 @Component
 public class EMenuUtils {
 
-
     @Autowired
     private EMenuService eMenuService;
     @Autowired
     private RedisService redisService;
-
 
     /**
      * 获取所有菜单信息 (单条不适用)
@@ -76,7 +74,6 @@ public class EMenuUtils {
 //        System.out.println("findByParentIdAndSingleRoleId:getEmenuList:jsonArray:" + jsonArray);
         return jsonArray;
     }
-
 
     /*============ids为数组时的方法=============*/
     /**
@@ -254,9 +251,5 @@ public class EMenuUtils {
         }
         return jsonArray;
     }
-
-
-
-
 
 }

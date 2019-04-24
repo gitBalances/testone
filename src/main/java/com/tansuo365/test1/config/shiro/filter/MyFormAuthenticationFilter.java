@@ -1,6 +1,6 @@
-package com.tansuo365.test1.shiro.filter;
+package com.tansuo365.test1.config.shiro.filter;
 
-import com.tansuo365.test1.shiro.realm.MyAuthenticationToken;
+import com.tansuo365.test1.config.shiro.realm.MyAuthenticationToken;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -8,7 +8,6 @@ import org.apache.shiro.web.util.WebUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import java.io.IOException;
 
 /**
  * 如果后端可以设定其它的用户种类,那么种类名称应该存入数据库中,而不是写死在枚举类里.

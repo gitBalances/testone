@@ -140,7 +140,7 @@ public class AdminRoleController {
     @ApiOperation(value = "删除角色", notes = "删除角色根据ID")
     @PostMapping("/deleteRoleById")
     @RequiresPermissions(value = {"系统角色管理"})
-    public Map<String, Object> deleteRoleById(HttpSession session, Long id) throws Exception {
+    public Map<String, Object> deleteRoleById(HttpSession session, Integer id) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
         userRoleService.deleteByRole(id); // 删除用户角色关联信息
         int deleteCode = roleService.delete(id);

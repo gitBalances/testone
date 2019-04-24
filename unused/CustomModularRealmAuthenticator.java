@@ -1,4 +1,4 @@
-package com.tansuo365.test1.unused;//package com.tansuo365.test1.shiro.realm;
+package com.tansuo365.test1.unused;//package com.tansuo365.test1.config.shiro.realm;
 //
 //import org.apache.shiro.authc.*;
 //import org.apache.shiro.authc.pam.ModularRealmAuthenticator;

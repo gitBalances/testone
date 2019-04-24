@@ -1,15 +1,13 @@
-package com.tansuo365.test1.shiro;
+package com.tansuo365.test1.config.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import com.tansuo365.test1.shiro.filter.MyFormAuthenticationFilter;
-import com.tansuo365.test1.shiro.realm.DatabaseRealm;
+import com.tansuo365.test1.config.shiro.realm.DatabaseRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -17,13 +15,9 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.tansuo365.test1.filter.URLPathMatchingFilter;
-
-import javax.servlet.Filter;
 //import com.tansuo365.test1.filter.URLPathMatchingFilter;
 
 //import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
@@ -44,8 +38,6 @@ public class ShiroConfiguration {
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
-
-
 
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
@@ -123,15 +115,6 @@ public class ShiroConfiguration {
         return shiroFilterFactoryBean;
     }
 
-
-
-//    private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean) {
-//
-//        Map<String, String> filterChainMap = new LinkedHashMap<String, String>();
-//
-//        shiroFilterFactoryBean.setLoginUrl("/user/login");
-//
-//
 //
 //
 //    }
@@ -148,9 +131,9 @@ public class ShiroConfiguration {
 
 //    public
 //
-    public URLPathMatchingFilter getURLPathMatchingFilter() {
-        return new URLPathMatchingFilter();
-    }
+//    public URLPathMatchingFilter getURLPathMatchingFilter() {
+//        return new URLPathMatchingFilter();
+//    }
 
 
     /*安全管理器*/
@@ -159,10 +142,8 @@ public class ShiroConfiguration {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //设置自定义realm.
         securityManager.setRealm(getDatabaseRealm());
-
         //配置记住我
         securityManager.setRememberMeManager(rememberMeManager());
-
 //        SecurityUtils.setSecurityManager(securityManager);
         return securityManager;
     }

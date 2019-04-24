@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.RolePermission;
-import com.tansuo365.test1.bean.user.RolePermissionExample;
 import com.tansuo365.test1.mapper.RolePermissionMapper;
 import com.tansuo365.test1.service.user.RolePermissionService;
 import org.springframework.stereotype.Service;

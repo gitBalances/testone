@@ -149,7 +149,6 @@ public class TablesBriefUtils {
     //根据表名获取简介
     private String getBriefByName(String tableName) {
 
-
         String result = "";
         Set<String> nameSet = nameMap.keySet();
         for (String tblName : nameSet) {

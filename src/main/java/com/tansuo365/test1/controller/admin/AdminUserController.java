@@ -3,6 +3,7 @@ package com.tansuo365.test1.controller.admin;
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.mapper.admin.UserMapper;
+import com.tansuo365.test1.service.redis.RedisService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserRoleService;
 import com.tansuo365.test1.service.user.UserService;
@@ -14,6 +15,8 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +42,8 @@ public class AdminUserController {
     private UserMapper userMapper;
     @Autowired
     private PasswordEncrypt passwordEncrypt;
+    @Autowired
+    private RedisService redisService;
 
    /**
      * 查询用户信息
@@ -49,9 +54,9 @@ public class AdminUserController {
     @ApiOperation(value="查询所有管理员", notes="查询所有管理员listAllUser")
     @PostMapping("/listAllUser")
     @RequiresPermissions(value = {"后台用户管理"})
-    public Map<String, Object> list() throws Exception {
+    public Map<String, Object> list(User user) throws Exception {
         //TODO
-        List<User> userList = userService.list();
+        List<User> userList = userService.list(user);
 
         for (User u : userList) {
             List<Role> roleList = roleService.listRoles(u);
@@ -95,26 +100,27 @@ public class AdminUserController {
     @ApiOperation(value="保存管理员角色设置", notes="保存管理员角色设置saveRoleSet")
     @PostMapping("/saveRoleSet")
     @RequiresPermissions(value = {"后台用户管理","路径配置"},logical = Logical.OR) //有其中一个权限即可
-    public Map<String, Object> saveRoleSet(String roleIds, Long userId) {
+    public Map<String, Object> saveRoleSet(String roleIds, Integer userId) {
         Map<String, Object> resultMap = new HashMap<>();
-        roleService.deleteByUserId(userId);//根据用户id删除所有用户角色关联实体数据元组
-        System.err.println("StringUtils.isEmpty(roleIds):" + StringUtils.isEmpty(roleIds));
+
         if (!StringUtils.isEmpty(roleIds)) {
             String idsStr[] = roleIds.split(",");
-            long rIds[] = (long[]) ConvertUtils.convert(idsStr, long.class);
-            userRoleService.setRoles(userService.get(userId), rIds);
+            Integer rIds[] = (Integer[]) ConvertUtils.convert(idsStr, Integer.class);
+            userRoleService.setRolesById(userId, rIds);
+            resultMap.put("success", true);
+            String roleListRedisKey = userService.get(userId).getName().toString() + "-roleList";
+            redisService.del(roleListRedisKey);
+            redisService.set(roleListRedisKey,roleService.listRolesByUserId(userId));
+            return resultMap;
+        } else if (StringUtils.isEmpty(roleIds)) {
+            //roleIds是空的
             resultMap.put("success", true);
             return resultMap;
-        } else if(StringUtils.isEmpty(roleIds)) {
-            //roleIds是空的
-            resultMap.put("success",true);
-            return resultMap;
-        }else{
-            resultMap.put("success",false);
-            resultMap.put("errorInfo","保存失败,请联系管理员.");
+        } else {
+            resultMap.put("success", false);
+            resultMap.put("errorInfo", "保存失败,请联系管理员.");
             return resultMap;
         }
-
     }
 
     /**
@@ -129,7 +135,7 @@ public class AdminUserController {
     public Map<String, Object> saveUser(User user) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
         if (user.getId() == null) {
-            if (userService.getByName(user.getName()) != null) {
+            if (userService.getUserByName(user.getName()) != null) {
                 resultMap.put("success", false);
                 resultMap.put("errorInfo", "用户名已经存在!");
                 return resultMap;
@@ -164,12 +170,14 @@ public class AdminUserController {
     @ApiOperation(value="删除管理员信息", notes="删除管理员信息根据ID")
     @PostMapping("/deleteUserById")
     @RequiresPermissions(value = {"后台用户管理"})
-    public Map<String, Object> deleteUserById(Long id) {
+    public Map<String, Object> deleteUserById(Integer id) {
         Map<String, Object> resultMap = new HashMap<>();
         //内部包含删除用户以及删除用户角色
         int deleteCode = userService.delete(id);
         if (deleteCode == 1) {
             resultMap.put("success", true);
+            String roleListRedisKey = userService.get(id).getName().toString() + "-roleList";
+            redisService.del(roleListRedisKey);
         } else {
             resultMap.put("success", false);
             resultMap.put("errorInfo", "删除失败了!");
@@ -197,7 +205,7 @@ public class AdminUserController {
     @ApiOperation(value="保存角色信息", notes="保存角色信息saveRole")
     @PostMapping("/saveRole")
     @RequiresAuthentication
-    public Map<String, Object> saveRole(Long roleId, HttpSession session) throws Exception {
+    public Map<String, Object> saveRole(Integer roleId, HttpSession session) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         Role currentRole = roleService.get(roleId);
         session.setAttribute("currentRole", currentRole); // 保存当前角色信息

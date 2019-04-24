@@ -47,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void add(Role u) {
-		roleMapper.insert(u);
+		roleMapper.insertSelective(u);
 	}
 
 	@Override
@@ -56,12 +56,12 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Integer delete(Long id) {
+	public Integer delete(Integer id) {
 		return roleMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public Integer deleteByUserId(Long id) {
+	public Integer deleteByUserId(Integer id) {
 		return roleMapper.deleteByUserId(id);
 	}
 
@@ -76,17 +76,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Role get(Long id) {
+	public Role get(Integer id) {
 		return roleMapper.selectByPrimaryKey(id);
-	}
-
-
-	@Override
-	public List<Role> list() {
-		RoleExample example = new RoleExample();
-		example.setOrderByClause("id desc");
-		return roleMapper.selectByExample(example);
-
 	}
 
 	@Override
@@ -95,24 +86,18 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<Role> listRolesByUserId(int id) {
+	public List<Role> listRolesByUserId(Integer id) {
 		return roleMapper.selectByUserId3Table(id);
 	}
 
 	@Override
 	public List<Role> listRoles(User user) {
-		List<Role> roles = new ArrayList<>();
+		return roleMapper.selectByUserId3Table(user.getId());
+	}
 
-		UserRoleExample example = new UserRoleExample();
-
-		example.createCriteria().andUidEqualTo(Long.parseLong(user.getId().toString()));
-		List<UserRole> userRoles = userRoleMapper.selectByExample(example);
-
-		for (UserRole userRole : userRoles) {
-			Role role = roleMapper.selectByPrimaryKey(userRole.getRid());
-			roles.add(role);
-		}
-		return roles;
+	@Override
+	public List<Role> list() {
+		return roleMapper.selectRoleList();
 	}
 
 

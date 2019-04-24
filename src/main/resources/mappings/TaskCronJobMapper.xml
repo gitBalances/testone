@@ -10,82 +10,11 @@
     <result column="job_name" jdbcType="VARCHAR" property="job_name" />
     <result column="job_number" jdbcType="VARCHAR" property="job_number" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List">
     id, enabled, cron, job_class_name, job_description, job_name, job_number
   </sql>
-  <select id="selectByExample" parameterType="com.tansuo365.test1.entity.TaskCronJobExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from task_cron_job
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -96,20 +25,7 @@
     delete from task_cron_job
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tansuo365.test1.entity.TaskCronJobExample">
-    delete from task_cron_job
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.entity.TaskCronJob" useGeneratedKeys="true">
-    insert into task_cron_job (enabled, cron, job_class_name, 
-      job_description, job_name, job_number
-      )
-    values (#{enabled,jdbcType=INTEGER}, #{cron,jdbcType=VARCHAR}, #{job_class_name,jdbcType=VARCHAR}, 
-      #{job_description,jdbcType=VARCHAR}, #{job_name,jdbcType=VARCHAR}, #{job_number,jdbcType=VARCHAR}
-      )
-  </insert>
+
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.entity.TaskCronJob" useGeneratedKeys="true">
     insert into task_cron_job
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -153,54 +69,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tansuo365.test1.entity.TaskCronJobExample" resultType="java.lang.Long">
-    select count(*) from task_cron_job
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update task_cron_job
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.enabled != null">
-        enabled = #{record.enabled,jdbcType=INTEGER},
-      </if>
-      <if test="record.cron != null">
-        cron = #{record.cron,jdbcType=VARCHAR},
-      </if>
-      <if test="record.job_class_name != null">
-        job_class_name = #{record.job_class_name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.job_description != null">
-        job_description = #{record.job_description,jdbcType=VARCHAR},
-      </if>
-      <if test="record.job_name != null">
-        job_name = #{record.job_name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.job_number != null">
-        job_number = #{record.job_number,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update task_cron_job
-    set id = #{record.id,jdbcType=INTEGER},
-      enabled = #{record.enabled,jdbcType=INTEGER},
-      cron = #{record.cron,jdbcType=VARCHAR},
-      job_class_name = #{record.job_class_name,jdbcType=VARCHAR},
-      job_description = #{record.job_description,jdbcType=VARCHAR},
-      job_name = #{record.job_name,jdbcType=VARCHAR},
-      job_number = #{record.job_number,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.entity.TaskCronJob">
     update task_cron_job
     <set>
@@ -225,14 +94,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.entity.TaskCronJob">
-    update task_cron_job
-    set enabled = #{enabled,jdbcType=INTEGER},
-      cron = #{cron,jdbcType=VARCHAR},
-      job_class_name = #{job_class_name,jdbcType=VARCHAR},
-      job_description = #{job_description,jdbcType=VARCHAR},
-      job_name = #{job_name,jdbcType=VARCHAR},
-      job_number = #{job_number,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

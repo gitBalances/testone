@@ -9,7 +9,7 @@ import java.util.Set;
 /*角色服务接口*/
 public interface RoleService {
 
-	public List<Role> listRolesByUserId(int id);
+	public List<Role> listRolesByUserId(Integer id);
 
 //	public Set<String> listRoleNames(String userName);
 
@@ -25,12 +25,12 @@ public interface RoleService {
 
 	public Integer addSelective(Role role);
 
-	public Integer delete(Long id);
+	public Integer delete(Integer id);
 
 	//根据用户id删除所有用户角色关联实体
-	public Integer deleteByUserId(Long id);
+	public Integer deleteByUserId(Integer id);
 
-	public Role get(Long id);
+	public Role get(Integer id);
 
 	public Integer update(Role role);
 

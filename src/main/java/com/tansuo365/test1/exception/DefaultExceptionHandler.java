@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class DefaultExceptionHandler {
+
 	@ExceptionHandler({ UnauthorizedException.class })
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {

@@ -18,91 +18,15 @@
         <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="update_time"/>
-        <result column="expand_1" jdbcType="BIT" property="expand_1"/>
-        <result column="expand_2" jdbcType="BIT" property="expand_2"/>
-        <result column="expand_3" jdbcType="BIT" property="expand_3"/>
         <result column="reporter" jdbcType="VARCHAR" property="reporter"/>
     </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
-            </foreach>
-        </where>
-    </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
-            </foreach>
-        </where>
-    </sql>
+
+
     <sql id="Base_Column_List">
     id, province, company, s_company, sulfur, ash, volatile_matter, water, density, p_resistivity, 
     vanadium, granularity, today_price, remarks,reporter, create_time, update_time
   </sql>
-    <select id="selectByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample"
-            resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        'true' as QUERYID,
-        <include refid="Base_Column_List"/>
-        from calcined_coke_tbl
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -212,7 +136,6 @@
         </if>
     </select>
 
-
     <!--查询所有-->
     <select id="selectAll" resultMap="BaseResultMap">
         select
@@ -224,12 +147,6 @@
     delete from calcined_coke_tbl
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <delete id="deleteByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample">
-        delete from calcined_coke_tbl
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </delete>
 
     <!--批量删除-->
     <delete id="deleteBatchByPKArr" parameterType="java.lang.String">
@@ -385,107 +302,6 @@
         </trim>
     </insert>
 
-    <select id="countByExample" parameterType="com.tansuo365.test1.bean.goods.CalcinedCokeExample"
-            resultType="java.lang.Long">
-        select count(*) from calcined_coke_tbl
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </select>
-    <update id="updateByExampleSelective" parameterType="map">
-        update calcined_coke_tbl
-        <set>
-            <if test="record.id != null">
-                id = #{record.id,jdbcType=BIGINT},
-            </if>
-            <if test="record.province != null">
-                province = #{record.province,jdbcType=VARCHAR},
-            </if>
-            <if test="record.company != null">
-                company = #{record.company,jdbcType=VARCHAR},
-            </if>
-            <if test="record.s_company != null">
-                s_company = #{record.s_company,jdbcType=VARCHAR},
-            </if>
-            <if test="record.sulfur != null">
-                sulfur = #{record.sulfur,jdbcType=DOUBLE},
-            </if>
-            <if test="record.ash != null">
-                ash = #{record.ash,jdbcType=DOUBLE},
-            </if>
-            <if test="record.volatile_matter != null">
-                volatile_matter = #{record.volatile_matter,jdbcType=DOUBLE},
-            </if>
-            <if test="record.water != null">
-                water = #{record.water,jdbcType=DOUBLE},
-            </if>
-            <if test="record.density != null">
-                density = #{record.density,jdbcType=DOUBLE},
-            </if>
-            <if test="record.p_resistivity != null">
-                p_resistivity = #{record.p_resistivity,jdbcType=DOUBLE},
-            </if>
-            <if test="record.vanadium != null">
-                vanadium = #{record.vanadium,jdbcType=DOUBLE},
-            </if>
-            <if test="record.granularity != null">
-                granularity = #{record.granularity,jdbcType=VARCHAR},
-            </if>
-            <if test="record.today_price != null">
-                today_price = #{record.today_price,jdbcType=DOUBLE},
-            </if>
-            <if test="record.remarks != null">
-                remarks = #{record.remarks,jdbcType=VARCHAR},
-            </if>
-            <if test="record.create_time != null">
-                create_time = #{record.create_time,jdbcType=TIMESTAMP},
-            </if>
-            <if test="record.update_time != null">
-                update_time = #{record.update_time,jdbcType=TIMESTAMP},
-            </if>
-            <if test="record.expand_1 != null">
-                expand_1 = #{record.expand_1,jdbcType=BIT},
-            </if>
-            <if test="record.expand_2 != null">
-                expand_2 = #{record.expand_2,jdbcType=BIT},
-            </if>
-            <if test="record.expand_3 != null">
-                expand_3 = #{record.expand_3,jdbcType=BIT},
-            </if>
-            <if test="record.reporter != null">
-                reporter = #{record.reporter,jdbcType=VARCHAR},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByExample" parameterType="map">
-        update calcined_coke_tbl
-        set id = #{record.id,jdbcType=BIGINT},
-        province = #{record.province,jdbcType=VARCHAR},
-        company = #{record.company,jdbcType=VARCHAR},
-        s_company = #{record.s_company,jdbcType=VARCHAR},
-        sulfur = #{record.sulfur,jdbcType=DOUBLE},
-        ash = #{record.ash,jdbcType=DOUBLE},
-        volatile_matter = #{record.volatile_matter,jdbcType=DOUBLE},
-        water = #{record.water,jdbcType=DOUBLE},
-        density = #{record.density,jdbcType=DOUBLE},
-        p_resistivity = #{record.p_resistivity,jdbcType=DOUBLE},
-        vanadium = #{record.vanadium,jdbcType=DOUBLE},
-        granularity = #{record.granularity,jdbcType=VARCHAR},
-        today_price = #{record.today_price,jdbcType=DOUBLE},
-        remarks = #{record.remarks,jdbcType=VARCHAR},
-        create_time = #{record.create_time,jdbcType=TIMESTAMP},
-        update_time = #{record.update_time,jdbcType=TIMESTAMP},
-        expand_1 = #{record.expand_1,jdbcType=BIT},
-        expand_2 = #{record.expand_2,jdbcType=BIT},
-        expand_3 = #{record.expand_3,jdbcType=BIT},
-        reporter = #{record.reporter,jdbcType=VARCHAR}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
     <!--动态更新-->
     <update id="updateByPrimaryKeySelective" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke">
         update calcined_coke_tbl
@@ -542,28 +358,4 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-
-    <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.goods.CalcinedCoke">
-    update calcined_coke_tbl
-    set province = #{province,jdbcType=VARCHAR},
-      company = #{company,jdbcType=VARCHAR},
-      s_company = #{s_company,jdbcType=VARCHAR},
-      sulfur = #{sulfur,jdbcType=DOUBLE},
-      ash = #{ash,jdbcType=DOUBLE},
-      volatile_matter = #{volatile_matter,jdbcType=DOUBLE},
-      water = #{water,jdbcType=DOUBLE},
-      density = #{density,jdbcType=DOUBLE},
-      p_resistivity = #{p_resistivity,jdbcType=DOUBLE},
-      vanadium = #{vanadium,jdbcType=DOUBLE},
-      granularity = #{granularity,jdbcType=VARCHAR},
-      today_price = #{today_price,jdbcType=DOUBLE},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      create_time = #{create_time,jdbcType=TIMESTAMP},
-      update_time = #{update_time,jdbcType=TIMESTAMP},
-      expand_1 = #{expand_1,jdbcType=BIT},
-      expand_2 = #{expand_2,jdbcType=BIT},
-      expand_3 = #{expand_3,jdbcType=BIT},
-      reporter = #{reporter,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
 </mapper>

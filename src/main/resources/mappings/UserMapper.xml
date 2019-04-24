@@ -7,69 +7,51 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List">
     id, name, password, salt
   </sql>
-  <select id="selectByExample" parameterType="com.tansuo365.test1.bean.user.UserExample" resultMap="BaseResultMap">
+
+  <select id="getPasswordByUserName" resultType="java.lang.String">
+    select password from user where name = #{name}
+  </select>
+
+  <select id="getUserByName" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from user where name = #{name}
+  </select>
+
+  <select id="getUserList" resultMap="BaseResultMap">
     select
-    <if test="distinct">
-      distinct
-    </if>
-    'false' as QUERYID,
     <include refid="Base_Column_List" />
     from user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
+    <where>
+      <if test="id != null and id !='' ">
+        and id = #{id}
+      </if>
+      <if test="name != null and name !='' ">
+        and name = #{name}
+      </if>
+      <if test="password != null and password !='' ">
+        and password = #{password}
+      </if>
+      <if test="salt != null and salt !='' ">
+        and salt = #{salt}
+      </if>
+    </where>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.User" useGeneratedKeys="true">
-    insert into user (name, password, salt
-      )
-    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}
-      )
-  </insert>
+
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tansuo365.test1.bean.user.User" useGeneratedKeys="true">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -108,13 +90,6 @@
         salt = #{salt,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tansuo365.test1.bean.user.User">
-    update user
-    set name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 

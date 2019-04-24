@@ -26,17 +26,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/goods/{goodsType}")
 public class GoodsController {
-
     @Autowired
     private GoodsCommonService goodsCommonService;
-
     @Autowired
     private GoodsUtils goodsUtils;
-
-
     @Autowired
     private LogUtils logUtils;
-
 
     /**
      * 动态获取goods数据
@@ -127,7 +122,6 @@ public class GoodsController {
         logUtils.doLog(null, code, LogEnum.SEARCH_ACTION, goodsType, session);
         return code;
     }
-
     /**
      * TEST
      *

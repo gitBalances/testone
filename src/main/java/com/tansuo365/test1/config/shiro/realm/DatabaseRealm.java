@@ -1,4 +1,4 @@
-package com.tansuo365.test1.shiro.realm;
+package com.tansuo365.test1.config.shiro.realm;
 
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +8,6 @@ import com.tansuo365.test1.bean.user.EMenu;
 import com.tansuo365.test1.bean.user.Role;
 import com.tansuo365.test1.bean.user.User;
 import com.tansuo365.test1.service.user.EMenuService;
-import com.tansuo365.test1.service.user.PermissionService;
 import com.tansuo365.test1.service.user.RoleService;
 import com.tansuo365.test1.service.user.UserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -22,7 +21,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 public class DatabaseRealm extends AuthorizingRealm {
 
@@ -52,7 +50,7 @@ public class DatabaseRealm extends AuthorizingRealm {
 
 		// 能进入到这里，表示账号已经通过验证了
 		String username = (String) principalCollection.getPrimaryPrincipal();
-		User user = userService.getByName(username);
+		User user = userService.getUserByName(username);
 		/*通过用户名获取用户role实例*/
 
 		List<Role> roleList = roleService.listRolesByUserId(user.getId());
@@ -76,7 +74,7 @@ public class DatabaseRealm extends AuthorizingRealm {
 		UsernamePasswordToken t = (UsernamePasswordToken) token;
 		String userName = token.getPrincipal().toString();
 		// 获取数据库中的密码
-		User user = userService.getByName(userName);
+		User user = userService.getUserByName(userName);
 		String passwordInDB = user.getPassword();
 		String salt = user.getSalt();
 		// 认证信息里存放账号密码, getName() 是当前Realm的继承方法,通常返回当前类名 :databaseRealm

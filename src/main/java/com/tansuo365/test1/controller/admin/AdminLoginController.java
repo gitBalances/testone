@@ -26,10 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Api(value = "管理员登录控制层", tags = "管理员登录接口 AdminLoginController", description = "管理员登录,包括获取树形结构菜单")
 @RequestMapping("/admin")
@@ -73,17 +70,18 @@ public class AdminLoginController {
         try {
             currentUser.login(token); // 登录认证
             String userName = (String) SecurityUtils.getSubject().getPrincipal();
-            User user = userService.getByName(userName);
+            User user = userService.getUserByName(userName);
 //            Session session = currentUser.getSession();
             session.setAttribute("currentUser", user);
+            session.setAttribute("userName", user.getName());
             session1.setAttribute("currentUser", user);
-
-            List<Role> roleList = roleService.listRolesByUserId(user.getId());//最新
-
+            List<Role> roleList = new ArrayList<>();
+            roleList = roleService.listRolesByUserId(user.getId());//最新
+            System.out.println("roleList-------:"+roleList);
             //从缓存中获取查看是否已经有该用户的roleList
             /*通过用户名查询角色list*/
             roleList.remove(null);// TODO 会有null,异常
-            redisService.set(user.getName() + "_roleList", roleList);//redis存储该user有哪些roles
+            redisService.set(user.getName() + "-roleList", roleList);//redis存储该user有哪些roles
 
             Integer[] ids = new Integer[roleList.size()];
             int i = 0;
@@ -231,7 +229,6 @@ public class AdminLoginController {
             for (int menuId : menuIds1) {
                 menuIdStr1 += menuId + ",";
             }
-
             System.out.println("menuIdStr1:" + menuIdStr1);
             Object allMenuObj = redisService.get(menuIdStr1);
             if (allMenuObj != null) {

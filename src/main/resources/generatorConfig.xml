@@ -1,684 +1,684 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<!DOCTYPE generatorConfiguration-->
-        <!--PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"-->
-        <!--"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
-<!--<generatorConfiguration>-->
+<generatorConfiguration>
 
-    <!--<context id="my" targetRuntime="MyBatis3">-->
+    <context id="my" targetRuntime="MyBatis3">
 
-        <!--&lt;!&ndash;是否在代码中显示注释&ndash;&gt;-->
-        <!--<commentGenerator>-->
-            <!--<property name="suppressDate" value="true" />-->
-            <!--<property name="suppressAllComments" value="true" />-->
-        <!--</commentGenerator>-->
+        <!--是否在代码中显示注释-->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
 
 
-        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
-                        <!--connectionURL="jdbc:mysql://localhost:3306/tansuodb" userId="root"-->
-                        <!--password="zhangqi1112sql"/>-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/tansuodb" userId="root"
+                        password="zhangqi1112sql"/>
 
-        <!--<javaModelGenerator targetPackage="com.tansuo365.test1.entity"-->
-                            <!--targetProject="src/main/java">-->
-            <!--<property name="enableSubPackages" value="true"/>-->
-            <!--<property name="trimStrings" value="true"/>-->
-        <!--</javaModelGenerator>-->
+        <javaModelGenerator targetPackage="com.tansuo365.test1.entity"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
 
-        <!--<sqlMapGenerator targetPackage="mappings"-->
-                         <!--targetProject="src/main/resources/">-->
-            <!--<property name="enableSubPackages" value="true"/>-->
-        <!--</sqlMapGenerator>-->
+        <sqlMapGenerator targetPackage="mappings"
+                         targetProject="src/main/resources/">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
 
-        <!--<javaClientGenerator targetPackage="com.tansuo365.test1.mapper"-->
-                             <!--targetProject="src/main/java" type="XMLMAPPER">-->
-            <!--<property name="enableSubPackages" value="true"/>-->
-        <!--</javaClientGenerator>-->
+        <javaClientGenerator targetPackage="com.tansuo365.test1.mapper"
+                             targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
 
-        <!--&lt;!&ndash;生成对应表及类名&ndash;&gt;-->
-        <!--<table tableName="task_sim_job" domainObjectName="TaskSimJob"  enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableInsert="true" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">-->
-            <!--<property name="my.isgen.usekeys" value="true"/>-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
-        <!--</table>-->
+        <!--生成对应表及类名-->
+        <table tableName="task_sim_job" domainObjectName="TaskSimJob"  enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableInsert="true" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
 
-        <!--&lt;!&ndash;<table tableName="T_FEE_AGTBILL" domainObjectName="FeeAgentBill"-->
+        <!--<table tableName="T_FEE_AGTBILL" domainObjectName="FeeAgentBill"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>-->
+
+        <!--<table tableName="ocenter_action" domainObjectName="OcenterAction"-->
                <!--enableCountByExample="false" enableUpdateByExample="false"-->
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-               <!--selectByExampleQueryId="false"/>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_action" domainObjectName="OcenterAction"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_action_limit" domainObjectName="OcenterActionLimit"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_action_log" domainObjectName="OcenterActionLog"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_addons" domainObjectName="OcenterAddons"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_agents" domainObjectName="OcenterAgents"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_auth_extend" domainObjectName="OcenterAuthExtend"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_auth_group" domainObjectName="OcenterAuthGroup"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_auth_group_access" domainObjectName="OcenterAuthGroupAccess"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_auth_rule" domainObjectName="OcenterAuthRule"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_avatar" domainObjectName="OcenterAvatar"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_brokerage" domainObjectName="OcenterBrokerage"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_capitalpool" domainObjectName="OcenterCapitalpool"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_channel_news" domainObjectName="OcenterChannelNews"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_config" domainObjectName="OcenterConfig"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_daishoudian" domainObjectName="OcenterDaishoudian"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_dev_api" domainObjectName="OcenterDevApi"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_dev_api_debug" domainObjectName="OcenterDevApiDebug"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_difference" domainObjectName="OcenterDifference"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_district" domainObjectName="OcenterDistrict"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_editor" domainObjectName="OcenterEditor"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_ewm" domainObjectName="OcenterEwm"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_express_compute" domainObjectName="OcenterExpressCompute"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_express_very" domainObjectName="OcenterExpressVery"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_expressdist" domainObjectName="OcenterExpressdist"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_expressin" domainObjectName="OcenterExpressin"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_expressinbig" domainObjectName="OcenterExpressinbig"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_file" domainObjectName="OcenterFile"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_guanggao" domainObjectName="OcenterGuanggao"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_hooks" domainObjectName="OcenterHooks"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_jiajiajia" domainObjectName="OcenterJiajiajia"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_jiameng" domainObjectName="OcenterJiameng"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_json" domainObjectName="OcenterJson"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_kefu" domainObjectName="OcenterKefu"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_liangzi" domainObjectName="OcenterLiangzi"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_media" domainObjectName="OcenterMedia"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_member" domainObjectName="OcenterMember"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_member_shoujian" domainObjectName="OcenterMemberShoujian"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_menu" domainObjectName="OcenterMenu"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_message" domainObjectName="OcenterMessage"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_module" domainObjectName="OcenterModule"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_new" domainObjectName="OcenterNew"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_news" domainObjectName="OcenterNews"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_notify_log" domainObjectName="OcenterNotify_log"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_order" domainObjectName="OcenterOrder"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_order_sanji" domainObjectName="OcenterOrderSanji"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_order_xianxia" domainObjectName="OcenterOrderXianxia"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_order_yqm" domainObjectName="OcenterOrderYqm"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_picture" domainObjectName="OcenterPicture"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_ping" domainObjectName="OcenterPing"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_prize" domainObjectName="OcenterPrize"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_seo_rule" domainObjectName="OcenterSeoRule"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_ship_lib" domainObjectName="OcenterShipLib"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_ship_tpl" domainObjectName="OcenterShipTpl"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_ship_tpl_no" domainObjectName="OcenterShipTplNo"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_subscribe" domainObjectName="OcenterSubscribe"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_sync_login" domainObjectName="OcenterSyncLogin"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_ucenter_member" domainObjectName="OcenterUcenterMember"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_ucenter_score_type" domainObjectName="OcenterUcenterScoreType"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_user_address" domainObjectName="OcenterUserAddress"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_user_bank" domainObjectName="OcenterUserBank"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_user_cap_count" domainObjectName="OcenterUserCapCount"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_user_capitalpool" domainObjectName="OcenterUserCapitalpool"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_user_link" domainObjectName="OcenterUserLink"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_user_token" domainObjectName="OcenterUserToken"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-
-        <!--&lt;!&ndash;<table tableName="ocenter_verify" domainObjectName="OcenterVerify"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wallet" domainObjectName="OcenterWallet"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wechat_autoreply" domainObjectName="OcenterWechatAutoreply"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wechat_cat" domainObjectName="OcenterWechatCat"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wechat_config" domainObjectName="OcenterWechatConfig"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wechat_content" domainObjectName="OcenterWechatContent"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wechat_event" domainObjectName="OcenterWechatEvent"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wechat_qrcode_login" domainObjectName="OcenterWechatQrcodeLogin"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wechat_reply" domainObjectName="OcenterWechatReply"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_wechat_yqm" domainObjectName="OcenterWechatYqm"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_xianxia_where" domainObjectName="OcenterXianxiaWhere"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_xiaoxi" domainObjectName="OcenterXiaoxi"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_yt" domainObjectName="OcenterYt"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_zdl" domainObjectName="OcenterZdl"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<table tableName="ocenter_zhandian" domainObjectName="OcenterZhandian"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
-               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<columnRenamingRule searchString="^D_"&ndash;&gt;-->
-                                <!--&lt;!&ndash;replaceString=""/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</table>&ndash;&gt;-->
-
-    <!--</context>-->
-<!--</generatorConfiguration>-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_action_limit" domainObjectName="OcenterActionLimit"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_action_log" domainObjectName="OcenterActionLog"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_addons" domainObjectName="OcenterAddons"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_agents" domainObjectName="OcenterAgents"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_auth_extend" domainObjectName="OcenterAuthExtend"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_auth_group" domainObjectName="OcenterAuthGroup"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_auth_group_access" domainObjectName="OcenterAuthGroupAccess"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_auth_rule" domainObjectName="OcenterAuthRule"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_avatar" domainObjectName="OcenterAvatar"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_brokerage" domainObjectName="OcenterBrokerage"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_capitalpool" domainObjectName="OcenterCapitalpool"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_channel_news" domainObjectName="OcenterChannelNews"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_config" domainObjectName="OcenterConfig"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_daishoudian" domainObjectName="OcenterDaishoudian"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_dev_api" domainObjectName="OcenterDevApi"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_dev_api_debug" domainObjectName="OcenterDevApiDebug"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_difference" domainObjectName="OcenterDifference"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_district" domainObjectName="OcenterDistrict"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_editor" domainObjectName="OcenterEditor"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_ewm" domainObjectName="OcenterEwm"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_express_compute" domainObjectName="OcenterExpressCompute"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_express_very" domainObjectName="OcenterExpressVery"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_expressdist" domainObjectName="OcenterExpressdist"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_expressin" domainObjectName="OcenterExpressin"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_expressinbig" domainObjectName="OcenterExpressinbig"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_file" domainObjectName="OcenterFile"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_guanggao" domainObjectName="OcenterGuanggao"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_hooks" domainObjectName="OcenterHooks"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_jiajiajia" domainObjectName="OcenterJiajiajia"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_jiameng" domainObjectName="OcenterJiameng"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_json" domainObjectName="OcenterJson"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_kefu" domainObjectName="OcenterKefu"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_liangzi" domainObjectName="OcenterLiangzi"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_media" domainObjectName="OcenterMedia"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_member" domainObjectName="OcenterMember"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_member_shoujian" domainObjectName="OcenterMemberShoujian"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_menu" domainObjectName="OcenterMenu"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_message" domainObjectName="OcenterMessage"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_module" domainObjectName="OcenterModule"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_new" domainObjectName="OcenterNew"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_news" domainObjectName="OcenterNews"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_notify_log" domainObjectName="OcenterNotify_log"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_order" domainObjectName="OcenterOrder"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_order_sanji" domainObjectName="OcenterOrderSanji"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_order_xianxia" domainObjectName="OcenterOrderXianxia"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_order_yqm" domainObjectName="OcenterOrderYqm"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_picture" domainObjectName="OcenterPicture"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_ping" domainObjectName="OcenterPing"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_prize" domainObjectName="OcenterPrize"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_seo_rule" domainObjectName="OcenterSeoRule"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_ship_lib" domainObjectName="OcenterShipLib"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_ship_tpl" domainObjectName="OcenterShipTpl"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_ship_tpl_no" domainObjectName="OcenterShipTplNo"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_subscribe" domainObjectName="OcenterSubscribe"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_sync_login" domainObjectName="OcenterSyncLogin"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_ucenter_member" domainObjectName="OcenterUcenterMember"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_ucenter_score_type" domainObjectName="OcenterUcenterScoreType"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_user_address" domainObjectName="OcenterUserAddress"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_user_bank" domainObjectName="OcenterUserBank"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_user_cap_count" domainObjectName="OcenterUserCapCount"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_user_capitalpool" domainObjectName="OcenterUserCapitalpool"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_user_link" domainObjectName="OcenterUserLink"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_user_token" domainObjectName="OcenterUserToken"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+
+        <!--<table tableName="ocenter_verify" domainObjectName="OcenterVerify"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_wallet" domainObjectName="OcenterWallet"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_wechat_autoreply" domainObjectName="OcenterWechatAutoreply"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_wechat_cat" domainObjectName="OcenterWechatCat"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_wechat_config" domainObjectName="OcenterWechatConfig"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_wechat_content" domainObjectName="OcenterWechatContent"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_wechat_event" domainObjectName="OcenterWechatEvent"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+
+        <!--<table tableName="ocenter_wechat_qrcode_login" domainObjectName="OcenterWechatQrcodeLogin"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_wechat_reply" domainObjectName="OcenterWechatReply"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_wechat_yqm" domainObjectName="OcenterWechatYqm"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_xianxia_where" domainObjectName="OcenterXianxiaWhere"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_xiaoxi" domainObjectName="OcenterXiaoxi"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_yt" domainObjectName="OcenterYt"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_zdl" domainObjectName="OcenterZdl"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="ocenter_zhandian" domainObjectName="OcenterZhandian"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<columnRenamingRule searchString="^D_"-->
+                                <!--replaceString=""/>&ndash;&gt;-->
+        <!--</table>-->
+
+    </context>
+</generatorConfiguration>

@@ -1,3 +1,8 @@
+https://www.cnblogs.com/ukzq/
+sql文件在根目录sql---文件夹下
+先要更改sql连接密码
+后台登录需要redis配置好
+后台测试账号 zhang3 12345
 ##### 2019-1-10
 - 1.controller: ShowPageController页面展示.
 - 2.展示暂时有resources/templdates/[index,about,services,contact]
@@ -104,3 +109,12 @@
 
 ##### 2019-4-15
 - 1. 
+
+##### 2019-4-21
+- 1. 单表还原要再参考fhbootm中的去做
+
+##### 2019-4-24
+- 1. 用户后台登录过于延迟 redis又改善了.
+- 2. 还需要改善:用户被管理员修改了权限之后能够及时(在线)生效.
+- 3. actuator(还需要加入shiroConfiguration进行拦截)
+

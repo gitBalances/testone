@@ -1,15 +1,12 @@
 package com.tansuo365.test1.mapper.admin;
 
 import com.tansuo365.test1.bean.user.EMenu;
-import com.tansuo365.test1.bean.user.EMenuExample;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 public interface EMenuMapper {
-    long countByExample(EMenuExample example);
-
-    int deleteByExample(EMenuExample example);
 
     int insert(EMenu record);
 
@@ -17,8 +14,6 @@ public interface EMenuMapper {
 
     //动态插入
     int insertSelective(EMenu eMenu);
-
-    List<EMenu> selectByExample(EMenuExample example);
 
     //动态选择EMenu
     List<EMenu> selectEMenuSelective(EMenu eMenu);
@@ -42,12 +37,7 @@ public interface EMenuMapper {
 
     List<EMenu> selectEMenuByParentIdAndRoleIdArr(Integer parentId,Long[] ids);
 
-    int updateByExampleSelective(@Param("record") EMenu record, @Param("example") EMenuExample example);
-
-    int updateByExample(@Param("record") EMenu record, @Param("example") EMenuExample example);
-
     //动态更新
     int updateByPrimaryKeySelective(EMenu eMenu);
-
 
 }

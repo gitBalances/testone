@@ -4,7 +4,7 @@ Multiple Spring Data modules found, entering strict repository configuration mod
 Bootstrapping Spring Data repositories in DEFAULT mode.
 Finished Spring Data repository scanning in 144ms. Found 0 repository interfaces.
 @Bean method PropertiesConfig.properties is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
-Bean 'shiroConfiguration' of type [com.tansuo365.test1.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$26fdc9e0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'shiroConfiguration' of type [com.tansuo365.test1.config.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$26fdc9e0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$bcf1d8e5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -30,7 +30,7 @@ Bean 'roleServiceImpl' of type [com.tansuo365.test1.service.user.impl.RoleServic
 Bean 'EMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'EMenuMapper' of type [com.sun.proxy.$Proxy74] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'EMenuServiceImpl' of type [com.tansuo365.test1.service.user.impl.EMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-Bean 'getDatabaseRealm' of type [com.tansuo365.test1.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'getDatabaseRealm' of type [com.tansuo365.test1.config.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'rememberMeCookie' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -101,7 +101,7 @@ Multiple Spring Data modules found, entering strict repository configuration mod
 Bootstrapping Spring Data repositories in DEFAULT mode.
 Finished Spring Data repository scanning in 58ms. Found 0 repository interfaces.
 @Bean method PropertiesConfig.properties is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
-Bean 'shiroConfiguration' of type [com.tansuo365.test1.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$a6e3398a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'shiroConfiguration' of type [com.tansuo365.test1.config.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$a6e3398a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$3cd7488f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -127,7 +127,7 @@ Bean 'roleServiceImpl' of type [com.tansuo365.test1.service.user.impl.RoleServic
 Bean 'EMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'EMenuMapper' of type [com.sun.proxy.$Proxy74] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'EMenuServiceImpl' of type [com.tansuo365.test1.service.user.impl.EMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-Bean 'getDatabaseRealm' of type [com.tansuo365.test1.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'getDatabaseRealm' of type [com.tansuo365.test1.config.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'rememberMeCookie' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -192,7 +192,7 @@ Multiple Spring Data modules found, entering strict repository configuration mod
 Bootstrapping Spring Data repositories in DEFAULT mode.
 Finished Spring Data repository scanning in 70ms. Found 0 repository interfaces.
 @Bean method PropertiesConfig.properties is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
-Bean 'shiroConfiguration' of type [com.tansuo365.test1.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$e2e67a6a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'shiroConfiguration' of type [com.tansuo365.test1.config.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$e2e67a6a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$78da896f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -218,7 +218,7 @@ Bean 'roleServiceImpl' of type [com.tansuo365.test1.service.user.impl.RoleServic
 Bean 'EMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'EMenuMapper' of type [com.sun.proxy.$Proxy74] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'EMenuServiceImpl' of type [com.tansuo365.test1.service.user.impl.EMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-Bean 'getDatabaseRealm' of type [com.tansuo365.test1.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'getDatabaseRealm' of type [com.tansuo365.test1.config.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'rememberMeCookie' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -283,7 +283,7 @@ Multiple Spring Data modules found, entering strict repository configuration mod
 Bootstrapping Spring Data repositories in DEFAULT mode.
 Finished Spring Data repository scanning in 224ms. Found 0 repository interfaces.
 @Bean method PropertiesConfig.properties is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
-Bean 'shiroConfiguration' of type [com.tansuo365.test1.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$64ab71b8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'shiroConfiguration' of type [com.tansuo365.test1.config.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$64ab71b8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$fa9f80bd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -309,7 +309,7 @@ Bean 'roleServiceImpl' of type [com.tansuo365.test1.service.user.impl.RoleServic
 Bean 'EMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'EMenuMapper' of type [com.sun.proxy.$Proxy74] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'EMenuServiceImpl' of type [com.tansuo365.test1.service.user.impl.EMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-Bean 'getDatabaseRealm' of type [com.tansuo365.test1.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+Bean 'getDatabaseRealm' of type [com.tansuo365.test1.config.shiro.realm.DatabaseRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'rememberMeCookie' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
