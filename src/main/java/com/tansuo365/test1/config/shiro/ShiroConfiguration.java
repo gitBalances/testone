@@ -109,6 +109,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/swagger-ui.html", "authc"); //authc表示验证身份才能通过
         filterChainDefinitionMap.put("/druid/login.html", "authc"); //authc表示验证身份才能通过
         filterChainDefinitionMap.put("/druid/index.html", "authc"); //authc表示验证身份才能通过
+        filterChainDefinitionMap.put("/host/**", "authc"); //authc表示验证身份才能通过
 
 //        shiroFilterFactoryBean.setFilters(customisedFilter);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

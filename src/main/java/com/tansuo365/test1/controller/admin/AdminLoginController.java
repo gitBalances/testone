@@ -140,8 +140,6 @@ public class AdminLoginController {
             map.put("errorInfo", "登录失败!");
             return map;
         }
-
-
     }
 
 //    @CachePut(value = "subject") 即保证方法被调用,又加入缓存

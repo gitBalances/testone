@@ -1,8 +1,12 @@
-https://www.cnblogs.com/ukzq/
+私人版本
+https://www.cnblogs.com/ukzq/ <<问题留言
+-----------SQL-----------
 sql文件在根目录sql---文件夹下
-先要更改sql连接密码
-后台登录需要redis配置好
-后台测试账号 zhang3 12345
+也可以在项目中flyway模块运行main执行sql文件的自动导入
+-------------------------
+先要更改sql连接密码 \test1\src\main\resources\application.properties
+>>>> 后台登录需要redis配置好并开启
+>>>> 后台测试账号 zhang3 12345
 ##### 2019-1-10
 - 1.controller: ShowPageController页面展示.
 - 2.展示暂时有resources/templdates/[index,about,services,contact]
@@ -117,4 +121,34 @@ sql文件在根目录sql---文件夹下
 - 1. 用户后台登录过于延迟 redis又改善了.
 - 2. 还需要改善:用户被管理员修改了权限之后能够及时(在线)生效.
 - 3. actuator(还需要加入shiroConfiguration进行拦截)
+
+##### 2019-5-6
+- 1. 加入server监控,暂时不可用,使用原来github看到的那种图形化监控https://github.com/deadzq/JavaMonitor <桌面有 TODO
+##### 2019-5-7
+- 1. 改质沥青需要改变搜索样式标准化 OK
+- 2. 加入服务器监控路径 (TODO页面还未添加样式)
+
+##### 2019-5-8
+- 1. √ 待加入数据库表自动生成组件flyway用于部署项目后向数据库写入数据表(参考hope-boot)
+- 2. 待加入在线人数查看
+- 3. 待将JXC版本的easyui(主要使用后面齿轮状按钮)和现货品的easyui进行融合,美化+https://github.com/deadzq/AdminLTE
+- 4. 待分包微服务.
+
+##### 2019-5-9
+- 1. 加入devtools热部署,可即时看到程序效果更改.
+- 1. shiro在线踢出,冻结功能 前后端鉴权
+- 2. properties转yml
+
+##### 2019-5-10
+- 1. 前后端分离部署
+- 2. redis的使用
+
+##### 2019-5-11
+- 1. 数据库表的完善
+- 2. actuator端点拦截或关闭或使用
+- 3. 参考ruoyi使用lambda语法(箭头语法)
+
+##### 2019-5-14
+- 1. 整理了印象笔记中对应的笔记
+
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加新闻</title>
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+    <!-- include summernote css/js -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+    <script src="/summernote/summernote-zh-CN.js"></script>
+</head>
+<body>
+<!--content en_content使用原有方式存储,获取用于编辑-->
+<!--参考:https://www.cnblogs.com/tiansha/p/6459205.html-->
+<!--<div id="summernote">Hello Summernote</div>-->
+
+中文新闻标题:<input type="text">
+<form method="post">
+    <textarea id="summernote" name="editordata"></textarea>
+</form>
+英文新闻标题:<input type="text">
+<form method="post">
+    <textarea id="en_summernote" name="editordata"></textarea>
+</form>
+
+</body>
+
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            lang : 'zh-CN',
+            placeholder: '请输入中文新闻',
+            tabsize: 2,
+            height:200,
+            minHeight: null,
+            maxHeight: null,
+            focus: true,
+            //调用图片上传
+            callback: {
+                onImageUpload: function(files){
+                    sendFile($summernote,files[0]);
+                }
+            }
+        });
+        $('#en_summernote').summernote({
+            lang : 'zh-CN',
+            placeholder: '请输入英文新闻',
+            tabsize: 2,
+            height:200,
+            minHeight: null,
+            maxHeight: null,
+            focus: true,
+            //调用图片上传
+            callback: {
+                onImageUpload: function(files){
+                    sendFile(files[0],this);
+                }
+            }
+        });
+    });
+
+    //ajax上传图片
+    function sendFile($summernote,file){
+        alert("上传图片");
+        var formData = new FormData();
+        formData.append("uploadFile",file);
+        $.ajax({
+            url:"",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: "POST",
+            dataType: "json",
+            success:function(data){
+                $summernote.summernote('insertImage',data.url,function($image){
+                    $image.attr('src',data.url);
+                })
+            }
+        })
+    }
+</script>
+</html>

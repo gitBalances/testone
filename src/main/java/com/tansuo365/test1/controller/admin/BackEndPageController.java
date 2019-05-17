@@ -223,5 +223,14 @@ public class BackEndPageController {
         return "/admin/auth/druid";
     }
 
+    /*===============服务器信息===============*/
+
+    @ApiOperation(value="server信息", notes="server信息")
+    @GetMapping("/server")
+    @RequiresAuthentication
+    public String server(){
+        return "admin/server/server";
+    }
+
 
 }

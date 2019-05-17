@@ -104,11 +104,7 @@ public class PetroleumCoke implements Serializable, Goods {
     @Transient
     private Integer order; //查询排序 正序0,倒序1
 
-
-
     /*搜索使用*/
-
-
     @Transient
     private String s_sulfur;
     @Transient

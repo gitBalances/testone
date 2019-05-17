@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>serverinfo</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+
+
+
+
+ <h1>CPU</h1>
+<table class="cpu">
+    <thead>
+    <tr>
+        <th>属性</th>
+        <th>值</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>核心数</td>
+        <td id="hx">0个</td>
+    </tr>
+    <tr>
+        <td>用户使用率</td>
+        <td>0%</td>
+    </tr>
+    <tr>
+        <td>系统使用率</td>
+        <td>0%</td>
+    </tr>
+    <tr>
+        <td>当前空闲率</td>
+        <td>0%</td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>内存</h1>
+<table class="mem">
+    <thead>
+    <tr>
+        <th>属性</th>
+        <th>内存</th>
+        <th>JVM</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>总内存</td>
+        <td>0GB</td>
+        <td>0MB</td>
+    </tr>
+    <tr>
+        <td>已用内存</td>
+        <td>0GB</td>
+        <td>0MB</td>
+    </tr>
+    <tr>
+        <td>使用率</td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>服务器信息</h1>
+<table class="sys">
+    <tbody>
+    <tr>
+        <td>服务器名称</td>
+        <td>YKMIMI</td>
+        <td>操作系统</td>
+        <td>Linux</td>
+    </tr>
+    <tr>
+        <td>服务器IP</td>
+        <td>127.0.0.1</td>
+        <td>系统架构</td>
+        <td>amd64</td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>Java虚拟机信息</h1>
+<table class="jvm">
+    <tbody>
+    <tr>
+        <td>Java名称</td>
+        <td>Java</td>
+        <td>Java版本</td>
+        <td>1.8.0</td>
+    </tr>
+    <tr>
+        <td>启动时间</td>
+        <td>2019-05-06 00:00:00</td>
+        <td>运行时长</td>
+        <td>0天0时0分0秒</td>
+    </tr>
+    <tr>
+        <td>安装路径</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>项目路径</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>磁盘状态</h1>
+<table class="sysFiles">
+    <thead>
+    <tr>
+        <th>盘符路径</th>
+        <th>文件系统</th>
+        <th>盘符类型</th>
+        <th>总大小</th>
+        <th>可用大小</th>
+        <th>已用大小</th>
+        <th>已用百分比</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table> 
+
+
+<script>
+//  $.ajax({
+//      url: '/host/serverInfo',
+//      type: 'POST',
+//      success: function(data) {
+//          alert(JSON.stringify(data));
+//      }
+//  })
+$.ajax({
+	type:"POST",
+	url:"/host/serverInfo",
+	async:true,
+	success: function (results) {
+		// console.log(results.server.cpu.cpuNum)
+		// $("#hx").text(results.server.cpu.cpuNum)
+		
+		// cpu渲染
+		$(".cpu tbody tr:eq(0) td:eq(1)").text(results.server.cpu.cpuNum+"个");
+		$(".cpu tbody tr:eq(1) td:eq(1)").text(results.server.cpu.used+"%");
+		$(".cpu tbody tr:eq(2) td:eq(1)").text(results.server.cpu.sys+"%");
+		$(".cpu tbody tr:eq(3) td:eq(1)").text(results.server.cpu.free+"%");
+		
+		// 内存渲染
+		$(".mem tbody tr:eq(0) td:eq(1)").text(results.server.mem.total+"G");
+		$(".mem tbody tr:eq(0) td:eq(2)").text(results.server.jvm.total+"M");
+		$(".mem tbody tr:eq(1) td:eq(1)").text(results.server.mem.used+"G");
+		$(".mem tbody tr:eq(1) td:eq(2)").text(results.server.jvm.used+"M");
+		$(".mem tbody tr:eq(2) td:eq(1)").text(results.server.mem.usage+"%");
+		$(".mem tbody tr:eq(2) td:eq(2)").text(results.server.jvm.usage+"%");
+		
+		// 服务器渲染
+		$(".sys tbody tr:eq(0) td:eq(1)").text(results.server.sys.computerName);
+		$(".sys tbody tr:eq(0) td:eq(3)").text(results.server.sys.osName);
+		$(".sys tbody tr:eq(1) td:eq(1)").text(results.server.sys.computerIp);
+		$(".sys tbody tr:eq(1) td:eq(3)").text(results.server.sys.osArch);
+		
+		// 虚拟机渲染
+		$(".jvm tbody tr:eq(0) td:eq(1)").text(results.server.jvm.name);
+		$(".jvm tbody tr:eq(0) td:eq(3)").text(results.server.jvm.version);
+		$(".jvm tbody tr:eq(1) td:eq(1)").text(results.server.jvm.startTime);
+		$(".jvm tbody tr:eq(1) td:eq(3)").text(results.server.jvm.runTime);
+		$(".jvm tbody tr:eq(2) td:eq(1)").text(results.server.jvm.home);
+		$(".jvm tbody tr:eq(3) td:eq(1)").text(results.server.sys.userDir);
+		
+		// 磁盘状态
+//		var a = ""
+//		for (var i = 0; i<results.server.sysFiles.length; i++) {
+//			var $tr = $('<tr></tr>');
+//			var $name = $('<td>'+results.server.sysFiles[i].dirName+'</td>').appendTo($tr);
+//			var $type = $('<td>'+results.server.sysFiles[i].sysTypeName+'</td>').appendTo($tr);
+//			var $typename = $('<td>'+results.server.sysFiles[i].typeName+'</td>').appendTo($tr);
+//			var $total = $('<td>'+results.server.sysFiles[i].total+'</td>').appendTo($tr);
+//			var $free = $('<td>'+results.server.sysFiles[i].free+'</td>').appendTo($tr);
+//			var $used = $('<td>'+results.server.sysFiles[i].used+'</td>').appendTo($tr);
+//			var $usage = $('<td>'+results.server.sysFiles[i].usage+'%</td>').appendTo($tr);
+//			$(".sysFiles tbody").append($tr);
+//		}
+//		
+		$(".sysFiles tbody").empty();
+		var a = [];
+			for (var i = results.server.sysFiles.length ; i > 0; i--) {
+				if (a.indexOf(results.server.sysFiles[i-1].dirName) == -1) {
+					a.push(results.server.sysFiles[i-1].dirName);
+					a.push(i-1)
+					var $tr = $('<tr></tr>');
+					var $name = $('<td>'+results.server.sysFiles[i-1].dirName+'</td>').appendTo($tr);
+					var $type = $('<td>'+results.server.sysFiles[i-1].sysTypeName+'</td>').appendTo($tr);
+					var $typename = $('<td>'+results.server.sysFiles[i-1].typeName+'</td>').appendTo($tr);
+					var $total = $('<td>'+results.server.sysFiles[i-1].total+'</td>').appendTo($tr);
+					var $free = $('<td>'+results.server.sysFiles[i-1].free+'</td>').appendTo($tr);
+					var $used = $('<td>'+results.server.sysFiles[i-1].used+'</td>').appendTo($tr);
+					var $usage = $('<td>'+results.server.sysFiles[i-1].usage+'%</td>').appendTo($tr);
+					$(".sysFiles tbody").prepend($tr);
+				}
+			}
+			
+			setInterval(function () {
+				num ()
+			}, 5000)
+
+		
+		// for(var i = 0; i<results.server.sysFiles.length; i++){
+		// 	$(".sysFiles tbody").append(`
+		// 		<tr>
+		// 		<td>${results.server.sysFiles[i].dirName}</td>
+		// 		<td>${results.server.sysFiles[i].sysTypeName}</td>
+		// 		<td>${results.server.sysFiles[i].typeName}</td>
+		// 		<td>${results.server.sysFiles[i].total}</td>
+		// 		<td>${results.server.sysFiles[i].free}</td>
+		// 		<td>${results.server.sysFiles[i].used}</td>
+		// 		<td>${results.server.sysFiles[i].usage}</td></tr>
+		// 	`)
+		// 	
+		// }
+		
+		
+		
+	},
+	error: function (data) {
+		alert("出错了，请稍后重试")
+	}
+});
+
+function num () {
+	$.ajax({
+	type:"POST",
+	url:"/host/serverInfo",
+	async:true,
+	success: function (results) {
+		// 磁盘状态
+		var a = [];
+		$(".sysFiles tbody").empty();
+			for (var i = results.server.sysFiles.length ; i > 0; i--) {
+				if (a.indexOf(results.server.sysFiles[i-1].dirName) == -1) {
+					a.push(results.server.sysFiles[i-1].dirName);
+					a.push(i-1)
+					var $tr = $('<tr></tr>');
+					var $name = $('<td>'+results.server.sysFiles[i-1].dirName+'</td>').appendTo($tr);
+					var $type = $('<td>'+results.server.sysFiles[i-1].sysTypeName+'</td>').appendTo($tr);
+					var $typename = $('<td>'+results.server.sysFiles[i-1].typeName+'</td>').appendTo($tr);
+					var $total = $('<td>'+results.server.sysFiles[i-1].total+'</td>').appendTo($tr);
+					var $free = $('<td>'+results.server.sysFiles[i-1].free+'</td>').appendTo($tr);
+					var $used = $('<td>'+results.server.sysFiles[i-1].used+'</td>').appendTo($tr);
+					var $usage = $('<td>'+results.server.sysFiles[i-1].usage+'%</td>').appendTo($tr);
+					$(".sysFiles tbody").prepend($tr);
+				}
+			}
+		
+	},
+	error: function (data) {
+		alert("出错了，请稍后重试")
+	}
+});
+}
+</script>
+
+</body>
+</html>

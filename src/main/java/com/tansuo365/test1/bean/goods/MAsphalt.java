@@ -69,7 +69,7 @@ public class MAsphalt implements Serializable, Goods {
     @javax.persistence.Transient
     private String e_time; //结束时间 搜索用到
 
-    @javax.persistence.Transient
+    @Transient
     private Integer order; //查询排序 正序0,倒序1
 
 
