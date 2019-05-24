@@ -59,7 +59,6 @@ public class AdminLoginController {
     @ResponseBody
     @PostMapping(value = "/loginAdmin")
     public Map<String, Object> login(String username, String password, String rememberMe, HttpSession session) {
-
         Map<String, Object> map = new HashMap<String, Object>();
 
         System.out.println("rememberMe>>>>:" + rememberMe);

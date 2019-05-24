@@ -171,15 +171,22 @@ public class BackEndPageController {
 
     /*=================基本路径===================*/
 
-    @ApiOperation(value="之前的后台首页", notes="之前的后台首页/admin/index")
-    @GetMapping("")
-    @RequiresAuthentication
-    public String indexMain(){
-        return "/admin/index";
-    }
+//    @ApiOperation(value="之前的后台首页", notes="之前的后台首页/admin/index")
+//    @GetMapping("")
+//    @RequiresAuthentication
+//    public String indexMain(){
+//        return "/admin/index";
+//    }
 
 
     /*===============页面管理===============*/
+
+    @ApiOperation(value="新的后台首页", notes="之前的后台首页/admin/main")
+    @GetMapping("")
+    @RequiresAuthentication
+    public String indexMain(){
+        return "/admin/main";
+    }
 
     @ApiOperation(value="现在的后台首页", notes="之前的后台首页/admin/main")
     @GetMapping("/main")
@@ -194,6 +201,13 @@ public class BackEndPageController {
     @RequiresAuthentication
     public String index(){
         return "/admin/index"; //52行跳转过来
+    }
+
+    @ApiOperation(value="后台欢迎页",notes="后台欢迎页/admin/welcome")
+    @GetMapping("/welcome")
+    @RequiresAuthentication
+    public String adminWelcome(){
+        return "/admin/welcome";
     }
 
     @ApiOperation(value="未授权页面", notes="未授权页面")
@@ -231,6 +245,5 @@ public class BackEndPageController {
     public String server(){
         return "admin/server/server";
     }
-
 
 }

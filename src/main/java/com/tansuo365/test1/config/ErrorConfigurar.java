@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
  */
 @Configuration
 public class ErrorConfigurar implements ErrorPageRegistrar {
-
     @Override
     public void registerErrorPages(ErrorPageRegistry registry) {
         ErrorPage[] errorPages = new ErrorPage[2];
@@ -20,5 +19,4 @@ public class ErrorConfigurar implements ErrorPageRegistrar {
 
         registry.addErrorPages(errorPages);
     }
-
 }

@@ -55,8 +55,8 @@ public class GoodsController {
         map.put("total", pageInfo.getTotal());
         logUtils.doLog(list, 0, LogEnum.SEARCH_ACTION, goodsType, session);
         return map;
-
     }
+
 
     /**
      * TODO 在加入数据时,如果是石油焦,需要进行grade字段的触发更新
@@ -134,10 +134,11 @@ public class GoodsController {
      */
     @PostMapping(value = "/testselectSelective")
 //    public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
-    public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType,@RequestParam(value = "member_level") Integer member_level) throws IllegalAccessException, InstantiationException {
+//    public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType,@RequestParam(value = "member_level") Integer member_level) throws IllegalAccessException, InstantiationException {
+    public List<Goods> testselectSelective(HttpSession session, @PathVariable String goodsType) throws IllegalAccessException, InstantiationException {
         goodsUtils.goodsTypeJudger(goodsType, null, null, null, null);
         System.out.println("goodsType:" + goodsType);
-        System.out.println("member_level:" + member_level);
+//        System.out.println("member_level:" + member_level);
         List<Goods> all = goodsCommonService.getAll();
 //      List<Goods> list = goodsCommonService.getBySelective(goodsUtils.goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
 //    logUtils.doLog(all, 0, LogEnum.SEARCH_ACTION, goodsType, session);

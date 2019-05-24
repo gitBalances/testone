@@ -12,7 +12,6 @@ import org.springframework.web.servlet.LocaleResolver;
 /*国际化解析器 和@Value引入配置*/
 @Configuration
 public class MyAppConfig {
-
     //国际化,使中文/英文(或多国语言)切换成为可能
     @Bean
     public LocaleResolver localeResolver(){
@@ -24,5 +23,4 @@ public class MyAppConfig {
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
-
 }

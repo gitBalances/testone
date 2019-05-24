@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>阳极</title>
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+
+<table id="dg" title="My Users" class="easyui-datagrid" style="width:100%;height:100%"
+       url="/goods/Anode/testselectSelective"
+       toolbar="#toolbar" pagination="true"
+       rownumbers="true" fitColumns="true" singleSelect="true">
+    <thead>
+    <tr>
+        <th field="id" width="50">First Name</th>
+        <th field="province" width="50">Last Name</th>
+        <th field="company" width="50">Phone</th>
+        <th field="s_company" width="50">Email</th>
+        <th field="e_density" width="50">First Name</th>
+        <th field="true_density" width="50">Last Name</th>
+        <th field="compressive" width="50">Phone</th>
+        <th field="carbon" width="50">Email</th>
+        <th field="flexural" width="50">Phone</th>
+        <th field="room" width="50">Email</th>
+        <th field="thermal" width="50">Phone</th>
+        <th field="ash" width="50">Email</th>
+        <th field="size" width="50">Phone</th>
+        <th field="bowl_sum" width="50">Email</th>
+        <th field="bowl_distance" width="50">Phone</th>
+        <th field="in_diameter" width="50">Email</th>
+        <th field="out_diameter" width="50">Phone</th>
+        <th field="slot" width="50">Email</th>
+        <th field="today_price" width="50">Email</th>
+        <th field="remarks" width="50">Phone</th>
+        <th field="reporter" width="50">Email</th>
+        <th field="create_time" width="50">Phone</th>
+        <th field="update_time" width="50">Email</th>
+    </tr>
+    </tr>
+    </thead>
+</table>
+
+<div id="toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-back'" plain="true"
+       onclick="back()">Back</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" plain="true"
+       onclick="newUser()">Add</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" plain="true"
+       onclick="editUser()">Edit</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" plain="true"
+       onclick="destroyUser()">Remove</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" plain="true"
+       onclick="destroyUser()">Search</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" plain="true"
+       onclick="destroyUser()">Reload</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'" plain="true"
+       onclick="save()">Save</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cut'" plain="true"
+       onclick="cut()">Cut</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cut',disabled:true" plain="true"
+       onclick="cut()">Disabled Cut</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" plain="true"
+       onclick="cancel()">Cancel</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-print'" plain="true"
+       onclick="print()">Print</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help'" plain="true"
+       onclick="help()">Help</a>
+    <br>
+    <a href="javascript:void(0)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-large-picture',size:'large',iconAlign:'top'">Picture</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-large-clipart',size:'large',iconAlign:'top'">Clip Art</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-large-shapes',size:'large',iconAlign:'top'">Shapes</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-large-smartart',size:'large',iconAlign:'top'">SmartArt</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"
+       data-options="iconCls:'icon-large-chart',size:'large',iconAlign:'top'">Chart</a>
+</div>
+
+<div id="dlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+    <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
+        <h3>User Information</h3>
+        <div style="margin-bottom:10px">
+            <input name="id" class="easyui-textbox" required="true" label="First Name:" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="province" class="easyui-textbox" required="true" label="Last Name:" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="company" class="easyui-textbox" required="true" label="Phone:" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="s_company" class="easyui-textbox" required="true" validType="email" label="Email:" style="width:100%">
+        </div>
+    </form>
+</div>
+<div id="dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+</div>
+<script type="text/javascript">
+    var url;
+    function newUser(){
+        $('#dlg').dialog('open').dialog('center').dialog('setTitle','New User');
+        $('#fm').form('clear');
+        url = '/testIn';
+    }
+    function editUser(){
+        var row = $('#dg').datagrid('getSelected');
+        if (row){
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle','Edit User');
+            $('#fm').form('load',row);
+            url = 'update_user.php?id='+row.id;
+        }
+    }
+    function saveUser(){
+        $('#fm').form('submit',{
+            url: url,
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                var result = eval('('+result+')');
+                alert(result);
+                if (result.errorMsg){
+                    $.messager.show({
+                        title: 'Error',
+                        msg: result.errorMsg
+                    });
+                } else {
+                    $('#dlg').dialog('close');        // close the dialog
+                    $('#dg').datagrid('reload');    // reload the user data
+                }
+            }
+        });
+    }
+    function destroyUser(){
+        var row = $('#dg').datagrid('getSelected');
+        if (row){
+            $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
+                if (r){
+                    $.post('destroy_user.php',{id:row.id},function(result){
+                        if (result.success){
+                            $('#dg').datagrid('reload');    // reload the user data
+                        } else {
+                            $.messager.show({    // show error message
+                                title: 'Error',
+                                msg: result.errorMsg
+                            });
+                        }
+                    },'json');
+                }
+            });
+        }
+    }
+</script>
+
+
+
+</body>
+</html>

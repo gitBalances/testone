@@ -22,7 +22,10 @@ public class TestController {
         return "/news/add_news";
     }
 
-
+    @GetMapping("/anode181")
+    public String anode181(){
+        return "/admin/goods/anode181";
+    }
 
 
 }

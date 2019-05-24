@@ -13,11 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleMenu {
-
     private Integer id;
 
     private Integer menu_id;
 
     private Integer role_id;
-
 }

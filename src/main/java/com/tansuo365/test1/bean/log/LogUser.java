@@ -21,7 +21,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LogUser implements LogUsers {
-
     private Integer id; //日志编号
 
     private String content; //操作内容
@@ -56,6 +55,4 @@ public class LogUser implements LogUsers {
 //    @ManyToOne
 //    @JoinColumn(name="user_id")
 //    private User user; // 操作用户
-
-
 }

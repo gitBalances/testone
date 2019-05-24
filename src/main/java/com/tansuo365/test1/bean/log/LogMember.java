@@ -18,7 +18,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LogMember implements LogUsers {
-
     private Integer id;
 
     private String content;

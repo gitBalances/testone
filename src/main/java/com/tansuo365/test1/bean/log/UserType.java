@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 
 @ApiModel(value="使用者枚举类型",description="使用者枚举类型")
 public enum UserType {
-
     MEMBER("会员"),
     ADMIN("管理员"),
     SYSTEM_ADMIN("系统管理员");

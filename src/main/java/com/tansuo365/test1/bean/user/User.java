@@ -22,7 +22,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable,MyLoginInstance {
-
 	private Integer id;
 
 	private String name;

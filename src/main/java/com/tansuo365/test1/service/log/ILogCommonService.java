@@ -1,14 +1,9 @@
 package com.tansuo365.test1.service.log;
 
-import com.tansuo365.test1.bean.log.LogMember;
-import com.tansuo365.test1.bean.log.LogUser;
-import com.tansuo365.test1.bean.log.UserType;
 import com.tansuo365.test1.entity.LogUsers;
 import com.tansuo365.test1.entity.MyLoginInstance;
-import com.tansuo365.test1.mapper.goods.IGoodsCommonMapper;
 import com.tansuo365.test1.mapper.log.ILogCommonMapper;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 

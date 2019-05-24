@@ -22,7 +22,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member implements Serializable,MyLoginInstance {
-
     private Long id;
 
     private String username;

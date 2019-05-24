@@ -31,7 +31,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/user")
 public class AdminUserController {
-
     @Autowired
     private UserService userService;
     @Autowired

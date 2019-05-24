@@ -2,6 +2,7 @@ package com.tansuo365.test1;
 
 import com.tansuo365.test1.mapper.goods.PetroleumCokeMapper;
 import com.tansuo365.test1.service.redis.RedisService;
+import com.tansuo365.test1.util.FileUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Test;
@@ -24,6 +25,12 @@ public class Test1ApplicationTests {
     PetroleumCokeMapper petroleumCokeMapper;
     @Autowired
     RedisService redisService;
+
+    @Test
+    public void testDbPathFiles(){
+        FileUtils.getFiles("C:/Users/ukyo/Desktop/test1-dbbackup-test"); //OK
+    }
+
 
     @Test //测试redis存储
     public void contextLoads() {
