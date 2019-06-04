@@ -193,6 +193,7 @@ public class AdminLoginController {
     @PostMapping("/loadMenuInfo")
     @RequiresAuthentication
     @RequiresPermissions("系统菜单")
+//    public String loadMenuInfo(HttpSession session, Integer parentId) {
     public String loadMenuInfo(HttpSession session, Integer parentId) {
 //        Role currentRole = (Role)session.getAttribute("currentRole");
         System.out.println("读取系统菜单中");

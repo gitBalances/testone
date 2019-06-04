@@ -156,6 +156,9 @@ sql文件在根目录sql---文件夹下
 
 ##### 2019-5-24
 - 1. 之前加入了UEditor
-- 2. 尝试加入工作流
+http://localhost/ueditor 官方demo
+
+- 2. 尝试加入工作流 (持续学习ing)
+
 
 

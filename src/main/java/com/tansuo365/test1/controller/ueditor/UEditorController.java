@@ -13,10 +13,12 @@ import java.io.PrintWriter;
 @Controller
 public class UEditorController {
 
+    /*官方demo*/
     @RequestMapping("/ueditor")
     private String ueditor() {
         return "/news/index";
     }
+
 
     @RequestMapping("/ueditorDemo")
     private String ueditorDemo() {
@@ -36,7 +38,6 @@ public class UEditorController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     //TODO
