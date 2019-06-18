@@ -161,4 +161,5 @@ http://localhost/ueditor 官方demo
 - 2. 尝试加入工作流 (持续学习ing)
 
 
-
+##### 2019-6-10
+- 1. ueditor图片保存路径修改:ueditor.json

@@ -97,4 +97,4 @@ mybatis:
 info:
   app:
     name: ukzq springboot
-    version: v1.1.145
+    version: v1.1.146

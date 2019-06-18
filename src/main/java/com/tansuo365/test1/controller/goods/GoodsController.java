@@ -71,7 +71,7 @@ public class GoodsController {
     @PostMapping("/insertSelective")
     public Integer insertSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
         int code = goodsCommonService.addBySelective(goodsUtils.goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
-        logUtils.doLog(null, code, LogEnum.SEARCH_ACTION, goodsType, session);
+        logUtils.doLog(null, code, LogEnum.ADD_ACTION, goodsType, session);
         return code;
 
     }
@@ -89,7 +89,7 @@ public class GoodsController {
     @PostMapping("updateByPKSelective")
     public Integer updateByPKSelective(HttpSession session, @PathVariable String goodsType, PetroleumCoke petroleumCoke, CalcinedCoke calcinedCoke, MAsphalt mAsphalt, Anode anode) throws IllegalAccessException, InstantiationException {
         int code = goodsCommonService.updateBySelective(goodsUtils.goodsTypeJudger(goodsType, petroleumCoke, calcinedCoke, mAsphalt, anode));
-        logUtils.doLog(null, code, LogEnum.SEARCH_ACTION, goodsType, session);
+        logUtils.doLog(null, code, LogEnum.UPDATE_ACTION, goodsType, session);
         return code;
     }
 
@@ -104,7 +104,7 @@ public class GoodsController {
     public Integer delByPK(HttpSession session, @PathVariable String goodsType, Long id) throws IllegalAccessException, InstantiationException {
         goodsUtils.goodsTypeJudger(goodsType, null, null, null, null);
         int code = goodsCommonService.delete(id);
-        logUtils.doLog(null, code, LogEnum.SEARCH_ACTION, goodsType, session);
+        logUtils.doLog(null, code, LogEnum.DELETE_ACTION, goodsType, session);
         return code;
     }
 
@@ -119,7 +119,7 @@ public class GoodsController {
     public Integer delBatch(HttpSession session, @PathVariable String goodsType, @RequestParam(value = "ids[]") Long[] ids) throws IllegalAccessException, InstantiationException {
         goodsUtils.goodsTypeJudger(goodsType, null, null, null, null);
         int code = goodsCommonService.deleteBatchByPKs(ids);
-        logUtils.doLog(null, code, LogEnum.SEARCH_ACTION, goodsType, session);
+        logUtils.doLog(null, code, LogEnum.DELETE_ACTION, goodsType, session);
         return code;
     }
     /**

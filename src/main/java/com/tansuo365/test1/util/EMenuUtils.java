@@ -76,9 +76,11 @@ public class EMenuUtils {
     }
 
     /*============ids为数组时的方法=============*/
+
     /**
      * 根据多个roleid获取EMenu(已去重复EMenu)
      * 会有循环异常,比如根节点-1下两个同样的1节点,1节点下面同样的两个1010节点.
+     *
      * @param parentId
      * @param ids
      * @param j
@@ -119,6 +121,7 @@ public class EMenuUtils {
     /**
      * 假如先传入-1 pid,ids,那么返回的应该是ids对应的所有的-1下的
      * 上面方法的附属方法,会被重复调用(bug)
+     *
      * @param parentId
      * @param ids
      * @return
@@ -148,23 +151,23 @@ public class EMenuUtils {
     }
 
 
-
     /**
      * 根据父节点ID和权限菜单ID集合获取复选框菜单节点
      * 用于AdminRoleController中loadCheckMenuInfo
+     *
      * @param parentId
      * @param menuIdList
      * @return
      */
-    public JSONArray getAllCheckedEMenuByParentId(Integer parentId,List<Integer> menuIdList){
-        JSONArray jsonArray = getCheckedMenuByParentId(parentId,menuIdList);
-        for(int i=0;i<jsonArray.size();i++){
+    public JSONArray getAllCheckedEMenuByParentId(Integer parentId, List<Integer> menuIdList) {
+        JSONArray jsonArray = getCheckedMenuByParentId(parentId, menuIdList);
+        for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            if("open".equals(jsonObject.get("state").toString())){
+            if ("open".equals(jsonObject.get("state").toString())) {
                 continue;
-            }else{
+            } else {
 //                jsonObject.put("children",getAllCheckedEMenuByParentId((Integer) jsonObject.get("id"),menuIdList));
-                jsonObject.put("children",getAllCheckedEMenuByParentId((Integer) jsonObject.get("id"),menuIdList));
+                jsonObject.put("children", getAllCheckedEMenuByParentId((Integer) jsonObject.get("id"), menuIdList));
             }
         }
         return jsonArray;
@@ -173,18 +176,19 @@ public class EMenuUtils {
     /**
      * 根据父节点ID和权限菜单ID集合获取复选框菜单节点 (new)
      * 用于AdminRoleController中loadCheckMenuInfo
+     *
      * @param parentId
      * @param menuIds
      * @return
      */
-    public JSONArray getAllEMenuByParentIdAndMenuIds(Integer parentId,int[] menuIds){
-        JSONArray jsonArray = getMenuByParentIdAndMenuIds(parentId,menuIds);
-        for(int i=0;i<jsonArray.size();i++){
+    public JSONArray getAllEMenuByParentIdAndMenuIds(Integer parentId, int[] menuIds) {
+        JSONArray jsonArray = getMenuByParentIdAndMenuIds(parentId, menuIds);
+        for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            if("open".equals(jsonObject.get("state").toString())){
+            if ("open".equals(jsonObject.get("state").toString())) {
                 continue;
-            }else{
-                jsonObject.put("children",getAllEMenuByParentIdAndMenuIds((Integer) jsonObject.get("id"),menuIds));
+            } else {
+                jsonObject.put("children", getAllEMenuByParentIdAndMenuIds((Integer) jsonObject.get("id"), menuIds));
             }
         }
         return jsonArray;
@@ -194,6 +198,7 @@ public class EMenuUtils {
     /**
      * 根据父节点ID和权限菜单ID集合获取复选框菜单节点
      * 上面方法的附属方法
+     *
      * @param parentId
      * @param menuIdList
      * @return
@@ -203,21 +208,21 @@ public class EMenuUtils {
         List<EMenu> menuList = eMenuService.findByParentId(parentId);
 //        List<EMenu> menuList = eMenuService.findByParentIdAndEMenuIds(parentId, menuIds);
         JSONArray jsonArray = new JSONArray();
-        for(EMenu eMenu:menuList){
+        for (EMenu eMenu : menuList) {
             JSONObject jsonObject = new JSONObject();
             //获取menuid
             int menuId = eMenu.getId();
-            jsonObject.put("id",menuId); //节点id
+            jsonObject.put("id", menuId); //节点id
             jsonObject.put("text", eMenu.getName()); //节点名称 / 菜单名
-            if(eMenu.getState()==1){ //根节点
-                jsonObject.put("state","closed");
-            }else{ //叶子节点
-                jsonObject.put("state","open");
+            if (eMenu.getState() == 1) { //根节点
+                jsonObject.put("state", "closed");
+            } else { //叶子节点
+                jsonObject.put("state", "open");
             }
-            if(menuIdList.contains(menuId)){ //如果用户role涵盖的menuId list包含这个通过parentid查询到的 节点菜单
-                jsonObject.put("checked",true);
+            if (menuIdList.contains(menuId)) { //如果用户role涵盖的menuId list包含这个通过parentid查询到的 节点菜单
+                jsonObject.put("checked", true);
             }
-            jsonObject.put("iconCls",eMenu.getIcon());
+            jsonObject.put("iconCls", eMenu.getIcon());
             jsonArray.add(jsonObject);
         }
         return jsonArray;
@@ -229,16 +234,16 @@ public class EMenuUtils {
         List<EMenu> menuList = eMenuService.findByParentIdAndEMenuIds(parentId, menuIds);
 
         JSONArray jsonArray = new JSONArray();
-        for(EMenu eMenu:menuList){
+        for (EMenu eMenu : menuList) {
             JSONObject jsonObject = new JSONObject();
             //获取menuid
             int menuId = eMenu.getId();
-            jsonObject.put("id",menuId); //节点id
+            jsonObject.put("id", menuId); //节点id
             jsonObject.put("text", eMenu.getName()); //节点名称 / 菜单名
-            if(eMenu.getState()==1){ //根节点
-                jsonObject.put("state","closed");
-            }else{ //叶子节点
-                jsonObject.put("state","open");
+            if (eMenu.getState() == 1) { //根节点
+                jsonObject.put("state", "closed");
+            } else { //叶子节点
+                jsonObject.put("state", "open");
             }
 //            if(menuIdList.contains(menuId)){ //如果用户role涵盖的menuId list包含这个通过parentid查询到的 节点菜单
 //                jsonObject.put("checked",true);

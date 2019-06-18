@@ -5,10 +5,10 @@
     <title>ueditor demo</title>
 
     <!--配置文件-->
-    <script type="text/javascript" src="/ueditor.config.js"></script>
+    <script src="/ueditor.config.js"></script>
     <!--编辑器源码文件-->
-    <script type="text/javascript" src="/ueditor.all.js"></script>
-    <script src="/ueditor.parse.min.js"></script>
+    <script src="/ueditor.all.js"></script>
+    <script src="/ueditor.parse.js"></script>
     <script src="/js/jquery-3.1.0.min.js"></script>
     <script src="/js/jquery.serializejson.js"></script>
 
@@ -41,7 +41,6 @@
         tabNode: '&nbsp;', //tab使用的单位,空格
         tableDragable: true, //表格是否可以拖拽
         sourceEditor: "codemirror",  //源码的查看方式，codemirror是代码高亮，textarea是文本框，默认是codemirror，注意默认codemirror只能在ie8+和非ie中使用
-
     });
 </script>
 
@@ -59,7 +58,16 @@
             data:{"content":UE.getEditor('container').getContent()},
             dataType:"json",
             success:function(data){
-                alert(data);
+                [
+                    {"hisTime":1998,"litTitle":xiaobiaoti,"content":"取得煤炭经营许可证，并建设大型储煤场。"},
+                    {"hisTime":1999,"litTitle":xiaobiaoti,"content":"取得煤炭经营许可证，并建设大型储煤场。"}
+
+                ]
+               data.size();
+                for (var i in data){
+                    var hisTime = data[i].get("hisTime");
+                    $("#timeDiv").html(hisTime);
+                }
             }
         });
     }
