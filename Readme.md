@@ -163,3 +163,6 @@ http://localhost/ueditor 官方demo
 
 ##### 2019-6-10
 - 1. ueditor图片保存路径修改:ueditor.json
+
+##### 2019-6-19
+- 1. 从七牛云把货品excel模板下载更换
